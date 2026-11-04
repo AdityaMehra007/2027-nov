@@ -3,8 +3,8 @@
 # 🌌 CASHFLOW INFINITY: OMNIVERSE
 ### *The #1 Autonomous Wealth, Multi-Market Intelligence, and Planetary Resilience Operating System*
 
-[![CI Build](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/omniverse/omniverse)
-[![Test Suite](https://img.shields.io/badge/Tests-105%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/omniverse/omniverse)
+[![CI Build](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
+[![Test Suite](https://img.shields.io/badge/Tests-116%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blueviolet?style=for-the-badge&logo=apache&logoColor=white)](LICENSE)
 [![Architecture: Antigravity](https://img.shields.io/badge/Platform-Google%20Antigravity-f59e0b?style=for-the-badge&logo=google&logoColor=white)](https://antigravity.google)
@@ -332,9 +332,15 @@ python examples/07_mcp_agent_orchestration.py
 
 ### 1. Installation
 ```bash
-git clone https://github.com/omniverse/omniverse.git
-cd omniverse
+git clone https://github.com/AdityaMehra007/cashflow-infinity-omniverse.git
+cd cashflow-infinity-omniverse
 pip install -e .
+```
+
+### 2. Interactive Jupyter Walkthrough Notebook
+Explore the interactive visual walkthrough covering both Core Alpha and Core Beta:
+```bash
+jupyter notebook notebooks/omniverse_complete_walkthrough.ipynb
 ```
 
 ### 2. Run Autonomous Health & Financial Status Check
@@ -365,9 +371,9 @@ Distributed under the **Apache 2.0 License**. See [LICENSE](LICENSE) for details
 
 ```bibtex
 @software{omniverse2027,
-  author = {OMNIVERSE Core Team},
+  author = {OMNIVERSE Core Team & AdityaMehra007},
   title = {CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC},
-  year = {2026},
-  url = {https://github.com/omniverse/omniverse}
+  year = {2027},
+  url = {https://github.com/AdityaMehra007/cashflow-infinity-omniverse}
 }
 ```
