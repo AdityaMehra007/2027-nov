@@ -50,3 +50,14 @@ def test_gcc_scoring_logic():
     all_acc = matrix.list_accounts(min_score=85)
     for a in all_acc:
         assert a.readiness_score >= 85
+
+
+def test_proof_engine_teardown():
+    from omniverse.enterprise.proof_engine import ProofEngine
+    engine = ProofEngine()
+    teardown = engine.generate_teardown("Target India", "supply-chain-reconciliation")
+    assert teardown.company == "Target India"
+    assert "```mermaid" in teardown.architecture_diagram or "sequenceDiagram" in teardown.architecture_diagram
+    assert len(teardown.video_script_paragraphs) >= 3
+    assert teardown.quantified_annual_roi_inr >= 10000000
+    assert "Supervisor" in teardown.agent_architecture_summary
