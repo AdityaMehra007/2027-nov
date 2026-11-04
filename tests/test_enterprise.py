@@ -61,3 +61,18 @@ def test_proof_engine_teardown():
     assert len(teardown.video_script_paragraphs) >= 3
     assert teardown.quantified_annual_roi_inr >= 10000000
     assert "Supervisor" in teardown.agent_architecture_summary
+
+
+def test_abm_campaign():
+    from omniverse.enterprise.abm_campaign import ABMCampaign
+    abm = ABMCampaign()
+    seq = abm.generate_cadence("Wells Fargo India", "VP of Engineering")
+    assert len(seq.touches) == 4
+    assert any("Bengaluru" in t.body or "Outer Ring Road" in t.body for t in seq.touches)
+    assert any("VPC" in t.body for t in seq.touches)
+    assert any("pilot" in t.body.lower() for t in seq.touches)
+
+    one_pager = abm.generate_one_pager("Wells Fargo India")
+    assert "# Executive Brief" in one_pager
+    assert "Wells Fargo India" in one_pager
+    assert "Annual ROI" in one_pager
