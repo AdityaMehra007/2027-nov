@@ -2,7 +2,7 @@
 
 from omniverse.core.config import OmniverseSettings, get_settings
 from omniverse.core.database import DatabaseEngine, get_session
-from omniverse.core.security import SecurityGovernor, ActionType, ApprovalStatus
+from omniverse.core.security import SecurityGovernor, ActionType, ApprovalStatus, SecurityAuditRecord
 from omniverse.core.telemetry import EventBus
 from omniverse.core.llm_arbitrator import (
     ModelProvider,
@@ -30,6 +30,7 @@ __all__ = [
     "SecurityGovernor",
     "ActionType",
     "ApprovalStatus",
+    "SecurityAuditRecord",
     "EventBus",
     "ModelProvider",
     "ModelTier",

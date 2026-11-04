@@ -266,3 +266,85 @@ def test_persistent_governor_edge_cases(db_session: Session):
     granted = gov_remote.verify_and_grant_signature(req_hmac, sig, secret_key)
     assert granted is True
     assert gov_remote.is_permitted(ActionType.FINANCIAL_TRANSFER, req_id=req_hmac) is True
+
+
+def test_action_type_spoofing_prevention(db_session: Session):
+    """Verifies that an approval for one action cannot be reused to permit a different action."""
+    # Test in-memory
+    gov_mem = SecurityGovernor(strict_mode=True)
+    req_transfer = gov_mem.request_approval(ActionType.FINANCIAL_TRANSFER, {"amount": 100})
+    gov_mem.grant_approval(req_transfer)
+    assert gov_mem.is_permitted(ActionType.FINANCIAL_TRANSFER, req_id=req_transfer) is True
+    assert gov_mem.is_permitted(ActionType.LIVE_TRADE_ORDER, req_id=req_transfer) is False
+
+    # Test persistent
+    gov_db = SecurityGovernor(strict_mode=True, session=db_session)
+    req_comm = gov_db.request_approval(ActionType.OUTBOUND_COMMUNICATION, {"msg": "deploy"})
+    gov_db.grant_approval(req_comm)
+    assert gov_db.is_permitted(ActionType.OUTBOUND_COMMUNICATION, req_id=req_comm) is True
+    assert gov_db.is_permitted(ActionType.FINANCIAL_TRANSFER, req_id=req_comm) is False
+
+
+def test_cross_instance_hmac_string_normalization(db_session: Session):
+    """Verifies HMAC signature matches across instances when created with a string action type."""
+    secret = "deterministic_hmac_key"
+    gov1 = SecurityGovernor(strict_mode=True, session=db_session)
+    # Passed as string instead of ActionType enum
+    req_id = gov1.request_approval("financial_transfer", {"amount": 5000})
+
+    sig1 = gov1.generate_signature(req_id, secret)
+
+    # Remote governor instance loading from database
+    gov2 = SecurityGovernor(strict_mode=True, session=db_session)
+    sig2 = gov2.generate_signature(req_id, secret)
+
+    assert sig1 == sig2
+    assert gov2.verify_and_grant_signature(req_id, sig1, secret) is True
+    assert gov2.is_permitted(ActionType.FINANCIAL_TRANSFER, req_id=req_id) is True
+
+
+def test_cross_instance_pending_sync(db_session: Session):
+    """Verifies that when instance B resolves a request, instance A's get_pending_requests syncs."""
+    gov1 = SecurityGovernor(strict_mode=True, session=db_session)
+    gov2 = SecurityGovernor(strict_mode=True, session=db_session)
+
+    req1 = gov1.request_approval(ActionType.FINANCIAL_TRANSFER, {"amount": 1000})
+    assert req1 in gov1.get_pending_requests()
+
+    # Gov2 resolves it
+    gov2.grant_approval(req1, approver="auditor")
+
+    # Gov1 should now see empty pending requests and updated status
+    pending1 = gov1.get_pending_requests()
+    assert req1 not in pending1
+    assert len(pending1) == 0
+
+
+def test_details_with_complex_types_and_limit_zero(db_session: Session):
+    """Verifies request_approval handles non-primitive types and get_audit_records respects limits."""
+    import datetime
+    import uuid
+
+    gov = SecurityGovernor(strict_mode=True, session=db_session)
+    details = {
+        "timestamp": datetime.datetime.now(),
+        "uuid": uuid.uuid4(),
+        "amount": 123.45,
+    }
+    req_id = gov.request_approval(ActionType.FINANCIAL_TRANSFER, details)
+    assert req_id is not None
+
+    # Test limit <= 0
+    assert gov.get_audit_records(limit=0) == []
+    assert gov.get_audit_records(limit=-1) == []
+
+    # In-memory limit <= 0
+    gov_mem = SecurityGovernor(strict_mode=True)
+    assert gov_mem.get_audit_records(limit=0) == []
+    assert gov_mem.get_audit_records(limit=-5) == []
+
+
+def test_security_audit_record_exported():
+    """Verifies SecurityAuditRecord is directly importable from omniverse.core."""
+    from omniverse.core import SecurityAuditRecord as ExportedRecord
+    assert ExportedRecord is SecurityAuditRecord
