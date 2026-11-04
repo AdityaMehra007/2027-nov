@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from omniverse.core.database import DatabaseEngine, get_engine
 from omniverse.api.routes.dashboard import get_dashboard_router
 from omniverse.api.routes.revenue import get_revenue_router
@@ -39,7 +40,12 @@ def create_app(db_engine: DatabaseEngine | None = None) -> FastAPI:
             "system": "CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC",
             "status": "OPERATIONAL",
             "docs": "/docs",
-            "dashboard": "/dashboard/"
+            "dashboard": "/dashboard"
         }
+
+    @app.get("/dashboard", include_in_schema=False)
+    @app.get("/dashboard/", include_in_schema=False)
+    def dashboard_redirect():
+        return RedirectResponse(url="/api/v1/dashboard/")
 
     return app
