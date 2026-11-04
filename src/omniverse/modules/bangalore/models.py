@@ -101,3 +101,97 @@ class BangaloreCashflowSummary(BaseModel):
     system_uptime_hours: float
     cluster_hotspots: List[str]
     status: str = "RUNNING_24_7"
+
+
+class CompanyTier(str, Enum):
+    TIER_1_GCC = "TIER_1_GCC"
+    UNICORN_SERIES_B_PLUS = "UNICORN_SERIES_B_PLUS"
+    EARLY_STAGE_VC = "EARLY_STAGE_VC"
+    IT_SERVICES_ENTERPRISE = "IT_SERVICES_ENTERPRISE"
+    DEEP_TECH_PUBLIC = "DEEP_TECH_PUBLIC"
+
+
+class TechRole(str, Enum):
+    SDE_1 = "SDE_1"
+    SDE_2 = "SDE_2"
+    SDE_3_SENIOR = "SDE_3_SENIOR"
+    STAFF_PRINCIPAL = "STAFF_PRINCIPAL"
+    ENGINEERING_MANAGER = "ENGINEERING_MANAGER"
+    PRODUCT_MANAGER = "PRODUCT_MANAGER"
+    DATA_AI_SCIENTIST = "DATA_AI_SCIENTIST"
+
+
+class ExperienceLevel(str, Enum):
+    JUNIOR = "JUNIOR"
+    MID = "MID"
+    SENIOR = "SENIOR"
+    STAFF_LEAD = "STAFF_LEAD"
+    PRINCIPAL_EXEC = "PRINCIPAL_EXEC"
+
+
+class SalaryBenchmark(BaseModel):
+    company_tier: CompanyTier
+    role: TechRole
+    experience_years: float
+    base_salary_inr: float
+    variable_bonus_inr: float
+    equity_annual_inr: float
+    total_ctc_inr: float
+    monthly_gross_inr: float
+    annual_income_tax_inr: float
+    monthly_net_in_hand_inr: float
+
+
+class ClusterCostOfLiving(BaseModel):
+    cluster: BangaloreCluster
+    avg_1bhk_rent_inr: float
+    avg_2bhk_rent_inr: float
+    avg_3bhk_rent_inr: float
+    deposit_lock_months: int = 10
+    commute_cost_monthly_inr: float
+    lifestyle_monthly_inr: float
+    utilities_monthly_inr: float
+
+
+class ClusterLivingAnalysis(BaseModel):
+    cluster: BangaloreCluster
+    bhk: int
+    rent_inr: float
+    deposit_lock_amount_inr: float
+    deposit_annual_opportunity_cost_inr: float
+    monthly_utilities_inr: float
+    monthly_commute_inr: float
+    monthly_lifestyle_inr: float
+    total_monthly_expenses_inr: float
+    monthly_net_in_hand_inr: float
+    monthly_savings_inr: float
+    savings_ratio: float
+
+
+class MoneyFlowSimulationResult(BaseModel):
+    capital_inflow_inr: float
+    inflow_source: str
+    payroll_allocation_inr: float
+    cloud_infra_capex_inr: float
+    commercial_office_lease_inr: float
+    income_tax_tds_leakage_inr: float
+    residential_rent_to_landlords_inr: float
+    rental_deposits_frozen_inr: float
+    local_merchant_spend_inr: float
+    domestic_remittance_outflow_inr: float
+    capital_market_sip_inr: float
+    capital_velocity_ratio: float
+    local_retainment_percentage: float
+    landlord_absorption_rate: float
+
+
+class ProjectArchetype(BaseModel):
+    project_id: str
+    name: str
+    primary_sector: str
+    archetype_companies: List[str]
+    architecture_summary: str
+    core_tech_stack: List[str]
+    scale_metrics: dict
+    engineering_challenges: List[str]
+
