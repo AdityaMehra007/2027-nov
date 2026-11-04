@@ -30,7 +30,7 @@ from omniverse.modules.bangalore.radar import BangaloreFlatRadar
 from omniverse.modules.bangalore.smb_engine import NammaBizEngine
 from omniverse.modules.bangalore.payment_engine import BangaloreUPIEngine
 from omniverse.operations.health import HealthDiagnostics
-from omniverse.operations.reporter import ExecutiveReporter
+from omniverse.operations.reporter import ExecutiveReportGenerator
 
 # Setup logging
 log_dir = Path("data/logs")
@@ -74,7 +74,7 @@ def run_perpetual_daemon(interval_seconds: int = 60, max_cycles: int = 5):
         radar = BangaloreFlatRadar(session)
         upi = BangaloreUPIEngine(session)
         health = HealthDiagnostics(session)
-        reporter = ExecutiveReporter(session)
+        reporter = ExecutiveReportGenerator(session)
 
         clusters = [
             BangaloreCluster.HSR_LAYOUT,
@@ -111,10 +111,7 @@ def run_perpetual_daemon(interval_seconds: int = 60, max_cycles: int = 5):
                 time.sleep(interval_seconds)
 
         # Final executive report snapshot
-        brief = reporter.generate_daily_briefing()
-        brief_file = Path("reports/daily_briefing_latest.md")
-        brief_file.parent.mkdir(parents=True, exist_ok=True)
-        brief_file.write_text(brief, encoding="utf-8")
+        brief_file = reporter.generate_daily_brief()
         logger.info(f"✅ Master executive briefing compiled: {brief_file}")
 
     logger.info("=" * 70)

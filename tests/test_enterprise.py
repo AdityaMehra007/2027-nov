@@ -90,3 +90,19 @@ def test_security_brief():
 
     doc = sec.generate_security_document("JP Morgan Chase")
     assert "# Enterprise Security Architecture & Compliance Dossier" in doc
+
+
+def test_pilot_framework():
+    from omniverse.enterprise.pilot_framework import PilotFramework
+    framework = PilotFramework()
+    agreement = framework.generate_agreement("Mercedes-Benz R&D India", fee_inr=3500000.0, duration_weeks=6)
+    assert agreement.company == "Mercedes-Benz R&D India"
+    assert agreement.pilot_fee_inr == 3500000.0
+    assert agreement.gst_amount_inr == 630000.0
+    assert agreement.total_contract_value_inr == 4130000.0
+    assert len(agreement.milestones) == 6
+    assert agreement.annual_retainer_conversion_fee_inr >= 15000000.0
+
+    contract = framework.generate_contract_document("Mercedes-Benz R&D India")
+    assert "# Master Services Agreement: 6-Week Scoped Enterprise AI Pilot" in contract
+    assert "35,00,000" in contract
