@@ -158,6 +158,12 @@ def main():
     appr_parser.add_argument("--sign", default=None, help="Request ID to sign with HMAC secret")
     appr_parser.add_argument("--secret", default="sovereign_founder_master_hmac_secret", help="Founder HMAC secret key")
 
+    # Command: swarm
+    swarm_parser = subparsers.add_parser("swarm", help="OmniSwarm decentralized peer mesh and actor kernel commands")
+    swarm_parser.add_argument("action", nargs="?", default="status", choices=["status", "benchmark", "start"], help="Action to execute")
+    swarm_parser.add_argument("--port", type=int, default=9091, help="Swarm node port")
+    swarm_parser.add_argument("--iterations", type=int, default=25, help="Iterations for benchmark")
+
     # Command: simulate-webhook
     wh_parser = subparsers.add_parser("simulate-webhook", help="Simulate signed payment webhook for automated reconciliation")
     wh_parser.add_argument("--gateway", choices=["stripe", "razorpay"], default="stripe", help="Payment gateway")
@@ -580,6 +586,9 @@ def main():
                 print(f"✅ Razorpay payment simulation ready.")
             print("==================================================")
 
+    elif args.command == "swarm":
+        from omniverse.swarm.cli import handle_swarm_command
+        handle_swarm_command(args)
 
     else:
         parser.print_help()

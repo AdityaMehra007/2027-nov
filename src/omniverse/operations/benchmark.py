@@ -232,6 +232,62 @@ class OmniverseBenchmarkingSuite:
             status="PASSED"
         )
 
+    def run_omniswarm_benchmark(self, iterations: int = 50) -> BenchmarkMetric:
+        """Evaluates OmniSwarm Ed25519 signing and actor mailbox dispatch throughput."""
+        import asyncio
+        from omniverse.swarm.crypto import SwarmCrypto
+        from omniverse.swarm.mailbox import ActorMailbox
+        from omniverse.swarm.models import SwarmMessage, MessagePriority
+
+        iterations = max(1, int(iterations))
+        priv, pub = SwarmCrypto.generate_keypair()
+        node_id = SwarmCrypto.derive_node_id(pub)
+
+        async def _bench():
+            mailbox = ActorMailbox(capacity=iterations + 10)
+            latencies: List[float] = []
+            start_total = time.perf_counter()
+
+            for i in range(iterations):
+                t0 = time.perf_counter()
+                envelope = {
+                    "message_id": f"msg_bench_{i}",
+                    "sender_node_id": node_id,
+                    "sender_actor_id": "bench_agent",
+                    "recipient_node_id": node_id,
+                    "recipient_actor_id": "target_agent",
+                    "channel": "bench",
+                    "priority": int(MessagePriority.NORMAL),
+                    "timestamp": "2027-11-04T12:00:00Z",
+                    "nonce": f"nonce_{i}",
+                    "payload": {"val": i},
+                }
+                sig = SwarmCrypto.sign_message(priv, envelope)
+                envelope["signature"] = sig
+                msg = SwarmMessage(**envelope)
+                await mailbox.push(msg)
+                await mailbox.pop()
+                latencies.append((time.perf_counter() - t0) * 1000.0)
+
+            total_time = max(time.perf_counter() - start_total, 1e-6)
+            avg_lat = sum(latencies) / len(latencies)
+            p95_lat = self._calculate_percentile(latencies, 95.0)
+            p99_lat = self._calculate_percentile(latencies, 99.0)
+            ops_per_sec = iterations / total_time
+
+            return BenchmarkMetric(
+                name="OmniSwarm Ed25519 & Actor Dispatch",
+                iterations=iterations,
+                total_duration_sec=round(total_time, 4),
+                avg_latency_ms=round(avg_lat, 4),
+                p95_latency_ms=p95_lat,
+                p99_latency_ms=p99_lat,
+                throughput_ops_per_sec=round(ops_per_sec, 2),
+                status="PASSED",
+            )
+
+        return asyncio.run(_bench())
+
     def run_all(self, iterations: int = 25) -> BenchmarkSuiteReport:
         """Executes full empirical benchmark evaluation across all core engines."""
         iterations = max(1, int(iterations))
@@ -240,7 +296,8 @@ class OmniverseBenchmarkingSuite:
             self.run_derivatives_benchmark(iterations=max(iterations * 2, 50)),
             self.run_sar_benchmark(iterations=iterations),
             self.run_settlement_benchmark(iterations=max(iterations, 30)),
-            self.run_llm_arbitrator_benchmark(iterations=max(iterations, 30))
+            self.run_llm_arbitrator_benchmark(iterations=max(iterations, 30)),
+            self.run_omniswarm_benchmark(iterations=iterations)
         ]
 
 
