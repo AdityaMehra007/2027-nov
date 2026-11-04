@@ -241,6 +241,71 @@ def test_api_projects(tmp_path):
     assert res_single.json()["project_id"] == "BLR-PROJ-01"
 
 
+def test_cli_formatters():
+    from omniverse.modules.bangalore.cli_commands import (
+        format_salary_benchmark,
+        format_col_analysis,
+        format_money_flow_simulation,
+        format_project_archetypes_list,
+        format_overview,
+    )
+
+    sal_text = format_salary_benchmark("TIER_1_GCC", "SDE_2")
+    assert "TIER_1_GCC" in sal_text
+    assert "Monthly Net In-Hand" in sal_text
+
+    col_text = format_col_analysis("HSR Layout", 2, "TIER_1_GCC", "SDE_2")
+    assert "HSR LAYOUT" in col_text
+    assert "10-Mo Locked Deposit" in col_text
+
+    mf_text = format_money_flow_simulation(100000000.0, "GCC_OPEX")
+    assert "BENGALURU CAPITAL FLYWHEEL SIMULATION" in mf_text
+    assert "White-Collar Payroll" in mf_text
+
+    proj_text = format_project_archetypes_list()
+    assert "BLR-PROJ-01" in proj_text
+    assert "Quick-Commerce" in proj_text
+
+    overview_text = format_overview()
+    assert "Silicon Valley of India" in overview_text
+
+
+def test_cli_execution_commands(monkeypatch, capsys):
+    import sys
+    from omniverse.cli import main
+
+    # 1. bangalore-salary
+    monkeypatch.setattr(sys, "argv", ["omniverse", "bangalore-salary", "--tier", "TIER_1_GCC", "--role", "SDE_2"])
+    main()
+    out = capsys.readouterr().out
+    assert "BENGALURU TECH SALARY BENCHMARK: SDE_2" in out
+
+    # 2. bangalore-col
+    monkeypatch.setattr(sys, "argv", ["omniverse", "bangalore-col", "--cluster", "Indiranagar", "--bhk", "2"])
+    main()
+    out_col = capsys.readouterr().out
+    assert "INDIRANAGAR" in out_col
+
+    # 3. bangalore-moneyflow
+    monkeypatch.setattr(sys, "argv", ["omniverse", "bangalore-moneyflow", "--amount", "50000000", "--source", "VC_EQUITY_ROUND"])
+    main()
+    out_mf = capsys.readouterr().out
+    assert "VC_EQUITY_ROUND" in out_mf
+
+    # 4. bangalore-projects
+    monkeypatch.setattr(sys, "argv", ["omniverse", "bangalore-projects"])
+    main()
+    out_proj = capsys.readouterr().out
+    assert "BLR-PROJ-01" in out_proj
+
+    # 5. bangalore-overview
+    monkeypatch.setattr(sys, "argv", ["omniverse", "bangalore-overview"])
+    main()
+    out_ov = capsys.readouterr().out
+    assert "NAMMA CASHFLOW ENGINE" in out_ov
+
+
+
 
 
 

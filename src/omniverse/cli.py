@@ -51,6 +51,12 @@ from omniverse.modules.bangalore import (
     NammaBizEngine,
     BangaloreUPIEngine,
     Bangalore247CashDaemon,
+    BankCategory,
+    BankingCorridor,
+    FitoutGrade,
+    RegulatoryStatus,
+    BangaloreBankOffice,
+    BangaloreBankingEngine,
 )
 import hmac
 import hashlib
@@ -201,6 +207,50 @@ def main():
     blr_d_parser = subparsers.add_parser("bangalore-daemon", help="Run 24/7 autonomous Bangalore money-making operational loop")
     blr_d_parser.add_argument("--cycles", type=int, default=1, help="Number of autonomous operational cycles")
     blr_d_parser.add_argument("--cluster", default="HSR Layout", help="Primary commercial cluster")
+
+    # Command: bangalore-salary
+    blr_sal_parser = subparsers.add_parser("bangalore-salary", help="Lookup tech engineering salary benchmarks, stock grants, and tax deductions")
+    blr_sal_parser.add_argument("--tier", default="TIER_1_GCC", help="Company tier (TIER_1_GCC, UNICORN_SERIES_B_PLUS, EARLY_STAGE_VC, IT_SERVICES_ENTERPRISE, DEEP_TECH_PUBLIC)")
+    blr_sal_parser.add_argument("--role", default="SDE_2", help="Tech role (SDE_1, SDE_2, SDE_3_SENIOR, STAFF_PRINCIPAL, ENGINEERING_MANAGER, PRODUCT_MANAGER, DATA_AI_SCIENTIST)")
+    blr_sal_parser.add_argument("--exp", type=float, default=None, help="Years of experience")
+
+    # Command: bangalore-col
+    blr_col_parser = subparsers.add_parser("bangalore-col", help="Simulate cluster living expenses, 10-month rental deposit lock, and net savings")
+    blr_col_parser.add_argument("--cluster", default="HSR Layout", help="Cluster name (HSR Layout, Koramangala, Indiranagar, Whitefield, Bellandur, Electronic City, Jayanagar, JP Nagar)")
+    blr_col_parser.add_argument("--bhk", type=int, default=2, help="Apartment BHK (1, 2, 3)")
+    blr_col_parser.add_argument("--tier", default="TIER_1_GCC", help="Company tier")
+    blr_col_parser.add_argument("--role", default="SDE_2", help="Tech role")
+
+    # Command: bangalore-moneyflow
+    blr_mf_parser = subparsers.add_parser("bangalore-moneyflow", help="Simulate macroeconomic capital velocity, payroll, landlord sinks, and merchant spend")
+    blr_mf_parser.add_argument("--amount", type=float, default=100000000.0, help="Total gross capital inflow in INR")
+    blr_mf_parser.add_argument("--source", default="GCC_OPEX", help="Inflow source (GCC_OPEX, VC_EQUITY_ROUND, IT_EXPORT_BILLING)")
+
+    # Command: bangalore-projects
+    subparsers.add_parser("bangalore-projects", help="List real-world Bengaluru software project archetypes, architectures, and scale metrics")
+
+    # Command: bangalore-overview
+    subparsers.add_parser("bangalore-overview", help="Display comprehensive macroeconomic overview of the Bengaluru technology and money ecosystem")
+
+    # Command: bangalore-banking-offices
+    b_offices = subparsers.add_parser("bangalore-banking-offices", help="List verified bank HQs, Zonal offices, and GCCs across Bengaluru")
+    b_offices.add_argument("--corridor", choices=["CBD_MG_ROAD", "OUTER_RING_ROAD", "WHITEFIELD", "NORTH_MANYATA", "ELECTRONIC_CITY", "KORAMANGALA_HSR"], default=None, help="Filter by corridor")
+    b_offices.add_argument("--category", choices=["GLOBAL_GCC_INVESTMENT", "GLOBAL_GCC_TECH", "PSU_HEAD_OFFICE", "PSU_ZONAL_OFFICE", "PRIVATE_ZONAL_HQ", "NEOBANK_FINTECH"], default=None, help="Filter by category")
+
+    # Command: bangalore-banking-gcc
+    b_gcc = subparsers.add_parser("bangalore-banking-gcc", help="Calculate Capex, Opex, and infrastructure blueprint for a Bengaluru Banking GCC")
+    b_gcc.add_argument("--seats", type=int, default=1500, help="Number of operational seats")
+    b_gcc.add_argument("--corridor", default="OUTER_RING_ROAD", choices=["CBD_MG_ROAD", "OUTER_RING_ROAD", "WHITEFIELD", "NORTH_MANYATA", "ELECTRONIC_CITY", "KORAMANGALA_HSR"], help="Target corridor")
+    b_gcc.add_argument("--grade", default="ultra", choices=["ultra", "standard", "value"], help="Fitout grade")
+
+    # Command: bangalore-banking-audit
+    b_audit = subparsers.add_parser("bangalore-banking-audit", help="Run automated RBI/DPDP/CERT-In regulatory compliance audit")
+    b_audit.add_argument("--bank", default="Goldman Sachs Bengaluru", help="Bank or facility name")
+    b_audit.add_argument("--non-localized", action="store_true", help="Simulate cross-border payment data non-localization")
+    b_audit.add_argument("--missing-dpdp", action="store_true", help="Simulate missing DPDP consent manager / DPO")
+    b_audit.add_argument("--missing-certin", action="store_true", help="Simulate failure to report within 6 hours to CERT-In")
+    b_audit.add_argument("--missing-npl-ntp", action="store_true", help="Simulate non-sync with National Physical Laboratory NTP")
+    b_audit.add_argument("--missing-vault-cctv", action="store_true", help="Simulate CCTV storage < 90 days")
 
     # Command: directive
     dir_parser = subparsers.add_parser("directive", help="Inspect and validate the Universal Master Directive and 12-Service Taxonomy")
@@ -713,6 +763,118 @@ def main():
             print("\n✅ Operational Cycle Complete!")
             print(f"   Daily Cash Collected: ₹{summary.daily_cash_collected_inr:,.2f}")
             print(f"   Projected Run-rate  : ₹{summary.projected_annual_runrate_inr:,.2f} / yr\n")
+
+    elif args.command == "bangalore-salary":
+        from omniverse.modules.bangalore.cli_commands import format_salary_benchmark
+        print("\n" + format_salary_benchmark(args.tier, args.role, args.exp) + "\n")
+
+    elif args.command == "bangalore-col":
+        from omniverse.modules.bangalore.cli_commands import format_col_analysis
+        print("\n" + format_col_analysis(args.cluster, args.bhk, args.tier, args.role) + "\n")
+
+    elif args.command == "bangalore-moneyflow":
+        from omniverse.modules.bangalore.cli_commands import format_money_flow_simulation
+        print("\n" + format_money_flow_simulation(args.amount, args.source) + "\n")
+
+    elif args.command == "bangalore-projects":
+        from omniverse.modules.bangalore.cli_commands import format_project_archetypes_list
+        print("\n" + format_project_archetypes_list() + "\n")
+
+    elif args.command == "bangalore-overview":
+        from omniverse.modules.bangalore.cli_commands import format_overview
+        print("\n" + format_overview() + "\n")
+
+    elif args.command == "bangalore-banking-offices":
+        with engine.get_session() as session:
+            b_engine = BangaloreBankingEngine(session)
+            corridor_enum = BankingCorridor(args.corridor) if args.corridor else None
+            cat_enum = BankCategory(args.category) if args.category else None
+            offices = b_engine.get_offices(corridor=corridor_enum, category=cat_enum)
+            print("\n================================================================================")
+            print("   BENGALURU BANKING CORPORATE HEADQUARTERS & GCC REPOSITORY")
+            print("================================================================================")
+            print(f"Total Facilities Found: {len(offices)}\n")
+            for o in offices:
+                print(f"• {o.name.upper()} [{o.category.value}]")
+                print(f"  Campus  : {o.campus_name} | Corridor: {o.corridor.value}")
+                print(f"  Address : {o.address_line}")
+                print(f"  Capacity: {o.seats_capacity:,} seats | Area: {o.super_built_up_sqft:,.0f} sq ft")
+                print(f"  Rent/CAM: ₹{o.rent_psf_inr}/sq ft + ₹{o.cam_psf_inr}/sq ft CAM")
+                print(f"  Power   : {o.dg_backup_hours}h DG Autonomy | Dual Grid: {o.dual_grid_bescom}")
+                print(f"  Transit : {o.metro_connectivity}")
+                print(f"  Core IT : {o.core_banking_engine}")
+                print(f"  Compl.  : RBI Localized: {o.rbi_data_localized} | DPDP DPO: {o.dpdp_dpo_appointed} | CERT-In 6h: {o.cert_in_6hr_sla}")
+                print("--------------------------------------------------------------------------------")
+
+    elif args.command == "bangalore-banking-gcc":
+        with engine.get_session() as session:
+            b_engine = BangaloreBankingEngine(session)
+            grade_map = {
+                "ultra": FitoutGrade.ULTRA_GRADE_A_FINANCIAL,
+                "standard": FitoutGrade.STANDARD_GRADE_A,
+                "value": FitoutGrade.VALUE_COMMERCIAL
+            }
+            model = b_engine.calculate_gcc_cost_model(
+                seats=args.seats,
+                corridor=BankingCorridor(args.corridor),
+                fitout_grade=grade_map[args.grade]
+            )
+            print("\n================================================================================")
+            print(f"   BENGALURU GCC CAPEX & OPEX FINANCIAL BLUEPRINT [{args.seats:,} SEATS]")
+            print("================================================================================")
+            print(f"Corridor                : {model.corridor.value}")
+            print(f"Super Built-up Area     : {model.super_built_up_sqft:,.0f} sq ft")
+            print(f"Fitout Specification    : {model.fitout_grade.value}\n")
+            print("CAPITAL EXPENDITURE (CAPEX):")
+            print(f"  • Civil & Interiors   : ₹{model.capex_civil_fitout_inr_cr} Cr")
+            print(f"  • Electrical, UPS, DG : ₹{model.capex_electrical_dg_inr_cr} Cr")
+            print(f"  • IT, Zero-Trust, SOC : ₹{model.capex_it_security_inr_cr} Cr")
+            print(f"  • Statutory Approvals : ₹{model.capex_statutory_approvals_inr_cr} Cr")
+            print(f"  ──────────────────────────────────────────────────────────")
+            print(f"  TOTAL CAPEX           : ₹{model.total_capex_inr_cr} Cr  (~${model.total_capex_usd_m}M USD)\n")
+            print("ANNUAL OPERATIONAL EXPENDITURE (OPEX):")
+            print(f"  • Lease Rent (Annual) : ₹{model.opex_lease_rent_annual_inr_cr} Cr")
+            print(f"  • CAM & Maintenance   : ₹{model.opex_cam_maintenance_annual_inr_cr} Cr")
+            print(f"  • Utilities & Diesel  : ₹{model.opex_power_diesel_annual_inr_cr} Cr")
+            print(f"  • Bandwidth & Cloud   : ₹{model.opex_bandwidth_cloud_annual_inr_cr} Cr")
+            print(f"  • Talent & Payroll    : ₹{model.opex_talent_payroll_annual_inr_cr} Cr")
+            print(f"  • Physical Security   : ₹{model.opex_physical_security_annual_inr_cr} Cr")
+            print(f"  ──────────────────────────────────────────────────────────")
+            print(f"  TOTAL ANNUAL OPEX     : ₹{model.total_annual_opex_inr_cr} Cr  (~${model.total_annual_opex_usd_m}M USD)")
+            print("================================================================================\n")
+
+    elif args.command == "bangalore-banking-audit":
+        with engine.get_session() as session:
+            b_engine = BangaloreBankingEngine(session)
+            report = b_engine.audit_rbi_compliance(
+                bank_name=args.bank,
+                data_localized=not args.non_localized,
+                dpdp_consent=not args.missing_dpdp,
+                cert_in_6hr=not args.missing_certin,
+                npl_clock_sync=not args.missing_npl_ntp,
+                vault_cctv_90day=not args.missing_vault_cctv
+            )
+            print("\n================================================================================")
+            print(f"   RBI, DPDP & CERT-In COMPLIANCE AUDIT: {report.bank_name.upper()}")
+            print("================================================================================")
+            print(f"Compliance Score        : {report.overall_score}/100.0")
+            print(f"Status                  : {report.status.value}\n")
+            print("CONTROL CHECKS:")
+            print(f"  • RBI Payment Data Localized        : {'PASS' if report.data_localization_check else 'FAIL'}")
+            print(f"  • DPDP Act 2023 Consent & DPO       : {'PASS' if report.dpdp_2023_consent_check else 'FAIL'}")
+            print(f"  • CERT-In 6-Hour Incident Escalation: {'PASS' if report.cert_in_6hr_reporting_check else 'FAIL'}")
+            print(f"  • NPL NTP Clock Synchronization     : {'PASS' if report.npl_clock_sync_check else 'FAIL'}")
+            print(f"  • Class-A Vault 90-Day CCTV Storage : {'PASS' if report.class_a_vault_cctv_90day_check else 'FAIL'}\n")
+            if report.detected_violations:
+                print("DETECTED REGULATORY VIOLATIONS:")
+                for v in report.detected_violations:
+                    print(f"  [!] {v}")
+                print("\nREMEDIATION PLAYBOOK:")
+                for r in report.remediation_playbook:
+                    print(f"  [+] {r}")
+            else:
+                print("ALL MANDATORY INDIAN REGULATORY & CYBER DIRECTIVES SATISFIED.")
+            print("================================================================================\n")
 
     elif args.command == "swarm":
         from omniverse.swarm.cli import handle_swarm_command
