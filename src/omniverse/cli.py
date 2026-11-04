@@ -697,20 +697,7 @@ def main():
                 phone_whatsapp=args.phone,
                 tier=selected_tier
             )
-            print("\n==================================================")
-            print("  NAMMAFLAT VIP RADAR — INSTANT UPI CHECKOUT")
-            print("==================================================")
-            print(f"Subscriber   : {checkout['subscriber_name']}")
-            print(f"WhatsApp     : {checkout['phone_whatsapp']}")
-            print(f"Plan Tier    : {checkout['tier']} (₹{checkout['amount_inr']:.0f})")
-            print(f"Order ID     : {checkout['transaction_id']}")
-            print(f"Payee VPA    : {checkout['pay_to_vpa']}")
-            print("--------------------------------------------------")
-            print("📱 UPI INTENT DEEP-LINK (GPay, PhonePe, Paytm):")
-            print(checkout['upi_intent_uri'])
-            print("--------------------------------------------------")
-            print("⚡ Webhook Auto-Reconciliation: Ready 24/7")
-            print("==================================================\n")
+            print("\n" + checkout['ascii_card'] + "\n")
 
     elif args.command == "bangalore-daemon":
         with engine.get_session() as session:
