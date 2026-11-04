@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime, timezone
 from enum import Enum
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 
 class ProspectArchetype(str, Enum):
@@ -61,10 +61,12 @@ class AuditReport(BaseModel):
     bottlenecks: List[str] = Field(default_factory=list)
     opportunities: List[str] = Field(default_factory=list)
 
+    @computed_field
     @property
     def overall_health_score(self) -> float:
         return (self.performance_score + self.seo_score + self.conversion_score) / 3.0
 
+    @computed_field
     @property
     def is_high_opportunity(self) -> bool:
         return self.estimated_monthly_loss_usd > 5000.0 or self.overall_health_score < 60.0
@@ -132,6 +134,7 @@ class AgencyMetrics(BaseModel):
     pipeline_value_usd: float = 0.0
     reconciled_revenue_usd: float = 0.0
 
+    @computed_field
     @property
     def conversion_rate_pct(self) -> float:
         if not self.total_leads_discovered:

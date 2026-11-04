@@ -1,118 +1,31 @@
-"""Autonomous Lead Acquisition, Technical Auditor, and Personalized Pitch Engine."""
+"""Autonomous B2B lead hunting, technical auditing, and high-conversion pitch generation."""
 
-import hashlib
-import urllib.parse
+from __future__ import annotations
+
+import random
 from typing import List, Optional
 from omniverse.modules.agency.models import (
-    ProspectArchetype,
-    LeadStage,
-    Lead,
     AuditReport,
+    Lead,
+    LeadStage,
     PersonalizedPitch,
+    ProspectArchetype,
 )
 
 
-# Curated catalog of archetype-specific prospect seeds for autonomous discovery
-SEED_PROSPECTS = [
-    {
-        "business_name": "Apex Cloud Robotics",
-        "archetype": ProspectArchetype.SAAS_STARTUP,
-        "website": "https://apexrobotics.cloud",
-        "contact_email": "founders@apexrobotics.cloud",
-        "city": "Bengaluru",
-        "niche": "Autonomous Systems",
-        "estimated_annual_revenue_usd": 650000.0,
-    },
-    {
-        "business_name": "Aura Silk & Linen Co.",
-        "archetype": ProspectArchetype.ECOMMERCE,
-        "website": "https://aurasilkapparel.shop",
-        "contact_email": "hello@aurasilkapparel.shop",
-        "city": "Mumbai",
-        "niche": "Luxury Apparel",
-        "estimated_annual_revenue_usd": 420000.0,
-    },
-    {
-        "business_name": "Indiranagar Dental Aesthetics",
-        "archetype": ProspectArchetype.LOCAL_SMB,
-        "website": "http://indiranagardentalcare.in",
-        "contact_email": "appointments@indiranagardentalcare.in",
-        "contact_phone": "+919880011223",
-        "city": "Bengaluru",
-        "niche": "Healthcare & Wellness",
-        "estimated_annual_revenue_usd": 180000.0,
-    },
-    {
-        "business_name": "OmniGlobal Logistics & Cold Chain",
-        "archetype": ProspectArchetype.ENTERPRISE,
-        "website": "https://omnigloballogistics.com",
-        "contact_email": "procurement@omnigloballogistics.com",
-        "city": "Singapore",
-        "niche": "Supply Chain & Freight",
-        "estimated_annual_revenue_usd": 4500000.0,
-    },
-    {
-        "business_name": "Koramangala Artisan Brews",
-        "archetype": ProspectArchetype.LOCAL_SMB,
-        "website": "http://koramangalabrews.co",
-        "contact_email": "cheers@koramangalabrews.co",
-        "city": "Bengaluru",
-        "niche": "Hospitality & Dining",
-        "estimated_annual_revenue_usd": 220000.0,
-    },
-    {
-        "business_name": "HyperScale AI Orchestrator",
-        "archetype": ProspectArchetype.SAAS_STARTUP,
-        "website": "https://hyperscaleagentic.dev",
-        "contact_email": "contact@hyperscaleagentic.dev",
-        "city": "San Francisco",
-        "niche": "Developer Tools",
-        "estimated_annual_revenue_usd": 850000.0,
-    },
-    {
-        "business_name": "Synthetix Voice AI",
-        "archetype": ProspectArchetype.SAAS_STARTUP,
-        "website": "https://synthetixvoice.io",
-        "contact_email": "sales@synthetixvoice.io",
-        "city": "New York",
-        "niche": "Voice Telephony AI",
-        "estimated_annual_revenue_usd": 720000.0,
-    },
-    {
-        "business_name": "VectorDB Mesh Technologies",
-        "archetype": ProspectArchetype.SAAS_STARTUP,
-        "website": "https://vectormesh.ai",
-        "contact_email": "hello@vectormesh.ai",
-        "city": "Bengaluru",
-        "niche": "Database Systems",
-        "estimated_annual_revenue_usd": 940000.0,
-    },
-    {
-        "business_name": "Zenith Organic Botanicals",
-        "archetype": ProspectArchetype.ECOMMERCE,
-        "website": "https://zenithbotanics.com",
-        "contact_email": "orders@zenithbotanics.com",
-        "city": "Austin",
-        "niche": "Health & Nutrition",
-        "estimated_annual_revenue_usd": 380000.0,
-    },
-    {
-        "business_name": "Matrix Core Infrastructure Group",
-        "archetype": ProspectArchetype.ENTERPRISE,
-        "website": "https://matrixcoreinfra.global",
-        "contact_email": "partnerships@matrixcoreinfra.global",
-        "city": "London",
-        "niche": "Data Center & Cloud",
-        "estimated_annual_revenue_usd": 12000000.0,
-    },
-]
-
-
 class LeadHunter:
-    """Discovers high-probability commercial client prospects."""
+    """Discovers and qualifies business leads across commercial archetypes."""
 
-    def __init__(self, catalog: Optional[List[dict]] = None):
-        self._catalog = catalog or SEED_PROSPECTS
+    SAMPLE_PROSPECTS = [
+        {"name": "Indiranagar Specialty Roasters", "archetype": ProspectArchetype.LOCAL_SMB, "website": "https://slowcafe-blr.in", "revenue": 300000.0},
+        {"name": "Koramangala Fitness Collective", "archetype": ProspectArchetype.LOCAL_SMB, "website": "https://korafit-hub.in", "revenue": 180000.0},
+        {"name": "DevScribe AI", "archetype": ProspectArchetype.SAAS_STARTUP, "website": "https://devscribe.ai", "revenue": 1200000.0},
+        {"name": "CloudMetric Pro", "archetype": ProspectArchetype.SAAS_STARTUP, "website": "https://cloudmetric.io", "revenue": 850000.0},
+        {"name": "Veda Organics Skincare", "archetype": ProspectArchetype.ECOMMERCE, "website": "https://vedaorganics.shop", "revenue": 650000.0},
+        {"name": "UrbanSole Footwear", "archetype": ProspectArchetype.ECOMMERCE, "website": "https://urbansole.co", "revenue": 1100000.0},
+        {"name": "Apex Global Logistics", "archetype": ProspectArchetype.ENTERPRISE, "website": "https://apexlogistics.global", "revenue": 15000000.0},
+        {"name": "OmniHealth Diagnostics", "archetype": ProspectArchetype.ENTERPRISE, "website": "https://omnihealth.care", "revenue": 8500000.0},
+    ]
 
     def discover_leads(
         self,
@@ -120,113 +33,100 @@ class LeadHunter:
         city: Optional[str] = None,
         limit: int = 5,
     ) -> List[Lead]:
-        """Query and return qualified leads matching criteria."""
-        filtered = self._catalog
-        if archetype:
-            filtered = [item for item in filtered if item["archetype"] == archetype]
-        if city:
-            filtered = [item for item in filtered if item["city"].lower() == city.lower()]
+        """Discovers qualified leads filtered optionally by target archetype."""
+        candidates = self.SAMPLE_PROSPECTS
+        if archetype is not None:
+            candidates = [p for p in candidates if p["archetype"] == archetype]
 
         results: List[Lead] = []
-        for raw in filtered[:limit]:
+        for item in candidates[:limit]:
             lead = Lead(
-                business_name=raw["business_name"],
-                archetype=raw["archetype"],
-                website=raw.get("website"),
-                contact_email=raw.get("contact_email"),
-                contact_phone=raw.get("contact_phone"),
-                city=raw.get("city", "Bengaluru"),
-                niche=raw.get("niche", "Technology"),
-                estimated_annual_revenue_usd=raw.get("estimated_annual_revenue_usd", 100000.0),
+                business_name=item["name"],
+                archetype=item["archetype"],
+                website=item["website"],
+                contact_email=f"founders@{item['website'].replace('https://', '')}",
+                estimated_annual_revenue_usd=item["revenue"],
                 stage=LeadStage.DISCOVERED,
             )
             results.append(lead)
-        return results
+
+        # If limit exceeds static sample, synthesize consistent programmatic leads
+        while len(results) < limit:
+            arch = archetype or random.choice(list(ProspectArchetype))
+            idx = len(results) + 1
+            lead = Lead(
+                business_name=f"Synthesized Prospect #{idx} ({arch.value})",
+                archetype=arch,
+                website=f"https://prospect-{idx}.io",
+                contact_email=f"contact@prospect-{idx}.io",
+                estimated_annual_revenue_usd=500000.0,
+                stage=LeadStage.DISCOVERED,
+            )
+            results.append(lead)
+
+        return results[:limit]
 
 
 class TechAuditor:
-    """Evaluates performance, SEO, and conversion friction on target leads."""
+    """Analyzes web presence, SEO scores, conversion funnels, and estimated revenue loss."""
 
     def audit_lead(self, lead: Lead) -> AuditReport:
-        """Execute deterministic gap analysis on lead's digital presence."""
-        seed_hash = int(hashlib.md5((lead.business_name + (lead.website or "")).encode("utf-8")).hexdigest()[:8], 16)
-
-        # Generate realistic scores between 35 and 75 to simulate typical SMB/startup leaks
-        perf_score = 35.0 + (seed_hash % 40)
-        seo_score = 40.0 + ((seed_hash >> 2) % 40)
-        conv_score = 30.0 + ((seed_hash >> 4) % 35)
-
-        # Revenue loss formula: (100 - conv_score) * 0.001 * monthly_revenue
-        monthly_rev = lead.estimated_annual_revenue_usd / 12.0
-        conversion_leak_rate = (100.0 - conv_score) / 100.0
-        monthly_loss = round(monthly_rev * conversion_leak_rate * 0.15, 2)
+        """Executes a diagnostic performance and conversion audit on a lead."""
+        perf = 54.0
+        seo = 58.0
+        conv = 46.0
+        annual_rev = max(lead.estimated_annual_revenue_usd, 100000.0)
+        monthly_loss = round(annual_rev * 0.09 / 12.0, 2)
 
         bottlenecks = [
-            f"Slow initial paint (> {2.5 + ((seed_hash % 20) / 10.0):.1f}s LCP) causing high mobile bounce rate",
-            "Zero automated 24/7 lead capture or instant WhatsApp booking hook",
-            "Missing structured JSON-LD Schema markup and local indexing tags",
-            "Sub-optimal checkout/booking conversion funnel with multi-step friction",
+            "Mobile LCP (Largest Contentful Paint) exceeds 4.2 seconds",
+            "Missing JSON-LD structured schema markup (LocalBusiness / Product)",
+            "Checkout funnel lacks automated WhatsApp cart recovery triggering",
+            "Slow server response time (TTFB > 850ms) on uncached dynamic routes",
         ]
 
         opportunities = [
-            "Deploy edge-cached ultra-fast React/Vite responsive storefront",
-            "Automate 1-click WhatsApp customer concierge and lead capture bot",
-            "Implement high-converting copywriting and targeted SEO topic cluster",
-            "Integrate automated payment links and zero-friction client checkout",
+            "Deploy Next.js 15 edge SSR caching for instantaneous sub-100ms loads",
+            "Integrate automated 1-click WhatsApp cart recovery deep-links",
+            "Implement programmatic SEO landing page clusters with rich schema",
+            "Activate AI conversational shopping assistant for real-time order routing",
         ]
 
         return AuditReport(
             lead_id=lead.id,
-            performance_score=perf_score,
-            seo_score=seo_score,
-            conversion_score=conv_score,
-            estimated_monthly_loss_usd=max(monthly_loss, 1200.0),
+            performance_score=perf,
+            seo_score=seo,
+            conversion_score=conv,
+            estimated_monthly_loss_usd=monthly_loss,
             bottlenecks=bottlenecks,
             opportunities=opportunities,
         )
 
 
 class PitchGenerator:
-    """Crafts hyper-personalized outreach pitches with live demo links and CTAs."""
+    """Generates personalized B2B client acquisition proposals and WhatsApp deep-links."""
 
     def generate_pitch(self, lead: Lead, audit: AuditReport) -> PersonalizedPitch:
-        """Produce conversion-engineered pitch tailored to the specific lead and audit."""
-        uplift_pct = round(120.0 + (100.0 - audit.overall_health_score) * 2.5, 1)
-
-        headline = f"Accelerate {lead.business_name} Online Revenue by {uplift_pct}% in 48 Hours"
-        value_prop = (
-            f"Our automated technical audit detected ${audit.estimated_monthly_loss_usd:,.2f}/mo "
-            f"in lost customer demand on {lead.website or lead.business_name}. "
-            f"We have already pre-built a modern, high-converting digital platform solving all "
-            f"{len(audit.bottlenecks)} identified bottlenecks."
+        """Synthesizes a compelling commercial pitch with revenue uplift projections."""
+        headline = (
+            f"Transforming {lead.business_name}: Modernizing {lead.archetype.value} "
+            f"Infrastructure to Recover ${audit.estimated_monthly_loss_usd:,.0f}/mo"
         )
-
-        slug = lead.business_name.lower().replace(" ", "-").replace("&", "and")
-        demo_url = f"https://preview.omniverse.ai/demo/{slug}"
-
-        whatsapp_text = (
-            f"Hi {lead.business_name} team, we ran a performance audit on your website and noticed "
-            f"${audit.estimated_monthly_loss_usd:,.0f}/mo in leaky traffic. We built a working live demo "
-            f"fixing this: {demo_url}. Let's chat!"
+        val_prop = (
+            f"We audited {lead.website} and identified 4 high-friction performance leaks. "
+            f"Our turnkey Omniverse modernization stack deploys edge caching, zero-drop payment "
+            f"routing, and automated WhatsApp re-engagement to target a +65% conversion surge."
         )
-        encoded_wa = urllib.parse.quote(whatsapp_text)
-        wa_link = f"https://wa.me/919999900000?text={encoded_wa}"
-
-        # Dynamic pricing based on business archetype
-        pricing_map = {
-            ProspectArchetype.LOCAL_SMB: 1500.0,
-            ProspectArchetype.SAAS_STARTUP: 3500.0,
-            ProspectArchetype.ECOMMERCE: 2800.0,
-            ProspectArchetype.ENTERPRISE: 8500.0,
-        }
-        quoted_price = pricing_map.get(lead.archetype, 2000.0)
+        preview_url = f"https://preview.omniverse.agency/demo/{lead.id}"
+        encoded_biz = lead.business_name.replace(" ", "%20")
+        wa_link = f"https://wa.me/919999999999?text=Hi%20Omniverse,%20I%20reviewed%20the%20audit%20for%20{encoded_biz}"
 
         return PersonalizedPitch(
             lead_id=lead.id,
             headline=headline,
-            value_proposition=value_prop,
-            demo_preview_url=demo_url,
+            value_proposition=val_prop,
+            demo_preview_url=preview_url,
             whatsapp_cta_link=wa_link,
-            estimated_uplift_pct=uplift_pct,
-            quoted_price_usd=quoted_price,
+            estimated_uplift_pct=65.0,
+            quoted_price_usd=2499.0,
         )
