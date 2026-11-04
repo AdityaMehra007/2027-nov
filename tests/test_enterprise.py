@@ -76,3 +76,17 @@ def test_abm_campaign():
     assert "# Executive Brief" in one_pager
     assert "Wells Fargo India" in one_pager
     assert "Annual ROI" in one_pager
+
+
+def test_security_brief():
+    from omniverse.enterprise.security_brief import EnterpriseSecurityBrief
+    sec = EnterpriseSecurityBrief()
+    pack = sec.generate_pack("JP Morgan Chase", cloud_provider="aws")
+    assert pack.company == "JP Morgan Chase"
+    assert "Zero Egress" in pack.data_boundary_policy
+    assert "CMEK" in pack.encryption_architecture
+    assert any("SOC2 Type II" in std for std in pack.compliance_standards)
+    assert "ap-south-1" in pack.deployment_region
+
+    doc = sec.generate_security_document("JP Morgan Chase")
+    assert "# Enterprise Security Architecture & Compliance Dossier" in doc
