@@ -97,6 +97,10 @@ class ActorSupervisor:
         actor = actor_cls(actor_id=actor_id, **kwargs)
         self._actors[actor_id] = actor
         self._restart_counts[actor_id] = 0
+        if self._running:
+            self._supervised_tasks[actor_id] = asyncio.create_task(
+                self._supervision_loop(actor)
+            )
         return actor
 
     def get_actor(self, actor_id: str) -> SwarmActor | None:

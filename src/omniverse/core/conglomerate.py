@@ -14,12 +14,6 @@ from sqlmodel import Session, select
 from omniverse.core.security import SecurityGovernor, ActionType
 from omniverse.core.telemetry import global_event_bus
 from omniverse.modules.revenue.models import Lead, LeadStage, Invoice, InvoiceStatus
-from omniverse.modules.revenue.pipeline import LeadPipeline
-from omniverse.modules.revenue.prospector import LocalProspector
-from omniverse.modules.revenue.payments import PaymentWorkflow
-from omniverse.modules.saas_factory.scaffolder import SaaSFactoryScaffolder
-from omniverse.modules.intelligence.quant_engine import Backtester
-from omniverse.operations.health import HealthDiagnostics
 
 
 class ConglomerateMetrics(BaseModel):
@@ -55,6 +49,13 @@ class AutonomousConglomerateKernel:
         saas_output_dir: Optional[str] = None,
         governor: Optional[SecurityGovernor] = None
     ):
+        from omniverse.modules.revenue.pipeline import LeadPipeline
+        from omniverse.modules.revenue.prospector import LocalProspector
+        from omniverse.modules.revenue.payments import PaymentWorkflow
+        from omniverse.modules.saas_factory.scaffolder import SaaSFactoryScaffolder
+        from omniverse.modules.intelligence.quant_engine import Backtester
+        from omniverse.operations.health import HealthDiagnostics
+
         self.session = session
         self.saas_output_dir = Path(saas_output_dir or "dist/saas_portfolio")
         self.governor = governor or SecurityGovernor(strict_mode=True)

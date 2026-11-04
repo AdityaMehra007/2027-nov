@@ -14,11 +14,13 @@ from omniverse.core.llm_arbitrator import (
     ArbitrationResponse,
     HybridLLMArbitrator
 )
-from omniverse.core.conglomerate import (
-    AutonomousConglomerateKernel,
-    ConglomerateMetrics,
-    ConglomerateCycleReport,
-)
+
+# Deferred dynamic import for Conglomerate to eliminate circular import chains
+def __getattr__(name: str):
+    if name in ("AutonomousConglomerateKernel", "ConglomerateMetrics", "ConglomerateCycleReport"):
+        import omniverse.core.conglomerate as _conglomerate
+        return getattr(_conglomerate, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 __all__ = [
     "OmniverseSettings",

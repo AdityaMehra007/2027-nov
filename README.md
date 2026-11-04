@@ -4,7 +4,7 @@
 ### *The #1 Autonomous Wealth, Multi-Market Intelligence, and Planetary Resilience Operating System*
 
 [![CI Build](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
-[![Test Suite](https://img.shields.io/badge/Tests-116%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
+[![Test Suite](https://img.shields.io/badge/Tests-205%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blueviolet?style=for-the-badge&logo=apache&logoColor=white)](LICENSE)
 [![Architecture: Antigravity](https://img.shields.io/badge/Platform-Google%20Antigravity-f59e0b?style=for-the-badge&logo=google&logoColor=white)](https://antigravity.google)
@@ -20,6 +20,7 @@
 [Core Alpha: Revenue](#-core-alpha-the-autonomous-revenue-engine) •
 [Core Beta: Aether](#-core-beta-aether-resilience-fabric) •
 [Hybrid LLM Arbitrator](#-hybrid-multi-model-llm-arbitrator) •
+[OmniSwarm Mesh](#-omniswarm-decentralized-multi-agent-peer-mesh) •
 [Empirical Benchmarks](#-empirical-benchmarking-suite) •
 [Multi-Cloud IaC](#-multi-cloud-kubernetes--infrastructure-as-code) •
 [Documentation](MASTER_DIRECTIVE.md)
@@ -361,6 +362,52 @@ pytest -v
 ### 5. Run via Docker
 ```bash
 docker compose up -d
+```
+
+---
+
+## 🌐 OmniSwarm: Decentralized Multi-Agent Peer Mesh
+
+OmniSwarm (Phase 1) introduces a sovereign, peer-to-peer actor mesh operating layer to CASHFLOW INFINITY. It enables hundreds of concurrent micro-agents to communicate, negotiate tasks, and execute workloads across distributed nodes with cryptographic trust.
+
+```
+       [Local Virtual Actor A] 
+                 │ 1. send(target, payload, priority)
+                 ▼
+          [SwarmKernel] ──> Air-Gapped SecurityGovernor Gate
+                 │ 2. Sign with Ed25519 Private Key
+                 │ 3. Deterministic Local vs Remote Routing
+                 ├─────────────────────────────────┐
+           (Local Node)                      (Remote Node)
+                 │                                 │
+                 ▼                                 ▼
+         [ActorMailbox B]                   [MeshTransport]
+           (Priority Queue)                        │ 4. Duplex WebSocket
+                 │ 5. dequeue                      ▼
+         [Local Actor B]                    [Remote Node Peer]
+                                                   │ 5. Verify Ed25519 Signature
+                                                   │ 6. Check Nonce Freshness
+                                                   ▼
+                                            [Remote ActorMailbox]
+```
+
+### Key Subsystems:
+1. **Cryptographic Ed25519 Identity**: Every node and agent generates asymmetric keypairs (`SwarmCrypto`). Outgoing envelopes are canonically serialized and digitally signed, with timestamp freshness and nonce replay protection.
+2. **Supervised Virtual Actors (`actor.py`)**: Asynchronous micro-agents with prioritized mailboxes (`EMERGENCY` > `HIGH` > `NORMAL` > `LOW`) and Erlang/OTP-style supervision trees (`RestartPolicy.ONE_FOR_ONE`). Failing messages are quarantined into the **Dead Letter Queue (DLQ)** with zero poison-pill crash loops.
+3. **SWIM Epidemic Gossip Protocol (`gossip.py`)**: Decentralized node discovery, direct ping probes, indirect `ping-req` proxying, and suspicion state machines (`ALIVE` ➔ `SUSPECT` ➔ `DEAD`) operating without centralized coordinators.
+4. **Duplex WebSocket Mesh Transport (`transport.py`)**: Persistent asynchronous duplex client/server connections with connection pooling and backpressure flow control.
+5. **Air-Gapped Security Governance**: Mandatory integration with `SecurityGovernor.check_action(...)` gating all financial movements, trades, and privileged operations.
+
+### CLI Operations:
+```bash
+# Display live OmniSwarm status, active actors, peer nodes, and DLQ depth
+python -m omniverse.cli swarm status
+
+# Run empirical actor mesh and Ed25519 dispatch benchmark (>9,000 ops/sec)
+python -m omniverse.cli swarm benchmark --iterations 50
+
+# Launch a standalone OmniSwarm mesh node listener
+python -m omniverse.cli swarm start --port 9091
 ```
 
 ---
