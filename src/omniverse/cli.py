@@ -24,6 +24,10 @@ from omniverse.modules.aether.models import HazardType
 from omniverse.modules.intelligence.quant_engine import Backtester
 from omniverse.modules.intelligence.indicators import calculate_rsi, calculate_macd, calculate_bollinger_bands
 from omniverse.modules.saas_factory.scaffolder import SaaSFactoryScaffolder
+from omniverse.modules.planetary_mesh import GlobalPlanetaryMesh, TelemetryPacket
+from omniverse.modules.aether.telemetry_ingestion import SatelliteTelemetryHub
+from omniverse.modules.settlement import GlobalClearingHouse, CurrencyCode
+from omniverse.modules.research_lab import AutonomousResearchLab
 
 def main():
     parser = argparse.ArgumentParser(description="CASHFLOW INFINITY: OMNIVERSE Command Line Interface")
@@ -71,6 +75,24 @@ def main():
 
     # Command: daily-brief
     subparsers.add_parser("daily-brief", help="Generate executive daily briefing report")
+
+    # Command: mesh-status
+    subparsers.add_parser("mesh-status", help="Inspect global planetary edge mesh and run consensus check")
+
+    # Command: satellite-pass
+    subparsers.add_parser("satellite-pass", help="Simulate satellite orbital pass and ingest Earth observation telemetry")
+
+    # Command: settle-tx
+    settle_parser = subparsers.add_parser("settle-tx", help="Execute multi-currency atomic settlement")
+    settle_parser.add_argument("--amount", type=float, default=50000.0, help="Transaction amount in source currency")
+    settle_parser.add_argument("--source", default="INR", help="Source currency (INR, USD, EUR, SGD, AED, JPY)")
+    settle_parser.add_argument("--target", default="USD", help="Target currency (INR, USD, EUR, SGD, AED, JPY)")
+
+    # Command: research-paper
+    paper_parser = subparsers.add_parser("research-paper", help="Synthesize autonomous hypothesis and academic paper draft")
+    paper_parser.add_argument("--domain", default="autonomous-planetary-resilience", help="Research domain")
+    paper_parser.add_argument("--metric", default="Consensus-Quorum-Latency", help="Target optimization metric")
+    paper_parser.add_argument("--mechanism", default="Federated Byzantine Fault-Tolerant Edge Graphs", help="Proposed theoretical mechanism")
 
     # Command: serve
     serve_parser = subparsers.add_parser("serve", help="Start FastAPI Command Center")
@@ -236,6 +258,78 @@ def main():
             else:
                 for l in leads:
                     print(f"[{l.id}] {l.business_name} ({l.category}) - {l.status.value} - ₹{l.estimated_value_inr:,.0f}")
+
+    elif args.command == "mesh-status":
+        mesh = GlobalPlanetaryMesh()
+        nodes = mesh.list_nodes()
+        consensus = mesh.reach_federated_consensus("PROP-GLOBAL-01", 99.4)
+        print("\n==================================================")
+        print("  OMNIVERSE GLOBAL PLANETARY MESH (6 CONTINENTS)")
+        print("==================================================")
+        for n in nodes:
+            print(f" • [{n.node_id}] {n.region.value:18} | Latency: {n.latency_ms:4.1f}ms | Endpoint: {n.endpoint}")
+        print("--------------------------------------------------")
+        print(f"Federated Consensus Check: {'SUCCESS' if consensus['consensus_reached'] else 'FAILED'}")
+        print(f"Quorum Agreement        : {consensus['agreement_percentage']}% ({consensus['total_nodes']} nodes)")
+        print("==================================================")
+
+    elif args.command == "satellite-pass":
+        hub = SatelliteTelemetryHub()
+        passes = hub.simulate_satellite_passes()
+        alert = hub.generate_composite_hazard_alert(passes)
+        print("\n==================================================")
+        print("  AETHER SATELLITE TELEMETRY INGESTION")
+        print("==================================================")
+        for p in passes:
+            print(f" • [{p.observation_id}] Constellation: {p.constellation.value}")
+            print(f"   Coords: ({p.target_latitude}, {p.target_longitude}) | Cloud Cover: {p.cloud_cover_pct}% | Soil Moisture: {p.metrics.get('soil_moisture_index')}")
+        print("--------------------------------------------------")
+        print(f"Composite Hazard Alert  : {alert['alert_level']}")
+        print(f"Recommended Protocol    : {alert['recommended_protocol']}")
+        print(f"Observation Points      : {alert['observation_points_analyzed']}")
+        print("==================================================")
+
+    elif args.command == "settle-tx":
+        clearing = GlobalClearingHouse()
+        src_curr = getattr(CurrencyCode, args.source.upper(), CurrencyCode.INR)
+        tgt_curr = getattr(CurrencyCode, args.target.upper(), CurrencyCode.USD)
+        tx = clearing.execute_atomic_settlement(
+            sender_id="CLIENT-CLI-001",
+            recipient_id="OMNIVERSE-TREASURY",
+            source_currency=src_curr,
+            target_currency=tgt_curr,
+            source_amount=args.amount
+        )
+        print("\n==================================================")
+        print("  MULTI-CURRENCY ATOMIC CLEARING HOUSE")
+        print("==================================================")
+        print(f"Settlement Hash : {tx.settlement_hash}")
+        print(f"Source Currency : {tx.source_currency.value} {tx.source_amount:,.2f}")
+        print(f"Target Currency : {tx.target_currency.value} {tx.target_amount:,.2f}")
+        print(f"Hedged FX Rate  : {tx.hedged_fx_rate:.4f}")
+        print(f"Status          : {tx.status}")
+        print("==================================================")
+
+    elif args.command == "research-paper":
+        lab = AutonomousResearchLab()
+        hyp = lab.formulate_hypothesis(
+            domain=args.domain,
+            baseline_metric=args.metric,
+            proposed_mechanism=args.mechanism
+        )
+        paper = lab.generate_research_paper(
+            hypothesis=hyp,
+            title="Self-Organizing Autonomous Edge Fabrics and Planetary Settlement Engines"
+        )
+        print("\n==================================================")
+        print("  AUTONOMOUS RESEARCH LAB SYNTHESIS")
+        print("==================================================")
+        print(f"Paper Title     : {paper.title}")
+        print(f"Target Domain   : {paper.domain}")
+        print(f"Draft Location  : {paper.output_file}")
+        print("--------------------------------------------------")
+        print(f"Abstract Preview:\n{paper.abstract}")
+        print("==================================================")
 
     elif args.command == "serve":
         import uvicorn

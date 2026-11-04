@@ -12,6 +12,11 @@ from omniverse.modules.aether.logistics import (
     CrisisLogisticsEngine
 )
 from omniverse.modules.aether.geocoder import AetherGeocoder
+from omniverse.modules.aether.telemetry_ingestion import (
+    ConstellationType,
+    SatelliteObservation,
+    SatelliteTelemetryHub
+)
 
 __all__ = [
     "HazardType",
@@ -21,5 +26,8 @@ __all__ = [
     "ReliefShelter",
     "EmergencyResourceRequest",
     "CrisisLogisticsEngine",
-    "AetherGeocoder"
+    "AetherGeocoder",
+    "ConstellationType",
+    "SatelliteObservation",
+    "SatelliteTelemetryHub"
 ]
