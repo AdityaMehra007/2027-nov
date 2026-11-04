@@ -178,3 +178,96 @@ def test_trusted_host_middleware_allows_valid_and_blocks_untrusted(db_engine):
         assert res_evil.status_code == 400
         # Even rejected requests have security headers
         assert_security_headers_present(res_evil)
+
+
+def test_production_env_with_whitespace_via_monkeypatch(monkeypatch, db_engine):
+    """Verify create_app correctly gates docs when ENV has surrounding whitespace."""
+    monkeypatch.setenv("ENV", "  production  ")
+    get_settings.cache_clear()
+    try:
+        app = create_app(db_engine=db_engine)
+        with TestClient(app) as prod_client:
+            assert prod_client.get("/docs").status_code == 404
+            assert prod_client.get("/docs/").status_code == 404
+            assert prod_client.get("/redoc").status_code == 404
+            assert prod_client.get("/redoc/").status_code == 404
+            assert prod_client.get("/openapi.json").status_code == 404
+    finally:
+        get_settings.cache_clear()
+
+
+def test_allowed_hosts_env_var_comma_separated(monkeypatch, db_engine):
+    """Verify ALLOWED_HOSTS parses comma-separated strings without SettingsError."""
+    monkeypatch.setenv("ALLOWED_HOSTS", "localhost, 127.0.0.1, custom.omniverse.io")
+    get_settings.cache_clear()
+    try:
+        settings = get_settings()
+        assert "custom.omniverse.io" in settings.allowed_hosts
+        assert "localhost" in settings.allowed_hosts
+        assert "127.0.0.1" in settings.allowed_hosts
+
+        app = create_app(db_engine=db_engine, settings=settings)
+        with TestClient(app) as client:
+            res_valid = client.get("/", headers={"host": "custom.omniverse.io"})
+            assert res_valid.status_code == 200
+            assert_security_headers_present(res_valid)
+
+            res_blocked = client.get("/", headers={"host": "untrusted.attacker.com"})
+            assert res_blocked.status_code == 400
+            assert_security_headers_present(res_blocked)
+    finally:
+        get_settings.cache_clear()
+
+
+def test_allowed_hosts_env_var_json_format(monkeypatch, db_engine):
+    """Verify ALLOWED_HOSTS parses JSON array format from environment variable."""
+    monkeypatch.setenv("ALLOWED_HOSTS", '["localhost", "json.omniverse.io"]')
+    get_settings.cache_clear()
+    try:
+        settings = get_settings()
+        assert "json.omniverse.io" in settings.allowed_hosts
+        assert "localhost" in settings.allowed_hosts
+
+        app = create_app(db_engine=db_engine, settings=settings)
+        with TestClient(app) as client:
+            res_valid = client.get("/", headers={"host": "json.omniverse.io"})
+            assert res_valid.status_code == 200
+            assert_security_headers_present(res_valid)
+    finally:
+        get_settings.cache_clear()
+
+
+def test_allowed_hosts_string_input_in_settings(db_engine):
+    """Verify raw string passed to allowed_hosts is safely handled and testserver is appended."""
+    settings = OmniverseSettings(allowed_hosts="direct.host.com")
+    assert settings.allowed_hosts == ["direct.host.com"]
+    app = create_app(db_engine=db_engine, settings=settings)
+    with TestClient(app) as client:
+        # testserver automatically injected
+        assert client.get("/", headers={"host": "testserver"}).status_code == 200
+        assert client.get("/", headers={"host": "direct.host.com"}).status_code == 200
+        assert client.get("/", headers={"host": "rogue.com"}).status_code == 400
+
+
+def test_security_headers_on_method_not_allowed(client: TestClient):
+    """Verify security headers are attached on 405 Method Not Allowed responses."""
+    response = client.post("/")
+    assert response.status_code == 405
+    assert_security_headers_present(response)
+
+
+def test_security_headers_on_http_exception_500(db_engine):
+    """Verify security headers are attached on 500 HTTPException error responses."""
+    from fastapi import HTTPException
+
+    app = create_app(db_engine=db_engine)
+
+    @app.get("/trigger-500")
+    def trigger_500():
+        raise HTTPException(status_code=500, detail="Database connection failed")
+
+    with TestClient(app) as err_client:
+        response = err_client.get("/trigger-500")
+        assert response.status_code == 500
+        assert_security_headers_present(response)
+

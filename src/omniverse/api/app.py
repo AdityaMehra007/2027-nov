@@ -20,7 +20,7 @@ def create_app(
     engine.init_db()
 
     app_settings = settings or get_settings()
-    is_production = app_settings.env.lower() == "production"
+    is_production = bool(app_settings.env and str(app_settings.env).strip().lower() == "production")
 
     docs_url = None if is_production else "/docs"
     redoc_url = None if is_production else "/redoc"
@@ -35,9 +35,13 @@ def create_app(
         openapi_url=openapi_url,
     )
 
-    allowed_hosts = getattr(app_settings, "allowed_hosts", None) or ["127.0.0.1", "localhost", "testserver", "*"]
+    raw_allowed_hosts = getattr(app_settings, "allowed_hosts", None) or ["127.0.0.1", "localhost", "testserver", "*"]
+    if isinstance(raw_allowed_hosts, str):
+        allowed_hosts = [h.strip() for h in raw_allowed_hosts.split(",") if h.strip()]
+    else:
+        allowed_hosts = list(raw_allowed_hosts)
     if "testserver" not in allowed_hosts and "*" not in allowed_hosts:
-        allowed_hosts = list(allowed_hosts) + ["testserver"]
+        allowed_hosts.append("testserver")
     app.add_middleware(
         TrustedHostMiddleware,
         allowed_hosts=allowed_hosts,
