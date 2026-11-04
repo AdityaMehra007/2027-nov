@@ -56,12 +56,14 @@ class OmniverseBenchmarkingSuite:
         if not latencies_ms:
             return 0.0
         sorted_vals = sorted(latencies_ms)
-        idx = int(math.ceil(len(sorted_vals) * (percentile / 100.0))) - 1
+        p = max(0.0, min(100.0, float(percentile)))
+        idx = int(math.ceil(len(sorted_vals) * (p / 100.0))) - 1
         idx = max(0, min(idx, len(sorted_vals) - 1))
         return round(sorted_vals[idx], 4)
 
     def run_pbft_benchmark(self, iterations: int = 20) -> BenchmarkMetric:
         """Evaluates Practical Byzantine Fault Tolerance (PBFT) consensus latency and throughput."""
+        iterations = max(1, int(iterations))
         bft = ByzantineFaultTolerantEngine(total_nodes=7)
         latencies: List[float] = []
 
@@ -93,6 +95,7 @@ class OmniverseBenchmarkingSuite:
 
     def run_derivatives_benchmark(self, iterations: int = 100) -> BenchmarkMetric:
         """Evaluates Black-Scholes Greeks calculation throughput."""
+        iterations = max(1, int(iterations))
         deriv = DerivativesEngine()
         latencies: List[float] = []
 
@@ -128,6 +131,7 @@ class OmniverseBenchmarkingSuite:
 
     def run_sar_benchmark(self, iterations: int = 20) -> BenchmarkMetric:
         """Evaluates Sentinel-1 SAR Radar Otsu thresholding and flood segmentation."""
+        iterations = max(1, int(iterations))
         processor = SARProcessor()
         grid = [-21.5, -20.0, -19.5, -22.0, -20.5] * 20 + [-11.0, -9.5, -10.0, -8.5, -10.5] * 80
         latencies: List[float] = []
@@ -161,6 +165,7 @@ class OmniverseBenchmarkingSuite:
 
     def run_settlement_benchmark(self, iterations: int = 50) -> BenchmarkMetric:
         """Evaluates RTGS atomic multi-currency clearing throughput."""
+        iterations = max(1, int(iterations))
         clearing = GlobalClearingHouse()
         latencies: List[float] = []
 
@@ -195,6 +200,7 @@ class OmniverseBenchmarkingSuite:
 
     def run_llm_arbitrator_benchmark(self, iterations: int = 30) -> BenchmarkMetric:
         """Evaluates Hybrid LLM Arbitrator multi-objective routing & dispatch."""
+        iterations = max(1, int(iterations))
         arbitrator = HybridLLMArbitrator()
         req = ArbitrationRequest(
             prompt="Benchmark telemetry pulse routing for planetary resilience.",
@@ -228,6 +234,7 @@ class OmniverseBenchmarkingSuite:
 
     def run_all(self, iterations: int = 25) -> BenchmarkSuiteReport:
         """Executes full empirical benchmark evaluation across all core engines."""
+        iterations = max(1, int(iterations))
         metrics: List[BenchmarkMetric] = [
             self.run_pbft_benchmark(iterations=iterations),
             self.run_derivatives_benchmark(iterations=max(iterations * 2, 50)),
@@ -235,6 +242,7 @@ class OmniverseBenchmarkingSuite:
             self.run_settlement_benchmark(iterations=max(iterations, 30)),
             self.run_llm_arbitrator_benchmark(iterations=max(iterations, 30))
         ]
+
 
         report = BenchmarkSuiteReport(
             total_benchmarks=len(metrics),

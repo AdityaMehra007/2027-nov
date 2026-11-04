@@ -78,3 +78,25 @@ def test_benchmark_suite_run_all():
     events = global_event_bus.get_events()
     names = [e["event_name"] for e in events]
     assert "BENCHMARK_COMPLETED" in names
+
+def test_benchmark_zero_or_negative_iterations_safe():
+    suite = OmniverseBenchmarkingSuite()
+    # iterations=0 should clamp to >= 1 without ZeroDivisionError
+    metric_pbft = suite.run_pbft_benchmark(iterations=0)
+    assert metric_pbft.iterations >= 1
+    assert metric_pbft.throughput_ops_per_sec > 0.0
+
+    metric_deriv = suite.run_derivatives_benchmark(iterations=-10)
+    assert metric_deriv.iterations >= 1
+
+    report_zero = suite.run_all(iterations=0)
+    assert report_zero.total_benchmarks == 5
+
+def test_benchmark_percentile_clamping():
+    suite = OmniverseBenchmarkingSuite()
+    vals = [10.0, 20.0, 30.0]
+    # Underflow clamped to 0.0
+    assert suite._calculate_percentile(vals, -10.0) == 10.0
+    # Overflow clamped to 100.0
+    assert suite._calculate_percentile(vals, 150.0) == 30.0
+

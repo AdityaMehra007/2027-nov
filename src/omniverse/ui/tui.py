@@ -22,6 +22,13 @@ from omniverse.modules.planetary_mesh import GlobalPlanetaryMesh
 from omniverse.modules.aether.risk_engine import AetherRiskEngine
 from omniverse.modules.aether.models import HazardType
 
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+
 class CyberpunkTUI:
     """Cyberpunk ASCII / ANSI Terminal Dashboard & Interactive Operator Shell."""
 
@@ -75,24 +82,27 @@ class CyberpunkTUI:
     def render_header(self) -> str:
         """Renders the top neon banner and tactical timestamp."""
         now_utc = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-        border = "=" * 74
+        border = "=" * 76
         title = self._c(self.BANNER.strip("\n"), self.CYAN)
-        subhead = self._c(f" [NODE CLUSTER: GLOBAL-FEDERATED]  [SECURITY GOVERNOR: ARMED]  [{now_utc}] ", self.WHITE)
+        subhead_text = f" [MESH: GLOBAL-FEDERATED]    [SECURITY: ARMED]    [{now_utc}] "
+        subhead = self._c(subhead_text, self.WHITE)
         return f"{border}\n{title}\n{border}\n{subhead}\n{border}"
 
     def render_planetary_nodes(self) -> str:
         """Renders 6-continent federated mesh latency & quorum status."""
         nodes = self.mesh.list_nodes()
         lines = [
-            self._c("┌── [PLANETARY EDGE NODES // 6 CONTINENTS MESH] " + "─" * 28 + "┐", self.PURPLE),
-            f"│ {'NODE ID':<13} {'REGION':<16} {'LATENCY':<10} {'STATUS':<10} {'ENDPOINT':<20} │",
+            self._c("┌── [PLANETARY EDGE NODES // 6 CONTINENTS MESH] " + "─" * 27 + "┐", self.PURPLE),
+            f"│ {'NODE ID':<12} {'REGION':<18} {'LATENCY':<8} {'STATUS':<8} {'ENDPOINT':<22} │",
             "├" + "─" * 74 + "┤"
         ]
         for node in nodes:
-            status_str = self._c(node.status.value, self.NEON_GREEN if node.status.value == "ONLINE" else self.RED)
             lat_str = f"{node.latency_ms:.1f}ms"
+            stat_color = self.NEON_GREEN if node.status.value == "ONLINE" else self.RED
+            stat_padded = f"{node.status.value:<8}"
+            status_str = self._c(stat_padded, stat_color)
             lines.append(
-                f"│ {node.node_id:<13} {node.region.value:<16} {lat_str:<10} {status_str:<19} {node.endpoint:<20} │"
+                f"│ {node.node_id:<12} {node.region.value:<18} {lat_str:<8} {status_str} {node.endpoint:<22} │"
             )
         lines.append(self._c("└" + "─" * 74 + "┘", self.PURPLE))
         return "\n".join(lines)
@@ -110,12 +120,16 @@ class CyberpunkTUI:
         receivables = ledger.get("outstanding_receivables_inr", 0.0)
         total_leads = pipe_summary.get("total_leads", 0)
 
+        p_str = f"{f'₹{pipe_val:,.2f}':<17}"
+        c_str = f"{f'₹{collected:,.2f}':<17}"
+        r_str = f"{f'₹{receivables:,.2f}':<17}"
+
         lines = [
-            self._c("┌── [FINANCIAL LEDGER & SOVEREIGN CASHFLOW TICKER] " + "─" * 25 + "┐", self.NEON_GREEN),
-            f"│  PIPELINE VALUE    : {self._c(f'₹{pipe_val:,.2f}', self.WHITE):<35} │ LEADS TRACKED: {total_leads:<6}  │",
-            f"│  COLLECTED REVENUE : {self._c(f'₹{collected:,.2f}', self.NEON_GREEN):<35} │ STATUS       : VERIFIED │",
-            f"│  OUTSTANDING RECV  : {self._c(f'₹{receivables:,.2f}', self.YELLOW):<35} │ ARBITRAGE    : PASSIVE  │",
-            f"│  FX LIQUIDITY HEDGE: USD/INR 84.15 ▲  EUR/USD 1.0850 ▼  AED/INR 22.91 ▲ │",
+            self._c("┌── [FINANCIAL LEDGER & SOVEREIGN CASHFLOW TICKER] " + "─" * 24 + "┐", self.NEON_GREEN),
+            f"│  PIPELINE VALUE    : {self._c(p_str, self.WHITE)} │ LEADS TRACKED : {total_leads:<15} │",
+            f"│  COLLECTED REVENUE : {self._c(c_str, self.NEON_GREEN)} │ LEDGER STATUS : {'VERIFIED':<15} │",
+            f"│  OUTSTANDING RECV  : {self._c(r_str, self.YELLOW)} │ FX ARBITRAGE  : {'PASSIVE':<15} │",
+            f"│  FX LIQUIDITY HEDGE: USD/INR 84.15 ▲  EUR/USD 1.0850 ▼  AED/INR 22.91 ▲  │",
             self._c("└" + "─" * 74 + "┘", self.NEON_GREEN)
         ]
         return "\n".join(lines)
@@ -126,32 +140,37 @@ class CyberpunkTUI:
         diagnostics = HealthDiagnostics(session)
         health = diagnostics.run_diagnostics()
 
-        overall = self._c(health.get("overall_status", "UNKNOWN"), self.NEON_GREEN if health.get("overall_status") == "OK" else self.RED)
-        db_stat = self._c(health.get("database_status", "UNKNOWN"), self.NEON_GREEN)
+        raw_overall = health.get("overall_status", "UNKNOWN")
+        raw_db = health.get("database_status", "UNKNOWN")
+        overall = self._c(f"{raw_overall:<8}", self.NEON_GREEN if raw_overall == "OK" else self.RED)
+        db_stat = self._c(f"{raw_db:<9}", self.NEON_GREEN)
         mem = f"{health.get('memory_usage_mb', 0.0):.1f} MB"
         disk = f"{health.get('disk_available_gb', 0.0):.1f} GB"
         events_count = len(global_event_bus.get_events())
 
         lines = [
-            self._c("┌── [SYSTEM HEALTH // KERNEL TELEMETRY] " + "─" * 36 + "┐", self.CYAN),
-            f"│  OVERALL: {overall:<17} DB: {db_stat:<18} RAM: {mem:<9} DISK: {disk:<8} │",
-            f"│  SAFETY BUDGET DAILY: ${self.settings.safety_budget_daily_usd:.2f} | TELEMETRY EVENTS: {events_count:<6} | WAL: ENABLED │",
+            self._c("┌── [SYSTEM HEALTH // KERNEL TELEMETRY] " + "─" * 35 + "┐", self.CYAN),
+            f"│  OVERALL: {overall}  DB: {db_stat}  RAM: {mem:<11}  DISK: {disk:<13} │",
+            f"│  SAFETY BUDGET DAILY: ${self.settings.safety_budget_daily_usd:.2f} | TELEMETRY EVENTS: {events_count:<6} | WAL: ENABLED   │",
             self._c("└" + "─" * 74 + "┘", self.CYAN)
         ]
         return "\n".join(lines)
 
     def render_command_bar(self) -> str:
         """Renders interactive command ribbon and output status line."""
-        status_line = self._c(f"STATUS >> {self.last_command_output}", self.YELLOW)
+        truncated_out = self.last_command_output[:60]
+        status_line = f"│ STATUS >> {self._c(f'{truncated_out:<62}', self.YELLOW)} │"
         commands = (
-            f" COMMANDS: {self._c('[m]', self.CYAN)} Consensus Quorum  "
-            f"{self._c('[s]', self.CYAN)} Status Refresh  "
-            f"{self._c('[r]', self.CYAN)} Aether Risk Pulse  "
+            f"│ COMMANDS: {self._c('[m]', self.CYAN)} Consensus  "
+            f"{self._c('[s]', self.CYAN)} Refresh  "
+            f"{self._c('[r]', self.CYAN)} Risk Pulse  "
             f"{self._c('[h]', self.CYAN)} Help  "
-            f"{self._c('[q]', self.CYAN)} Quit"
+            f"{self._c('[q]', self.CYAN)} Quit │"
         )
+
         border = self._c("═" * 76, self.WHITE)
         return f"{border}\n{status_line}\n{border}\n{commands}\n{border}"
+
 
     def render_dashboard(self) -> str:
         """Assembles all TUI visual blocks into a unified console frame."""
@@ -232,12 +251,21 @@ class CyberpunkTUI:
                 if input_fn is not None:
                     try:
                         user_cmd = input_fn()
-                    except StopIteration:
+                    except (StopIteration, EOFError):
                         break
-                elif not sys.stdin.isatty():
-                    # Non-interactive / headless environment (e.g. CI or automated tests)
-                    time.sleep(0.01)
-                    continue
+                elif sys.stdin is None or not hasattr(sys.stdin, "isatty") or not sys.stdin.isatty():
+                    # Non-interactive / headless environment (e.g. piped stdin or background runner)
+                    if sys.stdin is not None:
+                        try:
+                            line = sys.stdin.readline()
+                        except (OSError, EOFError):
+                            break
+                        if not line:
+                            break
+                        user_cmd = line.strip()
+                    else:
+                        break
+
                 else:
                     try:
                         user_cmd = input("\nOMNIVERSE-TUI >>> ")
@@ -251,3 +279,4 @@ class CyberpunkTUI:
         finally:
             if self._owns_session and self.session is not None:
                 self.session.close()
+

@@ -95,3 +95,47 @@ def test_tui_run_loop_with_input_stream(tmp_path):
         commands = iter(["m", "s", "q"])
         tui.run_loop(input_fn=commands.__next__)
         assert "DIAGNOSTICS REFRESHED" in tui.last_command_output or "SYSTEM SHUTDOWN" in tui.last_command_output
+
+def test_tui_panel_width_consistency(tmp_path):
+    db_file = tmp_path / "tui_test5.db"
+    db = DatabaseEngine(db_url=f"sqlite:///{db_file}")
+    db.init_db()
+
+    with db.get_session() as session:
+        tui = CyberpunkTUI(session=session, use_ansi=False)
+        panels = [
+            ("Nodes", tui.render_planetary_nodes()),
+            ("Ticker", tui.render_financial_ticker()),
+            ("Health", tui.render_system_health()),
+            ("Command", tui.render_command_bar())
+        ]
+        for name, panel in panels:
+            for idx, line in enumerate(panel.split("\n")):
+                assert len(line) == 76, f"Panel '{name}' line {idx} length {len(line)} != 76: {line}"
+
+def test_tui_run_loop_piped_stdin(tmp_path, monkeypatch):
+    import io
+    db_file = tmp_path / "tui_test6.db"
+    db = DatabaseEngine(db_url=f"sqlite:///{db_file}")
+    db.init_db()
+
+    with db.get_session() as session:
+        tui = CyberpunkTUI(session=session, use_ansi=False)
+        fake_stdin = io.StringIO("m\nq\n")
+        monkeypatch.setattr("sys.stdin", fake_stdin)
+        tui.run_loop()
+        assert "CONSENSUS" in tui.last_command_output or "SYSTEM SHUTDOWN" in tui.last_command_output
+
+def test_tui_run_loop_eof_stdin(tmp_path, monkeypatch):
+    import io
+    db_file = tmp_path / "tui_test7.db"
+    db = DatabaseEngine(db_url=f"sqlite:///{db_file}")
+    db.init_db()
+
+    with db.get_session() as session:
+        tui = CyberpunkTUI(session=session, use_ansi=False)
+        fake_stdin = io.StringIO("")  # Immediate EOF
+        monkeypatch.setattr("sys.stdin", fake_stdin)
+        # Should exit gracefully without infinite loop
+        tui.run_loop()
+

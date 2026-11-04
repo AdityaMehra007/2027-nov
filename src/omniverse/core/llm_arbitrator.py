@@ -177,7 +177,7 @@ class HybridLLMArbitrator:
     }
 
     def __init__(self, registry: Optional[Dict[str, ModelSpec]] = None):
-        self.registry = registry or dict(self.DEFAULT_REGISTRY)
+        self.registry = registry if registry is not None else dict(self.DEFAULT_REGISTRY)
         self.settings = get_settings()
 
     def get_model(self, model_id: str) -> Optional[ModelSpec]:
@@ -188,12 +188,17 @@ class HybridLLMArbitrator:
         spec = self.registry.get(model_id)
         if not spec:
             return 0.0
-        in_cost = (prompt_tokens / 1000.0) * spec.input_cost_per_1k
-        out_cost = (completion_tokens / 1000.0) * spec.output_cost_per_1k
+        p_tokens = max(0, prompt_tokens)
+        c_tokens = max(0, completion_tokens)
+        in_cost = (p_tokens / 1000.0) * spec.input_cost_per_1k
+        out_cost = (c_tokens / 1000.0) * spec.output_cost_per_1k
         return round(in_cost + out_cost, 6)
 
     def route(self, request: ArbitrationRequest) -> ArbitrationResult:
         """Evaluates constraints and scores models to determine optimal primary & fallback chain."""
+        if not self.registry:
+            raise ValueError("Arbitrator registry cannot be empty")
+
         candidates = list(self.registry.values())
 
         # 1. Hard constraint: requires_offline
@@ -204,13 +209,28 @@ class HybridLLMArbitrator:
 
         # 2. Hard constraint: max_cost_usd
         if request.max_cost_usd is not None:
-            candidates = [
+            filtered = [
                 m for m in candidates
                 if self.estimate_cost(request.estimated_tokens, int(request.estimated_tokens * 0.5), m.model_id) <= request.max_cost_usd
             ]
-            if not candidates:
-                # Fallback to zero-cost offline models
-                candidates = [m for m in self.registry.values() if m.offline_capable]
+            if filtered:
+                candidates = filtered
+            else:
+                # If budget cannot be met by candidates, prefer zero-cost offline models if available
+                offline_candidates = [m for m in candidates if m.offline_capable]
+                if offline_candidates:
+                    candidates = offline_candidates
+                elif candidates:
+                    # Fallback to the cheapest candidate among current candidates
+                    cheapest = min(
+                        candidates,
+                        key=lambda m: self.estimate_cost(request.estimated_tokens, int(request.estimated_tokens * 0.5), m.model_id)
+                    )
+                    candidates = [cheapest]
+
+        if not candidates:
+            raise ValueError("No candidate models available in arbitrator registry satisfying constraints")
+
 
         # 3. Scoring algorithm
         scored_models: List[tuple[float, ModelSpec, str]] = []

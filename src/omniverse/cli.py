@@ -4,11 +4,12 @@ import json
 import time
 from pathlib import Path
 
-if sys.stdout.encoding.lower() != 'utf-8':
+if hasattr(sys.stdout, "reconfigure"):
     try:
-        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
+
 
 from omniverse.core.database import get_engine, init_db
 from omniverse.core.config import get_settings
@@ -459,10 +460,12 @@ def main():
     elif args.command == "benchmark":
         from omniverse.operations.benchmark import OmniverseBenchmarkingSuite
         suite = OmniverseBenchmarkingSuite()
-        print(f"\n🚀 Initiating Omniverse Empirical Benchmark Suite ({args.iterations} iterations)...")
-        report = suite.run_all(iterations=args.iterations)
+        iters = max(1, args.iterations)
+        print(f"\n🚀 Initiating Omniverse Empirical Benchmark Suite ({iters} iterations)...")
+        report = suite.run_all(iterations=iters)
         table = suite.render_table(report)
         print(f"\n{table}\n")
+
 
     else:
         parser.print_help()

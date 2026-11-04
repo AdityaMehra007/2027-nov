@@ -1,0 +1,258 @@
+"""Script to generate notebooks/omniverse_complete_walkthrough.ipynb cleanly."""
+
+import json
+from pathlib import Path
+
+
+def generate():
+    notebook_dir = Path("notebooks")
+    notebook_dir.mkdir(parents=True, exist_ok=True)
+
+    cells = [
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "# CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC\n",
+                "## Planetary Dual-Core Autonomous Operating System (2027)\n",
+                "---\n",
+                "Welcome to the official interactive walkthrough for **CASHFLOW INFINITY: OMNIVERSE**.\n",
+                "\n",
+                "### Architecture Overview\n",
+                "- **Core Alpha (Autonomous Capital & Agency Engine)**: 10-Unit Commerce Portfolio, Vectorized Quant Lab, Monte Carlo VaR, Analytical Black-Scholes Greeks, Triangular Arbitrage, RTGS Ledger.\n",
+                "- **Core Beta (Aether Planetary Mesh & Crisis ERP)**: 6-Continent Mesh, 4-Phase PBFT Consensus ($3f+1$ Byzantine Fault Tolerance), Sentinel-1 SAR Radar Processing, Disaster Logistics ERP, Multi-Model LLM Arbitrator.\n",
+                "- **Autonomous Evolution**: Self-Healing AST code auditor, performance profiler, and continuous benchmark suite.",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "import sys\n",
+                "import os\n",
+                "\n",
+                "# Verify omniverse module is importable\n",
+                "import omniverse\n",
+                'print(f"Loaded Omniverse Core Engine v{omniverse.__version__}")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 1. Quantitative Finance: Indicators, Vectorized Backtesting & Monte Carlo VaR\n",
+                "We evaluate technical momentum indicators (RSI, MACD, Bollinger Bands, ATR), run moving average crossover backtesting, and simulate 1,000 multi-path Monte Carlo trajectories to compute parametric Value-at-Risk ($VaR_{95}, VaR_{99}$) and Expected Shortfall ($CVaR$).",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.modules.intelligence.quant_engine import Backtester\n",
+                "from omniverse.modules.intelligence.indicators import (\n",
+                "    calculate_rsi,\n",
+                "    calculate_macd,\n",
+                "    calculate_bollinger_bands,\n",
+                "    calculate_atr\n",
+                ")\n",
+                "\n",
+                "prices = [23800.0, 23950.0, 23890.0, 24100.0, 24250.0, 24180.0, 24350.0, \n",
+                "          24480.0, 24420.0, 24600.0, 24750.0, 24900.0, 24820.0, 25050.0, 25200.0]\n",
+                "\n",
+                "rsi = calculate_rsi(prices)\n",
+                "macd = calculate_macd(prices)\n",
+                "bb = calculate_bollinger_bands(prices)\n",
+                'print(f"Latest Index Price: {prices[-1]:,.2f}")\n',
+                'print(f"RSI(14): {rsi:.2f}")\n',
+                'print(f"MACD Histogram: {macd[\'histogram\']:.2f}")\n',
+                'print(f"Bollinger Bands: [{bb[\'lower_band\']:,.2f}, {bb[\'upper_band\']:,.2f}]")\n',
+                "\n",
+                "backtester = Backtester()\n",
+                "var_res = backtester.run_monte_carlo_var(prices, num_simulations=1000, horizon_days=30)\n",
+                'print(f"Monte Carlo VaR (95%): {var_res[\'var_95_pct\']}%")\n',
+                'print(f"Monte Carlo VaR (99%): {var_res[\'var_99_pct\']}%")\n',
+                'print(f"Expected Shortfall (CVaR): {var_res[\'expected_shortfall_cvar_pct\']}%")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 2. Options Derivatives Greeks & Cross-Currency Triangular Arbitrage\n",
+                "Compute closed-form Black-Scholes Greeks ($\\Delta, \\Gamma, \\Theta, \\mathcal{V}, \\rho$) and scan foreign exchange / cryptocurrency cycles for negative log-weight triangular arbitrage.",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.modules.intelligence.derivatives import DerivativesEngine\n",
+                "\n",
+                "engine = DerivativesEngine()\n",
+                "greeks = engine.calculate_black_scholes_greeks(\n",
+                "    spot=100.0,\n",
+                "    strike=105.0,\n",
+                "    time_to_maturity_years=0.5,\n",
+                "    risk_free_rate=0.05,\n",
+                "    volatility=0.22\n",
+                ")\n",
+                'print("--- Black-Scholes Option Greeks ---")\n',
+                'print(f"Call Price: ${greeks.call_price:.2f} | Put Price: ${greeks.put_price:.2f}")\n',
+                'print(f"Delta Call: {greeks.delta_call:.4f} | Delta Put: {greeks.delta_put:.4f} | Gamma: {greeks.gamma:.4f}")\n',
+                'print(f"Theta Call: {greeks.theta_call:.4f} | Vega: {greeks.vega:.4f} | Rho Call: {greeks.rho_call:.4f}")\n',
+                "\n",
+                'rates = {"USD_INR": 83.50, "EUR_USD": 1.085, "EUR_INR": 91.20}\n',
+                "arb = engine.detect_triangular_arbitrage(rates=rates, initial_capital=100_000.0)\n",
+                'print("\\n--- Triangular Arbitrage Detection ---")\n',
+                'print(f"Cycle Path: {\' -> \'.join(arb.pair_path)}")\n',
+                'print(f"Initial: {arb.start_amount:,.2f} -> Final: {arb.end_amount:,.2f} | Profit: {arb.profit_pct:.4f}%")\n',
+                'print(f"Arbitrage Detected (>15bps): {arb.arbitrage_detected}")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 3. Core Beta: Aether Planetary Mesh & 4-Phase PBFT Consensus\n",
+                "Demonstrating Byzantine Fault Tolerant state replication across 7 geo-distributed nodes with 2 simulated adversary nodes ($3f + 1 = 7, f=2$).",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.modules.planetary_mesh.bft_consensus import ByzantineFaultTolerantEngine\n",
+                "\n",
+                "engine = ByzantineFaultTolerantEngine(total_nodes=7)\n",
+                "state = engine.initiate_pbft_consensus(\n",
+                '    proposal={"op": "LEDGER_SYNC", "block": 1042, "hash": "0x9b3f4e22"},\n',
+                "    adversarial_nodes=2\n",
+                ")\n",
+                'print(f"Final Phase: {state.phase.value}")\n',
+                'print(f"Sequence Number: {state.sequence_number} | View Number: {state.view_number}")\n',
+                'print(f"Prepare Votes: {state.prepare_votes} nodes")\n',
+                'print(f"Commit Votes: {state.commit_votes} nodes")\n',
+                'print(f"Is Finalized: {state.is_finalized}")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 4. Sentinel-1 SAR Radar Processing & Hazard Inundation Mapping\n",
+                "Orbital radar microwave backscatter ($\\sigma^0$) is processed using 2D speckle smoothing and Otsu bimodal valley thresholding to extract water body inundation polygons.",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.modules.aether.sar_processor import SARProcessor\n",
+                "\n",
+                "sar = SARProcessor()\n",
+                "# Synthetic swath: water pixels (-22 to -25 dB) and land pixels (-8 to -12 dB)\n",
+                "backscatter_grid = [-23.5, -22.0, -24.1, -21.8, -12.4, -9.1, -8.3, -11.0] * 8\n",
+                'mask = sar.process_sar_swath(area_name="Brahmaputra_Basin_Sector_A", backscatter_db_grid=backscatter_grid, pixel_resolution_m=10.0)\n',
+                'print(f"AOI: {mask.target_area}")\n',
+                'print(f"Total Sample Pixels: {mask.total_pixels}")\n',
+                'print(f"Inundated Water Pixels: {mask.water_pixels}")\n',
+                'print(f"Calculated Otsu Threshold: {mask.optimal_otsu_threshold_db:.2f} dB")\n',
+                'print(f"Flooded Area: {mask.inundation_area_km2:.4f} km^2")\n',
+                'print(f"Confidence Score: {mask.confidence_score:.2f}")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 5. Multi-Model LLM Arbitrator & Fallback Routing\n",
+                "Intelligently routes prompts across frontier providers (Gemini 1.5 Pro, Claude 3.5 Sonnet, GPT-4o, Local Ollama/vLLM) with automatic degradation failover and latency/cost tracking.",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.core.llm_arbitrator import HybridLLMArbitrator, ArbitrationRequest, TaskCategory\n",
+                "\n",
+                "arbitrator = HybridLLMArbitrator()\n",
+                "req = ArbitrationRequest(\n",
+                '    prompt="Synthesize global disaster supply chain response given SAR flood coordinates.",\n',
+                "    task_category=TaskCategory.STRATEGIC_REASONING,\n",
+                "    max_latency_ms=1000\n",
+                ")\n",
+
+                "resp = arbitrator.execute(req)\n",
+                'print(f"Provider Used: {resp.provider_used.value}")\n',
+                'print(f"Model Used: {resp.model_used}")\n',
+                'print(f"Actual Latency: {resp.actual_latency_ms:.2f} ms")\n',
+                'print(f"Estimated Cost: ${resp.cost_usd:.6f}")\n',
+                'print(f"Tokens: {resp.total_tokens}")\n',
+                'print(f"Success: {resp.success}")\n',
+                'print(f"Content: {resp.content}")\n',
+            ],
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 6. Institutional Benchmark Summary\n",
+                "Running system microbenchmarks across all subsystem components.",
+            ],
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "from omniverse.operations.benchmark import OmniverseBenchmarkingSuite\n",
+                "\n",
+                "bench = OmniverseBenchmarkingSuite()\n",
+                "report = bench.run_all(iterations=5)\n",
+                'print(f"Institutional Rating: {report.overall_grade}")\n',
+                'print(f"Total Benchmarks Run: {report.total_benchmarks}")\n',
+                "for metric in report.metrics:\n",
+                '    print(f" - {metric.name}: {metric.throughput_ops_per_sec:,.0f} op/s (p99={metric.p99_latency_ms:.3f}ms)")\n',
+            ],
+        },
+    ]
+
+    notebook = {
+        "cells": cells,
+        "metadata": {
+            "language_info": {
+                "name": "python",
+                "version": "3.12.0",
+            },
+            "kernelspec": {
+                "display_name": "Python 3",
+                "language": "python",
+                "name": "python3",
+            },
+        },
+        "nbformat": 4,
+        "nbformat_minor": 5,
+    }
+
+    out_path = notebook_dir / "omniverse_complete_walkthrough.ipynb"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(notebook, f, indent=2)
+
+    print(f"Generated notebook at {out_path}")
+
+
+if __name__ == "__main__":
+    generate()

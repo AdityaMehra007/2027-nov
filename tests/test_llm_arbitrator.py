@@ -111,3 +111,40 @@ def test_execute_telemetry_events():
     event_names = [e["event_name"] for e in events]
     assert "LLM_ROUTED" in event_names
     assert "LLM_COMPLETED" in event_names
+
+def test_empty_registry_raises_value_error():
+    arbitrator = HybridLLMArbitrator(registry={})
+    with pytest.raises(ValueError, match="Arbitrator registry cannot be empty"):
+        arbitrator.route(ArbitrationRequest(prompt="test"))
+
+def test_negative_tokens_clamped_to_zero():
+    arbitrator = HybridLLMArbitrator()
+    cost = arbitrator.estimate_cost(-500, -200, "gemini-1.5-pro")
+    assert cost == 0.0
+
+def test_strict_budget_online_only_fallback():
+    # Registry with only commercial model
+    arbitrator = HybridLLMArbitrator(registry={
+        "gpt-4o": HybridLLMArbitrator.DEFAULT_REGISTRY["gpt-4o"]
+    })
+    req = ArbitrationRequest(prompt="Budget test", max_cost_usd=0.00000001)
+    result = arbitrator.route(req)
+    assert result.selected_model.model_id == "gpt-4o"
+
+def test_all_providers_outage_heuristic_fallback():
+    arbitrator = HybridLLMArbitrator()
+    req = ArbitrationRequest(prompt="Simulate total infrastructure loss")
+    # All providers offline
+    all_providers = [
+        ModelProvider.GEMINI,
+        ModelProvider.ANTHROPIC,
+        ModelProvider.OPENAI,
+        ModelProvider.OLLAMA,
+        ModelProvider.VLLM
+    ]
+    response = arbitrator.execute(req, mock_provider_failures=all_providers)
+    assert response.success is True
+    assert response.failover_occurred is True
+    assert response.provider_used == ModelProvider.HEURISTIC_FALLBACK
+    assert response.model_used == "rule-based-kernel-fallback"
+
