@@ -105,3 +105,27 @@ def test_cost_of_living_hsr_layout():
     assert analysis.savings_ratio > 0.0
 
 
+def test_money_flow_simulation_conservation():
+    from omniverse.modules.bangalore.money_flow import simulate_capital_flow
+
+    inflow = 100000000.0  # ₹10 Crores
+    res = simulate_capital_flow(inflow_amount_inr=inflow, source="GCC_OPEX")
+
+    assert res.capital_inflow_inr == inflow
+    assert res.payroll_allocation_inr > 0.0
+    assert res.residential_rent_to_landlords_inr > 0.0
+    assert res.rental_deposits_frozen_inr > 0.0
+    assert res.local_merchant_spend_inr > 0.0
+    assert res.capital_velocity_ratio > 1.0
+    assert 0.0 <= res.landlord_absorption_rate <= 1.0
+
+    # Strict conservation test: corporate allocation breakdown must equal inflow
+    allocated_sum = (
+        res.payroll_allocation_inr
+        + res.cloud_infra_capex_inr
+        + res.commercial_office_lease_inr
+    )
+    assert allocated_sum == pytest.approx(inflow, rel=1e-3)
+
+
+
