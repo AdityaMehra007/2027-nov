@@ -6,10 +6,18 @@ from omniverse.modules.aether.models import (
     ResilienceAssessment
 )
 from omniverse.modules.aether.risk_engine import AetherRiskEngine
+from omniverse.modules.aether.logistics import (
+    ReliefShelter,
+    EmergencyResourceRequest,
+    CrisisLogisticsEngine
+)
 
 __all__ = [
     "HazardType",
     "RiskLevel",
     "ResilienceAssessment",
-    "AetherRiskEngine"
+    "AetherRiskEngine",
+    "ReliefShelter",
+    "EmergencyResourceRequest",
+    "CrisisLogisticsEngine"
 ]
