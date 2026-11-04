@@ -13,6 +13,11 @@ from omniverse.modules.agency.models import (
     ClientAccount,
     AgencyMetrics,
 )
+from omniverse.modules.agency.acquisition import (
+    LeadHunter,
+    TechAuditor,
+    PitchGenerator,
+)
 
 __all__ = [
     "ProspectArchetype",
@@ -26,4 +31,7 @@ __all__ = [
     "Deliverable",
     "ClientAccount",
     "AgencyMetrics",
+    "LeadHunter",
+    "TechAuditor",
+    "PitchGenerator",
 ]
