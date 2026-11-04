@@ -41,7 +41,7 @@
   - `MoneyFlowSimulationResult` (Pydantic model)
   - `ProjectArchetype` (Pydantic model)
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # tests/test_bangalore_economic_engine.py
@@ -92,21 +92,21 @@ def test_bangalore_economic_models_instantiation():
     assert col.avg_2bhk_rent_inr == 38000.0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py -v`  
 Expected: FAIL with `ImportError: cannot import name 'CompanyTier' from 'omniverse.modules.bangalore.models'`
 
-- [ ] **Step 3: Implement models in `src/omniverse/modules/bangalore/models.py`**
+- [x] **Step 3: Implement models in `src/omniverse/modules/bangalore/models.py`**
 
 Add the enums and Pydantic models to `src/omniverse/modules/bangalore/models.py`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/models.py tests/test_bangalore_economic_engine.py
@@ -128,7 +128,7 @@ git commit -m "feat(bangalore): add economic, salary, CoL, and moneyflow models"
   - `get_salary_benchmark(tier: CompanyTier, role: TechRole, experience_years: float = 3.0) -> SalaryBenchmark`
   - `compare_tiers(role: TechRole, experience_years: float = 3.0) -> list[SalaryBenchmark]`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -162,21 +162,21 @@ def test_get_salary_benchmark():
     assert len(tiers) == 5
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_compute_new_regime_tax -v`  
 Expected: FAIL with `ModuleNotFoundError: No module named 'omniverse.modules.bangalore.salary_benchmarking'`
 
-- [ ] **Step 3: Implement `src/omniverse/modules/bangalore/salary_benchmarking.py`**
+- [x] **Step 3: Implement `src/omniverse/modules/bangalore/salary_benchmarking.py`**
 
 Implement deterministic calculations for New Tax Regime slabs, role compensations, and tier comparisons.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py -k "test_compute_new_regime_tax or test_get_salary_benchmark" -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/salary_benchmarking.py tests/test_bangalore_economic_engine.py
@@ -198,7 +198,7 @@ git commit -m "feat(bangalore): add salary benchmarking and new tax regime calcu
   - `get_cluster_col(cluster: BangaloreCluster) -> ClusterCostOfLiving`
   - `analyze_cluster_living(cluster: BangaloreCluster, bhk: int, salary: SalaryBenchmark) -> ClusterLivingAnalysis`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -222,21 +222,21 @@ def test_cost_of_living_hsr_layout():
     assert analysis.savings_ratio > 0.0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_cost_of_living_hsr_layout -v`  
 Expected: FAIL with `ModuleNotFoundError: No module named 'omniverse.modules.bangalore.cost_of_living'`
 
-- [ ] **Step 3: Implement `src/omniverse/modules/bangalore/cost_of_living.py`**
+- [x] **Step 3: Implement `src/omniverse/modules/bangalore/cost_of_living.py`**
 
 Define cluster benchmarks for all 8 tech clusters and calculate deposit lock drag, opportunity costs, and net savings ratios.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_cost_of_living_hsr_layout -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/cost_of_living.py tests/test_bangalore_economic_engine.py
@@ -256,7 +256,7 @@ git commit -m "feat(bangalore): add cluster cost-of-living and deposit lock simu
 - Produces:
   - `simulate_capital_flow(inflow_amount_inr: float, source: str = "GCC_OPEX") -> MoneyFlowSimulationResult`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -275,21 +275,21 @@ def test_money_flow_simulation_conservation():
     assert 0.0 <= res.landlord_absorption_rate <= 1.0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_money_flow_simulation_conservation -v`  
 Expected: FAIL with `ModuleNotFoundError: No module named 'omniverse.modules.bangalore.money_flow'`
 
-- [ ] **Step 3: Implement `src/omniverse/modules/bangalore/money_flow.py`**
+- [x] **Step 3: Implement `src/omniverse/modules/bangalore/money_flow.py`**
 
 Simulate the cascading flow of corporate capital through payroll, landlords, merchant commerce, taxes, and investments.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_money_flow_simulation_conservation -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/money_flow.py tests/test_bangalore_economic_engine.py
@@ -310,7 +310,7 @@ git commit -m "feat(bangalore): add macroeconomic money-flow capital simulator"
   - `get_project_archetypes() -> list[ProjectArchetype]`
   - `get_project_by_id(project_id: str) -> ProjectArchetype | None`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -330,21 +330,21 @@ def test_project_archetypes_catalog():
     assert len(p1.core_tech_stack) >= 3
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_project_archetypes_catalog -v`  
 Expected: FAIL with `ModuleNotFoundError: No module named 'omniverse.modules.bangalore.projects'`
 
-- [ ] **Step 3: Implement `src/omniverse/modules/bangalore/projects.py`**
+- [x] **Step 3: Implement `src/omniverse/modules/bangalore/projects.py`**
 
 Define the 5 Bengaluru project archetypes with architectural diagrams, tech stacks, scale metrics, and engineering challenges.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_project_archetypes_catalog -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/projects.py tests/test_bangalore_economic_engine.py
@@ -368,7 +368,7 @@ git commit -m "feat(bangalore): add bengaluru tech project archetypes registry"
   - `GET /api/v1/bangalore/projects`
   - `GET /api/v1/bangalore/overview`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -416,21 +416,21 @@ def test_api_projects(api_client):
     assert len(res.json()) >= 5
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_api_salary_benchmarks -v`  
 Expected: FAIL with `404 Not Found`
 
-- [ ] **Step 3: Update `src/omniverse/modules/bangalore/__init__.py` & `src/omniverse/api/routes/bangalore.py`**
+- [x] **Step 3: Update `src/omniverse/modules/bangalore/__init__.py` & `src/omniverse/api/routes/bangalore.py`**
 
 Register the new endpoints on the FastAPI router with request/response serialization.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_bangalore_economic_engine.py -k "test_api" -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/__init__.py src/omniverse/api/routes/bangalore.py tests/test_bangalore_economic_engine.py
@@ -454,7 +454,7 @@ git commit -m "feat(bangalore): add REST API routes for economic, salary, and mo
   - `omniverse bangalore projects`
   - `omniverse bangalore overview`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```python
 # append to tests/test_bangalore_economic_engine.py
@@ -475,16 +475,16 @@ def test_cli_bangalore_projects():
     assert "BLR-PROJ-01" in result.output
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_bangalore_economic_engine.py::test_cli_bangalore_salary -v`  
 Expected: FAIL with `No such command 'salary'` or `exit_code != 0`
 
-- [ ] **Step 3: Implement CLI commands in `cli_commands.py` & wire into `src/omniverse/cli.py`**
+- [x] **Step 3: Implement CLI commands in `cli_commands.py` & wire into `src/omniverse/cli.py`**
 
 Wire the Click/Rich commands into the CLI.
 
-- [ ] **Step 4: Run all tests to verify 100% pass rate**
+- [x] **Step 4: Run all tests to verify 100% pass rate**
 
 Run:
 ```bash
@@ -493,7 +493,7 @@ pytest tests/test_bangalore_cashflow.py -v
 ```
 Expected: PASS (100% green, zero regressions)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/omniverse/modules/bangalore/cli_commands.py src/omniverse/cli.py tests/test_bangalore_economic_engine.py
