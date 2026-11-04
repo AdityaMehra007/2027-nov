@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from omniverse.core.config import OmniverseSettings, get_settings
 from omniverse.core.database import DatabaseEngine, get_engine
 from omniverse.api.routes.dashboard import get_dashboard_router
 from omniverse.api.routes.revenue import get_revenue_router
@@ -10,15 +12,51 @@ from omniverse.api.routes.saas import get_saas_router
 from omniverse.api.routes.ws import get_ws_router
 from omniverse.api.routes.planetary import get_planetary_router
 
-def create_app(db_engine: DatabaseEngine | None = None) -> FastAPI:
+def create_app(
+    db_engine: DatabaseEngine | None = None,
+    settings: OmniverseSettings | None = None,
+) -> FastAPI:
     engine = db_engine or get_engine()
     engine.init_db()
+
+    app_settings = settings or get_settings()
+    is_production = app_settings.env.lower() == "production"
+
+    docs_url = None if is_production else "/docs"
+    redoc_url = None if is_production else "/redoc"
+    openapi_url = None if is_production else "/openapi.json"
 
     app = FastAPI(
         title="CASHFLOW INFINITY: OMNIVERSE Command Center API",
         version="1.0.0",
-        description="Autonomous Revenue, Market Intelligence, and Operations Engine API"
+        description="Autonomous Revenue, Market Intelligence, and Operations Engine API",
+        docs_url=docs_url,
+        redoc_url=redoc_url,
+        openapi_url=openapi_url,
     )
+
+    allowed_hosts = getattr(app_settings, "allowed_hosts", None) or ["127.0.0.1", "localhost", "testserver", "*"]
+    if "testserver" not in allowed_hosts and "*" not in allowed_hosts:
+        allowed_hosts = list(allowed_hosts) + ["testserver"]
+    app.add_middleware(
+        TrustedHostMiddleware,
+        allowed_hosts=allowed_hosts,
+    )
+
+    @app.middleware("http")
+    async def add_security_headers(request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "font-src 'self' https://fonts.gstatic.com; "
+            "connect-src 'self' ws: wss:; "
+            "script-src 'self' 'unsafe-inline';"
+        )
+        return response
 
     def get_session():
         with engine.get_session() as session:
@@ -39,7 +77,7 @@ def create_app(db_engine: DatabaseEngine | None = None) -> FastAPI:
         return {
             "system": "CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC",
             "status": "OPERATIONAL",
-            "docs": "/docs",
+            "docs": docs_url,
             "dashboard": "/dashboard"
         }
 
