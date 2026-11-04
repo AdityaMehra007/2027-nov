@@ -58,6 +58,14 @@ from omniverse.modules.bangalore import (
     BangaloreBankOffice,
     BangaloreBankingEngine,
 )
+from omniverse.enterprise import (
+    GCCMatrix,
+    ProofEngine,
+    ABMCampaign,
+    EnterpriseSecurityBrief,
+    PilotFramework,
+    Corridor as EnterpriseCorridor,
+)
 import hmac
 import hashlib
 import uuid
@@ -309,6 +317,36 @@ def main():
 
     # Command: agency-status
     subparsers.add_parser("agency-status", help="Inspect autonomous agency operations, pipeline, and reconciled ledger")
+
+    # Command: enterprise-list
+    el_parser = subparsers.add_parser("enterprise-list", help="List Bangalore GCC accounts across tech corridors")
+    el_parser.add_argument("--corridor", default=None, help="Filter by corridor")
+    el_parser.add_argument("--sector", default=None, help="Filter by industry sector")
+    el_parser.add_argument("--min-score", type=int, default=None, help="Minimum automation readiness score")
+
+    # Command: enterprise-teardown
+    et_parser = subparsers.add_parser("enterprise-teardown", help="Generate proof-first architectural teardown and video script")
+    et_parser.add_argument("--company", required=True, help="Target company name")
+    et_parser.add_argument("--workflow", default=None, help="Target operational workflow")
+
+    # Command: enterprise-outreach
+    eo_parser = subparsers.add_parser("enterprise-outreach", help="Generate executive 4-touch ABM sequence")
+    eo_parser.add_argument("--company", required=True, help="Target company name")
+    eo_parser.add_argument("--executive", default=None, help="Target executive title")
+    eo_parser.add_argument("--one-pager", action="store_true", help="Emit executive one-pager Markdown")
+
+    # Command: enterprise-pilot
+    ep_parser = subparsers.add_parser("enterprise-pilot", help="Generate 6-week paid enterprise pilot agreement")
+    ep_parser.add_argument("--company", required=True, help="Target company name")
+    ep_parser.add_argument("--fee", type=float, default=3500000.0, help="Pilot fee in INR")
+    ep_parser.add_argument("--duration", type=int, default=6, help="Duration in weeks")
+    ep_parser.add_argument("--contract", action="store_true", help="Emit complete MSA text")
+
+    # Command: enterprise-security
+    es_parser = subparsers.add_parser("enterprise-security", help="Generate enterprise VPC zero-egress compliance pack")
+    es_parser.add_argument("--company", required=True, help="Target company name")
+    es_parser.add_argument("--cloud", default="aws", choices=["aws", "azure", "gcp"], help="Cloud provider")
+    es_parser.add_argument("--dossier", action="store_true", help="Emit full CISO whitepaper")
 
     args = parser.parse_args()
 
@@ -1224,6 +1262,101 @@ def main():
         print("Verified Revenue   : $48,200.00 USD (Reconciled Collected Revenue)")
         print("Web Cockpit URL    : http://127.0.0.1:8000/api/v1/agency/cockpit")
         print("================================================================================\n")
+
+    elif args.command == "enterprise-list":
+        matrix = GCCMatrix()
+        corridor_enum = None
+        if args.corridor:
+            try:
+                corridor_enum = EnterpriseCorridor[args.corridor.upper()]
+            except KeyError:
+                corridor_enum = None
+        accounts = matrix.list_accounts(corridor=corridor_enum, sector=args.sector, min_score=args.min_score)
+        print("\n" + "=" * 95)
+        print("         BENGALURU GCC & MNC ENTERPRISE INTELLIGENCE MATRIX (CASHFLOW INFINITY)        ")
+        print("=" * 95)
+        print(f"{'Company':<28} | {'Corridor':<18} | {'Readiness':<9} | {'Headcount':<9} | {'Sector':<20}")
+        print("-" * 95)
+        for a in accounts:
+            print(f"{a.name:<28} | {a.corridor.value:<18} | {a.readiness_score:<9} | {a.headcount:<9,} | {a.sector[:20]:<20}")
+        print("=" * 95)
+        print(f"Total Enterprise Targets Discovered: {len(accounts)}")
+        print("=" * 95 + "\n")
+
+    elif args.command == "enterprise-teardown":
+        pe = ProofEngine()
+        td = pe.generate_teardown(args.company, args.workflow)
+        print("\n" + "=" * 80)
+        print(f"       'PROOF-FIRST' ARCHITECTURAL TEARDOWN // {td.company.upper()}       ")
+        print("=" * 80)
+        print(f"Corridor          : {td.corridor.value}")
+        print(f"Target Workflow   : {td.target_workflow}")
+        print(f"Baseline Toil Cost: ₹{td.baseline_cost_inr:,.0f} INR/Year")
+        print(f"Quantified ROI    : ₹{td.quantified_annual_roi_inr:,.0f} INR/Year (${td.quantified_annual_roi_inr/83000000:.2f}M USD)")
+        print(f"\nArchitecture Summary:\n{td.agent_architecture_summary}\n")
+        print("Sequence Flow:")
+        print(td.architecture_diagram)
+        print("\n--- 3-MINUTE EXECUTIVE VIDEO SCRIPT ---")
+        for p in td.video_script_paragraphs:
+            print(f"\n{p}")
+        print("\n" + "=" * 80 + "\n")
+
+    elif args.command == "enterprise-outreach":
+        abm = ABMCampaign()
+        if args.one_pager:
+            print(abm.generate_one_pager(args.company))
+        else:
+            seq = abm.generate_cadence(args.company, args.executive)
+            print("\n" + "=" * 80)
+            print(f"       EXECUTIVE ABM CADENCE // {seq.company.upper()} ({seq.executive_title})       ")
+            print("=" * 80)
+            print(f"Personalized Hook : {seq.personalized_hook}\n")
+            for t in seq.touches:
+                print("-" * 80)
+                print(f"Touch {t.touch_number} (Day +{t.delay_days}) | Channel: {t.channel}")
+                print(f"Subject: {t.subject}")
+                print(f"Body:\n{t.body}\n")
+            print("=" * 80 + "\n")
+
+    elif args.command == "enterprise-pilot":
+        pf = PilotFramework()
+        if args.contract:
+            print(pf.generate_contract_document(args.company, args.fee))
+        else:
+            agreement = pf.generate_agreement(args.company, args.fee, args.duration)
+            print("\n" + "=" * 80)
+            print(f"       6-WEEK ENTERPRISE PILOT SOW // {agreement.company.upper()}       ")
+            print("=" * 80)
+            print(f"Scoped Pilot Fee  : ₹{agreement.pilot_fee_inr:,.0f} INR")
+            print(f"Applicable GST 18%: ₹{agreement.gst_amount_inr:,.0f} INR")
+            print(f"Total Contract    : ₹{agreement.total_contract_value_inr:,.0f} INR")
+            print(f"Annual Retainer   : ₹{agreement.annual_retainer_conversion_fee_inr:,.0f} INR/Year")
+            print(f"Pilot Duration    : {agreement.duration_weeks} Weeks\n")
+            print("Milestone Schedule:")
+            for m in agreement.milestones:
+                print(f"  • Week {m.week_number}: {m.name} ({m.payment_percentage*100:.0f}%) -> {m.deliverable}")
+            print("\nSLA Terms:")
+            print(agreement.sla_terms)
+            print("=" * 80 + "\n")
+
+    elif args.command == "enterprise-security":
+        sec = EnterpriseSecurityBrief()
+        if args.dossier:
+            print(sec.generate_security_document(args.company, args.cloud))
+        else:
+            pack = sec.generate_pack(args.company, args.cloud)
+            print("\n" + "=" * 80)
+            print(f"       ENTERPRISE VPC SECURITY PACK // {pack.company.upper()}       ")
+            print("=" * 80)
+            print(f"Cloud Infrastructure : {pack.cloud_provider}")
+            print(f"Deployment Region    : {pack.deployment_region}")
+            print(f"Data Boundary Policy : {pack.data_boundary_policy}")
+            print(f"Encryption           : {pack.encryption_architecture}")
+            print(f"RBAC & IAM           : {pack.rbac_policy}\n")
+            print("Compliance Standards:")
+            for c in pack.compliance_standards:
+                print(f"  ✓ {c}")
+            print("=" * 80 + "\n")
 
     else:
         parser.print_help()

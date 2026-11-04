@@ -106,3 +106,64 @@ def test_pilot_framework():
     contract = framework.generate_contract_document("Mercedes-Benz R&D India")
     assert "# Master Services Agreement: 6-Week Scoped Enterprise AI Pilot" in contract
     assert "3,500,000" in contract or "35,00,000" in contract
+
+
+def test_cli_enterprise_list():
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "-m", "omniverse.cli", "enterprise-list", "--corridor", "OUTER_RING_ROAD"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "OUTER_RING_ROAD" in result.stdout
+    assert "Wells Fargo" in result.stdout or "JP Morgan" in result.stdout
+
+def test_cli_enterprise_teardown():
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "-m", "omniverse.cli", "enterprise-teardown", "--company", "Target India"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "Target India" in result.stdout
+    assert "ROI" in result.stdout
+
+def test_cli_enterprise_outreach():
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "-m", "omniverse.cli", "enterprise-outreach", "--company", "Wells Fargo India"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "Wells Fargo" in result.stdout
+    assert "Touch 1" in result.stdout
+
+def test_cli_enterprise_pilot():
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "-m", "omniverse.cli", "enterprise-pilot", "--company", "Mercedes-Benz R&D India", "--fee", "3500000"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "MERCEDES-BENZ" in result.stdout.upper()
+    assert "4,130,000" in result.stdout or "3,500,000" in result.stdout
+
+def test_cli_enterprise_security():
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "-m", "omniverse.cli", "enterprise-security", "--company", "JP Morgan Chase"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "JP MORGAN" in result.stdout.upper()
+    assert "Zero Egress" in result.stdout or "VPC" in result.stdout

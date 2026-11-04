@@ -138,12 +138,15 @@ class GCCMatrix:
     def list_accounts(
         self,
         corridor: Optional[Corridor] = None,
+        sector: Optional[str] = None,
         min_score: Optional[int] = None,
     ) -> List[GCCAccount]:
-        """Filters GCC accounts by corridor and minimum AI readiness score."""
+        """Filters GCC accounts by corridor, sector, and minimum AI readiness score."""
         results = self.ACCOUNTS
         if corridor is not None:
             results = [a for a in results if a.corridor == corridor]
+        if sector is not None:
+            results = [a for a in results if sector.lower() in a.sector.lower()]
         if min_score is not None:
             results = [a for a in results if a.readiness_score >= min_score]
         return results
