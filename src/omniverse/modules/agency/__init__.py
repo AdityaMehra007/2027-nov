@@ -19,16 +19,26 @@ from omniverse.modules.agency.models import (
     ServiceType,
 )
 
+from omniverse.modules.agency.portal_engine import AgencyPortalEngine
 from omniverse.modules.agency.qa_governor import (
     QAGovernor,
     QAVerificationResult,
 )
+from omniverse.modules.agency.world_clients import (
+    GlobalHub,
+    IndustrySector,
+    WorldClient,
+    WorldClientDirectory,
+)
 
 __all__ = [
     "AgencyMetrics",
+    "AgencyPortalEngine",
     "AuditReport",
     "ClientAccount",
     "Deliverable",
+    "GlobalHub",
+    "IndustrySector",
     "JobOrder",
     "Lead",
     "LeadHunter",
@@ -41,4 +51,6 @@ __all__ = [
     "QAVerificationResult",
     "ServiceType",
     "TechAuditor",
+    "WorldClient",
+    "WorldClientDirectory",
 ]

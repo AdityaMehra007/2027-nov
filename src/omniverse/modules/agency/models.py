@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime, timezone
 from enum import Enum
@@ -85,6 +87,7 @@ class JobOrder(BaseModel):
     brief: str
     budget_usd: float
     status: OrderStatus = OrderStatus.QUEUED
+    deliverables: List[Deliverable] = Field(default_factory=list)
 
     @property
     def order_id(self) -> str:
@@ -111,6 +114,10 @@ class ClientAccount(BaseModel):
     company: str
     access_token: str = Field(default_factory=lambda: f"{uuid.uuid4().hex}{uuid.uuid4().hex}")
     lifetime_spend_usd: float = 0.0
+
+    @property
+    def client_id(self) -> str:
+        return self.id
 
     def record_payment(self, amount: float) -> None:
         self.lifetime_spend_usd += amount
