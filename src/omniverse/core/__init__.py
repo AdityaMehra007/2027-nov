@@ -14,6 +14,11 @@ from omniverse.core.llm_arbitrator import (
     ArbitrationResponse,
     HybridLLMArbitrator
 )
+from omniverse.core.conglomerate import (
+    AutonomousConglomerateKernel,
+    ConglomerateMetrics,
+    ConglomerateCycleReport,
+)
 
 __all__ = [
     "OmniverseSettings",
@@ -32,4 +37,7 @@ __all__ = [
     "ArbitrationResult",
     "ArbitrationResponse",
     "HybridLLMArbitrator",
+    "AutonomousConglomerateKernel",
+    "ConglomerateMetrics",
+    "ConglomerateCycleReport",
 ]
