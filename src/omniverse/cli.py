@@ -257,6 +257,31 @@ def main():
     dir_parser.add_argument("--summary", action="store_true", default=True, help="Display directive executive summary")
     dir_parser.add_argument("--json", action="store_true", help="Output directive status as JSON")
 
+    # Command: world-clients
+    wc_parser = subparsers.add_parser("world-clients", help="List and filter international clients from global commercial hubs")
+    wc_parser.add_argument("--hub", choices=["SF_BAY_AREA", "NEW_YORK", "LONDON", "BERLIN", "SINGAPORE", "TOKYO", "DUBAI", "BENGALURU"], default=None, help="Global commercial hub")
+    wc_parser.add_argument("--sector", choices=["SAAS_DEVTOOLS", "FINTECH_PAYMENTS", "HEALTHCARE_CLINICAL", "ECOMMERCE_DTC", "CLEANTECH_ENERGY", "SMB_SERVICES"], default=None, help="Industry sector")
+    wc_parser.add_argument("--limit", type=int, default=10, help="Maximum clients to display")
+
+    # Command: audit-client
+    ac_parser = subparsers.add_parser("audit-client", help="Run diagnostic agent audit on a specific global company")
+    ac_parser.add_argument("--client", required=True, help="Company name to audit")
+
+    # Command: build-for-client
+    bfc_parser = subparsers.add_parser("build-for-client", help="Autonomously forge fullstack code, AI agent runtime, and marketing suite for a client")
+    bfc_parser.add_argument("--client", required=True, help="Target company name")
+    bfc_parser.add_argument("--budget", type=float, default=15000.0, help="Contract budget in USD")
+
+    # Command: run-world-swarm
+    rws_parser = subparsers.add_parser("run-world-swarm", help="Run 8-agent autonomous swarm across international client cohort")
+    rws_parser.add_argument("--hub", default=None, help="Target global hub")
+    rws_parser.add_argument("--sector", default=None, help="Target industry sector")
+    rws_parser.add_argument("--limit", type=int, default=3, help="Number of clients to process")
+    rws_parser.add_argument("--contract", type=float, default=15000.0, help="Contract value per client in USD")
+
+    # Command: world-stats
+    subparsers.add_parser("world-stats", help="Display global TAM analysis, directory metrics, and international hub distribution")
+
     args = parser.parse_args()
 
     init_db()
@@ -908,6 +933,129 @@ def main():
             for p in MasterDirectiveRegistry.get_personas():
                 print(f"  * {p.role} ({p.division}): {p.mandate}")
             print("================================================================================\n")
+
+    elif args.command == "world-clients":
+        from omniverse.modules.agency.world_clients import WorldClientDirectory, GlobalHub, IndustrySector
+        directory = WorldClientDirectory()
+        hub = GlobalHub(args.hub) if args.hub else None
+        sector = IndustrySector(args.sector) if args.sector else None
+        clients = directory.filter_clients(hub=hub, sector=sector)[:args.limit]
+
+        print("\n================================================================================")
+        print("          WORLD CLIENT DIRECTORY — GLOBAL COMMERCIAL HUBS & SECTORS             ")
+        print("================================================================================")
+        print(f"Filter Hub: {args.hub or 'ALL'} | Filter Sector: {args.sector or 'ALL'} | Display Limit: {args.limit}")
+        print("-" * 80)
+        for i, c in enumerate(clients, 1):
+            print(f"[{i:02d}] {c.name.upper()} ({c.country})")
+            print(f"     Hub    : {c.hub.value:<15} | Sector : {c.sector.value}")
+            print(f"     Revenue: ${c.annual_revenue_usd:,.0f} | Web    : {c.website}")
+            print(f"     Tech   : {', '.join(c.tech_stack[:4])}")
+            print(f"     Needs  : {'; '.join(c.declared_needs[:2])}")
+            print("-" * 80)
+        print(f"Total Discovered: {len(clients)} companies\n")
+
+    elif args.command == "audit-client":
+        from omniverse.agents.client_diagnostic import ClientDiagnosticAgent
+        agent = ClientDiagnosticAgent()
+        from omniverse.agents.base import AgentTask
+        res = agent.execute_task(AgentTask(task_type="AUDIT_CLIENT", payload={"client_name": args.client}))
+        if res.get("status") == "SUCCESS":
+            diag = res["diagnosis"]
+            print("\n================================================================================")
+            print(f"             CLIENT DIAGNOSTIC REPORT: {diag['client_name'].upper()}            ")
+            print("================================================================================")
+            print(f"Performance Score : {diag['performance_score']:.1f}/100.0")
+            print(f"SEO Score         : {diag['seo_score']:.1f}/100.0")
+            print(f"Conversion Score  : {diag['conversion_score']:.1f}/100.0")
+            print(f"Overall Health    : {diag['overall_health']:.1f}/100.0")
+            print(f"Est. Monthly Loss : ${diag['estimated_monthly_loss_usd']:,.2f} USD")
+            print(f"Recommended Build : {diag['recommended_archetype']}")
+            print("\nPRIMARY OPERATIONAL BOTTLENECKS:")
+            for b in diag["primary_bottlenecks"]:
+                print(f"  [!] {b}")
+            print("================================================================================\n")
+        else:
+            print(f"Audit failed: {res.get('message')}")
+
+    elif args.command == "build-for-client":
+        from omniverse.modules.agency.world_clients import WorldClientDirectory
+        from omniverse.modules.agency.fulfillment.forge_pipeline import UniversalForgePipeline
+        directory = WorldClientDirectory()
+        client = directory.get_client_by_name(args.client)
+        if not client:
+            print(f"Error: Client '{args.client}' not found in World Client Directory.")
+        else:
+            print("\n================================================================================")
+            print(f"   UNIVERSAL CODE FORGE: MANUFACTURING ALL DELIVERABLES FOR {client.name.upper()}   ")
+            print("================================================================================")
+            pipeline = UniversalForgePipeline()
+            package = pipeline.build_everything_for_client(client, budget_usd=args.budget)
+            print(f"Build Target : {package.client_name} ({package.hub})")
+            print(f"Order ID     : {package.order_id}")
+            print(f"Output Dir   : {package.build_dir}")
+            print(f"Total Files  : {package.total_files} artifacts")
+            print(f"Total Bytes  : {package.total_bytes:,} bytes")
+            print(f"QA Status    : {'VERIFIED & PASSED' if package.qa_passed else 'FAILED'}\n")
+            print("GENERATED ARTIFACTS & SHA-256 MANIFEST:")
+            for d in package.all_deliverables:
+                print(f"  * [{d.artifact_type:<10}] {d.artifact_name:<24} ({d.size_bytes:>5} bytes) -> {d.checksum[:16]}...")
+            print(f"\nManifest Path: {package.manifest_path}")
+            print("================================================================================\n")
+
+    elif args.command == "run-world-swarm":
+        from omniverse.agents.swarm_orchestrator import SupremeSwarmOrchestrator
+        from omniverse.modules.agency.world_clients import GlobalHub, IndustrySector
+        hub = GlobalHub(args.hub) if args.hub else None
+        sector = IndustrySector(args.sector) if args.sector else None
+        orchestrator = SupremeSwarmOrchestrator()
+
+        print("\n================================================================================")
+        print("        SUPREME SWARM ORCHESTRATOR: EXECUTING 8-AGENT WORLD WORKFORCE           ")
+        print("================================================================================")
+        print(f"Target Hub: {args.hub or 'ALL'} | Target Sector: {args.sector or 'ALL'} | Cohort: {args.limit}")
+        print("Active Swarm Fleet: 8 Autonomous Agents Registered.")
+        print("-" * 80)
+        cohort = orchestrator.run_global_cohort(
+            hub=hub,
+            sector=sector,
+            limit=args.limit,
+            contract_value_usd=args.contract,
+        )
+        for i, res in enumerate(cohort["cohort_results"], 1):
+            c = res["client"]
+            pkg = res["forged_package"]
+            settle = res["settlement"]
+            print(f"[{i:02d}] {c['name']} ({c['hub']})")
+            print(f"     Diagnosis Health : {res['diagnosis']['overall_health']:.1f}/100.0")
+            print(f"     Manufactured App : {pkg['total_files']} files ({pkg['total_bytes']:,} bytes)")
+            print(f"     Proposal Quote   : ${res['commercial_proposal']['quoted_contract_usd']:,.0f} USD")
+            print(f"     Treasury Status  : {settle['ledger_status']} (TX: {settle['transaction_id']})")
+            print(f"     Execution Time   : {res['duration_sec']}s")
+            print("-" * 80)
+        print(f"Total Clients Serviced : {cohort['processed_count']}")
+        print(f"Total Artifacts Built  : {cohort['total_artifacts_generated']}")
+        print(f"Total Settled Revenue  : ${cohort['total_revenue_settled_usd']:,.2f} USD")
+        print("================================================================================\n")
+
+    elif args.command == "world-stats":
+        from omniverse.agents.global_prospector import GlobalProspectorAgent
+        from omniverse.agents.base import AgentTask
+        prospector = GlobalProspectorAgent()
+        res = prospector.execute_task(AgentTask(task_type="ANALYZE_MARKET_TAM", payload={}))
+
+        print("\n================================================================================")
+        print("                 GLOBAL CLIENT MATRIX — TOTAL ADDRESSABLE MARKET                ")
+        print("================================================================================")
+        print(f"Total Companies Tracked : {res['total_companies_tracked']}")
+        print(f"Aggregate Annual Revenue: ${res['total_annual_revenue_usd']:,.2f} USD\n")
+        print("METROPOLITAN HUBS DISTRIBUTION:")
+        for hub, count in res["hubs_distribution"].items():
+            print(f"  * {hub:<18}: {count} companies")
+        print("\nINDUSTRY SECTOR TAXONOMY:")
+        for sector, count in res["sectors_distribution"].items():
+            print(f"  * {sector:<22}: {count} companies")
+        print("================================================================================\n")
 
     else:
         parser.print_help()
