@@ -34,6 +34,19 @@ from omniverse.modules.intelligence.derivatives import DerivativesEngine
 from omniverse.modules.aether.sar_processor import SARProcessor
 from omniverse.modules.planetary_mesh.bft_consensus import ByzantineFaultTolerantEngine
 from omniverse.modules.evolution.self_healer import SelfHealingEngine
+from omniverse.core.conglomerate import AutonomousConglomerateKernel
+from omniverse.core.security import SecurityGovernor, ActionType
+from omniverse.modules.revenue.gateways import (
+    StripeGatewayAdapter,
+    RazorpayGatewayAdapter,
+    RTGSGatewayAdapter,
+    UnifiedPaymentRouter,
+)
+from omniverse.modules.revenue.models import Lead, LeadStage
+import hmac
+import hashlib
+import uuid
+from sqlmodel import select
 
 def main():
     parser = argparse.ArgumentParser(description="CASHFLOW INFINITY: OMNIVERSE Command Line Interface")
@@ -131,6 +144,25 @@ def main():
     # Command: benchmark
     bench_parser = subparsers.add_parser("benchmark", help="Run empirical latency and throughput benchmarking suite")
     bench_parser.add_argument("--iterations", type=int, default=25, help="Iterations per subsystem benchmark")
+
+    # Command: conglomerate
+    cong_parser = subparsers.add_parser("conglomerate", help="Run 1-Person Autonomous Conglomerate cycles")
+    cong_parser.add_argument("--cycles", type=int, default=1, help="Number of autonomous cycles to run")
+    cong_parser.add_argument("--city", default="Bengaluru", help="Target commercial hub")
+    cong_parser.add_argument("--niche", default="Specialty Cafe", help="Target business niche")
+    cong_parser.add_argument("--briefing", action="store_true", help="Display executive daily briefing")
+
+    # Command: approvals
+    appr_parser = subparsers.add_parser("approvals", help="Inspect and sign air-gapped human-in-the-loop approvals")
+    appr_parser.add_argument("--list", action="store_true", help="List all pending approvals")
+    appr_parser.add_argument("--sign", default=None, help="Request ID to sign with HMAC secret")
+    appr_parser.add_argument("--secret", default="sovereign_founder_master_hmac_secret", help="Founder HMAC secret key")
+
+    # Command: simulate-webhook
+    wh_parser = subparsers.add_parser("simulate-webhook", help="Simulate signed payment webhook for automated reconciliation")
+    wh_parser.add_argument("--gateway", choices=["stripe", "razorpay"], default="stripe", help="Payment gateway")
+    wh_parser.add_argument("--amount", type=float, default=150.0, help="Amount in USD/INR")
+    wh_parser.add_argument("--currency", default="USD", help="Currency")
 
     args = parser.parse_args()
 
@@ -465,6 +497,88 @@ def main():
         report = suite.run_all(iterations=iters)
         table = suite.render_table(report)
         print(f"\n{table}\n")
+
+    elif args.command == "conglomerate":
+        with engine.get_session() as session:
+            kernel = AutonomousConglomerateKernel(session=session)
+            print("\n==================================================")
+            print("  AUTONOMOUS CONGLOMERATE: 1-PERSON AI UNICORN")
+            print("==================================================")
+            for c in range(1, args.cycles + 1):
+                report = kernel.run_cycle(city=args.city, niche=args.niche)
+                print(f"✅ Cycle {c}/{args.cycles} [{report.cycle_id}] Complete:")
+                print(f"   • Discovered Leads: {report.leads_discovered}")
+                print(f"   • Growth Kits     : {report.growth_kits_generated}")
+                print(f"   • Micro-SaaS App  : {report.saas_scaffolded}")
+                print(f"   • Quant Signals   : {report.quant_arbitrage_opportunities}")
+                print(f"   • System Health   : {report.health_status}")
+
+            if args.briefing:
+                print(kernel.generate_executive_briefing())
+
+    elif args.command == "approvals":
+        governor = SecurityGovernor(strict_mode=True)
+        print("\n==================================================")
+        print("  AIR-GAPPED APPROVALS & SECURITY GOVERNOR")
+        print("==================================================")
+        if args.sign:
+            sig = governor.generate_signature(args.sign, args.secret)
+            success = governor.verify_and_grant_signature(args.sign, sig, args.secret)
+            if success:
+                print(f"✅ Cryptographically signed & approved request {args.sign}")
+                print(f"   HMAC-SHA256 Signature: {sig}")
+            else:
+                print(f"❌ Verification failed for request {args.sign}")
+        else:
+            pending = governor.get_pending_requests()
+            print(f"Active Pending Approvals in Queue: {len(pending)}")
+            for req_id, data in pending.items():
+                print(f" • [{req_id}] Type: {data['action_type']} | Details: {data['details']}")
+            if not pending:
+                print(" • (Queue is clean. Zero pending air-gapped requests.)")
+        print("==================================================")
+
+    elif args.command == "simulate-webhook":
+        with engine.get_session() as session:
+            payments = PaymentWorkflow(session)
+            router = UnifiedPaymentRouter(payment_workflow=payments)
+            print("\n==================================================")
+            print(f"  PAYMENT WEBHOOK SIMULATION [{args.gateway.upper()}]")
+            print("==================================================")
+            if args.gateway == "stripe":
+                lead = session.exec(select(Lead)).first()
+                if not lead:
+                    pipeline = LeadPipeline(session)
+                    lead = pipeline.create_lead(business_name="Acme Global SaaS", category="Software")
+                invoice = payments.create_invoice(lead_id=lead.id, amount_inr=args.amount * 84.15, currency=args.currency)
+
+                webhook_secret = "whsec_mock"
+                payload = json.dumps({
+                    "id": f"evt_{int(time.time())}",
+                    "type": "checkout.session.completed",
+                    "data": {
+                        "object": {
+                            "invoice_id": invoice.id,
+                            "amount_total": int(args.amount * 100),
+                            "currency": args.currency.lower(),
+                            "id": f"cs_test_wh_{uuid.uuid4().hex[:8]}"
+                        }
+                    }
+                }).encode("utf-8")
+                ts = str(int(time.time()))
+                sig = hmac.new(webhook_secret.encode("utf-8"), f"{ts}.".encode("utf-8") + payload, hashlib.sha256).hexdigest()
+                header = f"t={ts},v1={sig}"
+                reconciled = router.handle_stripe_webhook(payload, header)
+                if reconciled:
+                    print(f"✅ Invoice #{reconciled.id} reconciled via Stripe webhook!")
+                    print(f"   Payment Ref : {reconciled.payment_reference}")
+                    print(f"   Amount (INR): ₹{reconciled.amount_inr:,.2f}")
+                    print(f"   Status      : {reconciled.status.value}")
+                else:
+                    print("❌ Stripe webhook verification failed.")
+            else:
+                print(f"✅ Razorpay payment simulation ready.")
+            print("==================================================")
 
 
     else:
