@@ -1,37 +1,44 @@
-"""CASHFLOW INFINITY: OMNIVERSE - Autonomous Agency & Fulfillment Operating Engine."""
+"""Autonomous Agency & Multi-Vertical Fulfillment Suite for CASHFLOW INFINITY."""
 
-from omniverse.modules.agency.models import (
-    ProspectArchetype,
-    LeadStage,
-    OrderStatus,
-    ServiceType,
-    Lead,
-    AuditReport,
-    PersonalizedPitch,
-    JobOrder,
-    Deliverable,
-    ClientAccount,
-    AgencyMetrics,
-)
 from omniverse.modules.agency.acquisition import (
     LeadHunter,
-    TechAuditor,
     PitchGenerator,
+    TechAuditor,
+)
+from omniverse.modules.agency.models import (
+    AgencyMetrics,
+    AuditReport,
+    ClientAccount,
+    Deliverable,
+    JobOrder,
+    Lead,
+    LeadStage,
+    OrderStatus,
+    PersonalizedPitch,
+    ProspectArchetype,
+    ServiceType,
+)
+
+from omniverse.modules.agency.qa_governor import (
+    QAGovernor,
+    QAVerificationResult,
 )
 
 __all__ = [
-    "ProspectArchetype",
+    "AgencyMetrics",
+    "AuditReport",
+    "ClientAccount",
+    "Deliverable",
+    "JobOrder",
+    "Lead",
+    "LeadHunter",
     "LeadStage",
     "OrderStatus",
-    "ServiceType",
-    "Lead",
-    "AuditReport",
     "PersonalizedPitch",
-    "JobOrder",
-    "Deliverable",
-    "ClientAccount",
-    "AgencyMetrics",
-    "LeadHunter",
-    "TechAuditor",
     "PitchGenerator",
+    "ProspectArchetype",
+    "QAGovernor",
+    "QAVerificationResult",
+    "ServiceType",
+    "TechAuditor",
 ]
