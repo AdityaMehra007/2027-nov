@@ -10,11 +10,30 @@ from omniverse.modules.bangalore.models import (
     BangaloreCashTransaction,
     BangaloreCashflowSummary,
     RadarSubscriptionTier,
+    CompanyTier,
+    TechRole,
+    SalaryBenchmark,
+    ClusterLivingAnalysis,
+    MoneyFlowSimulationResult,
+    ProjectArchetype,
 )
 from omniverse.modules.bangalore.radar import BangaloreFlatRadar
 from omniverse.modules.bangalore.smb_engine import NammaBizEngine
 from omniverse.modules.bangalore.payment_engine import BangaloreUPIEngine
 from omniverse.modules.bangalore.daemon import Bangalore247CashDaemon
+from omniverse.modules.bangalore.salary_benchmarking import (
+    get_salary_benchmark,
+    compare_tiers,
+)
+from omniverse.modules.bangalore.cost_of_living import (
+    analyze_cluster_living,
+    get_cluster_col,
+)
+from omniverse.modules.bangalore.money_flow import simulate_capital_flow
+from omniverse.modules.bangalore.projects import (
+    get_project_archetypes,
+    get_project_by_id,
+)
 
 class ScanClusterRequest(BaseModel):
     cluster: BangaloreCluster = BangaloreCluster.HSR_LAYOUT
@@ -42,6 +61,18 @@ class SettleSMBRequest(BaseModel):
     client_id: int
     amount_inr: float
     gateway_ref: Optional[str] = None
+
+class ColSimulateRequest(BaseModel):
+    cluster: BangaloreCluster = BangaloreCluster.HSR_LAYOUT
+    bhk: int = 2
+    company_tier: CompanyTier = CompanyTier.TIER_1_GCC
+    role: TechRole = TechRole.SDE_2
+    experience_years: Optional[float] = None
+
+class MoneyFlowSimulateRequest(BaseModel):
+    inflow_amount_inr: float = 100000000.0
+    source: str = "GCC_OPEX"
+
 
 def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, None]]) -> APIRouter:
     router = APIRouter(prefix="/bangalore", tags=["Bangalore 24/7 Cashflow Engine"])
@@ -171,5 +202,66 @@ def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, 
         daemon = Bangalore247CashDaemon(session)
         result = daemon.run_cycle(cluster=cluster, simulate_listings=True)
         return result
+
+    # --- Economic & Salary Benchmarking Endpoints ---
+
+    @router.get("/salary-benchmarks", response_model=SalaryBenchmark)
+    def get_salary_benchmarks(
+        tier: CompanyTier = CompanyTier.TIER_1_GCC,
+        role: TechRole = TechRole.SDE_2,
+        experience_years: Optional[float] = None,
+    ):
+        return get_salary_benchmark(tier=tier, role=role, experience_years=experience_years)
+
+    @router.get("/salary-compare", response_model=List[SalaryBenchmark])
+    def get_salary_comparison(
+        role: TechRole = TechRole.SDE_2,
+        experience_years: Optional[float] = None,
+    ):
+        return compare_tiers(role=role, experience_years=experience_years)
+
+    @router.post("/col-simulate", response_model=ClusterLivingAnalysis)
+    def simulate_cost_of_living(req: ColSimulateRequest):
+        salary = get_salary_benchmark(
+            tier=req.company_tier,
+            role=req.role,
+            experience_years=req.experience_years
+        )
+        return analyze_cluster_living(
+            cluster=req.cluster,
+            bhk=req.bhk,
+            salary=salary
+        )
+
+    @router.post("/moneyflow-simulate", response_model=MoneyFlowSimulationResult)
+    def simulate_moneyflow(req: MoneyFlowSimulateRequest):
+        return simulate_capital_flow(
+            inflow_amount_inr=req.inflow_amount_inr,
+            source=req.source
+        )
+
+    @router.get("/projects", response_model=List[ProjectArchetype])
+    def list_projects():
+        return get_project_archetypes()
+
+    @router.get("/projects/{project_id}", response_model=ProjectArchetype)
+    def get_project_detail(project_id: str):
+        project = get_project_by_id(project_id)
+        if not project:
+            raise HTTPException(status_code=404, detail=f"Project {project_id} not found")
+        return project
+
+    @router.get("/overview")
+    def get_economic_overview():
+        return {
+            "city": "Bengaluru",
+            "currency": "INR",
+            "active_tech_clusters": len(BangaloreCluster),
+            "tracked_projects": len(get_project_archetypes()),
+            "company_tiers_modeled": len(CompanyTier),
+            "engineering_roles_modeled": len(TechRole),
+            "tax_regime": "Indian New Tax Regime FY 2026-27",
+            "status": "OPERATIONAL",
+        }
 
     return router

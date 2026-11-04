@@ -151,5 +151,96 @@ def test_project_archetypes_catalog():
     assert "ISRO" in p5.archetype_companies or "HAL" in p5.archetype_companies
 
 
+def test_api_salary_benchmarks(tmp_path):
+    from fastapi.testclient import TestClient
+    from omniverse.api.app import create_app
+    from omniverse.core.database import DatabaseEngine
+
+    db_file = tmp_path / "api_test.db"
+    db_engine = DatabaseEngine(f"sqlite:///{db_file}")
+    db_engine.init_db()
+    app = create_app(db_engine=db_engine)
+    client = TestClient(app)
+
+    res = client.get("/api/v1/bangalore/salary-benchmarks?tier=TIER_1_GCC&role=SDE_2")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["company_tier"] == "TIER_1_GCC"
+    assert data["role"] == "SDE_2"
+    assert data["total_ctc_inr"] > 0
+    assert data["monthly_net_in_hand_inr"] > 0
+
+    res_compare = client.get("/api/v1/bangalore/salary-compare?role=SDE_2")
+    assert res_compare.status_code == 200
+    assert len(res_compare.json()) == 5
+
+
+def test_api_col_simulate(tmp_path):
+    from fastapi.testclient import TestClient
+    from omniverse.api.app import create_app
+    from omniverse.core.database import DatabaseEngine
+
+    db_file = tmp_path / "api_test.db"
+    db_engine = DatabaseEngine(f"sqlite:///{db_file}")
+    db_engine.init_db()
+    app = create_app(db_engine=db_engine)
+    client = TestClient(app)
+
+    res = client.post("/api/v1/bangalore/col-simulate", json={
+        "cluster": "HSR Layout",
+        "bhk": 2,
+        "company_tier": "TIER_1_GCC",
+        "role": "SDE_2"
+    })
+    assert res.status_code == 200
+    data = res.json()
+    assert data["cluster"] == "HSR Layout"
+    assert data["deposit_lock_amount_inr"] == 380000.0
+    assert data["savings_ratio"] > 0
+
+
+def test_api_moneyflow_simulate(tmp_path):
+    from fastapi.testclient import TestClient
+    from omniverse.api.app import create_app
+    from omniverse.core.database import DatabaseEngine
+
+    db_file = tmp_path / "api_test.db"
+    db_engine = DatabaseEngine(f"sqlite:///{db_file}")
+    db_engine.init_db()
+    app = create_app(db_engine=db_engine)
+    client = TestClient(app)
+
+    res = client.post("/api/v1/bangalore/moneyflow-simulate", json={
+        "inflow_amount_inr": 100000000.0,
+        "source": "GCC_OPEX"
+    })
+    assert res.status_code == 200
+    data = res.json()
+    assert data["capital_inflow_inr"] == 100000000.0
+    assert data["capital_velocity_ratio"] > 1.0
+
+
+def test_api_projects(tmp_path):
+    from fastapi.testclient import TestClient
+    from omniverse.api.app import create_app
+    from omniverse.core.database import DatabaseEngine
+
+    db_file = tmp_path / "api_test.db"
+    db_engine = DatabaseEngine(f"sqlite:///{db_file}")
+    db_engine.init_db()
+    app = create_app(db_engine=db_engine)
+    client = TestClient(app)
+
+    res = client.get("/api/v1/bangalore/projects")
+    assert res.status_code == 200
+    assert len(res.json()) >= 5
+    assert res.json()[0]["project_id"] == "BLR-PROJ-01"
+
+    res_single = client.get("/api/v1/bangalore/projects/BLR-PROJ-01")
+    assert res_single.status_code == 200
+    assert res_single.json()["project_id"] == "BLR-PROJ-01"
+
+
+
 
 
