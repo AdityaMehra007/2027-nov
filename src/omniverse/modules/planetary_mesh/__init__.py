@@ -7,11 +7,19 @@ from omniverse.modules.planetary_mesh.models import (
     TelemetryPacket
 )
 from omniverse.modules.planetary_mesh.federation import GlobalPlanetaryMesh
+from omniverse.modules.planetary_mesh.bft_consensus import (
+    ConsensusPhase,
+    PBFTStateLog,
+    ByzantineFaultTolerantEngine
+)
 
 __all__ = [
     "MeshRegion",
     "NodeStatus",
     "MeshNode",
     "TelemetryPacket",
-    "GlobalPlanetaryMesh"
+    "GlobalPlanetaryMesh",
+    "ConsensusPhase",
+    "PBFTStateLog",
+    "ByzantineFaultTolerantEngine"
 ]

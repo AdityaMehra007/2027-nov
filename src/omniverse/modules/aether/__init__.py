@@ -17,6 +17,10 @@ from omniverse.modules.aether.telemetry_ingestion import (
     SatelliteObservation,
     SatelliteTelemetryHub
 )
+from omniverse.modules.aether.sar_processor import (
+    FloodExtentMask,
+    SARProcessor
+)
 
 __all__ = [
     "HazardType",
@@ -29,5 +33,7 @@ __all__ = [
     "AetherGeocoder",
     "ConstellationType",
     "SatelliteObservation",
-    "SatelliteTelemetryHub"
+    "SatelliteTelemetryHub",
+    "FloodExtentMask",
+    "SARProcessor"
 ]

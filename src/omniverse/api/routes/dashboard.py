@@ -253,6 +253,39 @@ def get_dashboard_router(get_session_dep):
         </div>
     </div>
 
+    <div class="grid-equal" style="margin-top: 20px;">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">🌐 6-Continent Planetary Mesh & PBFT Quorum Monitor</div>
+                <span class="badge badge-emerald">6/6 Nodes Online</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted);">
+                    <span>BLR: 4.2ms | TYO: 18.5ms | IAD: 22.1ms</span>
+                    <span>FRA: 16.8ms | GRU: 28.4ms | CPT: 26.0ms</span>
+                </div>
+                <button onclick="triggerMesh()" style="background: var(--blue); color: #fff; font-weight: 800;">Verify Byzantine Fault-Tolerant Quorum</button>
+                <pre class="terminal mono" id="mesh-preview" style="height: 120px; color: #67e8f9;">// Click to execute cryptographic quorum consensus across all 6 continents</pre>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">🏛️ Real-Time Gross Settlement (RTGS) & CBDC Clearing</div>
+                <span class="badge badge-amber">Atomic Swap Ready</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; gap: 8px;">
+                    <input type="number" id="settle-amount" placeholder="Amount" value="50000" style="flex: 2;">
+                    <select id="settle-src" style="flex: 1;"><option value="USD">USD</option><option value="INR">INR</option><option value="EUR">EUR</option></select>
+                    <select id="settle-tgt" style="flex: 1;"><option value="INR">INR</option><option value="USD">USD</option><option value="eINR">e-Rupee</option></select>
+                </div>
+                <button onclick="triggerSettlement()" class="btn-emerald">Execute Atomic Clearing</button>
+                <pre class="terminal mono" id="settle-preview" style="height: 120px; color: #fde047;">// Click to settle instant cross-border exchange with cryptographically signed hash</pre>
+            </div>
+        </div>
+    </div>
+
     <script>
         let currentPitch = "";
 
@@ -348,6 +381,42 @@ def get_dashboard_router(get_session_dep):
                     `Hazard: ${data.hazard_type}\\nVulnerability Index: ${data.vulnerability_index}/100 (${data.risk_level})\\nRec: ${data.actionable_recommendations[0]}`;
             } catch(e) {
                 document.getElementById('aether-preview').innerText = 'Error: ' + e;
+            }
+        }
+
+        async function triggerMesh() {
+            document.getElementById('mesh-preview').innerText = 'Broadcasting proposal to 6 continental nodes...';
+            try {
+                const res = await fetch('/api/v1/planetary/mesh/consensus', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({proposal_id: 'PROP-UI-' + Date.now(), proposed_value: 99.4})
+                });
+                const data = await res.json();
+                document.getElementById('mesh-preview').innerText = 
+                    `[QUORUM ${data.consensus_reached ? 'REACHED' : 'FAILED'}]\\nAgreement: ${data.agreement_percentage}% (${data.total_nodes} nodes)\\nQuorum Verified: ${data.quorum_verified}\\nProposal ID: ${data.proposal_id}`;
+            } catch(e) {
+                document.getElementById('mesh-preview').innerText = 'Error: ' + e;
+            }
+        }
+
+        async function triggerSettlement() {
+            const amt = parseFloat(document.getElementById('settle-amount').value) || 10000;
+            const src = document.getElementById('settle-src').value;
+            const tgt = document.getElementById('settle-tgt').value;
+            document.getElementById('settle-preview').innerText = 'Executing atomic gross settlement...';
+            try {
+                const res = await fetch('/api/v1/planetary/settlement/execute', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({source_currency: src, target_currency: tgt, amount: amt})
+                });
+                const data = await res.json();
+                const tx = data.settlement;
+                document.getElementById('settle-preview').innerText = 
+                    `[STATUS: ${tx.status}]\\nSettlement Hash: ${tx.settlement_hash}\\nExchanged: ${tx.source_currency} ${tx.source_amount} -> ${tx.target_currency} ${tx.target_amount}\\nHedged FX Rate: ${tx.hedged_fx_rate}`;
+            } catch(e) {
+                document.getElementById('settle-preview').innerText = 'Error: ' + e;
             }
         }
 

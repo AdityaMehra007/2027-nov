@@ -1,6 +1,7 @@
 import argparse
 import sys
 import json
+import time
 from pathlib import Path
 
 if sys.stdout.encoding.lower() != 'utf-8':
@@ -28,6 +29,10 @@ from omniverse.modules.planetary_mesh import GlobalPlanetaryMesh, TelemetryPacke
 from omniverse.modules.aether.telemetry_ingestion import SatelliteTelemetryHub
 from omniverse.modules.settlement import GlobalClearingHouse, CurrencyCode
 from omniverse.modules.research_lab import AutonomousResearchLab
+from omniverse.modules.intelligence.derivatives import DerivativesEngine
+from omniverse.modules.aether.sar_processor import SARProcessor
+from omniverse.modules.planetary_mesh.bft_consensus import ByzantineFaultTolerantEngine
+from omniverse.modules.evolution.self_healer import SelfHealingEngine
 
 def main():
     parser = argparse.ArgumentParser(description="CASHFLOW INFINITY: OMNIVERSE Command Line Interface")
@@ -93,6 +98,24 @@ def main():
     paper_parser.add_argument("--domain", default="autonomous-planetary-resilience", help="Research domain")
     paper_parser.add_argument("--metric", default="Consensus-Quorum-Latency", help="Target optimization metric")
     paper_parser.add_argument("--mechanism", default="Federated Byzantine Fault-Tolerant Edge Graphs", help="Proposed theoretical mechanism")
+
+    # Command: derivatives
+    deriv_parser = subparsers.add_parser("derivatives", help="Black-Scholes European option pricing, Greeks, and triangular arbitrage")
+    deriv_parser.add_argument("--spot", type=float, default=24500.0, help="Spot underlying price")
+    deriv_parser.add_argument("--strike", type=float, default=24500.0, help="Strike price")
+    deriv_parser.add_argument("--vol", type=float, default=0.18, help="Annualized volatility (e.g. 0.18 for 18%)")
+
+    # Command: sar-flood
+    sar_parser = subparsers.add_parser("sar-flood", help="Process Sentinel-1 SAR radar backscatter and calculate flood extent")
+    sar_parser.add_argument("--area", default="Brahmaputra Basin", help="Target observation swath")
+
+    # Command: pbft-consensus
+    pbft_parser = subparsers.add_parser("pbft-consensus", help="Simulate 4-phase Practical Byzantine Fault Tolerance (PBFT)")
+    pbft_parser.add_argument("--nodes", type=int, default=7, help="Total network replica nodes")
+    pbft_parser.add_argument("--adversaries", type=int, default=2, help="Adversarial / offline nodes to simulate")
+
+    # Command: self-heal
+    subparsers.add_parser("self-heal", help="Run codebase health audit, docstring coverage, and optimization proposals")
 
     # Command: serve
     serve_parser = subparsers.add_parser("serve", help="Start FastAPI Command Center")
@@ -329,6 +352,87 @@ def main():
         print(f"Draft Location  : {paper.output_file}")
         print("--------------------------------------------------")
         print(f"Abstract Preview:\n{paper.abstract}")
+        print("==================================================")
+
+    elif args.command == "derivatives":
+        deriv_engine = DerivativesEngine()
+        greeks = deriv_engine.calculate_black_scholes_greeks(
+            spot=args.spot,
+            strike=args.strike,
+            time_to_maturity_years=30.0 / 365.0,
+            risk_free_rate=0.065,
+            volatility=args.vol
+        )
+        arb = deriv_engine.detect_triangular_arbitrage(
+            rates={"USD_INR": 84.15, "EUR_USD": 1.085, "EUR_INR": 91.20},
+            initial_capital=100000.0
+        )
+        print("\n==================================================")
+        print("  QUANT LAB: BLACK-SCHOLES GREEKS & ARBITRAGE")
+        print("==================================================")
+        print(f"Spot / Strike   : ₹{args.spot:,.2f} / ₹{args.strike:,.2f} (30d expiry)")
+        print(f"Call Premium    : ₹{greeks.call_price:,.2f} | Put: ₹{greeks.put_price:,.2f}")
+        print(f"Delta (Call/Put): {greeks.delta_call:+.4f} / {greeks.delta_put:+.4f}")
+        print(f"Gamma / Vega    : {greeks.gamma:.6f} / {greeks.vega:.4f}")
+        print(f"Theta (Call/Put): {greeks.theta_call:.4f} / {greeks.theta_put:.4f} per day")
+        print("--------------------------------------------------")
+        print(f"Triangular Arb  : {'OPPORTUNITY DETECTED' if arb.arbitrage_detected else 'EFFICIENT MARKET'}")
+        print(f"Cycle Path      : {' -> '.join(arb.pair_path)}")
+        print(f"Expected Net ROI: {arb.profit_pct:+.4f}% (Net: ₹{arb.end_amount:,.2f})")
+        print("==================================================")
+
+    elif args.command == "sar-flood":
+        sar_processor = SARProcessor()
+        grid = [-21.5, -20.0, -19.5, -22.0, -20.5] * 20 + [-11.0, -9.5, -10.0, -8.5, -10.5] * 80
+        mask = sar_processor.process_sar_swath(
+            area_name=args.area,
+            backscatter_db_grid=grid,
+            pixel_resolution_m=20.0
+        )
+        print("\n==================================================")
+        print("  AETHER SENTINEL-1 SAR FLOOD EXTENT MAPPER")
+        print("==================================================")
+        print(f"Swath Region    : {mask.target_area}")
+        print(f"Total Pixels    : {mask.total_pixels:,} (Resolution: {mask.pixel_resolution_m}m)")
+        print(f"Water Pixels    : {mask.water_pixels:,} ({(mask.water_pixels/mask.total_pixels)*100:.1f}%)")
+        print(f"Otsu Threshold  : {mask.optimal_otsu_threshold_db} dB")
+        print(f"Inundation Area : {mask.inundation_area_km2:,.4f} sq km")
+        print(f"Confidence Score: {mask.confidence_score}%")
+        print("==================================================")
+
+    elif args.command == "pbft-consensus":
+        bft = ByzantineFaultTolerantEngine(total_nodes=args.nodes)
+        proposal = {"directive": "FEDERATED_QUORUM_ACTION", "timestamp": time.time()}
+        log = bft.initiate_pbft_consensus(proposal=proposal, adversarial_nodes=args.adversaries)
+        print("\n==================================================")
+        print("  PRACTICAL BYZANTINE FAULT TOLERANCE (PBFT)")
+        print("==================================================")
+        print(f"Total Nodes     : {bft.total_nodes} (Fault Tolerance f: {bft.f})")
+        print(f"Quorum Needed   : {bft.quorum_threshold} / {bft.total_nodes} votes")
+        print(f"Simulated Faults: {args.adversaries} adversarial/offline nodes")
+        print(f"Prepares / Comm : {log.prepare_votes} / {log.commit_votes}")
+        print(f"State Decision  : {log.phase.value}")
+        print(f"Finalized State : {'COMMITTED TO LEDGER' if log.is_finalized else 'REJECTED'}")
+        print("==================================================")
+
+    elif args.command == "self-heal":
+        healer = SelfHealingEngine()
+        audit = healer.audit_codebase_health()
+        proposals = healer.generate_optimization_proposals()
+        print("\n==================================================")
+        print("  AUTONOMOUS CODEBASE HEALTH & SELF-HEALER")
+        print("==================================================")
+        print(f"Files Analyzed  : {audit.files_analyzed} modules")
+        print(f"Total Lines     : {audit.total_lines:,} LOC")
+        print(f"Functions/Class : {audit.functions_count} functions / {audit.classes_count} classes")
+        print(f"Type Coverage   : {audit.type_annotated_pct}%")
+        print(f"Doc Coverage    : {audit.docstring_coverage_pct}%")
+        print(f"Health Rating   : {audit.health_grade}")
+        print("--------------------------------------------------")
+        print(f"Self-Optimization Proposals ({len(proposals)} generated):")
+        for p in proposals:
+            print(f" • [{p.optimization_type}] -> {p.target_module}")
+            print(f"   Est. Latency Reduction: {p.estimated_latency_reduction_pct}% | {p.description}")
         print("==================================================")
 
     elif args.command == "serve":
