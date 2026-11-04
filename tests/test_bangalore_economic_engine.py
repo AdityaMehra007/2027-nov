@@ -83,3 +83,25 @@ def test_get_salary_benchmark():
     assert CompanyTier.TIER_1_GCC in tier_names
     assert CompanyTier.IT_SERVICES_ENTERPRISE in tier_names
 
+
+def test_cost_of_living_hsr_layout():
+    from omniverse.modules.bangalore.cost_of_living import (
+        get_cluster_col,
+        analyze_cluster_living,
+    )
+    from omniverse.modules.bangalore.salary_benchmarking import get_salary_benchmark
+
+    col = get_cluster_col(BangaloreCluster.HSR_LAYOUT)
+    assert col.deposit_lock_months == 10
+    assert col.avg_2bhk_rent_inr == 38000.0
+
+    salary = get_salary_benchmark(CompanyTier.UNICORN_SERIES_B_PLUS, TechRole.SDE_2)
+    analysis = analyze_cluster_living(BangaloreCluster.HSR_LAYOUT, bhk=2, salary=salary)
+
+    assert analysis.rent_inr == 38000.0
+    assert analysis.deposit_lock_amount_inr == 380000.0  # 10 months rent
+    assert analysis.deposit_annual_opportunity_cost_inr == 380000.0 * 0.075
+    assert analysis.monthly_savings_inr > 0.0
+    assert analysis.savings_ratio > 0.0
+
+
