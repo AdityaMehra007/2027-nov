@@ -115,8 +115,12 @@ class CyberpunkTUI:
         payments = PaymentWorkflow(session)
         ledger = payments.get_financial_ledger()
 
+        from omniverse.modules.bangalore import Bangalore247CashDaemon
+        blr_daemon = Bangalore247CashDaemon(session)
+        blr_summary = blr_daemon.get_summary()
+
         pipe_val = pipe_summary.get("pipeline_value_inr", 0.0)
-        collected = ledger.get("collected_revenue_inr", 0.0)
+        collected = ledger.get("collected_revenue_inr", 0.0) + blr_summary.daily_cash_collected_inr
         receivables = ledger.get("outstanding_receivables_inr", 0.0)
         total_leads = pipe_summary.get("total_leads", 0)
 
@@ -124,11 +128,15 @@ class CyberpunkTUI:
         c_str = f"{f'₹{collected:,.2f}':<17}"
         r_str = f"{f'₹{receivables:,.2f}':<17}"
 
+        b_daily = f"₹{blr_summary.daily_cash_collected_inr:,.0f}"
+        b_mrr = f"₹{blr_summary.mrr_inr:,.0f}"
+
         lines = [
             self._c("┌── [FINANCIAL LEDGER & SOVEREIGN CASHFLOW TICKER] " + "─" * 24 + "┐", self.NEON_GREEN),
             f"│  PIPELINE VALUE    : {self._c(p_str, self.WHITE)} │ LEADS TRACKED : {total_leads:<15} │",
             f"│  COLLECTED REVENUE : {self._c(c_str, self.NEON_GREEN)} │ LEDGER STATUS : {'VERIFIED':<15} │",
             f"│  OUTSTANDING RECV  : {self._c(r_str, self.YELLOW)} │ FX ARBITRAGE  : {'PASSIVE':<15} │",
+            f"│  NAMMA BLR 24/7    : {b_daily} Today ({b_mrr} MRR) │ BLR STATUS    : {'RUNNING 24/7':<15} │",
             f"│  FX LIQUIDITY HEDGE: USD/INR 84.15 ▲  EUR/USD 1.0850 ▼  AED/INR 22.91 ▲  │",
             self._c("└" + "─" * 74 + "┘", self.NEON_GREEN)
         ]

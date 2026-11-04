@@ -11,6 +11,7 @@ from omniverse.modules.bangalore.models import (
     SMBGrowthClient,
     RadarSubscriptionTier,
 )
+from omniverse.modules.bangalore.qr_generator import BangaloreUPIQRGenerator
 from omniverse.core.telemetry import global_event_bus
 
 class BangaloreUPIEngine:
@@ -73,6 +74,21 @@ class BangaloreUPIEngine:
         note = f"NammaFlat {tier.value} Pass for {phone_whatsapp}"
 
         intent_uri = self.create_upi_intent_uri(amount, note, txn_id)
+        qr_img_url = BangaloreUPIQRGenerator.get_qr_image_url(intent_uri)
+        ascii_card = BangaloreUPIQRGenerator.get_ascii_terminal_card(
+            upi_intent_uri=intent_uri,
+            amount_inr=amount,
+            vpa=self.vpa,
+            order_id=txn_id,
+            note=note
+        )
+        html_widget = BangaloreUPIQRGenerator.get_embeddable_html_widget(
+            upi_intent_uri=intent_uri,
+            amount_inr=amount,
+            vpa=self.vpa,
+            order_id=txn_id,
+            subscriber_name=name
+        )
 
         return {
             "transaction_id": txn_id,
@@ -83,6 +99,9 @@ class BangaloreUPIEngine:
             "upi_intent_uri": intent_uri,
             "pay_to_vpa": self.vpa,
             "qr_data_string": intent_uri,
+            "qr_image_url": qr_img_url,
+            "ascii_card": ascii_card,
+            "html_widget": html_widget,
             "status": "PENDING_PAYMENT",
             "metadata": {
                 "clusters": target_clusters,
@@ -90,6 +109,10 @@ class BangaloreUPIEngine:
                 "max_budget_inr": max_budget_inr
             }
         }
+
+    def create_checkout(self, *args, **kwargs) -> Dict[str, Any]:
+        """Convenience alias for checkout_radar_subscription."""
+        return self.checkout_radar_subscription(*args, **kwargs)
 
     def settle_radar_payment(
         self,

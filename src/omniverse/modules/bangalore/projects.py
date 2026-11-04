@@ -1,129 +1,108 @@
+"""Bangalore Engineering Archetypes & Flagship Production Systems Catalog."""
+
 from typing import List, Optional
 from omniverse.modules.bangalore.models import ProjectArchetype
 
-PROJECT_ARCHETYPES: List[ProjectArchetype] = [
+_PROJECT_ARCHETYPES: List[ProjectArchetype] = [
     ProjectArchetype(
         project_id="BLR-PROJ-01",
-        name="Hyperlocal Real-Time Quick-Commerce Dispatch & Dark Store Engine",
+        name="Ultra-Low Latency Dark Store Dispatch & Routing Engine",
         primary_sector="Quick-Commerce & Hyperlocal Logistics",
         archetype_companies=["Zepto", "Swiggy Instamart", "Blinkit"],
-        architecture_summary=(
-            "Distributed event-driven geospatial dispatch fabric. Ingests customer orders, "
-            "evaluates dark store inventory locks within 50ms, groups orders into multi-drop routes "
-            "using Uber H3 spatial indexing, and tracks riders in real-time."
-        ),
-        core_tech_stack=["Go", "Kafka", "H3 Spatial Hex Index", "Redis Cluster", "PostgreSQL", "Rust"],
+        architecture_summary="Event-driven distributed inventory allocation, sub-second route dispatch, and rider batching with geo-hashing (H3/S2 cells).",
+        core_tech_stack=["Go", "Kafka", "Redis", "PostgreSQL", "Rust"],
         scale_metrics={
-            "daily_order_volume": 1500000,
-            "dispatch_p99_latency_ms": 22,
-            "delivery_sla_minutes": 10,
-            "peak_tps": 12000,
+            "orders_per_minute": 25000,
+            "p99_dispatch_latency_ms": 120.0,
+            "delivery_window_minutes": 10.0
         },
         engineering_challenges=[
-            "Silk Board & ORR traffic choke-point avoidance via dynamic telemetry",
-            "Distributed microsecond inventory locking during flash demand surges",
-            "Dynamic rider batching under heavy monsoon rain downpours",
-        ],
+            "Inventory locking across concurrency spikes during IPL matches",
+            "Dynamic SLA re-routing under Silk Board and ORR congestion",
+            "Sub-100ms multi-drop batched traveling salesperson optimization"
+        ]
     ),
     ProjectArchetype(
         project_id="BLR-PROJ-02",
-        name="Sub-10ms High-Concurrency NPCI UPI Switch & Dual-Ledger Gateway",
-        primary_sector="FinTech & Payment Infrastructure",
-        archetype_companies=["Razorpay", "PhonePe", "CRED", "Juspay"],
-        architecture_summary=(
-            "Mission-critical transaction switch communicating directly with NPCI UPI networks and "
-            "sponsor bank remitter/beneficiary systems. Employs distributed state-machine saga patterns "
-            "to guarantee zero-loss idempotent payment reconciliation."
-        ),
-        core_tech_stack=["Java 21", "Spring Boot", "Apache Kafka", "ScyllaDB", "Redis", "Envoy"],
+        name="High-Throughput NPCI UPI Switch & Reconciliation Engine",
+        primary_sector="FinTech Payments & Neo-Banking",
+        archetype_companies=["PhonePe", "Razorpay", "CRED"],
+        architecture_summary="Idempotent, active-active multi-region transactional switch processing 15,000 TPS with automated NPCI reversal resolution.",
+        core_tech_stack=["Java", "Spring Boot", "Cassandra", "Kafka", "RocksDB"],
         scale_metrics={
-            "peak_tps": 32000,
-            "switch_p99_latency_ms": 8,
-            "availability_sla": "99.999%",
-            "annual_tpv_inr": 8500000000000.0,
+            "peak_tps": 18500,
+            "success_rate_percentage": 99.85,
+            "daily_volume_inr": 12000000000.0
         },
         engineering_challenges=[
-            "Handling unpredictable sponsor bank core-banking system downtime spikes",
-            "Cryptographic signature verification on millions of UPI intent requests",
-            "Double-spend prevention across distributed network partitions",
-        ],
+            "Strict zero-double-spend ledger consistency over flaky mobile connections",
+            "Handling bank CBS timeouts without dropping user balance state",
+            "Real-time fraud scoring under 25ms using sliding window bloom filters"
+        ]
     ),
     ProjectArchetype(
         project_id="BLR-PROJ-03",
-        name="Enterprise Multi-Tenant Planetary Data Lake & ML Feature Store",
-        primary_sector="GCC Enterprise Tech Platforms",
-        archetype_companies=["Walmart Global Tech", "Goldman Sachs", "Target Tech Center", "Grab"],
-        architecture_summary=(
-            "Centralized data lakehouse consolidating telemetry, transactional records, and supply "
-            "chain data across global retail and financial subsidiaries. Delivers real-time feature "
-            "pipelines for ML fraud scoring and inventory forecasting."
-        ),
-        core_tech_stack=["Apache Spark", "Apache Iceberg", "Snowflake", "Trino", "Python", "Kubernetes", "Ray"],
+        name="Global GCC Enterprise Analytics & Regulatory Data Fabric",
+        primary_sector="Global Capability Centers (GCC)",
+        archetype_companies=["Walmart Global Tech", "Target India", "Goldman Sachs Bengaluru"],
+        architecture_summary="Federated lakehouse unified across AWS and Azure with Apache Iceberg, automated GDPR/DPDP data redaction, and sub-minute query response.",
+        core_tech_stack=["Python", "Apache Spark", "Iceberg", "Trino", "Terraform"],
         scale_metrics={
-            "storage_petabytes": 45,
-            "daily_queries": 120000,
-            "feature_serving_latency_ms": 15,
-            "global_tenants": 240,
+            "daily_ingestion_tb": 45.0,
+            "query_p95_seconds": 1.8,
+            "tenant_clusters": 120
         },
         engineering_challenges=[
-            "Cross-border data sovereignty compliance under Indian DPDP and EU GDPR",
-            "Automated schema evolution without disrupting 500+ downstream pipelines",
-            "Cost optimization across multi-cloud GPU training clusters",
-        ],
+            "Cross-border sovereign data governance under India DPDP Act",
+            "Petabyte-scale schema evolution without stopping continuous CDC pipelines",
+            "Cost optimization across spot instance fleets and cold tier lifecycle policies"
+        ]
     ),
     ProjectArchetype(
         project_id="BLR-PROJ-04",
-        name="Collaborative Developer API Platform & Microservices Gateway",
-        primary_sector="Developer Tooling & B2B SaaS",
-        archetype_companies=["Postman", "Hasura", "BrowserStack"],
-        architecture_summary=(
-            "Global distributed developer platform supporting real-time collaborative API testing, "
-            "instant GraphQL generation over legacy databases, and distributed device cloud testing."
-        ),
-        core_tech_stack=["TypeScript", "Node.js", "GraphQL", "Rust", "Docker", "WebSockets", "ClickHouse"],
+        name="Global Developer Platform & API Observability Mesh",
+        primary_sector="DevTools & Cloud Infrastructure SaaS",
+        archetype_companies=["Postman", "BrowserStack", "Hasura"],
+        architecture_summary="Globally distributed edge proxies with distributed tracing, GraphQL aggregation, and real-time collaborative workspace synchronization.",
+        core_tech_stack=["TypeScript", "Rust", "Node.js", "ClickHouse", "Wasm"],
         scale_metrics={
-            "registered_developers": 30000000,
-            "daily_api_mock_calls": 850000000,
-            "active_workspaces": 4500000,
+            "active_developers": 35000000,
+            "monthly_api_calls_billion": 120.0,
+            "global_edge_locations": 48
         },
         engineering_challenges=[
-            "Multi-region state synchronization with conflict-free replicated data types (CRDTs)",
-            "Managing hundreds of thousands of concurrent WebSocket connections",
-            "Ultra-fast sandbox isolation for arbitrary developer test scripts",
-        ],
+            "CRDT-based conflict-free collaborative document and schema editing",
+            "High-cardinality distributed trace indexing with sub-second search",
+            "Zero-trust mTLS proxy mesh with automated ephemeral token rotation"
+        ]
     ),
     ProjectArchetype(
         project_id="BLR-PROJ-05",
-        name="Aerospace Satellite Telemetry & Mission Control Avionics Fabric",
-        primary_sector="Deep Tech & Space Defense Systems",
-        archetype_companies=["ISRO", "HAL", "BEL", "Pixxel"],
-        architecture_summary=(
-            "Hard real-time deterministic command and control system managing low-earth orbit (LEO) "
-            "satellite constellation telemetry, payload data downlinks, and avionics flight computers."
-        ),
-        core_tech_stack=["C++20", "Rust", "RTOS", "ZeroMQ", "Python", "WebAssembly", "InfluxDB"],
+        name="Planetary Earth Observation & Autonomous Satellite Telemetry",
+        primary_sector="Deep Tech, Space & Defense",
+        archetype_companies=["ISRO", "HAL", "Bellatrix Aerospace", "Pixxel"],
+        architecture_summary="Synthetic Aperture Radar (SAR) and hyperspectral imagery processing pipeline with onboard edge AI inference and telemetry downlinks.",
+        core_tech_stack=["C++", "Python", "CUDA", "GDAL", "PyTorch"],
         scale_metrics={
-            "telemetry_sample_rate_hz": 10000,
-            "flight_loop_latency_us": 250,
-            "sensor_channels": 4096,
+            "ground_station_passes_daily": 32,
+            "raw_downlink_gbps": 10.0,
+            "swath_resolution_meters": 1.25
         },
         engineering_challenges=[
-            "Strict zero-heap memory allocation guarantees inside embedded flight loops",
-            "Byzantine sensor fault tolerance during high-radiation solar storm events",
-            "Real-time synthetic aperture radar (SAR) edge processing on orbital compute",
-        ],
-    ),
+            "Real-time radiometric calibration and Doppler centroid frequency tracking",
+            "Radiation-hardened embedded flight software with strict watchdog recovery",
+            "Distributed ground station orbit pass scheduling and antenna slew control"
+        ]
+    )
 ]
 
-
 def get_project_archetypes() -> List[ProjectArchetype]:
-    """Returns the comprehensive directory of top Bengaluru engineering project archetypes."""
-    return PROJECT_ARCHETYPES
-
+    """Returns the full catalog of Bangalore flagship engineering project archetypes."""
+    return _PROJECT_ARCHETYPES
 
 def get_project_by_id(project_id: str) -> Optional[ProjectArchetype]:
-    """Finds an engineering project archetype by unique ID."""
-    for project in PROJECT_ARCHETYPES:
-        if project.project_id.upper() == project_id.upper():
-            return project
+    """Retrieves a specific Bangalore engineering archetype by its identifier."""
+    for proj in _PROJECT_ARCHETYPES:
+        if proj.project_id == project_id:
+            return proj
     return None

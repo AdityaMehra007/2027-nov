@@ -1,4 +1,5 @@
 from typing import Dict, Any
+from functools import lru_cache
 import urllib.parse
 import json
 
@@ -17,11 +18,15 @@ class AetherGeocoder:
         "singapore": {"lat": 1.3521, "lon": 103.8198, "elevation_meters": 15.0, "display_name": "Singapore"}
     }
 
-    def geocode(self, query: str) -> Dict[str, Any]:
-        normalized = query.lower().strip()
-        for key, val in self._PRESET_HUBS.items():
-            if key in normalized:
+    @staticmethod
+    @lru_cache(maxsize=1024)
+    def _cached_lookup(normalized_query: str) -> Dict[str, Any]:
+        for key, val in AetherGeocoder._PRESET_HUBS.items():
+            if key in normalized_query:
                 return val
+        return AetherGeocoder._PRESET_HUBS["bengaluru"]
 
-        # Fallback default: Bengaluru
-        return self._PRESET_HUBS["bengaluru"]
+    def geocode(self, query: str) -> Dict[str, Any]:
+        """Geocodes a query string with in-memory LRU caching."""
+        normalized = query.lower().strip()
+        return self._cached_lookup(normalized)

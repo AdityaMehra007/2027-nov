@@ -20,6 +20,10 @@ def get_dashboard_router(get_session_dep):
         commerce = CommerceMatrix()
         diagnostics = HealthDiagnostics(session)
 
+        from omniverse.modules.bangalore import Bangalore247CashDaemon
+        blr_daemon = Bangalore247CashDaemon(session)
+        blr_summary = blr_daemon.get_summary()
+
         return {
             "app_name": settings.app_name,
             "version": settings.version,
@@ -28,6 +32,7 @@ def get_dashboard_router(get_session_dep):
             "currency": settings.currency,
             "pipeline_summary": pipeline.get_pipeline_summary(),
             "financial_ledger": payments.get_financial_ledger(),
+            "bangalore_cashflow": blr_summary.model_dump(),
             "market_quotes": [q.model_dump() for q in market_engine.get_global_overview()],
             "commerce_portfolio": commerce.calculate_portfolio_economics(),
             "health_diagnostics": diagnostics.run_diagnostics()
@@ -213,6 +218,49 @@ def get_dashboard_router(get_session_dep):
                 <div class="kanban-header" style="color: var(--emerald);">5. CLOSED WON 🎉</div>
                 <div id="col-won">
                     <div class="kanban-item" style="border-left-color: var(--emerald);"><strong>Lumiere Pastry</strong><br><small>₹25,000 (PAID)</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="margin-bottom: 20px; border-color: rgba(16, 185, 129, 0.4);">
+        <div class="panel-header">
+            <div class="panel-title" style="color: var(--emerald);">
+                <span>🚀 NAMMA CASHFLOW 24/7 // BENGALURU AUTONOMOUS REVENUE HUB</span>
+            </div>
+            <span class="badge badge-emerald">24/7 ACTIVE • UPI ZERO-DELAY</span>
+        </div>
+        <div class="grid-equal">
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 13px; font-weight: 700; color: var(--cyan); margin-bottom: 10px;">
+                    🏢 NammaBiz AI // 24/7 SMB WhatsApp Concierge
+                </div>
+                <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                    <select id="blr-cluster-select" style="flex: 2;">
+                        <option value="HSR Layout">HSR Layout (27th Main)</option>
+                        <option value="Indiranagar">Indiranagar (100ft / 12th Main)</option>
+                        <option value="Koramangala">Koramangala (4th/5th Block)</option>
+                        <option value="Whitefield">Whitefield (ECC / Hope Farm)</option>
+                        <option value="Bellandur">Bellandur (Green Glen / EcoSpace)</option>
+                    </select>
+                    <button onclick="scanBlrCluster()" class="btn-emerald" style="flex: 1;">Scan Cluster</button>
+                </div>
+                <div id="blr-prospects-list" class="terminal mono" style="height: 160px; color: #a7f3d0; overflow-y: auto;">
+                    // Select cluster and click 'Scan Cluster' to discover prospects and 1-click WhatsApp pitch links
+                </div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-bottom: 10px;">
+                    🏠 NammaFlat VIP Radar // Zero-Brokerage Techie Passes
+                </div>
+                <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                    <input type="text" id="blr-hunter-name" placeholder="Subscriber Name" value="Aditya Rao" style="flex: 1;">
+                    <input type="text" id="blr-hunter-phone" placeholder="WhatsApp" value="+91-9880012345" style="flex: 1;">
+                    <button onclick="generateBlrUPI()" style="background: var(--blue); color: #fff; font-weight: 800; flex: 1;">Get UPI Link</button>
+                </div>
+                <div id="blr-radar-output" class="terminal mono" style="height: 160px; color: #bae6fd; overflow-y: auto;">
+                    // Click 'Get UPI Link' to generate instant NPCI QR code and deep-link checkout
                 </div>
             </div>
         </div>
@@ -431,6 +479,51 @@ def get_dashboard_router(get_session_dep):
             col.prepend(card);
             document.getElementById('quick-lead-name').value = '';
             document.getElementById('quick-lead-niche').value = '';
+        }
+        async function scanBlrCluster() {
+            const cluster = document.getElementById('blr-cluster-select').value;
+            const out = document.getElementById('blr-prospects-list');
+            out.innerText = `Scanning commercial cluster in ${cluster}...`;
+            try {
+                const res = await fetch('/api/v1/bangalore/prospects/scan', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({cluster: cluster})
+                });
+                const data = await res.json();
+                let text = `Found ${data.count} high-converting prospects in ${data.cluster}:\\n\\n`;
+                data.prospects.forEach((p, idx) => {
+                    text += `[${idx+1}] ${p.business_name} (₹${p.monthly_retainer_inr.toLocaleString()}/mo)\\n`;
+                    text += `    📱 1-Click WhatsApp: ${p.direct_pitch_url}\\n`;
+                    text += `    🎯 Hook: "${p.social_hooks[0]}"\\n\\n`;
+                });
+                out.innerText = text;
+            } catch(e) {
+                out.innerText = 'Error: ' + e;
+            }
+        }
+
+        async function generateBlrUPI() {
+            const name = document.getElementById('blr-hunter-name').value;
+            const phone = document.getElementById('blr-hunter-phone').value;
+            const out = document.getElementById('blr-radar-output');
+            out.innerText = `Generating instant UPI payment intent for ${name}...`;
+            try {
+                const res = await fetch('/api/v1/bangalore/checkout/radar', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: name, phone_whatsapp: phone, tier: 'PRO_RELOCATOR'})
+                });
+                const data = await res.json();
+                out.innerHTML = `
+                <div style="font-weight: 700; color: #10b981;">Order Ref: ${data.transaction_id} (₹${data.amount_inr} INR)</div>
+                <div style="margin: 6px 0;"><a href="${data.upi_intent_uri}" target="_blank" style="color: #38bdf8; text-decoration: underline;">👉 Tap to Pay via UPI (PhonePe/GPay/Paytm)</a></div>
+                <div style="font-size: 11px; color: #94a3b8;">Payee VPA: ${data.pay_to_vpa}</div>
+                <div style="margin-top: 8px;"><img src="${data.qr_image_url}" width="120" height="120" style="border-radius: 6px; background: #fff; padding: 4px;" /></div>
+                `;
+            } catch(e) {
+                out.innerText = 'Error: ' + e;
+            }
         }
     </script>
 </body>

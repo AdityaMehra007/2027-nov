@@ -22,6 +22,18 @@ class DatabaseEngine:
 
     def init_db(self) -> None:
         """Create all registered SQLModel tables."""
+        try:
+            import omniverse.modules.revenue.models
+            import omniverse.modules.commerce.models
+            import omniverse.modules.markets.models
+            import omniverse.modules.opportunities.models
+            import omniverse.modules.aether.models
+            import omniverse.modules.planetary_mesh.models
+            import omniverse.modules.intelligence.models
+            import omniverse.modules.bangalore.models
+            import omniverse.modules.bangalore.banking
+        except Exception:
+            pass
         SQLModel.metadata.create_all(self.engine)
 
     @contextmanager

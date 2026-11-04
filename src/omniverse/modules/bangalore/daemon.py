@@ -25,6 +25,15 @@ class Bangalore247CashDaemon:
 
     def __init__(self, session: Session):
         self.session = session
+        try:
+            from sqlmodel import SQLModel
+            import omniverse.modules.bangalore.models  # ensure models registered
+            bind = session.get_bind()
+            if bind is not None:
+                SQLModel.metadata.create_all(bind)
+        except Exception:
+            pass
+
         self.radar = BangaloreFlatRadar(session)
         self.smb_engine = NammaBizEngine(session)
         self.payment_engine = BangaloreUPIEngine(session)

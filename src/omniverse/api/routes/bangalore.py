@@ -29,6 +29,15 @@ from omniverse.modules.bangalore.cost_of_living import (
     analyze_cluster_living,
     get_cluster_col,
 )
+from omniverse.modules.bangalore.banking import (
+    BankCategory,
+    BankingCorridor,
+    FitoutGrade,
+    BangaloreBankOffice,
+    GCCCapexOpexModel,
+    RBIAuditResult,
+    BangaloreBankingEngine,
+)
 from omniverse.modules.bangalore.money_flow import simulate_capital_flow
 from omniverse.modules.bangalore.projects import (
     get_project_archetypes,
@@ -72,6 +81,19 @@ class ColSimulateRequest(BaseModel):
 class MoneyFlowSimulateRequest(BaseModel):
     inflow_amount_inr: float = 100000000.0
     source: str = "GCC_OPEX"
+
+class GCCBlueprintRequest(BaseModel):
+    seats: int = 1500
+    corridor: BankingCorridor = BankingCorridor.OUTER_RING_ROAD
+    fitout_grade: FitoutGrade = FitoutGrade.ULTRA_GRADE_A_FINANCIAL
+
+class RBIAuditRequest(BaseModel):
+    bank_name: str
+    data_localized: bool = True
+    dpdp_consent: bool = True
+    cert_in_6hr: bool = True
+    npl_clock_sync: bool = True
+    vault_cctv_90day: bool = True
 
 
 def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, None]]) -> APIRouter:
@@ -250,6 +272,47 @@ def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, 
         if not project:
             raise HTTPException(status_code=404, detail=f"Project {project_id} not found")
         return project
+
+    @router.get("/banking/offices", response_model=List[BangaloreBankOffice])
+    def get_banking_offices(
+        corridor: Optional[BankingCorridor] = None,
+        category: Optional[BankCategory] = None,
+        session: Session = Depends(session_factory)
+    ):
+        engine = BangaloreBankingEngine(session)
+        return engine.get_offices(corridor=corridor, category=category)
+
+    @router.get("/banking/corridors")
+    def get_banking_corridors(session: Session = Depends(session_factory)):
+        engine = BangaloreBankingEngine(session)
+        return engine.get_corridor_intelligence()
+
+    @router.post("/banking/gcc-blueprint", response_model=GCCCapexOpexModel)
+    def generate_gcc_blueprint(
+        req: GCCBlueprintRequest,
+        session: Session = Depends(session_factory)
+    ):
+        engine = BangaloreBankingEngine(session)
+        return engine.calculate_gcc_cost_model(
+            seats=req.seats,
+            corridor=req.corridor,
+            fitout_grade=req.fitout_grade
+        )
+
+    @router.post("/banking/audit", response_model=RBIAuditResult)
+    def audit_banking_compliance(
+        req: RBIAuditRequest,
+        session: Session = Depends(session_factory)
+    ):
+        engine = BangaloreBankingEngine(session)
+        return engine.audit_rbi_compliance(
+            bank_name=req.bank_name,
+            data_localized=req.data_localized,
+            dpdp_consent=req.dpdp_consent,
+            cert_in_6hr=req.cert_in_6hr,
+            npl_clock_sync=req.npl_clock_sync,
+            vault_cctv_90day=req.vault_cctv_90day
+        )
 
     @router.get("/overview")
     def get_economic_overview():

@@ -12,7 +12,8 @@ EXAMPLES_DIR = Path(__file__).parent.parent / "examples"
     "04_planetary_mesh_federated_consensus.py",
     "05_multi_currency_rtgs_clearing.py",
     "06_autonomous_academic_paper_generation.py",
-    "07_mcp_agent_orchestration.py"
+    "07_mcp_agent_orchestration.py",
+    "08_bangalore_247_cashflow_engine.py"
 ])
 def test_example_script_runs_successfully(example_file):
     script_path = EXAMPLES_DIR / example_file

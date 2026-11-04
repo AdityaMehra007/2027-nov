@@ -78,4 +78,12 @@ __all__ = [
     "simulate_capital_flow",
     "get_project_archetypes",
     "get_project_by_id",
+    "BankCategory",
+    "BankingCorridor",
+    "FitoutGrade",
+    "RegulatoryStatus",
+    "BangaloreBankOffice",
+    "GCCCapexOpexModel",
+    "RBIAuditResult",
+    "BangaloreBankingEngine",
 ]

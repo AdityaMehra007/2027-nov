@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 import time
+import asyncio
 from omniverse.modules.planetary_mesh.models import MeshRegion, NodeStatus, MeshNode, TelemetryPacket
 
 class GlobalPlanetaryMesh:
@@ -25,6 +26,25 @@ class GlobalPlanetaryMesh:
         return {
             "packet_id": packet.packet_id,
             "broadcast_status": "DELIVERED",
+            "source_node": packet.source_node_id,
+            "nodes_reached": len(delivered),
+            "latency_ms": round(avg_latency, 2),
+            "timestamp": time.time()
+        }
+
+    async def broadcast_packet_async(self, packet: TelemetryPacket) -> Dict[str, Any]:
+        """Concurrently broadcasts telemetry packets to all planetary edge nodes via asyncio.gather."""
+        async def _dispatch_to_node(node: MeshNode):
+            await asyncio.sleep(0.001)  # Simulated ultra-low latency mesh dispatch
+            return node.node_id if node.status == NodeStatus.ONLINE else None
+
+        results = await asyncio.gather(*[_dispatch_to_node(n) for n in self._nodes.values()])
+        delivered = [r for r in results if r is not None]
+        avg_latency = sum(n.latency_ms for n in self._nodes.values()) / len(self._nodes)
+
+        return {
+            "packet_id": packet.packet_id,
+            "broadcast_status": "DELIVERED_ASYNC",
             "source_node": packet.source_node_id,
             "nodes_reached": len(delivered),
             "latency_ms": round(avg_latency, 2),

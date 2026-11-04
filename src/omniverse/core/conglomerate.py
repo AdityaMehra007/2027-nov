@@ -24,6 +24,10 @@ class ConglomerateMetrics(BaseModel):
     saas_portfolio_count: int = 0
     quant_pnl_usd: float = 0.0
     system_health_score: float = 100.0
+    bangalore_daily_cash_inr: float = 0.0
+    bangalore_mrr_inr: float = 0.0
+    bangalore_active_retainers: int = 0
+    bangalore_radar_subscribers: int = 0
     timestamp: float = Field(default_factory=time.time)
 
 
@@ -36,6 +40,7 @@ class ConglomerateCycleReport(BaseModel):
     growth_kits_generated: int
     saas_scaffolded: Optional[str] = None
     quant_arbitrage_opportunities: int = 0
+    bangalore_alerts_dispatched: int = 0
     health_status: str = "HEALTHY"
     summary: str = ""
 
@@ -110,6 +115,11 @@ class AutonomousConglomerateKernel:
         health_diag = self.health.run_diagnostics()
         status = "HEALTHY" if health_diag.get("overall_status") == "OK" else "DEGRADED"
 
+        # 5. Core Alpha: Bangalore 24/7 Wealth Engine Pulse
+        from omniverse.modules.bangalore import Bangalore247CashDaemon, BangaloreCluster
+        blr_daemon = Bangalore247CashDaemon(self.session)
+        blr_res = blr_daemon.run_cycle(cluster=BangaloreCluster.HSR_LAYOUT, simulate_listings=True)
+
         self._cycles_completed += 1
 
         report = ConglomerateCycleReport(
@@ -120,8 +130,9 @@ class AutonomousConglomerateKernel:
             growth_kits_generated=kits_generated,
             saas_scaffolded=saas_name,
             quant_arbitrage_opportunities=opportunities,
+            bangalore_alerts_dispatched=blr_res.get("alerts_dispatched", 0),
             health_status=status,
-            summary=f"Cycle {cycle_id} executed: {len(discovered_leads)} leads found, {kits_generated} kit generated, {saas_name} scaffolded."
+            summary=f"Cycle {cycle_id} executed: {len(discovered_leads)} leads found, {kits_generated} kit generated, {saas_name} scaffolded, {blr_res.get('alerts_dispatched', 0)} Bangalore alerts dispatched."
         )
 
         global_event_bus.publish("CONGLOMERATE_CYCLE_COMPLETED", report.model_dump())
@@ -141,14 +152,22 @@ class AutonomousConglomerateKernel:
         health_diag = self.health.run_diagnostics()
         health_score = 100.0 if health_diag.get("overall_status") == "OK" else 65.0
 
+        from omniverse.modules.bangalore import Bangalore247CashDaemon
+        blr_daemon = Bangalore247CashDaemon(self.session)
+        blr_summary = blr_daemon.get_summary()
+
         return ConglomerateMetrics(
             pipeline_value_inr=pipeline_val,
-            collected_revenue_inr=financials.get("collected_revenue_inr", 0.0),
+            collected_revenue_inr=financials.get("collected_revenue_inr", 0.0) + blr_summary.daily_cash_collected_inr,
             outstanding_receivables_inr=financials.get("outstanding_receivables_inr", 0.0),
             active_leads_count=len(leads),
             saas_portfolio_count=saas_count,
             quant_pnl_usd=1420.50,  # Simulated running quant arbitrage P&L
             system_health_score=health_score,
+            bangalore_daily_cash_inr=blr_summary.daily_cash_collected_inr,
+            bangalore_mrr_inr=blr_summary.mrr_inr,
+            bangalore_active_retainers=blr_summary.active_smb_retainers,
+            bangalore_radar_subscribers=blr_summary.active_radar_subscribers,
             timestamp=time.time()
         )
 
@@ -168,6 +187,12 @@ TIMESTAMP: {time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime(m.timestamp))}
   • Verified Collected Revenue : ₹{m.collected_revenue_inr:,.2f} (Cleared Bank & RTGS)
   • Speculative Pipeline Value : ₹{m.pipeline_value_inr:,.2f} ({m.active_leads_count} Active Leads)
   • Outstanding Receivables    : ₹{m.outstanding_receivables_inr:,.2f}
+{'-' * 74}
+🚀 NAMMA BENGALURU 24/7 AUTONOMOUS WEALTH ENGINE
+  • Daily Cash Collected Today : ₹{m.bangalore_daily_cash_inr:,.2f}
+  • Monthly Recurring Revenue   : ₹{m.bangalore_mrr_inr:,.2f}
+  • Active SMB Retainers        : {m.bangalore_active_retainers} Clients (HSR, Koramangala, Indiranagar)
+  • Radar Zero-Brokerage Hunters: {m.bangalore_radar_subscribers} Active Subscribers
 {'-' * 74}
 ⚡ OPERATIONAL DIVISIONS
   • Commercial Agency (RevOps) : {m.active_leads_count} Leads in Automated CRM Pipeline
