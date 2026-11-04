@@ -19,14 +19,27 @@ def test_agency_cockpit_html_endpoint(client):
 
 
 def test_client_portal_html_endpoint(client):
-    # First create client
+    # 1. Create client
     client_res = client.post("/api/v1/agency/clients", json={
         "name": "Sarah Connor",
         "email": "sarah@cyberdyne.io",
         "company": "Cyberdyne Systems",
     })
-    token = client_res.json()["client"]["access_token"]
+    client_data = client_res.json()["client"]
+    token = client_data["access_token"]
+    client_id = client_data["id"]
 
+    # 2. Create and execute an order for this client
+    order_res = client.post("/api/v1/agency/orders", json={
+        "client_id": client_id,
+        "service_type": "FULLSTACK_DEV",
+        "brief": "Autonomous defense portal",
+        "budget_usd": 4500.0,
+    })
+    order_id = order_res.json()["order"]["id"]
+    client.post(f"/api/v1/agency/orders/{order_id}/execute")
+
+    # 3. View client portal
     response = client.get(f"/api/v1/agency/portal/{token}/view")
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]

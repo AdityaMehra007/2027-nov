@@ -24,6 +24,10 @@ from omniverse.modules.agency.fulfillment.marketing_factory import MarketingFact
 from omniverse.modules.agency.fulfillment.automation_factory import AutomationFactory
 from omniverse.modules.agency.qa_governor import QAGovernor
 from omniverse.modules.agency.portal_engine import AgencyPortalEngine
+from omniverse.api.routes.agency_ui import (
+    render_agency_cockpit_html,
+    render_client_portal_html,
+)
 
 
 # In-memory singletons for operational agency runtime
@@ -234,5 +238,23 @@ def get_agency_router() -> APIRouter:
             "order": order.model_dump(),
             "client": client.model_dump(),
         }
+
+    @router.get("/cockpit", response_class=HTMLResponse)
+    def render_cockpit():
+        """Render cyberpunk interactive agency command center."""
+        overview = get_overview()
+        leads_list = [l.model_dump() for l in _discovered_leads.values()]
+        orders_list = [o.model_dump() for o in _orders.values()]
+        return HTMLResponse(content=render_agency_cockpit_html(overview, leads_list, orders_list))
+
+    @router.get("/portal/{token}/view", response_class=HTMLResponse)
+    def render_portal_view(token: str):
+        """Render client-facing self-serve portal UI."""
+        client = portal_engine.authenticate_client(token)
+        if not client:
+            raise HTTPException(status_code=401, detail="Invalid client portal token")
+
+        client_orders = [o.model_dump() for o in _orders.values() if o.client_id == client.id]
+        return HTMLResponse(content=render_client_portal_html(client, client_orders))
 
     return router
