@@ -4,7 +4,7 @@
 ### *The #1 Autonomous Wealth, Multi-Market Intelligence, and Planetary Resilience Operating System*
 
 [![CI Build](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/omniverse/omniverse)
-[![Test Coverage](https://img.shields.io/badge/Coverage-100%25-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/omniverse/omniverse)
+[![Test Suite](https://img.shields.io/badge/Tests-105%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/omniverse/omniverse)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blueviolet?style=for-the-badge&logo=apache&logoColor=white)](LICENSE)
 [![Architecture: Antigravity](https://img.shields.io/badge/Platform-Google%20Antigravity-f59e0b?style=for-the-badge&logo=google&logoColor=white)](https://antigravity.google)
@@ -15,11 +15,13 @@
 </p>
 
 [Quick Start](#-quick-start) •
+[Cyberpunk TUI](#-cyberpunk-terminal-user-interface-tui) •
 [Architecture](#-architectural-topology) •
 [Core Alpha: Revenue](#-core-alpha-the-autonomous-revenue-engine) •
 [Core Beta: Aether](#-core-beta-aether-resilience-fabric) •
-[Command Center](#-palantir-class-web-command-center) •
-[Benchmarks](#-framework-benchmarks) •
+[Hybrid LLM Arbitrator](#-hybrid-multi-model-llm-arbitrator) •
+[Empirical Benchmarks](#-empirical-benchmarking-suite) •
+[Multi-Cloud IaC](#-multi-cloud-kubernetes--infrastructure-as-code) •
 [Documentation](MASTER_DIRECTIVE.md)
 
 </div>
@@ -242,6 +244,29 @@ Performs AST static type auditing, docstring coverage analysis, and generates la
 ```bash
 python -m omniverse.cli self-heal
 ```
+
+### 9. Cyberpunk Terminal User Interface (TUI)
+Tactical neon ASCII operator console rendering live 6-continent federated edge nodes, real-time financial ledger ticker, kernel health diagnostics, and interactive keyboard controls (`[m]` Consensus Quorum, `[s]` Refresh Status, `[r]` Aether Risk Pulse, `[q]` Quit).
+
+```bash
+python -m omniverse.cli tui
+```
+
+### 10. Hybrid Multi-Model LLM Arbitrator
+Dynamic multi-objective router across frontier commercial models (Google Gemini 1.5 Pro, Anthropic Claude 3.5 Sonnet, OpenAI GPT-4o) and sovereign offline edge clusters (Ollama Qwen 2.5 Coder, vLLM Llama 3.1 70B, Mistral NeMo). Features automatic resilience failover chains, token cost estimation, and strict air-gapped compliance (`requires_offline=True`).
+
+### 11. Empirical Benchmarking Suite
+High-throughput automated latency and ops/sec benchmark evaluator testing PBFT consensus, Black-Scholes Greeks, SAR radar flood segmenter, RTGS multi-currency clearing, and LLM arbitrator routing.
+
+```bash
+python -m omniverse.cli benchmark --iterations 25
+```
+
+### 12. Multi-Cloud Kubernetes & Infrastructure as Code (IaC)
+Production-grade deployment manifests located in [`deploy/`](deploy/):
+- **Kubernetes DaemonSet**: [`deploy/k8s/mesh-node-daemonset.yaml`](deploy/k8s/mesh-node-daemonset.yaml) with non-root security context, read-only rootfs, drop capabilities, and health probes.
+- **Helm v3 Chart**: [`deploy/helm/omniverse/Chart.yaml`](deploy/helm/omniverse/Chart.yaml) packaged with deployment and service templates.
+- **Terraform 1.5+ Topology**: [`deploy/terraform/main.tf`](deploy/terraform/main.tf) with multi-region AWS EKS, KMS CMK envelope encryption, and S3 sovereign ledger.
 
 ---
 

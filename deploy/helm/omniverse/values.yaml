@@ -1,0 +1,64 @@
+replicaCount: 3
+
+image:
+  repository: ghcr.io/cashflow-infinity/omniverse
+  pullPolicy: IfNotPresent
+  tag: "2027.1.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: "omniverse-agent"
+
+podAnnotations: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: omniverse.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+config:
+  env: "production"
+  dbUrl: "sqlite:////data/omniverse.db"
+  safetyBudgetDailyUsd: 100.0
+  strictApprovalRequired: true
+  primaryMarket: "Bengaluru, India"
+  currency: "INR"

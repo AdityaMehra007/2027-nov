@@ -1,0 +1,19 @@
+apiVersion: v2
+name: omniverse
+version: 1.0.0
+appVersion: "2027.1.0"
+description: CASHFLOW INFINITY - OMNIVERSE & AETHER RESILIENCE FABRIC Helm Chart for Planetary Autonomous Infrastructure
+type: application
+keywords:
+  - cashflow-infinity
+  - omniverse
+  - planetary-mesh
+  - financial-intelligence
+  - autonomous-agents
+  - aether-resilience
+home: https://github.com/cashflow-infinity/omniverse
+sources:
+  - https://github.com/cashflow-infinity/omniverse
+maintainers:
+  - name: Planetary Architecture Group
+    email: planetary-core@omniverse.resilience

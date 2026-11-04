@@ -122,6 +122,15 @@ def main():
     serve_parser.add_argument("--host", default="127.0.0.1", help="Host address")
     serve_parser.add_argument("--port", type=int, default=8000, help="Port number")
 
+    # Command: tui
+    tui_parser = subparsers.add_parser("tui", help="Launch Cyberpunk Terminal User Interface (TUI)")
+    tui_parser.add_argument("--cycles", type=int, default=None, help="Fixed cycles to run and exit")
+    tui_parser.add_argument("--no-ansi", action="store_true", help="Disable ANSI color codes")
+
+    # Command: benchmark
+    bench_parser = subparsers.add_parser("benchmark", help="Run empirical latency and throughput benchmarking suite")
+    bench_parser.add_argument("--iterations", type=int, default=25, help="Iterations per subsystem benchmark")
+
     args = parser.parse_args()
 
     init_db()
@@ -440,6 +449,20 @@ def main():
         from omniverse.api.app import create_app
         app = create_app()
         uvicorn.run(app, host=args.host, port=args.port)
+
+    elif args.command == "tui":
+        from omniverse.ui.tui import CyberpunkTUI
+        with engine.get_session() as session:
+            tui = CyberpunkTUI(session=session, use_ansi=not args.no_ansi)
+            tui.run_loop(max_cycles=args.cycles)
+
+    elif args.command == "benchmark":
+        from omniverse.operations.benchmark import OmniverseBenchmarkingSuite
+        suite = OmniverseBenchmarkingSuite()
+        print(f"\n🚀 Initiating Omniverse Empirical Benchmark Suite ({args.iterations} iterations)...")
+        report = suite.run_all(iterations=args.iterations)
+        table = suite.render_table(report)
+        print(f"\n{table}\n")
 
     else:
         parser.print_help()

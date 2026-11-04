@@ -1,0 +1,172 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: omniverse-system
+  labels:
+    app.kubernetes.io/name: omniverse
+    app.kubernetes.io/part-of: cashflow-infinity
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: omniverse-mesh-agent
+  namespace: omniverse-system
+  labels:
+    app.kubernetes.io/name: omniverse-mesh-agent
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omniverse-node-config
+  namespace: omniverse-system
+data:
+  OMNIVERSE_ENV: "production"
+  OMNIVERSE_DB_URL: "sqlite:////data/omniverse.db"
+  SAFETY_BUDGET_DAILY_USD: "100.0"
+  STRICT_APPROVAL_REQUIRED: "true"
+  PRIMARY_MARKET: "Bengaluru, India"
+  CURRENCY: "INR"
+  PBFT_QUORUM_RATIO: "0.667"
+  CONSENSUS_HEARTBEAT_SEC: "2"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: omniverse-mesh-node
+  namespace: omniverse-system
+  labels:
+    app.kubernetes.io/name: omniverse-mesh-node
+    app.kubernetes.io/component: planetary-edge-daemon
+    app.kubernetes.io/version: "2027.1.0"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: omniverse-mesh-node
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: omniverse-mesh-node
+        app.kubernetes.io/tier: edge-mesh
+    spec:
+      serviceAccountName: omniverse-mesh-agent
+      terminationGracePeriodSeconds: 30
+      tolerations:
+        - key: "node-role.kubernetes.io/edge"
+          operator: "Exists"
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: mesh-node
+          image: ghcr.io/cashflow-infinity/omniverse-node:2027.1.0
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-m", "omniverse.cli", "serve", "--host", "0.0.0.0", "--port", "8000"]
+          ports:
+            - name: http-api
+              containerPort: 8000
+              protocol: TCP
+            - name: pbft-bft
+              containerPort: 9090
+              protocol: TCP
+            - name: telemetry
+              containerPort: 9100
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: omniverse-node-config
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          livenessProbe:
+            httpGet:
+              path: /api/v1/ops/health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/v1/ops/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          volumeMounts:
+            - name: edge-data
+              mountPath: /data
+            - name: tmp-dir
+              mountPath: /tmp
+      volumes:
+        - name: edge-data
+          hostPath:
+            path: /var/lib/omniverse/data
+            type: DirectoryOrCreate
+        - name: tmp-dir
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omniverse-mesh-headless
+  namespace: omniverse-system
+  labels:
+    app.kubernetes.io/name: omniverse-mesh-headless
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: omniverse-mesh-node
+  ports:
+    - name: pbft-consensus
+      port: 9090
+      targetPort: 9090
+    - name: http-api
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omniverse-mesh-service
+  namespace: omniverse-system
+  labels:
+    app.kubernetes.io/name: omniverse-mesh-service
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: omniverse-mesh-node
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+    - name: telemetry
+      port: 9100
+      targetPort: 9100
