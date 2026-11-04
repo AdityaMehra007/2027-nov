@@ -47,6 +47,9 @@ class Lead(BaseModel):
     archetype: ProspectArchetype
     website: Optional[str] = None
     contact_email: Optional[str] = None
+    contact_phone: Optional[str] = None
+    city: str = "Bengaluru"
+    niche: str = "Technology"
     estimated_annual_revenue_usd: float = 0.0
     stage: LeadStage = LeadStage.DISCOVERED
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

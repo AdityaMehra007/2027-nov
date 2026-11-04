@@ -1102,7 +1102,9 @@ def main():
             print(f"     Est. Revenue : ${lead.estimated_annual_revenue_usd:,.2f} USD")
             print(f"     Website      : {lead.website or 'N/A'}")
             print(f"     Contact      : {lead.contact_email or lead.contact_phone or 'Available'}")
-            print(f"     Location     : {lead.city} | Category: {lead.niche}")
+            loc = getattr(lead, "city", "Bengaluru")
+            cat = getattr(lead, "niche", getattr(getattr(lead, "archetype", None), "value", "Commercial"))
+            print(f"     Location     : {loc} | Category: {cat}")
             print("-" * 80)
         print("================================================================================\n")
 
