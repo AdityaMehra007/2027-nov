@@ -128,4 +128,28 @@ def test_money_flow_simulation_conservation():
     assert allocated_sum == pytest.approx(inflow, rel=1e-3)
 
 
+def test_project_archetypes_catalog():
+    from omniverse.modules.bangalore.projects import get_project_archetypes, get_project_by_id
+
+    projects = get_project_archetypes()
+    assert len(projects) >= 5
+
+    proj_ids = [p.project_id for p in projects]
+    assert "BLR-PROJ-01" in proj_ids  # Quick-commerce
+    assert "BLR-PROJ-02" in proj_ids  # FinTech UPI switch
+    assert "BLR-PROJ-03" in proj_ids  # GCC Data Lake
+    assert "BLR-PROJ-04" in proj_ids  # Dev Tools & SaaS
+    assert "BLR-PROJ-05" in proj_ids  # Deep Tech Defense / Space
+
+    p1 = get_project_by_id("BLR-PROJ-01")
+    assert p1 is not None
+    assert "Zepto" in p1.archetype_companies or "Swiggy" in p1.archetype_companies
+    assert len(p1.core_tech_stack) >= 3
+
+    p5 = get_project_by_id("BLR-PROJ-05")
+    assert p5 is not None
+    assert "ISRO" in p5.archetype_companies or "HAL" in p5.archetype_companies
+
+
+
 
