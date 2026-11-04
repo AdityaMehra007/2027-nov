@@ -1,6 +1,6 @@
 ---
 description: Windows PowerShell execution syntax and stdout encoding invariants
-globs: ["*"]
+globs: "*"
 ---
 
 # Windows PowerShell & UTF-8 Console Invariants

@@ -1,6 +1,6 @@
 ---
 description: Invariants for embedding LaTeX formulas inside Python f-strings
-globs: ["**/*.py"]
+globs: "**/*.py"
 ---
 
 # Python f-String LaTeX Invariants
