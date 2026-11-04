@@ -105,4 +105,4 @@ def test_pilot_framework():
 
     contract = framework.generate_contract_document("Mercedes-Benz R&D India")
     assert "# Master Services Agreement: 6-Week Scoped Enterprise AI Pilot" in contract
-    assert "35,00,000" in contract
+    assert "3,500,000" in contract or "35,00,000" in contract

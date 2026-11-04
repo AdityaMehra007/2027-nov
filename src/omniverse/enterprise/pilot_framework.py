@@ -1,96 +1,117 @@
-"""6-Week Scoped Enterprise Pilot Framework and Retainer Agreement Engine."""
+"""Enterprise Pilot Commercial Framework and Master Services Agreement (MSA) Generator."""
 
 from typing import Optional, List, Dict, Any
 from omniverse.enterprise.models import (
-    Milestone,
-    PilotAgreement,
-    GCCAccount,
     Corridor,
+    GCCAccount,
+    PilotAgreement,
+    Milestone,
 )
 from omniverse.enterprise.gcc_matrix import GCCMatrix
-from omniverse.enterprise.proof_engine import ProofEngine
+
+
+def format_inr(amount: float) -> str:
+    """Format an amount into standard Indian Rupee notation (e.g. 35,00,000)."""
+    amt_int = int(amount)
+    s = str(amt_int)
+    if len(s) <= 3:
+        return s
+    last_three = s[-3:]
+    remaining = s[:-3]
+    chunks = []
+    while len(remaining) > 2:
+        chunks.append(remaining[-2:])
+        remaining = remaining[:-2]
+    if remaining:
+        chunks.append(remaining)
+    chunks.reverse()
+    return ",".join(chunks) + "," + last_three
 
 
 class PilotFramework:
-    """Structures, calculates, and generates enterprise 6-week paid pilots and annual retainer conversions."""
+    """Institutional commercial gating engine for 6-week scoped GCC autonomous enterprise pilots."""
 
-    def __init__(
-        self,
-        matrix: Optional[GCCMatrix] = None,
-        proof_engine: Optional[ProofEngine] = None
-    ):
+    def __init__(self, matrix: Optional[GCCMatrix] = None):
         self.matrix = matrix or GCCMatrix()
-        self.proof_engine = proof_engine or ProofEngine(self.matrix)
 
     def generate_agreement(
         self,
         company_name: str,
-        fee_inr: float = 3_500_000.0,
-        duration_weeks: int = 6
+        fee_inr: float = 3500000.0,
+        duration_weeks: int = 6,
+        gst_rate: float = 0.18,
     ) -> PilotAgreement:
-        """Create a mathematically precise, milestone-gated pilot agreement."""
+        """Constructs a binding milestone-gated pilot commercial structure."""
         account = self.matrix.get_account(company_name)
         company = account.name if account else company_name
-        teardown = self.proof_engine.generate_teardown(company)
 
-        gst_rate = 0.18
-        gst_amount = fee_inr * gst_rate
-        total_contract_value = fee_inr + gst_amount
-
-        # Retainer calculation: 4.5x - 6x pilot value or based on quantified ROI
-        annual_retainer = max(15_000_000.0, min(30_000_000.0, teardown.quantified_annual_roi_inr * 0.45))
+        gst_amount = round(fee_inr * gst_rate, 2)
+        total_contract_value = round(fee_inr + gst_amount, 2)
+        annual_retainer = round(max(fee_inr * 5.0, 18_000_000.0), 2)
 
         milestones = [
             Milestone(
                 week_number=1,
-                name="VPC Peering & InfoSec Environment Provisioning",
-                deliverable="Isolated cloud sandbox in client VPC with zero-egress IAM roles",
-                acceptance_criteria="Successful network ping within VPC perimeter with CMEK keys verified",
-                payment_percentage=0.15
+                name="VPC Enclave Provisioning & Architecture Ingestion",
+                deliverable="Isolated VPC boundary setup, CMEK encryption keys, and telemetry ingress pipelines.",
+                acceptance_criteria="Zero external egress verified; InfoSec sign-off on network topology.",
+                payment_percentage=15.0,
             ),
             Milestone(
                 week_number=2,
-                name="Schema Ingestion & Baseline Benchmarking",
-                deliverable="Telemetry schema validation adapter and current-state latency baseline report",
-                acceptance_criteria="Deterministic parsing of 5,000 sample workflow events without error",
-                payment_percentage=0.15
+                name="Multi-Agent Collective Provisioning & Tool Wiring",
+                deliverable="Deployment of supervisor and worker agents with domain connectors.",
+                acceptance_criteria="Agent harness passes mock schema validation with 100% test coverage.",
+                payment_percentage=15.0,
             ),
             Milestone(
                 week_number=3,
-                name="Autonomous Agent Swarm Orchestration",
-                deliverable="Deploy Ingestion, Verification, Worker, and Audit agents in sandbox",
-                acceptance_criteria="End-to-end execution of synthetic workflow tasks with self-reflection",
-                payment_percentage=0.20
+                name="Shadow Pipeline Execution on Historical Data",
+                deliverable="Replay execution across past 90 days of transactions/tickets in shadow mode.",
+                acceptance_criteria="Reconciliation accuracy >= 99.8% with zero regression on edge cases.",
+                payment_percentage=20.0,
             ),
             Milestone(
                 week_number=4,
-                name="Stress Testing & Error Self-Correction",
-                deliverable="Chaos test report under peak enterprise transaction load",
-                acceptance_criteria="99.5% autonomous error self-correction without operator intervention",
-                payment_percentage=0.20
+                name="Live Parallel Execution & Exception Routing",
+                deliverable="Parallel dual-run against live operations with human-in-the-loop escalation UI.",
+                acceptance_criteria="P99 processing latency reduced by > 75%; zero unauthorized state writes.",
+                payment_percentage=20.0,
             ),
             Milestone(
                 week_number=5,
-                name="Production Shadowing & Human-in-the-Loop Trial",
-                deliverable="Real-time parallel execution against live production events in shadow mode",
-                acceptance_criteria="Zero impact on production throughput; 100% agreement with enterprise leads",
-                payment_percentage=0.15
+                name="Enterprise Load Testing & Security Governance Audit",
+                deliverable="10x peak stress test and third-party penetration/compliance audit pack.",
+                acceptance_criteria="Zero memory leaks, SOC2 Type II compliance audit passed without findings.",
+                payment_percentage=15.0,
             ),
             Milestone(
                 week_number=6,
-                name="Executive Readout & SLA Retainer Conversion",
-                deliverable="Executive ROI signoff report demonstrating >= 70% latency reduction",
-                acceptance_criteria="Formal technical signoff by VP/Director of Engineering for annual transition",
-                payment_percentage=0.15
+                name="Executive Readout & Production Transition",
+                deliverable="Master operational scorecard, Quantified ROI audit, and 12-month MSA Retainer transition.",
+                acceptance_criteria="Sign-off from VP/Director of Engineering on production cutover.",
+                payment_percentage=15.0,
             ),
         ]
 
+        # In case duration_weeks is different, adjust milestone slice
+        if duration_weeks < 6:
+            milestones = milestones[:duration_weeks]
+        elif duration_weeks > 6:
+            for w in range(7, duration_weeks + 1):
+                milestones.append(
+                    Milestone(
+                        week_number=w,
+                        name=f"Extended Hardening & Fine-Tuning Week {w}",
+                        deliverable="Specialized model tuning and expanded integration coverage.",
+                        acceptance_criteria="SLAs consistently satisfied.",
+                        payment_percentage=round(100.0 / duration_weeks, 2),
+                    )
+                )
+
         sla_terms = (
-            "1. Pilot SLA Target: >= 70% reduction in workflow latency.\n"
-            "2. Zero-Downtime Guarantee: Operates strictly as a non-disruptive shadow sidecar.\n"
-            "3. Data Sovereignty SLA: 100% data remains inside sovereign Indian borders.\n"
-            "4. Conversion Trigger: Upon verified achievement of Week 6 acceptance criteria, "
-            "Client executes the 12-Month Annual Retainer Agreement."
+            "99.95% agent uptime, sub-250ms deterministic triage latency, "
+            "zero data egress outside client VPC, and 1-hour P1 escalation response window."
         )
 
         return PilotAgreement(
@@ -102,67 +123,71 @@ class PilotFramework:
             gst_amount_inr=gst_amount,
             total_contract_value_inr=total_contract_value,
             annual_retainer_conversion_fee_inr=annual_retainer,
-            sla_terms=sla_terms
+            sla_terms=sla_terms,
         )
 
     def generate_contract_document(
         self,
         company_name: str,
-        fee_inr: float = 3_500_000.0
+        fee_inr: float = 3500000.0,
+        duration_weeks: int = 6,
     ) -> str:
-        """Outputs a formal Master Services Agreement (MSA) and Statement of Work (SOW)."""
-        agreement = self.generate_agreement(company_name, fee_inr)
-        account = self.matrix.get_account(company_name)
-        corridor_str = account.corridor.value.replace('_', ' ') if account else "Bengaluru"
+        """Generates a complete institutional Master Services Agreement (MSA) contract."""
+        agreement = self.generate_agreement(company_name, fee_inr, duration_weeks)
+        fee_formatted = format_inr(agreement.pilot_fee_inr)
+        gst_formatted = format_inr(agreement.gst_amount_inr)
+        total_formatted = format_inr(agreement.total_contract_value_inr)
+        retainer_formatted = format_inr(agreement.annual_retainer_conversion_fee_inr)
 
-        milestone_rows = "\n".join(
-            f"| Week {m.week_number} | **{m.name}** | {m.deliverable} | {m.acceptance_criteria} | ₹{agreement.pilot_fee_inr * m.payment_percentage:,.0f} ({m.payment_percentage*100:.0f}%) |"
-            for m in agreement.milestones
-        )
+        milestone_rows = []
+        for m in agreement.milestones:
+            m_amount = format_inr(round(agreement.pilot_fee_inr * (m.payment_percentage / 100.0), 2))
+            milestone_rows.append(
+                f"| Week {m.week_number} | **{m.name}** | {m.deliverable} | {m.acceptance_criteria} | {m.payment_percentage:.0f}% (₹{m_amount}) |"
+            )
+        milestones_table = "\n".join(milestone_rows)
 
         return f"""# Master Services Agreement: 6-Week Scoped Enterprise AI Pilot
-### Statement of Work (SOW) & Commercial Terms
-**Client Organization**: {agreement.company} ({corridor_str})  
-**Provider**: CASHFLOW INFINITY Enterprise Practice  
-**Jurisdiction**: Bengaluru, Karnataka, India  
+**Parties:** CASHFLOW INFINITY Enterprise Practice ("Provider") & **{agreement.company}** ("Client")  
+**Effective Date:** Upon Mutual Cryptographic Signature  
+**Governing Law:** Laws of Karnataka, India (Arbitration in Bengaluru)
 
 ---
 
-## 1. Commercial Summary
-- **Scoped Pilot Fee**: ₹{agreement.pilot_fee_inr:,.0f} INR (Thirty-Five Lakh Rupees)
-- **Applicable GST (18%)**: ₹{agreement.gst_amount_inr:,.0f} INR (Six Lakh Thirty Thousand Rupees)
-- **Total Invoiced Contract Value**: **₹{agreement.total_contract_value_inr:,.0f} INR**
-- **Follow-on Annual Platform Retainer**: ₹{agreement.annual_retainer_conversion_fee_inr:,.0f} INR/Year
+## 1. Commercial Terms
+- **Pilot Investment Fee**: **₹{fee_formatted} INR** (excluding GST)
+- **Applicable GST (18%)**: ₹{gst_formatted} INR
+- **Total Contract Value**: **₹{total_formatted} INR**
+- **Engagement Duration**: {agreement.duration_weeks} Calendar Weeks
+- **Post-Pilot Annual Retainer Option**: ₹{retainer_formatted} INR/year (Credits 100% of pilot fee upon exercise)
 
 ---
 
-## 2. Milestone Execution Schedule & Acceptance Gate
-
-| Milestone | Phase | Deliverable | Acceptance Criteria | Milestone Fee |
-| :--- | :--- | :--- | :--- | :--- |
-{milestone_rows}
-
----
-
-## 3. Service Level Agreement (SLA) & Warranty
-{agreement.sla_terms}
+## 2. Milestone Deliverables & Acceptance Schedule
+| Milestone | Focus | Key Deliverable | Acceptance Criteria | Tranche |
+|---|---|---|---|---|
+{milestones_table}
 
 ---
 
-## 4. Annual Retainer Conversion Clause
-Upon formal acceptance and delivery of the Week 6 Milestone readout demonstrating achieving target operational efficiency, Client agrees to transition the pilot deployment into the **Annual Enterprise VPC Retainer & Support Agreement** at the negotiated rate of **₹{agreement.annual_retainer_conversion_fee_inr:,.0f} INR/Year**, payable quarterly in advance.
+## 3. Service Level Agreement (SLA) & Security Guarantees
+- **Uptime & Latency**: {agreement.sla_terms}
+- **Data Sovereignty**: 100% private tenant execution within Client VPC. No training on Client data.
+- **Intellectual Property**: All bespoke agent prompts, connectors, and configuration scripts developed during the engagement remain the exclusive property of Client.
 
 ---
-**Agreed & Accepted:**
 
-For **{agreement.company}**:  
-Signature: __________________________  
-Name: _______________________________  
+## 4. Signatures & Execution Authorization
+
+**For Client ({agreement.company})**  
+Name: __________________________  
 Title: VP / Director of Engineering  
-Date: _______________________________  
+Signature: ______________________  
+Date: __________________________  
 
-For **CASHFLOW INFINITY**:  
-Signature: __________________________  
-Name: Managing Partner, Enterprise  
-Date: _______________________________  
+**For CASHFLOW INFINITY Enterprise Practice**  
+Name: Managing Director  
+Title: Head of Autonomous Systems  
+Signature: *[Cryptographically Verified HMAC-SHA256]*  
+Date: 2026-11-04  
 """
