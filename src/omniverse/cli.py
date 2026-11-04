@@ -12,10 +12,13 @@ if sys.stdout.encoding.lower() != 'utf-8':
 from omniverse.core.database import get_engine, init_db
 from omniverse.core.config import get_settings
 from omniverse.operations.health import HealthDiagnostics
+from omniverse.operations.reporter import ExecutiveReportGenerator
 from omniverse.modules.revenue.agency import GrowthKitGenerator
+from omniverse.modules.revenue.exporter import GrowthKitExporter
 from omniverse.modules.revenue.pipeline import LeadPipeline
 from omniverse.modules.revenue.payments import PaymentWorkflow
 from omniverse.modules.aether.risk_engine import AetherRiskEngine
+from omniverse.modules.aether.geocoder import AetherGeocoder
 from omniverse.modules.aether.models import HazardType
 from omniverse.modules.intelligence.quant_engine import Backtester
 from omniverse.modules.saas_factory.scaffolder import SaaSFactoryScaffolder
@@ -32,12 +35,14 @@ def main():
     kit_parser.add_argument("--business", required=True, help="Business name")
     kit_parser.add_argument("--niche", required=True, help="Industry / Niche")
     kit_parser.add_argument("--city", default="Bengaluru", help="Target city")
+    kit_parser.add_argument("--export", action="store_true", help="Export to markdown proposal file")
 
     # Command: leads
     subparsers.add_parser("leads", help="List all CRM leads")
 
     # Command: aether-risk
     risk_parser = subparsers.add_parser("aether-risk", help="Assess Aether geospatial resilience and climate hazard")
+    risk_parser.add_argument("--city", default=None, help="City to geocode")
     risk_parser.add_argument("--lat", type=float, default=12.9716, help="Latitude")
     risk_parser.add_argument("--lon", type=float, default=77.5946, help="Longitude")
     risk_parser.add_argument("--elevation", type=float, default=920.0, help="Elevation in meters")
@@ -49,7 +54,11 @@ def main():
     saas_parser.add_argument("--dir", default="./generated_saas", help="Output directory")
 
     # Command: backtest
-    subparsers.add_parser("backtest", help="Run sample quantitative trend-following backtest")
+    bt_parser = subparsers.add_parser("backtest", help="Run quantitative multi-strategy backtest")
+    bt_parser.add_argument("--strategy", default="trend", choices=["trend", "sma", "monte-carlo"])
+
+    # Command: daily-brief
+    subparsers.add_parser("daily-brief", help="Generate executive daily briefing report")
 
     # Command: serve
     serve_parser = subparsers.add_parser("serve", help="Start FastAPI Command Center")
@@ -103,13 +112,36 @@ def main():
         for i, hook in enumerate(kit.promotional_hooks, 1):
             print(f"{i}. {hook}")
 
+        exporter = GrowthKitExporter()
+        wa_url = exporter.generate_whatsapp_click_url("919999999999", kit.outreach_pitch)
+        print("\n--- ONE-CLICK WHATSAPP LAUNCH URL ---")
+        print(wa_url)
+
+        if args.export:
+            slug = args.business.lower().replace(" ", "_")
+            out_file = Path(f"./reports/proposals/{slug}_proposal.md")
+            saved_path = exporter.export_markdown(kit, out_file)
+            print(f"\n✅ Exported branded client proposal deck to: {saved_path}")
+
     elif args.command == "aether-risk":
+        lat = args.lat
+        lon = args.lon
+        elev = args.elevation
+
+        if args.city:
+            geocoder = AetherGeocoder()
+            loc = geocoder.geocode(args.city)
+            lat = loc["lat"]
+            lon = loc["lon"]
+            elev = loc["elevation_meters"]
+            print(f"📍 Geocoded '{args.city}' -> {loc['display_name']} ({lat}, {lon})")
+
         hazard_enum = getattr(HazardType, args.hazard.upper(), HazardType.FLOOD)
         engine_risk = AetherRiskEngine()
         assessment = engine_risk.evaluate_location_risk(
-            lat=args.lat,
-            lon=args.lon,
-            elevation_meters=args.elevation,
+            lat=lat,
+            lon=lon,
+            elevation_meters=elev,
             hazard_type=hazard_enum
         )
         print("\n==================================================")
@@ -132,15 +164,34 @@ def main():
 
     elif args.command == "backtest":
         backtester = Backtester()
-        sample_prices = [100.0, 102.5, 101.8, 106.0, 110.2, 108.5, 115.0, 122.4]
-        res = backtester.run_trend_following_backtest(sample_prices)
-        print("\n==================================================")
-        print("  QUANT INTELLIGENCE LAB — BACKTEST RESULTS")
-        print("==================================================")
-        print(f"Total Return % : {res['total_return_pct']}%")
-        print(f"Sharpe Ratio   : {res['sharpe_ratio']}")
-        print(f"Max Drawdown % : {res['max_drawdown_pct']}%")
-        print("==================================================")
+        sample_prices = [100.0, 102.5, 101.8, 106.0, 110.2, 108.5, 115.0, 122.4, 124.0, 128.5]
+        if args.strategy == "trend":
+            res = backtester.run_trend_following_backtest(sample_prices)
+            print("\n=== TREND FOLLOWING BACKTEST ===")
+            print(f"Total Return % : {res['total_return_pct']}%")
+            print(f"Sharpe Ratio   : {res['sharpe_ratio']}")
+            print(f"Max Drawdown % : {res['max_drawdown_pct']}%")
+        elif args.strategy == "sma":
+            res = backtester.run_moving_average_crossover(sample_prices, fast_period=2, slow_period=4)
+            print("\n=== SMA CROSSOVER BACKTEST ===")
+            print(f"Total Return % : {res['total_return_pct']}%")
+            print(f"Trades Count   : {res['trades_count']}")
+            print(f"Win Rate %     : {res['win_rate_pct']}%")
+        elif args.strategy == "monte-carlo":
+            res = backtester.run_monte_carlo_var(sample_prices, num_simulations=500, horizon_days=30)
+            print("\n=== MONTE CARLO VALUE-AT-RISK (VaR) ===")
+            print(f"VaR 95% (10d)  : {res['var_95_pct']}%")
+            print(f"VaR 99% (10d)  : {res['var_99_pct']}%")
+            print(f"Expected CVaR  : {res['expected_shortfall_cvar_pct']}%")
+
+    elif args.command == "daily-brief":
+        with engine.get_session() as session:
+            reporter = ExecutiveReportGenerator(session)
+            brief_file = reporter.generate_daily_brief()
+            print(f"\n✅ Executive Daily Briefing compiled and saved to: {brief_file}")
+            print("==================================================")
+            print(brief_file.read_text(encoding="utf-8")[:500] + "...\n[Full briefing in file]")
+            print("==================================================")
 
     elif args.command == "leads":
         with engine.get_session() as session:

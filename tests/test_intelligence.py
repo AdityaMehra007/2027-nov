@@ -21,7 +21,6 @@ def test_company_research_analysis():
 
 def test_backtester_metrics():
     backtester = Backtester()
-    # Simple simulated price series with steady upward trend
     prices = [100.0, 102.0, 101.5, 105.0, 104.0, 108.0, 112.0, 110.0, 115.0, 120.0]
     result = backtester.run_trend_following_backtest(prices)
     
@@ -29,6 +28,25 @@ def test_backtester_metrics():
     assert "sharpe_ratio" in result
     assert "max_drawdown_pct" in result
     assert result["total_return_pct"] > 0
+
+def test_backtester_moving_average_crossover():
+    backtester = Backtester()
+    prices = [100, 102, 104, 106, 108, 110, 112, 115, 118, 122, 125, 130]
+    res = backtester.run_moving_average_crossover(prices, fast_period=3, slow_period=6)
+    
+    assert "total_return_pct" in res
+    assert "trades_count" in res
+    assert "win_rate_pct" in res
+
+def test_backtester_monte_carlo_var():
+    backtester = Backtester()
+    prices = [100, 102, 101, 103, 105, 104, 106, 108, 107, 109, 111, 114]
+    mc = backtester.run_monte_carlo_var(prices, num_simulations=200, horizon_days=10)
+    
+    assert "var_95_pct" in mc
+    assert "var_99_pct" in mc
+    assert "expected_shortfall_cvar_pct" in mc
+    assert mc["var_99_pct"] >= mc["var_95_pct"]
 
 def test_paper_trading_execution(test_db: Session):
     trading_engine = PaperTradingEngine(session=test_db, initial_capital_inr=1000000.0)
@@ -43,7 +61,6 @@ def test_paper_trading_execution(test_db: Session):
     assert trade.symbol == "INFY"
     assert trade.status == "OPEN"
     
-    # Portfolio summary
     portfolio = trading_engine.get_portfolio_summary()
     assert portfolio["cash_balance_inr"] == 1000000.0 - (50 * 1800.0)
     assert portfolio["open_positions_count"] == 1

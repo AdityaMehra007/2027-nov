@@ -11,6 +11,7 @@ from omniverse.modules.aether.logistics import (
     EmergencyResourceRequest,
     CrisisLogisticsEngine
 )
+from omniverse.modules.aether.geocoder import AetherGeocoder
 
 __all__ = [
     "HazardType",
@@ -19,5 +20,6 @@ __all__ = [
     "AetherRiskEngine",
     "ReliefShelter",
     "EmergencyResourceRequest",
-    "CrisisLogisticsEngine"
+    "CrisisLogisticsEngine",
+    "AetherGeocoder"
 ]

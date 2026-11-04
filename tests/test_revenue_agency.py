@@ -1,7 +1,9 @@
 import pytest
+from pathlib import Path
 from sqlmodel import Session, select
 from omniverse.modules.revenue.models import Lead, LeadStage, Offer, GrowthKit
 from omniverse.modules.revenue.agency import GrowthKitGenerator
+from omniverse.modules.revenue.exporter import GrowthKitExporter
 
 def test_growth_kit_generation():
     generator = GrowthKitGenerator()
@@ -17,6 +19,22 @@ def test_growth_kit_generation():
     assert len(kit.promotional_hooks) == 5
     assert len(kit.whatsapp_catalog_copy) > 0
     assert "Spice Garden Bistro" in kit.outreach_pitch
+
+def test_growth_kit_exporter(tmp_path):
+    generator = GrowthKitGenerator()
+    kit = generator.generate("Zenith Dental Clinic", "Dental Healthcare", "Bengaluru")
+    
+    exporter = GrowthKitExporter()
+    out_file = tmp_path / "zenith_proposal.md"
+    written_path = exporter.export_markdown(kit, out_file)
+    
+    assert written_path.exists()
+    content = written_path.read_text(encoding="utf-8")
+    assert "Zenith Dental Clinic" in content
+    assert "WhatsApp" in content
+    
+    wa_url = exporter.generate_whatsapp_click_url("919876543210", kit.outreach_pitch)
+    assert wa_url.startswith("https://wa.me/919876543210?text=")
 
 def test_lead_and_offer_models(test_db: Session):
     lead = Lead(
