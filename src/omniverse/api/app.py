@@ -11,6 +11,7 @@ from omniverse.api.routes.aether import get_aether_router
 from omniverse.api.routes.saas import get_saas_router
 from omniverse.api.routes.ws import get_ws_router
 from omniverse.api.routes.planetary import get_planetary_router
+from omniverse.api.routes.bangalore import get_bangalore_router
 
 def create_app(
     db_engine: DatabaseEngine | None = None,
@@ -75,6 +76,7 @@ def create_app(
     app.include_router(get_saas_router(), prefix="/api/v1")
     app.include_router(get_ws_router(), prefix="/api/v1")
     app.include_router(get_planetary_router(), prefix="/api/v1")
+    app.include_router(get_bangalore_router(get_session), prefix="/api/v1")
 
     @app.get("/")
     def root():

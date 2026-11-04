@@ -43,6 +43,15 @@ from omniverse.modules.revenue.gateways import (
     UnifiedPaymentRouter,
 )
 from omniverse.modules.revenue.models import Lead, LeadStage
+from omniverse.modules.bangalore import (
+    BangaloreCluster,
+    SMBTier,
+    RadarSubscriptionTier,
+    BangaloreFlatRadar,
+    NammaBizEngine,
+    BangaloreUPIEngine,
+    Bangalore247CashDaemon,
+)
 import hmac
 import hashlib
 import uuid
@@ -169,6 +178,34 @@ def main():
     wh_parser.add_argument("--gateway", choices=["stripe", "razorpay"], default="stripe", help="Payment gateway")
     wh_parser.add_argument("--amount", type=float, default=150.0, help="Amount in USD/INR")
     wh_parser.add_argument("--currency", default="USD", help="Currency")
+
+    # Command: bangalore-status
+    subparsers.add_parser("bangalore-status", help="Display 24/7 Bangalore cashflow metrics and run-rate")
+
+    # Command: bangalore-prospect
+    blr_p_parser = subparsers.add_parser("bangalore-prospect", help="Scan Bangalore commercial clusters for high-value SMB retainers")
+    blr_p_parser.add_argument("--cluster", default="HSR Layout", choices=["Koramangala", "Indiranagar", "HSR Layout", "Whitefield", "Bellandur", "Jayanagar", "JP Nagar", "Electronic City"], help="Commercial cluster")
+
+    # Command: bangalore-flat-radar
+    blr_r_parser = subparsers.add_parser("bangalore-flat-radar", help="Monitor and filter Bangalore rental listings for zero-brokerage alerts")
+    blr_r_parser.add_argument("--simulate", action="store_true", help="Ingest simulated direct-owner feeds")
+    blr_r_parser.add_argument("--cluster", default="HSR Layout", help="Target cluster")
+
+    # Command: bangalore-checkout
+    blr_c_parser = subparsers.add_parser("bangalore-checkout", help="Generate instant UPI payment QR & Deep Link for Flat Radar pass")
+    blr_c_parser.add_argument("--name", default="Bengaluru Techie", help="Subscriber name")
+    blr_c_parser.add_argument("--phone", default="+91-9880012345", help="WhatsApp phone number")
+    blr_c_parser.add_argument("--tier", default="pro", choices=["sprint", "pro", "founder"], help="Pass tier (sprint: ₹199, pro: ₹499, founder: ₹1499)")
+
+    # Command: bangalore-daemon
+    blr_d_parser = subparsers.add_parser("bangalore-daemon", help="Run 24/7 autonomous Bangalore money-making operational loop")
+    blr_d_parser.add_argument("--cycles", type=int, default=1, help="Number of autonomous operational cycles")
+    blr_d_parser.add_argument("--cluster", default="HSR Layout", help="Primary commercial cluster")
+
+    # Command: directive
+    dir_parser = subparsers.add_parser("directive", help="Inspect and validate the Universal Master Directive and 12-Service Taxonomy")
+    dir_parser.add_argument("--summary", action="store_true", default=True, help="Display directive executive summary")
+    dir_parser.add_argument("--json", action="store_true", help="Output directive status as JSON")
 
     args = parser.parse_args()
 
@@ -586,9 +623,142 @@ def main():
                 print(f"✅ Razorpay payment simulation ready.")
             print("==================================================")
 
+    elif args.command == "bangalore-status":
+        with engine.get_session() as session:
+            daemon = Bangalore247CashDaemon(session)
+            summary = daemon.get_summary()
+            print("\n==================================================")
+            print("  NAMMA CASHFLOW 24/7 — BENGALURU ENGINE STATUS")
+            print("==================================================")
+            print(f"Status              : {summary.status}")
+            print(f"Daily Cash Collected: ₹{summary.daily_cash_collected_inr:,.2f}")
+            print(f"Monthly Recurring   : ₹{summary.mrr_inr:,.2f}")
+            print(f"Projected Run-Rate  : ₹{summary.projected_annual_runrate_inr:,.2f} / yr")
+            print("--------------------------------------------------")
+            print(f"Active SMB Retainers: {summary.active_smb_retainers}")
+            print(f"Radar VIP Hunters   : {summary.active_radar_subscribers}")
+            print(f"SMB Pipeline Value  : ₹{summary.total_pipeline_inr:,.2f}")
+            print(f"System Uptime       : {summary.system_uptime_hours} hrs")
+            print(f"Hotspot Clusters    : {', '.join(summary.cluster_hotspots[:4])}")
+            print("==================================================\n")
+
+    elif args.command == "bangalore-prospect":
+        with engine.get_session() as session:
+            engine_smb = NammaBizEngine(session)
+            cluster_enum = BangaloreCluster(args.cluster)
+            clients = engine_smb.scan_and_seed_cluster(cluster_enum)
+            print(f"\n=== BENGALURU COMMERCIAL CLUSTER: {args.cluster.upper()} ===")
+            print(f"Discovered {len(clients)} high-converting SMB prospects:\n")
+            for i, c in enumerate(clients, 1):
+                kit = engine_smb.generate_growth_kit(c)
+                print(f"[{i}] {c.business_name} ({c.niche})")
+                print(f"    📍 Landmark       : {c.landmark}")
+                print(f"    💰 Retainer Tier   : {c.tier.value} (₹{c.monthly_fee_inr:,.0f}/mo)")
+                print(f"    📱 WhatsApp Contact: {c.contact_phone}")
+                print(f"    ⚡ 1-Click WhatsApp: {c.pitch_url}")
+                print(f"    🎯 Sample Hook     : \"{kit['social_hooks'][0]}\"")
+                print()
+
+    elif args.command == "bangalore-flat-radar":
+        with engine.get_session() as session:
+            radar = BangaloreFlatRadar(session)
+            cluster_enum = BangaloreCluster(args.cluster) if args.cluster in [c.value for c in BangaloreCluster] else BangaloreCluster.HSR_LAYOUT
+            print(f"\n=== NAMMAFLAT 24/7 ZERO-BROKERAGE RADAR [{cluster_enum.value.upper()}] ===")
+            if args.simulate:
+                listings = radar.generate_simulated_bangalore_feed()
+                print(f"Ingested and analyzed {len(listings)} real-time community rental posts:\n")
+                for item in listings:
+                    verdict = "✅ DIRECT OWNER (ZERO BROKERAGE)" if item.is_zero_brokerage else "❌ BROKER SPAM DETECTED"
+                    print(f"• {item.title}")
+                    print(f"  Rent: ₹{item.rent_inr:,.0f}/mo | Locality: {item.locality}")
+                    print(f"  Verdict: {verdict} (Broker Confidence: {item.broker_confidence * 100:.0f}%)")
+                    alerts = radar.match_subscribers(item)
+                    if alerts:
+                        print(f"  ⚡ Instant Alerts Matched: {len(alerts)} paid VIP subscribers alerted!")
+                    print()
+            else:
+                from omniverse.modules.bangalore.models import RentalListing
+                listings = session.exec(select(RentalListing).order_by(RentalListing.verified_at.desc()).limit(5)).all()
+                print(f"Displaying latest {len(listings)} listings:")
+                for item in listings:
+                    print(f"• {item.title} (₹{item.rent_inr:,.0f}/mo) | Zero Brokerage: {item.is_zero_brokerage}")
+
+    elif args.command == "bangalore-checkout":
+        with engine.get_session() as session:
+            upi_engine = BangaloreUPIEngine(session)
+            tier_map = {
+                "sprint": RadarSubscriptionTier.SPRINT_HUNTER,
+                "pro": RadarSubscriptionTier.PRO_RELOCATOR,
+                "founder": RadarSubscriptionTier.FOUNDER_VIP
+            }
+            selected_tier = tier_map.get(args.tier, RadarSubscriptionTier.PRO_RELOCATOR)
+            checkout = upi_engine.checkout_radar_subscription(
+                name=args.name,
+                phone_whatsapp=args.phone,
+                tier=selected_tier
+            )
+            print("\n==================================================")
+            print("  NAMMAFLAT VIP RADAR — INSTANT UPI CHECKOUT")
+            print("==================================================")
+            print(f"Subscriber   : {checkout['subscriber_name']}")
+            print(f"WhatsApp     : {checkout['phone_whatsapp']}")
+            print(f"Plan Tier    : {checkout['tier']} (₹{checkout['amount_inr']:.0f})")
+            print(f"Order ID     : {checkout['transaction_id']}")
+            print(f"Payee VPA    : {checkout['pay_to_vpa']}")
+            print("--------------------------------------------------")
+            print("📱 UPI INTENT DEEP-LINK (GPay, PhonePe, Paytm):")
+            print(checkout['upi_intent_uri'])
+            print("--------------------------------------------------")
+            print("⚡ Webhook Auto-Reconciliation: Ready 24/7")
+            print("==================================================\n")
+
+    elif args.command == "bangalore-daemon":
+        with engine.get_session() as session:
+            daemon = Bangalore247CashDaemon(session)
+            cluster_enum = BangaloreCluster(args.cluster) if args.cluster in [c.value for c in BangaloreCluster] else BangaloreCluster.HSR_LAYOUT
+            print(f"\n🚀 Launching Bangalore 24/7 Autonomous Money Daemon [{args.cycles} cycles]...")
+            for i in range(args.cycles):
+                res = daemon.run_cycle(cluster=cluster_enum, simulate_listings=True)
+                print(f"Cycle #{res['cycle_number']}: Found {res['smb_prospects_found']} SMB prospects, "
+                      f"Processed {res['listings_processed']} listings, "
+                      f"Dispatched {res['alerts_dispatched']} VIP alerts.")
+            summary = daemon.get_summary()
+            print("\n✅ Operational Cycle Complete!")
+            print(f"   Daily Cash Collected: ₹{summary.daily_cash_collected_inr:,.2f}")
+            print(f"   Projected Run-rate  : ₹{summary.projected_annual_runrate_inr:,.2f} / yr\n")
+
     elif args.command == "swarm":
         from omniverse.swarm.cli import handle_swarm_command
         handle_swarm_command(args)
+
+    elif args.command == "directive":
+        from omniverse.core.directive import MasterDirectiveRegistry
+        integrity = MasterDirectiveRegistry.validate_integrity()
+        if args.json:
+            print(json.dumps(integrity, indent=2))
+        else:
+            print("\n================================================================================")
+            print("   CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC — MASTER DIRECTIVE   ")
+            print("================================================================================")
+            print("Operational Horizon: 2027 Edition | Planetary Grid Active")
+            print(f"Integrity Status   : {'VALID (100% HEALTHY)' if integrity['valid'] else 'INVALID'}")
+            print(f"Service Taxonomy   : 12 Planetary Services (Core Alpha: {integrity['alpha_services']} | Core Beta: {integrity['beta_services']})")
+            print(f"Executive Workforce: 7 Executive Agent Roles Active\n")
+
+            print("[CORE ALPHA: COMMERCIAL ENGINE]")
+            for svc in MasterDirectiveRegistry.get_services():
+                if svc.core == "ALPHA":
+                    print(f"  * {svc.id}: {svc.name} -> `{svc.cli_command}`")
+
+            print("\n[CORE BETA: AETHER RESILIENCE FABRIC]")
+            for svc in MasterDirectiveRegistry.get_services():
+                if svc.core == "BETA":
+                    print(f"  * {svc.id}: {svc.name} -> `{svc.cli_command}`")
+
+            print("\n[EXECUTIVE AGENT ROLES]")
+            for p in MasterDirectiveRegistry.get_personas():
+                print(f"  * {p.role} ({p.division}): {p.mandate}")
+            print("================================================================================\n")
 
     else:
         parser.print_help()
