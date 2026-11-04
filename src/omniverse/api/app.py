@@ -6,6 +6,7 @@ from omniverse.api.routes.intel import get_intel_router
 from omniverse.api.routes.ops import get_ops_router
 from omniverse.api.routes.aether import get_aether_router
 from omniverse.api.routes.saas import get_saas_router
+from omniverse.api.routes.ws import get_ws_router
 
 def create_app(db_engine: DatabaseEngine | None = None) -> FastAPI:
     engine = db_engine or get_engine()
@@ -28,13 +29,15 @@ def create_app(db_engine: DatabaseEngine | None = None) -> FastAPI:
     app.include_router(get_ops_router(get_session), prefix="/api/v1")
     app.include_router(get_aether_router(), prefix="/api/v1")
     app.include_router(get_saas_router(), prefix="/api/v1")
+    app.include_router(get_ws_router(), prefix="/api/v1")
 
     @app.get("/")
     def root():
         return {
             "system": "CASHFLOW INFINITY: OMNIVERSE & AETHER RESILIENCE FABRIC",
             "status": "OPERATIONAL",
-            "docs": "/docs"
+            "docs": "/docs",
+            "dashboard": "/dashboard/"
         }
 
     return app

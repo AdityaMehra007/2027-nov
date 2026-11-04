@@ -15,12 +15,14 @@ from omniverse.operations.health import HealthDiagnostics
 from omniverse.operations.reporter import ExecutiveReportGenerator
 from omniverse.modules.revenue.agency import GrowthKitGenerator
 from omniverse.modules.revenue.exporter import GrowthKitExporter
+from omniverse.modules.revenue.prospector import LocalProspector
 from omniverse.modules.revenue.pipeline import LeadPipeline
 from omniverse.modules.revenue.payments import PaymentWorkflow
 from omniverse.modules.aether.risk_engine import AetherRiskEngine
 from omniverse.modules.aether.geocoder import AetherGeocoder
 from omniverse.modules.aether.models import HazardType
 from omniverse.modules.intelligence.quant_engine import Backtester
+from omniverse.modules.intelligence.indicators import calculate_rsi, calculate_macd, calculate_bollinger_bands
 from omniverse.modules.saas_factory.scaffolder import SaaSFactoryScaffolder
 
 def main():
@@ -36,6 +38,12 @@ def main():
     kit_parser.add_argument("--niche", required=True, help="Industry / Niche")
     kit_parser.add_argument("--city", default="Bengaluru", help="Target city")
     kit_parser.add_argument("--export", action="store_true", help="Export to markdown proposal file")
+
+    # Command: scan-prospects
+    scan_parser = subparsers.add_parser("scan-prospects", help="Scan local commercial cluster for prospective SMB clients")
+    scan_parser.add_argument("--cluster", default="Indiranagar", help="Neighborhood cluster (Indiranagar, Koramangala, Whitefield, HSR Layout)")
+    scan_parser.add_argument("--niche", default="Specialty Cafe", help="Target business category")
+    scan_parser.add_argument("--limit", type=int, default=3, help="Number of prospects to discover")
 
     # Command: leads
     subparsers.add_parser("leads", help="List all CRM leads")
@@ -56,6 +64,10 @@ def main():
     # Command: backtest
     bt_parser = subparsers.add_parser("backtest", help="Run quantitative multi-strategy backtest")
     bt_parser.add_argument("--strategy", default="trend", choices=["trend", "sma", "monte-carlo"])
+
+    # Command: indicators
+    ind_parser = subparsers.add_parser("indicators", help="Calculate technical indicators (RSI, MACD, Bollinger)")
+    ind_parser.add_argument("--symbol", default="NIFTY50", help="Asset symbol")
 
     # Command: daily-brief
     subparsers.add_parser("daily-brief", help="Generate executive daily briefing report")
@@ -122,6 +134,28 @@ def main():
             out_file = Path(f"./reports/proposals/{slug}_proposal.md")
             saved_path = exporter.export_markdown(kit, out_file)
             print(f"\n✅ Exported branded client proposal deck to: {saved_path}")
+
+    elif args.command == "scan-prospects":
+        with engine.get_session() as session:
+            prospector = LocalProspector(session)
+            leads = prospector.scan_cluster(cluster=args.cluster, niche=args.niche, limit=args.limit)
+            print(f"\n✅ Discovered & Qualified {len(leads)} Prospects in {args.cluster}:")
+            for l in leads:
+                print(f" • [{l.id}] {l.business_name} | Est: ₹{l.estimated_value_inr:,.0f} | Channel: {l.contact_channel} ({l.contact_info})")
+
+    elif args.command == "indicators":
+        sample_prices = [100.0, 102.5, 101.8, 106.0, 110.2, 108.5, 115.0, 122.4, 124.0, 128.5, 131.0, 134.5, 133.0, 137.5, 140.0]
+        rsi = calculate_rsi(sample_prices)
+        macd = calculate_macd(sample_prices)
+        bb = calculate_bollinger_bands(sample_prices)
+        print(f"\n==================================================")
+        print(f"  TECHNICAL INDICATORS: {args.symbol}")
+        print(f"==================================================")
+        print(f"Current Price    : ₹{sample_prices[-1]:,.2f}")
+        print(f"RSI (14)         : {rsi} (Bullish: >50)")
+        print(f"MACD Line        : {macd['macd_line']} | Signal: {macd['signal_line']} | Hist: {macd['histogram']}")
+        print(f"Bollinger Bands  : Upper: {bb['upper_band']} | Mid: {bb['middle_band']} | Lower: {bb['lower_band']}")
+        print(f"==================================================")
 
     elif args.command == "aether-risk":
         lat = args.lat

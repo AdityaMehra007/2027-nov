@@ -7,6 +7,12 @@ from omniverse.modules.intelligence.models import (
 )
 from omniverse.modules.intelligence.research import CompanyIntelligenceEngine
 from omniverse.modules.intelligence.quant_engine import Backtester, PaperTradingEngine
+from omniverse.modules.intelligence.indicators import (
+    calculate_rsi,
+    calculate_macd,
+    calculate_bollinger_bands,
+    calculate_atr
+)
 
 __all__ = [
     "CompanyProfile",
@@ -14,5 +20,9 @@ __all__ = [
     "TradeDirection",
     "CompanyIntelligenceEngine",
     "Backtester",
-    "PaperTradingEngine"
+    "PaperTradingEngine",
+    "calculate_rsi",
+    "calculate_macd",
+    "calculate_bollinger_bands",
+    "calculate_atr"
 ]

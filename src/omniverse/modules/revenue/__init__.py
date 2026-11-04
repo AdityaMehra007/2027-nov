@@ -11,6 +11,7 @@ from omniverse.modules.revenue.models import (
 )
 from omniverse.modules.revenue.agency import GrowthKitGenerator
 from omniverse.modules.revenue.exporter import GrowthKitExporter
+from omniverse.modules.revenue.prospector import LocalProspector
 
 __all__ = [
     "Lead",
@@ -21,5 +22,6 @@ __all__ = [
     "InvoiceStatus",
     "GrowthKit",
     "GrowthKitGenerator",
-    "GrowthKitExporter"
+    "GrowthKitExporter",
+    "LocalProspector"
 ]
