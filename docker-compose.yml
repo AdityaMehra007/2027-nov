@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  omniverse-api:
+    build: .
+    container_name: omniverse_command_center
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - OMNIVERSE_ENV=production
+      - DB_URL=sqlite:///./data/omniverse.db
+    volumes:
+      - omniverse-data:/app/data
+      - omniverse-reports:/app/reports
+
+volumes:
+  omniverse-data:
+  omniverse-reports:
