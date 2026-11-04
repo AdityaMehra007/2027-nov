@@ -31,9 +31,12 @@ class OrderStatus(str, Enum):
 
 class ServiceType(str, Enum):
     FULLSTACK_DEV = "FULLSTACK_DEV"
+    MARKETING_SUITE = "MARKETING_SUITE"
     GROWTH_MARKETING = "GROWTH_MARKETING"
     DESIGN_SYSTEM = "DESIGN_SYSTEM"
+    AGENT_AUTOMATION = "AGENT_AUTOMATION"
     AI_AUTOMATION = "AI_AUTOMATION"
+    FULL_TRANSFORMATION = "FULL_TRANSFORMATION"
 
 
 class Lead(BaseModel):
@@ -82,6 +85,10 @@ class JobOrder(BaseModel):
     brief: str
     budget_usd: float
     status: OrderStatus = OrderStatus.QUEUED
+
+    @property
+    def order_id(self) -> str:
+        return self.id
 
     def transition_to(self, new_status: OrderStatus) -> None:
         self.status = new_status
