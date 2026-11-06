@@ -9,9 +9,6 @@ ENV/
 .env
 .env.local
 .venv/
-*.db
-*.sqlite3
-data/
 .pytest_cache/
 .coverage
 htmlcov/
