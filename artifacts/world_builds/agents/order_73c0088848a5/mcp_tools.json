@@ -1,0 +1,41 @@
+{
+  "mcp_version": "1.0",
+  "server_name": "client-agent-order_73c0088848a5",
+  "description": "MCP tools for Universal fullstack build for Soma Clinical Robotics in SF_BAY_AREA. Sector: HEALTHCARE_CLINICAL. Tech Stack: C++, Python, ROS2, React, HIPAA-Cloud. Key Requirements: Tele-surgery telemetry portal; 24/7 AI surgical nurse concierge; Real-time audit compliance logs.",
+  "tools": [
+    {
+      "name": "lookup_client_status",
+      "description": "Fetch live client order and delivery state",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id"
+        ]
+      }
+    },
+    {
+      "name": "dispatch_webhook_alert",
+      "description": "Broadcast urgent notification to client channel",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "message"
+        ]
+      }
+    }
+  ]
+}

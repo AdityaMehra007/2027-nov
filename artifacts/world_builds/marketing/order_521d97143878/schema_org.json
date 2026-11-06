@@ -1,0 +1,11 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Enterprise Client Suite - wclient_2d6c46ee12e3",
+  "description": "Universal fullstack build for Mission Solar Grid in SF_BAY_AREA. Sector: CLEANTECH_ENERGY. Tech Stack: Python, Go, TimescaleDB, InfluxDB, Grafana. Key Requirements: Virtual power plant telemetry; Automated inverter fault alerts; Commercial battery billing engine.",
+  "url": "https://omniverse.ai",
+  "potentialAction": {
+    "@type": "CommunicateAction",
+    "target": "https://wa.me/919999900000"
+  }
+}
