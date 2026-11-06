@@ -42,6 +42,31 @@ class RegulatoryStatus(str, Enum):
     PARTIAL_REMEDIATION_REQUIRED = "PARTIAL_REMEDIATION_REQUIRED"
     NON_COMPLIANT = "NON_COMPLIANT"
 
+class BranchArchetype(str, Enum):
+    TECH_WEALTH_LOUNGE = "TECH_WEALTH_LOUNGE"          # Indiranagar, Koramangala, Bellandur
+    FLAGSHIP_DIGITAL_HUB = "FLAGSHIP_DIGITAL_HUB"      # MG Road, Whitefield
+    COMMERCIAL_SME_CENTER = "COMMERCIAL_SME_CENTER"    # Peenya, Bommasandra
+
+class BranchNetworkPlan(BaseModel):
+    locality: str
+    corridor: BankingCorridor
+    archetype: BranchArchetype
+    carpet_area_sqft: float
+    setup_capex_inr_cr: float
+    monthly_opex_inr_lakhs: float
+    target_clientele: str
+    features: List[str]
+
+class TalentCompensationBand(BaseModel):
+    role_title: str
+    experience_bracket: str
+    fixed_base_inr_lakhs_min: float
+    fixed_base_inr_lakhs_max: float
+    performance_bonus_pct: float
+    annual_rsu_usd_k: float
+    feeder_institutions: List[str]
+    retention_mechanisms: List[str]
+
 class BangaloreBankOffice(SQLModel, table=True):
     __tablename__ = "bangalore_bank_offices"
 
@@ -326,7 +351,6 @@ class BangaloreBankingEngine:
         category: Optional[BankCategory] = None
     ) -> List[BangaloreBankOffice]:
         """Queries banking offices by corridor or category."""
-        # Ensure seeded
         self.seed_verified_directory()
         query = select(BangaloreBankOffice)
         if corridor:
@@ -345,10 +369,8 @@ class BangaloreBankingEngine:
         Computes realistic, mathematically verified Capex and Opex models
         for launching or expanding a Banking Tech GCC in Bengaluru.
         """
-        # Assumptions: 90 sq ft super built-up per seat
         super_built_up = seats * 90.0
 
-        # Corridor rent PSF benchmarks
         rent_map = {
             BankingCorridor.OUTER_RING_ROAD: (125.0, 17.5),
             BankingCorridor.WHITEFIELD: (85.0, 14.0),
@@ -359,29 +381,25 @@ class BangaloreBankingEngine:
         }
         rent_psf, cam_psf = rent_map.get(corridor, (120.0, 16.0))
 
-        # Fitout cost per sq ft
         fitout_cost_psf = {
             FitoutGrade.ULTRA_GRADE_A_FINANCIAL: 4200.0,
             FitoutGrade.STANDARD_GRADE_A: 3300.0,
             FitoutGrade.VALUE_COMMERCIAL: 2400.0
         }[fitout_grade]
 
-        # 1. Capex Calculations (in INR Crores: 1 Crore = 10,000,000 INR)
         civil_fitout_cr = (super_built_up * fitout_cost_psf) / 10000000.0
-        electrical_dg_cr = (super_built_up * 1400.0) / 10000000.0  # N+2 UPS, 72h DG backup
-        it_security_cr = (seats * 120000.0 + super_built_up * 600.0) / 10000000.0 # Cisco/Arista, zero-trust, biometric mantrap
-        statutory_cr = 2.50 # Fire NOC, BESCOM, Pollution Board, SEZ/STPI
+        electrical_dg_cr = (super_built_up * 1400.0) / 10000000.0
+        it_security_cr = (seats * 120000.0 + super_built_up * 600.0) / 10000000.0
+        statutory_cr = 2.50
 
         total_capex_cr = civil_fitout_cr + electrical_dg_cr + it_security_cr + statutory_cr
         total_capex_usd_m = (total_capex_cr * 10000000.0) / (83.0 * 1000000.0)
 
-        # 2. Annual Opex Calculations
         lease_rent_annual_cr = (super_built_up * rent_psf * 12.0) / 10000000.0
         cam_maintenance_annual_cr = (super_built_up * cam_psf * 12.0) / 10000000.0
         power_diesel_annual_cr = (seats * 45000.0) / 10000000.0
         bandwidth_cloud_annual_cr = (seats * 25000.0) / 10000000.0
 
-        # Blended average salary in Bangalore Banking GCC: INR 18.5 Lakhs per seat/yr
         talent_payroll_annual_cr = (seats * 1850000.0) / 10000000.0
         physical_security_annual_cr = (seats * 32000.0) / 10000000.0
 
@@ -512,3 +530,93 @@ class BangaloreBankingEngine:
                 "power_grid": "Modern 66kV dedicated sub-stations within business parks"
             }
         }
+
+    def get_branch_network_plans(self) -> List[BranchNetworkPlan]:
+        """Returns optimal smart branch plans tailored to Bengaluru micro-markets."""
+        return [
+            BranchNetworkPlan(
+                locality="Indiranagar (100 Feet Road)",
+                corridor=BankingCorridor.CBD_MG_ROAD,
+                archetype=BranchArchetype.TECH_WEALTH_LOUNGE,
+                carpet_area_sqft=3500.0,
+                setup_capex_inr_cr=2.20,
+                monthly_opex_inr_lakhs=7.50,
+                target_clientele="Startup founders, Venture Partners, Tech Directors",
+                features=["Private Wealth Lounge", "ESOP Monetization Desk", "Video-KYC Pod", "24/7 Dual Cash Recyclers"]
+            ),
+            BranchNetworkPlan(
+                locality="Sarjapur Road / Bellandur Junction",
+                corridor=BankingCorridor.OUTER_RING_ROAD,
+                archetype=BranchArchetype.TECH_WEALTH_LOUNGE,
+                carpet_area_sqft=4200.0,
+                setup_capex_inr_cr=2.60,
+                monthly_opex_inr_lakhs=8.20,
+                target_clientele="GCC Tech VPs, Senior Software Engineers, Product Leaders",
+                features=["Extended Hours Desk (Till 8 PM)", "Automated Biometric Safe Deposit Lockers", "High-capacity CDM"]
+            ),
+            BranchNetworkPlan(
+                locality="MG Road / Trinity Circle",
+                corridor=BankingCorridor.CBD_MG_ROAD,
+                archetype=BranchArchetype.FLAGSHIP_DIGITAL_HUB,
+                carpet_area_sqft=7500.0,
+                setup_capex_inr_cr=4.80,
+                monthly_opex_inr_lakhs=14.00,
+                target_clientele="Corporate Banking, NRI HNI Desks, Cross-Border Remittance",
+                features=["RBI Class-A Strongroom Vault", "Forex & LRS Swift Clearance", "Institutional Boardroom"]
+            ),
+            BranchNetworkPlan(
+                locality="Peenya Industrial Area Phase 1",
+                corridor=BankingCorridor.CBD_MG_ROAD,
+                archetype=BranchArchetype.COMMERCIAL_SME_CENTER,
+                carpet_area_sqft=5000.0,
+                setup_capex_inr_cr=2.90,
+                monthly_opex_inr_lakhs=6.80,
+                target_clientele="MSME Manufacturers, Precision Machining, Defense Contractors",
+                features=["Working Capital & Trade Finance Desk", "Heavy Commercial Cash Drop Counter", "Armed CIT Bay"]
+            ),
+        ]
+
+    def get_talent_benchmarks(self) -> List[TalentCompensationBand]:
+        """Provides verified compensation benchmarking for Bengaluru GCCs and Investment Banks."""
+        return [
+            TalentCompensationBand(
+                role_title="Software Development Engineer I (Fintech / GCC)",
+                experience_bracket="0-2 Years",
+                fixed_base_inr_lakhs_min=14.0,
+                fixed_base_inr_lakhs_max=22.0,
+                performance_bonus_pct=15.0,
+                annual_rsu_usd_k=6.0,
+                feeder_institutions=["IIIT-Bangalore", "RVCE", "BMSCE", "PES University", "NITK Surathkal"],
+                retention_mechanisms=["Fast-track internal mobility", "Education sponsorship", "Quarterly spot bonuses"]
+            ),
+            TalentCompensationBand(
+                role_title="Senior Quant / Algorithmic Trading Engineer",
+                experience_bracket="3-6 Years",
+                fixed_base_inr_lakhs_min=28.0,
+                fixed_base_inr_lakhs_max=45.0,
+                performance_bonus_pct=30.0,
+                annual_rsu_usd_k=20.0,
+                feeder_institutions=["IISc Bangalore (Computational Data)", "IIT Madras", "IIT Dharwad"],
+                retention_mechanisms=["Profit-share pooling", "Co-authoring patents", "Zero non-compete garden leaves"]
+            ),
+            TalentCompensationBand(
+                role_title="Vice President, Core Banking & Distributed Architecture",
+                experience_bracket="10-15 Years",
+                fixed_base_inr_lakhs_min=65.0,
+                fixed_base_inr_lakhs_max=95.0,
+                performance_bonus_pct=40.0,
+                annual_rsu_usd_k=50.0,
+                feeder_institutions=["Global lateral transfers", "Top Tier-1 Alumni"],
+                retention_mechanisms=["3-year vesting cliffs", "Direct global reporting lines", "Executive health programs"]
+            ),
+            TalentCompensationBand(
+                role_title="Managing Director & GCC Country Head",
+                experience_bracket="18-25 Years",
+                fixed_base_inr_lakhs_min=140.0,
+                fixed_base_inr_lakhs_max=220.0,
+                performance_bonus_pct=60.0,
+                annual_rsu_usd_k=150.0,
+                feeder_institutions=["Executive Search / Global Corporate Leadership"],
+                retention_mechanisms=["Global equity carry", "Board of directors observer seats", "Discretionary LTIP pool"]
+            ),
+        ]

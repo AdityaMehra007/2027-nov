@@ -1,0 +1,11 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Enterprise Client Suite - wclient_9c045397a42a",
+  "description": "Universal fullstack build for Apex Neural Compute in SF_BAY_AREA. Sector: SAAS_DEVTOOLS. Tech Stack: Python, PyTorch, FastAPI, Kubernetes, PostgreSQL. Key Requirements: Automated multi-tenant billing; Low-latency streaming API; Developer documentation portal.",
+  "url": "https://omniverse.ai",
+  "potentialAction": {
+    "@type": "CommunicateAction",
+    "target": "https://wa.me/919999900000"
+  }
+}

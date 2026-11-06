@@ -1,0 +1,11 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Enterprise Client Suite - wclient_be27ec994c01",
+  "description": "Universal fullstack build for Marina Bay Sovereign Wealth Analytics in SINGAPORE. Sector: FINTECH_PAYMENTS. Tech Stack: Python, Julia, ClickHouse, FastAPI, React. Key Requirements: Cross-asset sovereign risk simulator; Automated MAS regulatory filing engine; Portfolio stress-testing engine.",
+  "url": "https://omniverse.ai",
+  "potentialAction": {
+    "@type": "CommunicateAction",
+    "target": "https://wa.me/919999900000"
+  }
+}

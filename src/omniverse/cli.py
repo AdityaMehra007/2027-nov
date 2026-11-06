@@ -1148,10 +1148,10 @@ def main():
 
     elif args.command == "agency-audit":
         from omniverse.modules.agency.acquisition import TechAuditor
-        from omniverse.modules.agency.models import Lead, ProspectArchetype
+        from omniverse.modules.agency.models import Lead as AgencyLead, ProspectArchetype
         auditor = TechAuditor()
         arch = ProspectArchetype(args.archetype) if hasattr(ProspectArchetype, args.archetype) else ProspectArchetype.LOCAL_SMB
-        lead = Lead(
+        lead = AgencyLead(
             business_name=args.lead_name,
             archetype=arch,
             website=f"https://{args.lead_name.lower().replace(' ', '')}.com",
@@ -1178,11 +1178,11 @@ def main():
 
     elif args.command == "agency-pitch":
         from omniverse.modules.agency.acquisition import TechAuditor, PitchGenerator
-        from omniverse.modules.agency.models import Lead, ProspectArchetype
+        from omniverse.modules.agency.models import Lead as AgencyLead, ProspectArchetype
         auditor = TechAuditor()
         pitcher = PitchGenerator()
         arch = ProspectArchetype(args.archetype) if hasattr(ProspectArchetype, args.archetype) else ProspectArchetype.LOCAL_SMB
-        lead = Lead(
+        lead = AgencyLead(
             business_name=args.lead_name,
             archetype=arch,
             website=f"https://{args.lead_name.lower().replace(' ', '')}.com",

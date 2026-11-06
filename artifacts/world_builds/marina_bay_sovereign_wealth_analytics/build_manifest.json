@@ -1,0 +1,107 @@
+{
+  "client_id": "wclient_d73fff8d6908",
+  "client_name": "Marina Bay Sovereign Wealth Analytics",
+  "hub": "SINGAPORE",
+  "sector": "FINTECH_PAYMENTS",
+  "order_id": "order_49db8db2f91e",
+  "total_artifacts": 12,
+  "total_bytes": 15373,
+  "artifacts": [
+    {
+      "name": "index.html",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_49db8db2f91e\\index.html",
+      "checksum_sha256": "9869949cc64e8b0ad0993b63e8478277ed30a15d4c78374572d06182f00ce7fc",
+      "size_bytes": 3622,
+      "qa_passed": true
+    },
+    {
+      "name": "main.py",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_49db8db2f91e\\main.py",
+      "checksum_sha256": "034ecd33de05b68dc4cdc4eced71d0b1574aa4799afeb14d69fc5a85dbbad064",
+      "size_bytes": 1117,
+      "qa_passed": true
+    },
+    {
+      "name": "README.md",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_49db8db2f91e\\README.md",
+      "checksum_sha256": "a257a7aacebaee008eb17104169db61cb9d92bce7c6b2ecbd6373c7a80f6c856",
+      "size_bytes": 1126,
+      "qa_passed": true
+    },
+    {
+      "name": "test_service.py",
+      "type": "CODE_TEST",
+      "file_path": "artifacts\\world_builds\\code\\order_49db8db2f91e\\test_service.py",
+      "checksum_sha256": "0da897f59b8181c24e99496993fa8a9d34fe141770880762bb16eec91864d1ff",
+      "size_bytes": 631,
+      "qa_passed": true
+    },
+    {
+      "name": "Dockerfile",
+      "type": "CONFIG",
+      "file_path": "artifacts\\world_builds\\code\\order_49db8db2f91e\\Dockerfile",
+      "checksum_sha256": "ac67cb49ac404a14d383ee14c0e21b483cb641d0551b9996c3353c90bd816265",
+      "size_bytes": 205,
+      "qa_passed": true
+    },
+    {
+      "name": "agent_runtime.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_49db8db2f91e\\agent_runtime.py",
+      "checksum_sha256": "15c7edc072850b23146d1613da8689023fa033a5e1bde15dc303f569c8f11252",
+      "size_bytes": 1493,
+      "qa_passed": true
+    },
+    {
+      "name": "mcp_tools.json",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_49db8db2f91e\\mcp_tools.json",
+      "checksum_sha256": "37f5d7f3f0d47c635de3bd0699dd67fd42ec6db99a3173b96cd7d495320439f7",
+      "size_bytes": 1208,
+      "qa_passed": true
+    },
+    {
+      "name": "webhook_bot.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_49db8db2f91e\\webhook_bot.py",
+      "checksum_sha256": "22f4bd12934d83c7eb16b45a7ad1922e37d0d8cd36b99c2c927e0904888c886c",
+      "size_bytes": 732,
+      "qa_passed": true
+    },
+    {
+      "name": "sales_copy.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_49db8db2f91e\\sales_copy.md",
+      "checksum_sha256": "9b3dae855576ebe497a85ddaca8e52deea8f5384676a89bcdd6938114a324876",
+      "size_bytes": 1492,
+      "qa_passed": true
+    },
+    {
+      "name": "ad_pack.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_49db8db2f91e\\ad_pack.json",
+      "checksum_sha256": "c8930641426a2680113d6d6701eb2ae99fc87a36818da1bb986d054a08af9493",
+      "size_bytes": 1553,
+      "qa_passed": true
+    },
+    {
+      "name": "email_drip_sequence.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_49db8db2f91e\\email_drip_sequence.md",
+      "checksum_sha256": "e8c2f9fae1e43fba611c1127a35e040651397181966fcad2b0506d9610f29788",
+      "size_bytes": 1609,
+      "qa_passed": true
+    },
+    {
+      "name": "schema_org.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_49db8db2f91e\\schema_org.json",
+      "checksum_sha256": "8407ee9205ccf3bfdb535842189a0e4cb3b14ceec3934c437f74bbbe07945f38",
+      "size_bytes": 585,
+      "qa_passed": true
+    }
+  ]
+}

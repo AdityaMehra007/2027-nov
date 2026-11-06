@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Union
 import time
 from omniverse.modules.revenue.models import Lead, LeadStage
 from omniverse.core.telemetry import global_event_bus
@@ -9,6 +9,16 @@ class LeadPipeline:
 
     def __init__(self, session: Session):
         self.session = session
+
+    def get_lead(self, identifier: Union[int, str]) -> Optional[Lead]:
+        if isinstance(identifier, int) or (isinstance(identifier, str) and identifier.isdigit()):
+            lead = self.session.exec(select(Lead).where(Lead.id == int(identifier))).first()
+            if lead:
+                return lead
+        lead = self.session.exec(select(Lead).where(Lead.uuid == str(identifier))).first()
+        if lead:
+            return lead
+        return None
 
     def create_lead(
         self,

@@ -60,6 +60,22 @@ def get_revenue_router(get_session_dep):
         payments = PaymentWorkflow(session)
         return payments.create_invoice(lead_id=req.lead_id, amount_inr=req.amount_inr)
 
+    @router.get("/leads/{lead_identifier}")
+    def get_lead_by_identifier(lead_identifier: str, session: Session = Depends(get_session_dep)):
+        pipeline = LeadPipeline(session)
+        lead = pipeline.get_lead(lead_identifier)
+        if not lead:
+            raise HTTPException(status_code=404, detail="Lead not found")
+        return lead
+
+    @router.get("/invoices/{invoice_identifier}")
+    def get_invoice_by_identifier(invoice_identifier: str, session: Session = Depends(get_session_dep)):
+        payments = PaymentWorkflow(session)
+        invoice = payments.get_invoice(invoice_identifier)
+        if not invoice:
+            raise HTTPException(status_code=404, detail="Invoice not found")
+        return invoice
+
     @router.get("/ledger")
     def get_financial_ledger(session: Session = Depends(get_session_dep)):
         payments = PaymentWorkflow(session)

@@ -1,0 +1,107 @@
+{
+  "client_id": "wclient_1fcd70a270d7",
+  "client_name": "Soma Clinical Robotics",
+  "hub": "SF_BAY_AREA",
+  "sector": "HEALTHCARE_CLINICAL",
+  "order_id": "order_82176a7fe641",
+  "total_artifacts": 12,
+  "total_bytes": 15115,
+  "artifacts": [
+    {
+      "name": "index.html",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_82176a7fe641\\index.html",
+      "checksum_sha256": "f557f1a7600a54cb6d2c57f49e81fa8307dbb476c1371500e17e81b66088c2b6",
+      "size_bytes": 3595,
+      "qa_passed": true
+    },
+    {
+      "name": "main.py",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_82176a7fe641\\main.py",
+      "checksum_sha256": "fdff663098fb127786aa2fd08c1c5c213232b479996d8e75b76ffe7e56051d97",
+      "size_bytes": 1117,
+      "qa_passed": true
+    },
+    {
+      "name": "README.md",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_82176a7fe641\\README.md",
+      "checksum_sha256": "d6edfe28910f409a5ad6572e1f3ed0217369eeac76ab4c751e6113ebed470fe5",
+      "size_bytes": 1099,
+      "qa_passed": true
+    },
+    {
+      "name": "test_service.py",
+      "type": "CODE_TEST",
+      "file_path": "artifacts\\world_builds\\code\\order_82176a7fe641\\test_service.py",
+      "checksum_sha256": "5a39a07ec1dc6902ab73fa9992bc6c15b34e3831751e5b58a800e07a739eabb3",
+      "size_bytes": 616,
+      "qa_passed": true
+    },
+    {
+      "name": "Dockerfile",
+      "type": "CONFIG",
+      "file_path": "artifacts\\world_builds\\code\\order_82176a7fe641\\Dockerfile",
+      "checksum_sha256": "ac67cb49ac404a14d383ee14c0e21b483cb641d0551b9996c3353c90bd816265",
+      "size_bytes": 205,
+      "qa_passed": true
+    },
+    {
+      "name": "agent_runtime.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_82176a7fe641\\agent_runtime.py",
+      "checksum_sha256": "c473f7e392608fefcaf8036032e22def26dab694adca1e9d57511b292dea02d0",
+      "size_bytes": 1466,
+      "qa_passed": true
+    },
+    {
+      "name": "mcp_tools.json",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_82176a7fe641\\mcp_tools.json",
+      "checksum_sha256": "f7fa0514e6daf2990fff617d86d16cb1d0e9e64728e6a60da60b385fa2e3a34d",
+      "size_bytes": 1181,
+      "qa_passed": true
+    },
+    {
+      "name": "webhook_bot.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_82176a7fe641\\webhook_bot.py",
+      "checksum_sha256": "1c965e1bd1e975eb1aed98a2a86f0600168cf386d7f80f8c5cc3466f54d90188",
+      "size_bytes": 732,
+      "qa_passed": true
+    },
+    {
+      "name": "sales_copy.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_82176a7fe641\\sales_copy.md",
+      "checksum_sha256": "26ca4cebc3c48eb0597ad3676801798840c2d09d001827b971b3bf2ba9e70048",
+      "size_bytes": 1465,
+      "qa_passed": true
+    },
+    {
+      "name": "ad_pack.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_82176a7fe641\\ad_pack.json",
+      "checksum_sha256": "213a62634ba496edc1f8ca64153ce90a7e68607db09b5ae26678a491a8c10583",
+      "size_bytes": 1499,
+      "qa_passed": true
+    },
+    {
+      "name": "email_drip_sequence.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_82176a7fe641\\email_drip_sequence.md",
+      "checksum_sha256": "7dd413313ceac7d9d049d2ddcfee905f68c77938b095f6aabaefc5881cef2bb6",
+      "size_bytes": 1582,
+      "qa_passed": true
+    },
+    {
+      "name": "schema_org.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_82176a7fe641\\schema_org.json",
+      "checksum_sha256": "cdeccb92192ccfbdc9008b33a46c3e4ef353ca13c88cd4f4860e9f72792b9bed",
+      "size_bytes": 558,
+      "qa_passed": true
+    }
+  ]
+}

@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from enum import Enum
 import time
+import uuid
 
 class LeadStage(str, Enum):
     NEW = "NEW"
@@ -22,6 +23,7 @@ class Lead(SQLModel, table=True):
     __tablename__ = "leads"
     
     id: Optional[int] = Field(default=None, primary_key=True)
+    uuid: str = Field(default_factory=lambda: str(uuid.uuid4()), index=True)
     business_name: str
     category: str
     city: str = "Bengaluru"
@@ -48,6 +50,7 @@ class Proposal(SQLModel, table=True):
     __tablename__ = "proposals"
     
     id: Optional[int] = Field(default=None, primary_key=True)
+    uuid: str = Field(default_factory=lambda: str(uuid.uuid4()), index=True)
     lead_id: int = Field(foreign_key="leads.id")
     offer_id: int = Field(foreign_key="offers.id")
     custom_pitch: str
@@ -58,6 +61,7 @@ class Invoice(SQLModel, table=True):
     __tablename__ = "invoices"
     
     id: Optional[int] = Field(default=None, primary_key=True)
+    uuid: str = Field(default_factory=lambda: str(uuid.uuid4()), index=True)
     lead_id: int = Field(foreign_key="leads.id")
     amount_inr: float
     currency: str = "INR"

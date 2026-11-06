@@ -1,0 +1,41 @@
+{
+  "mcp_version": "1.0",
+  "server_name": "client-agent-order_9e9f179c4f53",
+  "description": "MCP tools for Universal fullstack build for Apex Neural Compute in SF_BAY_AREA. Sector: SAAS_DEVTOOLS. Tech Stack: Python, PyTorch, FastAPI, Kubernetes, PostgreSQL. Key Requirements: Automated multi-tenant billing; Low-latency streaming API; Developer documentation portal.",
+  "tools": [
+    {
+      "name": "lookup_client_status",
+      "description": "Fetch live client order and delivery state",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id"
+        ]
+      }
+    },
+    {
+      "name": "dispatch_webhook_alert",
+      "description": "Broadcast urgent notification to client channel",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "message"
+        ]
+      }
+    }
+  ]
+}

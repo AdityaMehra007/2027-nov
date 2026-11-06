@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 import time
 from omniverse.modules.revenue.models import Invoice, InvoiceStatus, Lead
 from omniverse.core.telemetry import global_event_bus
@@ -9,6 +9,16 @@ class PaymentWorkflow:
 
     def __init__(self, session: Session):
         self.session = session
+
+    def get_invoice(self, identifier: Union[int, str]) -> Optional[Invoice]:
+        if isinstance(identifier, int) or (isinstance(identifier, str) and identifier.isdigit()):
+            invoice = self.session.exec(select(Invoice).where(Invoice.id == int(identifier))).first()
+            if invoice:
+                return invoice
+        invoice = self.session.exec(select(Invoice).where(Invoice.uuid == str(identifier))).first()
+        if invoice:
+            return invoice
+        return None
 
     def create_invoice(self, lead_id: int, amount_inr: float, currency: str = "INR") -> Invoice:
         invoice = Invoice(

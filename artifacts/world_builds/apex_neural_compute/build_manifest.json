@@ -1,0 +1,107 @@
+{
+  "client_id": "wclient_8cd2b012a8eb",
+  "client_name": "Apex Neural Compute",
+  "hub": "SF_BAY_AREA",
+  "sector": "SAAS_DEVTOOLS",
+  "order_id": "order_7af2d669b461",
+  "total_artifacts": 12,
+  "total_bytes": 15067,
+  "artifacts": [
+    {
+      "name": "index.html",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_7af2d669b461\\index.html",
+      "checksum_sha256": "3fae601d3cdcf884d65a62f852cc0fefadf98fb40d261c273d57863ba8afbf3d",
+      "size_bytes": 3590,
+      "qa_passed": true
+    },
+    {
+      "name": "main.py",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_7af2d669b461\\main.py",
+      "checksum_sha256": "44d27a593a7d330dd673d0e831d05b992ffa8b295993f24b561108691adbc083",
+      "size_bytes": 1117,
+      "qa_passed": true
+    },
+    {
+      "name": "README.md",
+      "type": "CODE",
+      "file_path": "artifacts\\world_builds\\code\\order_7af2d669b461\\README.md",
+      "checksum_sha256": "b9567e33f0e877c41d11620aeeb01b64f617f55de7ab599706651642979096fa",
+      "size_bytes": 1094,
+      "qa_passed": true
+    },
+    {
+      "name": "test_service.py",
+      "type": "CODE_TEST",
+      "file_path": "artifacts\\world_builds\\code\\order_7af2d669b461\\test_service.py",
+      "checksum_sha256": "cab263f7b12720193e3640227c6dcce5779935ea04cdcdd563eea802449c1968",
+      "size_bytes": 613,
+      "qa_passed": true
+    },
+    {
+      "name": "Dockerfile",
+      "type": "CONFIG",
+      "file_path": "artifacts\\world_builds\\code\\order_7af2d669b461\\Dockerfile",
+      "checksum_sha256": "ac67cb49ac404a14d383ee14c0e21b483cb641d0551b9996c3353c90bd816265",
+      "size_bytes": 205,
+      "qa_passed": true
+    },
+    {
+      "name": "agent_runtime.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_7af2d669b461\\agent_runtime.py",
+      "checksum_sha256": "184356e2ec1efaa132a6e79a55a53671c0189f8ce7a9c32bc80a7ef7ba83ff3a",
+      "size_bytes": 1461,
+      "qa_passed": true
+    },
+    {
+      "name": "mcp_tools.json",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_7af2d669b461\\mcp_tools.json",
+      "checksum_sha256": "1651544062712705432d387629b220c84e9aac4f939185748195ac7cc9df6eb3",
+      "size_bytes": 1176,
+      "qa_passed": true
+    },
+    {
+      "name": "webhook_bot.py",
+      "type": "AGENT_SPEC",
+      "file_path": "artifacts\\world_builds\\agents\\order_7af2d669b461\\webhook_bot.py",
+      "checksum_sha256": "edaca2c84b3eb4f536b585228d70ae4301d5ee29d64601c46b9258dc0ea801a9",
+      "size_bytes": 732,
+      "qa_passed": true
+    },
+    {
+      "name": "sales_copy.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_7af2d669b461\\sales_copy.md",
+      "checksum_sha256": "f5ee08986107154b6448ca920afbb9827db7bc5a6d57d0663af4ef2206dc39f6",
+      "size_bytes": 1460,
+      "qa_passed": true
+    },
+    {
+      "name": "ad_pack.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_7af2d669b461\\ad_pack.json",
+      "checksum_sha256": "bf67cbd91003100fde271810b7793dc91a5d5effe310bf38385a37416bf70fad",
+      "size_bytes": 1489,
+      "qa_passed": true
+    },
+    {
+      "name": "email_drip_sequence.md",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_7af2d669b461\\email_drip_sequence.md",
+      "checksum_sha256": "d1d7f8ac3b55afe7630273127186cebcece2b36b5b0ed99a2757d6ec139df46c",
+      "size_bytes": 1577,
+      "qa_passed": true
+    },
+    {
+      "name": "schema_org.json",
+      "type": "MARKETING",
+      "file_path": "artifacts\\world_builds\\marketing\\order_7af2d669b461\\schema_org.json",
+      "checksum_sha256": "19b86e2870a9e7880f89d9b5660b6cf08e578c0a4930f5b5c3f2941c396ccae1",
+      "size_bytes": 553,
+      "qa_passed": true
+    }
+  ]
+}

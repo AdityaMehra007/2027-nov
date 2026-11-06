@@ -129,6 +129,29 @@ python -m omniverse.cli generate-kit --business "Artisan Coffee Roasters" --nich
 
 ---
 
+### 🏢 Bengaluru GCC & MNC Enterprise Deal Engine (`omniverse.enterprise`)
+
+Target high-ticket enterprise contracts with Fortune 500 Global Capability Centers (GCCs) across Bengaluru's premier tech corridors (Outer Ring Road, Manyata Tech Park, Whitefield, Bagmane, Electronic City).
+
+```bash
+# 1. Discover and rank top Bangalore GCC enterprise accounts
+python -m omniverse.cli enterprise-list --corridor OUTER_RING_ROAD
+
+# 2. Generate a bespoke 'Proof-First' architectural teardown and 3-minute video script
+python -m omniverse.cli enterprise-teardown --company "Target India" --workflow "supply-chain-reconciliation"
+
+# 3. Generate 4-touch executive ABM LinkedIn/email cadence or 1-page boardroom brief
+python -m omniverse.cli enterprise-outreach --company "Wells Fargo India" --one-pager
+
+# 4. Generate legally binding 6-week paid pilot agreement (₹35L + 18% GST -> ₹41.3L total)
+python -m omniverse.cli enterprise-pilot --company "Mercedes-Benz R&D India" --fee 3500000 --contract
+
+# 5. Generate CISO-approved zero-egress VPC deployment and DPDP/RBI compliance whitepaper
+python -m omniverse.cli enterprise-security --company "JP Morgan Chase" --cloud aws --dossier
+```
+
+---
+
 ## 🌍 Core Beta: Aether Resilience Fabric
 
 Aether provides open, scientifically grounded geospatial infrastructure for disaster resilience, climate risk evaluation, and crisis resource logistics.
