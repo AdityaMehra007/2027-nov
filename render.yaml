@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: omniverse-apex-live
+    runtime: python
+    plan: free
+    buildCommand: pip install -e .
+    startCommand: uvicorn omniverse.api.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 10000

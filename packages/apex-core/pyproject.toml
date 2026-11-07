@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apex-core"
+version = "1.0.0"
+description = "The 8 Crown Jewels of Systems Engineering in Pure Python: Turing VM, LSM-Tree, Limit Order Book, Autograd, Merkle Tree, Consistent Hash Ring, Vector Clocks, and Circuit Breaker."
+readme = "README.md"
+authors = [{ name = "Aditya Mehra", email = "adityamehra799@gmail.com" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["systems-engineering", "lsm-tree", "virtual-machine", "order-book", "autograd", "merkle-tree", "distributed-systems"]
+
+[project.urls]
+Homepage = "https://github.com/AdityaMehra007/cashflow-infinity-omniverse"
+Repository = "https://github.com/AdityaMehra007/cashflow-infinity-omniverse.git"
