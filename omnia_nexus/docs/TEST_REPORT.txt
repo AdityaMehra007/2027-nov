@@ -1,0 +1,225 @@
+test_approval_single_decision (test_foundry.FoundryTests.test_approval_single_decision) ... ERROR
+test_audit_chain_and_tamper_detection (test_foundry.FoundryTests.test_audit_chain_and_tamper_detection) ... ERROR
+test_create_programme_and_task (test_foundry.FoundryTests.test_create_programme_and_task) ... ERROR
+test_experiment_requires_evidence_to_complete (test_foundry.FoundryTests.test_experiment_requires_evidence_to_complete) ... ERROR
+test_task_state_validation (test_foundry.FoundryTests.test_task_state_validation) ... C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF388384F0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A110>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A200>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A2F0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A3E0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A4D0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A6B0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A7A0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A890>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883A980>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AA70>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AB60>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AC50>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AE30>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AF20>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883B010>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883B100>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883B1F0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883AD40>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\ast.py:50: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001AF3883B2E0>
+  return compile(source, filename, mode, flags,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ERROR
+
+======================================================================
+ERROR: test_approval_single_decision (test_foundry.FoundryTests.test_approval_single_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpwhtzz_nf\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_NEXUS\tests\test_foundry.py", line 13, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpwhtzz_nf\\test.db'
+
+======================================================================
+ERROR: test_audit_chain_and_tamper_detection (test_foundry.FoundryTests.test_audit_chain_and_tamper_detection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmppv0scfkv\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_NEXUS\tests\test_foundry.py", line 13, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmppv0scfkv\\test.db'
+
+======================================================================
+ERROR: test_create_programme_and_task (test_foundry.FoundryTests.test_create_programme_and_task)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpwjs3vog5\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_NEXUS\tests\test_foundry.py", line 13, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpwjs3vog5\\test.db'
+
+======================================================================
+ERROR: test_experiment_requires_evidence_to_complete (test_foundry.FoundryTests.test_experiment_requires_evidence_to_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpdxuniadq\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_NEXUS\tests\test_foundry.py", line 13, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpdxuniadq\\test.db'
+
+======================================================================
+ERROR: test_task_state_validation (test_foundry.FoundryTests.test_task_state_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpszlcn2bu\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_NEXUS\tests\test_foundry.py", line 13, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpszlcn2bu\\test.db'
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.628s
+
+FAILED (errors=5)

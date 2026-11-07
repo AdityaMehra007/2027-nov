@@ -1,0 +1,9 @@
+[package]
+name = "omnia-policy-kernel"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Reference capability policy kernel for OMNIA; not production hardened."
+
+[lib]
+path = "src/lib.rs"

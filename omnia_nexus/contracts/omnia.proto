@@ -1,0 +1,36 @@
+syntax = "proto3";
+package omnia.v1;
+
+message Actor {
+  string actor_id = 1;
+  string tenant_id = 2;
+}
+
+message ToolInvocation {
+  string invocation_id = 1;
+  string workflow_id = 2;
+  string tool_name = 3;
+  string capability = 4;
+  bytes input_json = 5;
+  string idempotency_key = 6;
+}
+
+message ApprovalDecision {
+  string approval_id = 1;
+  string workflow_id = 2;
+  string approver_id = 3;
+  bool approved = 4;
+  string rationale = 5;
+  int64 decided_at_unix_ms = 6;
+}
+
+message WorkflowEvent {
+  string event_id = 1;
+  string workflow_id = 2;
+  string event_type = 3;
+  Actor actor = 4;
+  bytes payload_json = 5;
+  string previous_hash = 6;
+  string event_hash = 7;
+  int64 occurred_at_unix_ms = 8;
+}

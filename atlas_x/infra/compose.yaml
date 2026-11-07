@@ -1,0 +1,28 @@
+services:
+  control-plane:
+    build:
+      context: ..
+      dockerfile: infra/docker/control-plane.Dockerfile
+    environment:
+      ATLAS_API_TOKEN: ${ATLAS_API_TOKEN:?Set a local development token}
+      ATLAS_DATA_DIR: /var/lib/atlas
+      ATLAS_ADDR: 0.0.0.0:8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - atlas-data:/var/lib/atlas
+    restart: unless-stopped
+
+  intelligence:
+    build:
+      context: ..
+      dockerfile: infra/docker/intelligence.Dockerfile
+    environment:
+      ATLAS_INTELLIGENCE_HOST: 0.0.0.0
+      ATLAS_INTELLIGENCE_PORT: 8090
+    ports:
+      - "127.0.0.1:8090:8090"
+    restart: unless-stopped
+
+volumes:
+  atlas-data:

@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: ATLAS Control Plane API
+  version: 0.1.0
+  description: Local reference API for permissioned task orchestration.
+servers:
+  - url: http://127.0.0.1:8080
+security:
+  - BearerAuth: []
+paths:
+  /healthz:
+    get:
+      security: []
+      summary: Liveness check
+      responses:
+        '200': { description: Service is alive }
+  /v1/tasks:
+    get:
+      summary: List task snapshots
+      responses:
+        '200': { description: Task collection }
+    post:
+      summary: Create a task
+      description: External action tasks are created in approval_required state; restricted actions are denied.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTask'
+      responses:
+        '201': { description: Created }
+        '400': { description: Validation failure }
+        '403': { description: Restricted action }
+  /v1/tasks/{id}:
+    get:
+      summary: Get a task
+      parameters:
+        - $ref: '#/components/parameters/TaskID'
+      responses:
+        '200': { description: Task }
+        '404': { description: Not found }
+  /v1/tasks/{id}/approval:
+    post:
+      summary: Approve or reject an external action task
+      parameters:
+        - $ref: '#/components/parameters/TaskID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [decision]
+              properties:
+                decision: { type: string, enum: [approve, reject] }
+                reason: { type: string, maxLength: 1000 }
+      responses:
+        '200': { description: Decision recorded }
+        '409': { description: Invalid state transition }
+  /v1/tasks/{id}/complete:
+    post:
+      summary: Mark task complete
+      parameters:
+        - $ref: '#/components/parameters/TaskID'
+      responses:
+        '200': { description: Completed }
+        '403': { description: Approval required or action restricted }
+        '409': { description: Invalid state transition }
+  /v1/audit/verify:
+    get:
+      summary: Verify local hash-chained audit ledger
+      responses:
+        '200': { description: Ledger verification result }
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    TaskID:
+      in: path
+      name: id
+      required: true
+      schema: { type: string }
+  schemas:
+    CreateTask:
+      type: object
+      additionalProperties: false
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 200 }
+        description: { type: string, maxLength: 8000 }
+        action_class: { type: string, enum: [read, draft, external, restricted], default: draft }

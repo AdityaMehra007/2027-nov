@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>ATLAS Control Console</title>
+  <style>
+    :root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color-scheme: dark; background: #080d18; color: #e8eef8; }
+    body { margin: 0; max-width: 960px; padding: 32px 20px 80px; margin-inline: auto; }
+    h1 { letter-spacing: -.04em; font-size: clamp(2rem, 6vw, 4rem); margin: 0; }
+    .muted { color: #9aabc2; } .panel { border: 1px solid #26354a; background: #101a2a; border-radius: 16px; padding: 20px; margin-top: 20px; }
+    label { display:block; font-size:.85rem; color:#a9bad1; margin:12px 0 6px; }
+    input, textarea, select { box-sizing:border-box; width:100%; border:1px solid #34455f; background:#08111f; color:#edf4ff; border-radius:9px; padding:11px; }
+    button { border:0; background:#b9d4ff; color:#08111f; font-weight:700; border-radius:9px; padding:11px 16px; margin-top:14px; cursor:pointer; }
+    button.secondary { background:#263b57; color:#edf4ff; margin-left:8px; }
+    .task { border-top:1px solid #26354a; padding:14px 0; display:flex; justify-content:space-between; gap:14px; }
+    .pill { border:1px solid #435a78; border-radius:999px; padding:3px 9px; font-size:.75rem; white-space:nowrap; height:min-content; }
+    #status { min-height:1.5em; color:#a9bad1; } code { color:#bdd8ff; }
+  </style>
+</head>
+<body>
+  <p class="muted">GLOBAL INTELLIGENCE & EXECUTION INFRASTRUCTURE</p>
+  <h1>ATLAS <span class="muted">Control Console</span></h1>
+  <p class="muted">Local development console. External actions remain approval-gated.</p>
+  <section class="panel">
+    <h2>Connection</h2>
+    <label for="api">Control-plane URL</label><input id="api" value="http://127.0.0.1:8080">
+    <label for="token">Development API token</label><input id="token" type="password" autocomplete="off" placeholder="Enter ATLAS_API_TOKEN">
+    <button id="connect">Connect</button>
+    <p id="status" role="status"></p>
+  </section>
+  <section class="panel">
+    <h2>Create workflow task</h2>
+    <label for="title">Title</label><input id="title" maxlength="200" placeholder="Analyse a job opportunity">
+    <label for="description">Description</label><textarea id="description" rows="3" maxlength="8000"></textarea>
+    <label for="class">Action class</label>
+    <select id="class"><option value="draft">Draft only</option><option value="read">Read only</option><option value="external">External action (requires approval)</option></select>
+    <button id="create">Create task</button>
+  </section>
+  <section class="panel">
+    <h2>Task ledger</h2>
+    <button id="refresh" class="secondary">Refresh</button>
+    <div id="tasks" aria-live="polite"></div>
+  </section>
+  <script type="module" src="./dist/main.js"></script>
+</body>
+</html>

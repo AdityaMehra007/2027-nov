@@ -1,0 +1,51 @@
+Research_ID,Research_Question,Core_Question,Required_Output,Status
+AI-01,Foundation-model economics,"Which model/provider mix meets quality, privacy and cost targets?",Benchmark matrix,Not started
+AI-02,Agent reliability,Which workflow patterns reduce silent failure and unsafe tool use?,Reliability test suite,Not started
+AI-03,Multimodal interaction,Which multimodal capabilities materially improve user outcomes?,Task benchmark,Not started
+AI-04,AI evaluation,How can adversarial and representative evaluation sets be built?,Labelled protocol,Not started
+AI-05,AI for science,Which scientific tasks show reproducible improvement?,Replication dossier,Not started
+COM-01,Advanced packaging,"Where are interconnect, memory and packaging bottlenecks?",Technology map,Not started
+COM-02,Accelerator economics,Which workloads justify specialised compute?,Total-cost-of-ownership model,Not started
+COM-03,Photonic compute,Which interconnect or workloads plausibly benefit from photonics?,Feasibility study,Not started
+COM-04,Quantum advantage,Where is utility demonstrated against strong classical baselines?,Evidence-graded map,Not started
+SYS-01,Secure execution,How can untrusted tool execution be capability-scoped?,Sandbox prototype,Not started
+SYS-02,Workflow durability,What consistency and retry model suits long-running work?,Semantics specification,Not started
+SYS-03,Formal verification,Which critical state machines merit model checking?,Formal specification,Not started
+ROB-01,Humanoid robotics economics,Which physical tasks show repeatable value and safety?,Task-level unit economics,Not started
+ROB-02,Robot learning,"How do simulation, teleoperation and real-world data combine?",Experiment protocol,Not started
+ROB-03,Industrial autonomy,Which repetitive industrial tasks are suitable for automation?,Pilot design,Not started
+MOB-01,Autonomous mobility,Which constrained operating domains have feasible safety paths?,ODD and safety case,Not started
+ENE-01,Grid intelligence,Which forecasting/scheduling problems show measurable value?,Pilot baseline,Not started
+ENE-02,Long-duration storage,Which chemistries fit specific grid or industrial use cases?,Technology comparison,Not started
+ENE-03,Fusion systems,What are the engineering bottlenecks and commercial uncertainties?,Technology/venture map,Not started
+ENE-04,Advanced fission,"What licensing, fuel, supply chain and economics constraints apply?",Regulatory dossier,Not started
+ENE-05,Geothermal,Which resource and drilling constraints matter?,Feasibility framework,Not started
+CLM-01,Carbon MRV,"How to verify additionality, permanence and lifecycle impacts?",Verification framework,Not started
+CLM-02,Climate adaptation,Which infrastructure risks are measurable and actionable?,Risk data thesis,Not started
+WAT-01,Water reuse,"Where are treatment, leakage and reuse economics attractive?",Pilot proposal,Not started
+BIO-01,Protein design,Which benchmarks predict experimental outcomes?,Reproducible benchmark,Not started
+BIO-02,Biofoundry automation,Which supervised lab workflows are safe and valuable?,Qualified lab brief,Not started
+BIO-03,Drug discovery evidence,Which AI claims are supported by experimental/clinical outcomes?,Evidence grading,Not started
+HLT-01,Clinical workflow,Which admin/research tasks improve without replacing clinical judgement?,Clinician-reviewed study,Not started
+HLT-02,Health data governance,"What privacy, consent and regulatory requirements apply?",Data protection plan,Not started
+MAT-01,Materials discovery,Which public datasets and simulation methods reproduce?,Benchmark registry,Not started
+MAT-02,Membrane science,"Which fouling, durability and throughput constraints matter?",Research brief,Not started
+SPC-01,Earth observation,Which use cases have measurable customers and value?,Product feasibility,Not started
+SPC-02,Orbital sustainability,What debris and end-of-life requirements apply?,Safety/policy dossier,Not started
+OCN-01,Ocean intelligence,Which data and sensors enable validated monitoring?,Prototype plan,Not started
+MFG-01,Digital twins,Which process data improve real decisions?,Factory pilot,Not started
+MFG-02,Additive manufacturing,Which applications beat conventional processes economically?,Use-case benchmark,Not started
+LOG-01,Supply-chain resilience,Which disruptions can be forecast with acceptable false alarms?,Scenario model,Not started
+AGR-01,Agricultural analytics,Which farmer decisions can be improved by reliable data?,Field pilot,Not started
+SEC-01,Post-quantum migration,What cryptographic migration is appropriate?,Crypto inventory,Not started
+SEC-02,Software supply chain,How to improve build provenance and dependency integrity?,Secure build design,Not started
+NET-01,Edge computing,Which workloads justify edge deployment?,Workload benchmark,Not started
+EDU-01,Learning science,Which interventions improve measurable retention?,Controlled study,Not started
+SCI-01,Scientific reproducibility,Can selected computational results be independently reproduced?,Reproduction report,Not started
+CIT-01,City operations,Which civic workflows can improve with consent and governance?,Institutional pilot,Not started
+ECO-01,SME financial operations,Which workflows reduce time and errors?,Process ROI analysis,Not started
+HCI-01,Accessibility interfaces,Which barriers reduce task success for target users?,Co-designed usability study,Not started
+ECO-02,Startup landscape,Which organisations are active and what evidence supports status?,Dated verified registry,Not started
+IP-01,IP and standards,"Which patents, standards and licences constrain designs?",IP/standards map,Not started
+CAP-01,Capital strategy,"What financing suits software, labs and infrastructure?",Capital stack model,Not started
+OPS-01,Data-centre sustainability,"How can power, cooling and water demand be jointly optimised?",Efficiency model,Not started

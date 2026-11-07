@@ -1,0 +1,173 @@
+test_chain_valid_and_tamper_detected (test_audit.AuditTests.test_chain_valid_and_tamper_detected) ... ERROR
+test_draft_allowed (test_policy.PolicyTests.test_draft_allowed) ... ok
+test_external_requires_approval (test_policy.PolicyTests.test_external_requires_approval) ... ok
+test_read_allowed (test_policy.PolicyTests.test_read_allowed) ... ok
+test_restricted_always_denied (test_policy.PolicyTests.test_restricted_always_denied) ... ok
+test_unknown_denied (test_policy.PolicyTests.test_unknown_denied) ... ok
+test_approval_required_before_execution (test_workflow.WorkflowTests.test_approval_required_before_execution) ... ERROR
+test_restricted_class_denied (test_workflow.WorkflowTests.test_restricted_class_denied) ... ERROR
+test_safe_task_executes (test_workflow.WorkflowTests.test_safe_task_executes) ... ERROR
+test_unknown_action_rejected (test_workflow.WorkflowTests.test_unknown_action_rejected) ... ERROR
+
+======================================================================
+ERROR: test_chain_valid_and_tamper_detected (test_audit.AuditTests.test_chain_valid_and_tamper_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpjcxzd7nf\\audit.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_ULTIMATE\tests\test_audit.py", line 10, in test_chain_valid_and_tamper_detected
+    with tempfile.TemporaryDirectory() as tmp:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 952, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpjcxzd7nf\\audit.db'
+
+======================================================================
+ERROR: test_approval_required_before_execution (test_workflow.WorkflowTests.test_approval_required_before_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpypkmxvbx\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_ULTIMATE\tests\test_workflow.py", line 14, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpypkmxvbx\\test.db'
+
+======================================================================
+ERROR: test_restricted_class_denied (test_workflow.WorkflowTests.test_restricted_class_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpksbff_35\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_ULTIMATE\tests\test_workflow.py", line 14, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpksbff_35\\test.db'
+
+======================================================================
+ERROR: test_safe_task_executes (test_workflow.WorkflowTests.test_safe_task_executes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpc70xwrft\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_ULTIMATE\tests\test_workflow.py", line 14, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmpc70xwrft\\test.db'
+
+======================================================================
+ERROR: test_unknown_action_rejected (test_workflow.WorkflowTests.test_unknown_action_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 625, in _rmtree_unsafe
+    os.unlink(fullname)
+    ~~~~~~~~~^^^^^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmplas6yv6g\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\mnt\data\PROJECT_OMNIA_ULTIMATE\tests\test_workflow.py", line 14, in tearDown
+    self.tmp.cleanup()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 956, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 936, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 629, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amehr\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 911, in onexc
+    _os.unlink(path)
+    ~~~~~~~~~~^^^^^^
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'E:\\Temp\\amehr\\tmplas6yv6g\\test.db'
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.925s
+
+FAILED (errors=5)

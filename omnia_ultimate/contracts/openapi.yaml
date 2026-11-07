@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: OMNIA Local Workflow API
+  version: 0.1.0
+  description: Unauthenticated localhost-only development prototype.
+servers:
+  - url: http://127.0.0.1:8765
+paths:
+  /healthz:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: Service healthy
+  /v1/tasks:
+    get:
+      summary: List tasks
+      responses:
+        "200":
+          description: Task list
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, action, action_class]
+              properties:
+                title: {type: string}
+                action: {type: string}
+                action_class:
+                  type: string
+                  enum: [read_only, draft, approval_required, restricted]
+                payload: {type: object}
+      responses:
+        "201": {description: Task created}
+        "400": {description: Invalid request}
+  /v1/tasks/{task_id}/request-approval:
+    post:
+      summary: Request approval for an approval-gated task
+      parameters:
+        - in: path
+          name: task_id
+          required: true
+          schema: {type: string}
+      responses:
+        "201": {description: Approval request created}
+  /v1/tasks/{task_id}/approve:
+    post:
+      summary: Approve a pending request
+      parameters:
+        - in: path
+          name: task_id
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Approval recorded}
+  /v1/tasks/{task_id}/execute:
+    post:
+      summary: Execute an allowlisted task
+      parameters:
+        - in: path
+          name: task_id
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Task result}
+        "403": {description: Policy denied}
+  /v1/audit/verify:
+    get:
+      summary: Verify local audit hash chain
+      responses:
+        "200": {description: Verification outcome}

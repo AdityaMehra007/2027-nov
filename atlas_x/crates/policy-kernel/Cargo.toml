@@ -1,0 +1,9 @@
+[package]
+name = "atlas-policy-kernel"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "Apache-2.0"
+description = "Pure policy decision kernel for ATLAS capabilities"
+[lib]
+path = "src/lib.rs"

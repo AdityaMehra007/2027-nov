@@ -1,0 +1,25 @@
+Studio_ID,Studio_Name,Research_Domain,Initial_Product_Hypothesis,Proof_Gate
+01,OMNIA Intelligence,"AI, foundation-model integration, agent systems, scientific AI",AI workflow platform,"Bounded workflow succeeds with evidence, approval and evaluation"
+02,OMNIA Compute & Semiconductors,"Accelerators, chiplets, packaging, memory, photonics",Inference optimisation and scheduling,Measured workload improvement on available hardware
+03,OMNIA Systems & Developer Infrastructure,"OS, kernels, compilers, runtimes, WASM, distributed systems",Secure workflow runtime and developer SDK,Permissioned execution with passing invariant tests
+04,OMNIA Robotics & Physical AI,"Manipulation, perception, locomotion, simulation",Simulation-first robotics workflow,Repeatable task benchmark with safety controls
+05,OMNIA Autonomous Mobility,"Mobility, fleet optimisation, drones and logistics",Routing/simulation software,Improved measurable performance in bounded ODD
+06,OMNIA Energy Systems,"Grid optimisation, storage, geothermal, fusion research",Energy analytics and optimisation,Pilot improves forecast or dispatch metric
+07,OMNIA Climate & Earth Systems,"MRV, climate risk, adaptation and monitoring",Verified climate data product,Traceable methodology and independent verification
+08,OMNIA Water & Resource Security,"Treatment, reuse, sensors, membranes",Water monitoring analytics,Measured utility or industrial improvement
+09,OMNIA Biotechnology,"Bioengineering, synthetic biology, biomanufacturing",Computational workflow and lab partnership,"Qualified, safe institutional validation"
+10,OMNIA Health & Medical Research,"Diagnostics, research workflow, assistive technology",Clinician-supervised workflow software,Usability and safety validation with qualified oversight
+11,OMNIA Computational Biology,"Drug discovery, omics, molecular simulation",Reproducible computational benchmark,Independent reproduction on public dataset
+12,OMNIA Advanced Materials,"Catalysts, membranes, composites, battery materials",Computational screening platform,Lab partner validates selected candidate
+13,OMNIA Space Systems,"Satellites, launch ecosystem, Earth observation",Earth-observation data product,"Customer value from lawful, public/partner data"
+14,OMNIA Ocean Systems,"Marine sensing, mapping, coastal resilience",Ocean data intelligence,Validated monitoring output
+15,OMNIA Advanced Manufacturing,"Industrial AI, digital twins, machine vision",Production optimisation system,"Measured quality, downtime or throughput change"
+16,OMNIA Logistics,"Forecasting, route planning, inventory and ports",Planning and resilience software,Baseline performance improves
+17,OMNIA Agriculture & Food,"Precision agri, crop models, cold chain and food systems",Grower/processor decision support,Independent field or operator outcome
+18,OMNIA Cybersecurity & Digital Trust,"Identity, privacy, crypto, software supply chain",Security and trust tooling,Independent security assessment passes
+19,OMNIA Connectivity & Edge,"5G/6G, optical, satellite and edge compute",Edge workload optimisation,Measured latency/availability improvement
+20,OMNIA Education & Human Capability,"Adaptive learning, language, accessibility",Outcome-measured learning product,Learning outcome improves against baseline
+21,OMNIA Scientific Discovery,"AI for science, reproducibility and lab automation",Reproducible research tooling,Published computational result reproduced
+22,OMNIA Cities & Infrastructure,"Utilities, buildings, mobility, public infrastructure",Institutional operations analytics,Consented pilot with governed data
+23,OMNIA Economic Infrastructure,"Payment operations, SME finance workflows, compliance",Back-office workflow software,Time/error reduction measured
+24,OMNIA Human Interface,"HCI, speech, spatial and assistive computing",Accessibility-first interface,Task completion improves for target users

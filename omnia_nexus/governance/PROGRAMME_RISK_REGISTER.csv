@@ -1,0 +1,16 @@
+Risk_ID,Risk,Likelihood,Impact,Mitigation,Owner
+R-001,Scope explosion,High,High,"One beachhead, strict non-goals and stage gates",Founder/Board
+R-002,Capital insufficiency for hardware/infrastructure,High,Critical,Separate capital classes; partner or defer capex,Finance
+R-003,No validated customer demand,Medium,High,"Interviews, pilots and kill criteria",Product
+R-004,AI hallucination or unsafe actions,High,High,"Grounding, evaluations, policy gateway and approval",AI/Security
+R-005,Cross-tenant data exposure,Medium,Critical,Isolation tests and independent security review,Security
+R-006,Regulated-domain compliance failure,High,Critical,"Qualified operators, counsel, safety case and approval",Legal/Safety
+R-007,IP/licence ambiguity,Medium,High,"Contributor agreements, SBOM and licence review",Legal
+R-008,Vendor/API dependency,Medium,Medium,Provider abstraction and cost controls,CTO
+R-009,Unreproducible research,Medium,High,Source provenance and independent replication,Research
+R-010,Physical system injury or failure,Low-Medium,Critical,"Simulation, certified controls and qualified operators",Domain Safety
+R-011,Stale ecosystem data,High,Medium,Last-verified dates and quarterly refresh,Intelligence
+R-012,Founder overload,High,High,Single highest-priority action and phased hiring,Founder
+R-013,Cybersecurity incident,Medium,Critical,"Secure SDLC, backups and incident response",CISO
+R-014,Poor unit economics,Medium,High,Cost per successful workflow and pricing tests,Finance
+R-015,False claims about partners or progress,Medium,High,Evidence register and external claims review,Programme Office

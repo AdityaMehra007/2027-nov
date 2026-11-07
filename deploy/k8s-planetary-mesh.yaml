@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aether-omega-planetary-node
+  namespace: tier0-planetary-grid
+  labels:
+    project: aether-omega-2027
+    security-posture: post-quantum-kyber1024
+spec:
+  selector:
+    matchLabels:
+      app: aether-omega-core
+  template:
+    metadata:
+      labels:
+        app: aether-omega-core
+    spec:
+      hostNetwork: true
+      priorityClassName: system-node-critical
+      containers:
+        - name: rust-bft-dag-kernel
+          image: registry.aether-omega.org/kernel/bullshark-pqc:2027.1.0
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_NICE", "IPC_LOCK", "NET_RAW"]
+          resources:
+            limits:
+              cpu: "64"
+              memory: "256Gi"
+              nvidia.com/gpu: "8"
+              quantum.qpu/logical-surface-patch: "1"
+          env:
+            - name: AETHER_NODE_CLEARANCE
+              value: "10"
+            - name: PQC_ENFORCEMENT_MODE
+              value: "STRICT_KYBER1024_DILITHIUM5"
+            - name: PTP_RELATIVISTIC_SYNC
+              value: "ENABLED_TAI_NANOSECOND"

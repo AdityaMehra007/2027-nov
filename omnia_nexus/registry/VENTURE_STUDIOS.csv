@@ -1,0 +1,25 @@
+Studio_ID,Studio,Research_Domain,First_Product_Hypothesis,Proof_Gate,Capital_Class
+01,Intelligence & Frontier AI,"Foundation models, agents, multimodal systems, AI for science",ATLAS intelligence and workflow platform,Verified workflow completion with evidence and approvals,A/B
+02,Compute & Semiconductors,"Accelerators, packaging, chiplets, memory, photonics",Inference scheduling and optimisation,Measured workload performance improvement,B/D
+03,Systems & Developer Infrastructure,"Kernels, compilers, runtimes, WASM, distributed systems",Secure workflow runtime and SDK,Correctness and capability tests pass,A/B
+04,Robotics & Physical AI,"Manipulation, locomotion, perception, robot learning",Simulation and task orchestration,Repeatable task benchmark under safety controls,B/D
+05,Autonomous Mobility,"Fleet systems, routing, aerial and ground autonomy",Routing/simulation software,Measured performance in constrained operating domain,B/D
+06,Energy Systems,"Grid, storage, fusion, fission, geothermal",Energy analytics and optimisation,Validated pilot with measurable savings or forecast gain,A/B/C/D
+07,Climate & Earth Systems,"Climate risk, carbon measurement, resilience",Verified monitoring and analytics,Traceable method and independent verification,A/B/C
+08,Water & Resource Security,"Treatment, reuse, membranes, sensing",Water intelligence and monitoring,Measured utility or industrial outcome,B/C
+09,Biotechnology,"Bioengineering, synthetic biology, biomanufacturing",Computational and lab workflow tools,Qualified institutional validation,C
+10,Health & Medical Research,"Diagnostics, research ops, devices, accessibility",Clinician-supervised workflow product,Qualified safety and usability validation,B/C
+11,Computational Biology,"Drug discovery, multi-omics, molecular simulation",Reproducible computational research,Independent benchmark reproduction,A/C
+12,Materials & Nanotechnology,"Catalysts, membranes, composites, battery materials",Computational screening tools,Qualified lab validation,B/C
+13,Space Systems,"Satellites, Earth observation, launch ecosystem",Earth-observation data products,Customer validated use case,A/B/D
+14,Ocean Systems,"Marine observation, mapping, coastal resilience",Ocean data fusion,Validated monitoring output,A/B
+15,Advanced Manufacturing,"Industrial AI, digital twins, machine vision",Production optimisation software,"Measured defect, throughput or uptime gain",A/B/C
+16,Logistics & Supply Networks,"Forecasting, routing, inventory, ports",Planning and resilience platform,Baseline improvement and customer validation,A/B
+17,Agriculture & Food Systems,"Precision agriculture, crop models, cold chain",Grower/processor decision support,Field pilot with independently measured results,A/B/C
+18,Cybersecurity & Digital Trust,"Identity, privacy, crypto, software supply chain",Security and trust products,Independent security assessment,A/B
+19,Connectivity & Edge,"5G/6G, optical, satellite and edge",Edge workload optimisation,Measured latency/availability improvement,B/D
+20,Education & Human Capability,"Adaptive learning, language, accessibility",Outcome-measured learning platform,Learning outcome improves against baseline,A/B
+21,Scientific Discovery,"AI for science, reproducibility, lab automation",Research workflow infrastructure,Published result independently reproduced,A/B/C
+22,Cities & Infrastructure,"Utilities, buildings, mobility, civic systems",Infrastructure analytics,Consented institutional pilot,A/B/C
+23,Economic Infrastructure,"Payments operations, SME workflows, compliance",Business process infrastructure,Measured cost/error/time reduction,A/B
+24,Human Interface & Accessibility,"HCI, speech, spatial, assistive technology",Inclusive interface platform,User task completion measurably improves,A/B

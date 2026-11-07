@@ -1,0 +1,19 @@
+{
+  "programme": "PROJECT OMNIA",
+  "version": "1.0",
+  "status": "strategy-plus-local-prototype",
+  "core_platform": "ATLAS X",
+  "first_product_proof": "GODMODE Career OS",
+  "venture_studios": 24,
+  "ecosystem_watchlist_seed": 95,
+  "research_questions": 50,
+  "backlog_tasks": 50,
+  "software": {
+    "runtime": "Python standard library",
+    "persistence": "SQLite",
+    "api": "HTTP JSON",
+    "policy": "default-deny action classes",
+    "audit": "SHA-256 hash chain; tamper-evident only"
+  },
+  "production_ready": false
+}

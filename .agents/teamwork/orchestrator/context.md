@@ -1,4 +1,5 @@
 # Orchestrator Workspace
 
-Workspace initialized for teamwork_orchestrator.
-Original request: e:\2027 nov\.agents\teamwork\ORIGINAL_REQUEST.md
+Working directory for `teamwork_orchestrator`.
+Original request file: `e:\2027 nov\.agents\teamwork\ORIGINAL_REQUEST.md`
+Project root: `e:\2027 nov`

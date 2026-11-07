@@ -1,0 +1,51 @@
+Task_ID,Task,Priority,Owner,Acceptance_Criteria,Status
+OMNIA-001,Inventory all prior ATLAS X and OMNIA artifacts,P0,CTO,Verified source/file/dependency/test inventory,Not started
+OMNIA-002,Run reproducible build and test suite,P0,Engineering,"Tool versions, test commands and outputs recorded",Not started
+OMNIA-003,Select first target user and workflow,P0,Product,Evidence-backed persona and job-to-be-done,Not started
+OMNIA-004,Conduct 10–15 customer interviews,P0,Founder/Research,Consented notes and coded themes,Not started
+OMNIA-005,Build competitor/substitute matrix,P0,Research,At least 8 alternatives with dated sources,Not started
+OMNIA-006,Write MVP product requirements,P0,Product,Testable user stories and non-goals,Not started
+OMNIA-007,Create living ecosystem registry process,P0,Intelligence,"Schema, evidence and refresh workflow",Not started
+OMNIA-008,Verify priority ecosystem seed entries,P1,Research,Active status and source date per entry,Not started
+OMNIA-009,Create venture studio stage-gate template,P0,Strategy,"Customer, feasibility, capital, safety and kill gates",Not started
+OMNIA-010,Create 24 studio dossiers,P1,Programme Office,"Thesis, first proof, capital class and risk",Not started
+OMNIA-011,Create IP/open-source governance,P0,Legal/Engineering,"SBOM, licence and invention process",Not started
+OMNIA-012,Define data classification and retention,P0,Privacy,"Purpose, access, retention and deletion",Not started
+OMNIA-013,Harden authentication and tenant isolation,P0,Security,Cross-tenant tests pass,Not started
+OMNIA-014,Implement durable workflow state,P1,Platform,"Retry, idempotency, cancellation and audit tests",Not started
+OMNIA-015,Implement AI evaluation suite,P1,AI,"Quality, latency and cost benchmarks",Not started
+OMNIA-016,Implement output evidence provenance,P1,AI/Product,Factual claims map to sources/user evidence,Not started
+OMNIA-017,Harden action approval gateway,P0,Security/Platform,Consequential action denied without approval,Not started
+OMNIA-018,Add observability and cost accounting,P1,Platform,"Correlated logs, latency and cost metrics",Not started
+OMNIA-019,Test data export and deletion,P1,Privacy,Lifecycle tests pass,Not started
+OMNIA-020,Independent security review,P0,Independent QA,Critical findings resolved or launch blocked,Not started
+OMNIA-021,Recruit 3–5 design partners,P1,Founder/Growth,Consented partners,Not started
+OMNIA-022,Run user acceptance tests,P1,Product/QA,Task completion and feedback measured,Not started
+OMNIA-023,Measure repeat use and value,P1,Research,Baseline and repeat usage,Not started
+OMNIA-024,Build unit economics model,P1,Finance,Cost per workflow and pricing hypotheses,Not started
+OMNIA-025,Establish capital approval policy,P0,Founder/Finance,Spending and investment classes documented,Not started
+OMNIA-026,Create talent competency map,P1,CTO/People,Roles and hiring order,Not started
+OMNIA-027,Map universities and research labs,P2,Partnerships,Verified research prospects,Not started
+OMNIA-028,Map target customers and partners,P1,Commercial,Qualified and sourced pipeline,Not started
+OMNIA-029,Build robotics simulation research brief,P2,Robotics,"Use case, benchmark and safety limits",Not started
+OMNIA-030,Build energy software research brief,P2,Energy,Customer problem and measurable pilot,Not started
+OMNIA-031,Reproduce a computational science result,P2,Science,Reproducible experiment,Not started
+OMNIA-032,Build quantum use-case evidence map,P2,Compute,Use cases ranked by demonstrated evidence,Not started
+OMNIA-033,Build advanced packaging opportunity map,P2,Compute,Supply chain and software opportunities,Not started
+OMNIA-034,Build AI-for-biology evidence map,P2,Biology,Benchmarks and validation evidence graded,Not started
+OMNIA-035,Design climate MRV proof concept,P2,Climate,Method and independent verification,Not started
+OMNIA-036,Design water analytics pilot,P2,Water,"Customer, dataset and metric",Not started
+OMNIA-037,Design industrial digital twin pilot,P2,Manufacturing,Data rights and measurable process KPI,Not started
+OMNIA-038,Establish annual portfolio review,P2,Board/Strategy,Continue/pause/stop decisions,Not started
+OMNIA-039,Create domain safety case templates,P0,Safety,"Hazards, controls, owners and verification",Not started
+OMNIA-040,Adopt scientific evidence grades,P0,Research,Evidence ladder used consistently,Not started
+OMNIA-041,Define developer API roadmap,P2,Platform,Demand-backed API and SDK plan,Not started
+OMNIA-042,Complete enterprise readiness assessment,P2,Security/Platform,"Admin, audit, support and compliance gaps",Not started
+OMNIA-043,Model data-centre power/cooling/water,P2,Compute/Energy,Baseline and efficiency opportunities,Not started
+OMNIA-044,Create incident response playbook,P0,Security,"Owner, severity, containment and notification",Not started
+OMNIA-045,First product continue/narrow/pivot review,P1,Founder/Board,Evidence-backed decision,Not started
+OMNIA-046,Prepare initial hiring plan,P1,Founder/CTO,Critical roles and cost plan,Not started
+OMNIA-047,Create research collaboration template,P1,Legal/Research,"IP, data, publication and safety terms",Not started
+OMNIA-048,Run pricing and willingness-to-pay tests,P1,Growth/Finance,Customer evidence,Not started
+OMNIA-049,Build portfolio capital model,P1,Finance,Class A-D gates and capital needs,Not started
+OMNIA-050,Refresh ecosystem registry quarterly,P2,Intelligence,"New entrants, acquisitions and status changes",Not started

@@ -1,0 +1,16 @@
+Institution,Laboratory_Division,Specialism,Location,Verification_Status
+MIT,CSAIL / Plasma Science and Fusion Center,"AI, Robotics, Fusion Energy","Cambridge, USA",Active
+Stanford,HAI / Artificial Intelligence Laboratory,"Foundation Models, Embodied AI","Stanford, USA",Active
+UC Berkeley,BAIR / EECS Department,"Robotics, Reinforcement Learning, RISC-V","Berkeley, USA",Active
+Carnegie Mellon,Robotics Institute / Language Technologies Institute,"Autonomous Systems, NLP","Pittsburgh, USA",Active
+Oxford,Oxford Robotics Institute / Department of Computer Science,"Autonomous Mobility, AI Verification","Oxford, UK",Active
+Cambridge,Cavendish Laboratory / Computer Laboratory,"Quantum Computing, Materials Science","Cambridge, UK",Active
+ETH Zurich,Robotic Systems Lab / Institute for Machine Learning,"Quadrupeds, Control Theory","Zurich, Switzerland",Active
+EPFL,Biorobotics Laboratory / Center for Intelligent Systems,"Biomedical Robotics, Neuroscience","Lausanne, Switzerland",Active
+TUM,Munich Institute of Robotics and Machine Intelligence (MIRMI),"Industrial AI, Soft Robotics","Munich, Germany",Active
+IIT Madras,Robert Bosch Centre for Data Science and AI (RBCDSAI),"AI for Science, Healthcare","Chennai, India",Active
+IISc Bangalore,Department of Computational and Data Sciences,"High-Performance Computing, Quantum","Bangalore, India",Active
+University of Tokyo,JSK Robotics Laboratory,"Humanoid Robotics, Computer Vision","Tokyo, Japan",Active
+Max Planck Institute,Intelligent Systems / Quantum Optics,"Synthetic Materials, Quantum Simulation","Stuttgart/Munich, Germany",Active
+Caltech,Center for Autonomous Systems and Technologies (CAST),"Aerospace, Planetary Autonomy","Pasadena, USA",Active
+Imperial College London,Data Science Institute / Institute of Biomedical Engineering,"Medical Devices, Synthetic Bio","London, UK",Active

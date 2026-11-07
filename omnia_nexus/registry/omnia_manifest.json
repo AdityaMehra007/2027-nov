@@ -1,0 +1,26 @@
+{
+  "programme": "PROJECT OMNIA NEXUS",
+  "version": "1.0",
+  "status": "vision-and-local-prototype",
+  "core_platform": "ATLAS X",
+  "first_product_proof": "GODMODE Career OS",
+  "venture_studios": 24,
+  "ecosystem_seed_entries": 93,
+  "research_questions": 50,
+  "backlog_tasks": 50,
+  "local_foundry": {
+    "runtime": "Python 3.11+ standard library",
+    "database": "SQLite",
+    "capabilities": [
+      "programme registry",
+      "task registry",
+      "experiment tracking",
+      "evidence ledger",
+      "approval ledger",
+      "hash-chained audit"
+    ],
+    "external_actions": false,
+    "authentication": false,
+    "production_ready": false
+  }
+}

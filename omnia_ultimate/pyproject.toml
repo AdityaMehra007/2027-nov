@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omnia-local-core"
+version = "0.1.0"
+description = "Local workflow, approval and audit prototype for PROJECT OMNIA"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+omnia = "omnia_core.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

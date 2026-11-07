@@ -1,0 +1,51 @@
+Research_ID,Question,Core_Hypothesis_Question,Required_Output,Status
+OM-R001,AI model quality and cost,"Which provider/model routing meets task quality, privacy and unit economics?","Benchmark, cost and latency report",Not started
+OM-R002,Agent reliability,Which orchestration patterns minimise failure and unsafe tool use?,Reliability evaluation suite,Not started
+OM-R003,Evaluation design,How should adversarial and representative AI evaluations be constructed?,Labelled evaluation protocol,Not started
+OM-R004,Inference optimisation,"Which caching, quantisation and routing methods reduce cost without unacceptable quality loss?",Measured benchmark,Not started
+OM-R005,AI for science,Which scientific tasks have reproducible AI-enabled improvements?,Replication dossier,Not started
+OM-R006,Advanced packaging,"Where are memory, interconnect and packaging bottlenecks?",Technology and supply-chain map,Not started
+OM-R007,Accelerator economics,Which workloads benefit from specialised accelerators?,Workload-specific TCO analysis,Not started
+OM-R008,Photonic computing,Which use cases plausibly justify photonic interconnect/compute?,Feasibility analysis,Not started
+OM-R009,Quantum advantage,Where is useful quantum advantage demonstrated against strong classical baselines?,Evidence-graded use-case map,Not started
+OM-R010,Secure execution,How can untrusted plugins be capability-scoped and sandboxed?,Threat model and prototype,Not started
+OM-R011,Distributed workflows,What consistency and delivery semantics fit long-running agentic workflows?,Workflow semantics spec,Not started
+OM-R012,Formal methods,Which safety invariants should be model-checked?,Formal verification plan,Not started
+OM-R013,Humanoid robotics economics,Which task and deployment conditions provide measurable ROI?,Task-level unit economics,Not started
+OM-R014,Robot learning,"How do simulation, teleoperation and real data combine?",Experiment protocol,Not started
+OM-R015,Autonomous mobility,Which bounded operating domains have a realistic safety and regulatory path?,ODD and safety dossier,Not started
+OM-R016,Grid intelligence,Which forecasting/scheduling tasks provide customer value?,Pilot and baseline plan,Not started
+OM-R017,Long-duration storage,Which chemistries and project contexts are economically relevant?,Technology comparison,Not started
+OM-R018,Fusion engineering,"What are the key milestones, bottlenecks and uncertainties?",Fusion company/technology map,Not started
+OM-R019,Advanced fission,"What licensing, fuel, supply-chain and economics constraints matter?",Regulatory and technical dossier,Not started
+OM-R020,Geothermal,Which resource and drilling constraints define attractive projects?,Feasibility framework,Not started
+OM-R021,Carbon MRV,"How can additionality, permanence and lifecycle effects be measured?",Measurement/reporting/verification design,Not started
+OM-R022,Climate adaptation,Which local infrastructure risks are measurable and actionable?,Risk data-product thesis,Not started
+OM-R023,Water reuse,"Where are water losses, treatment costs or reuse opportunities material?",Utility/industrial pilot design,Not started
+OM-R024,Membrane materials,"Which fouling, durability and throughput constraints matter?",Materials research brief,Not started
+OM-R025,Protein design,Which computational benchmarks correlate with experimental results?,Reproducible benchmark,Not started
+OM-R026,Biofoundry automation,Which supervised workflows can safely benefit from lab automation?,Qualified lab partnership brief,Not started
+OM-R027,Clinical workflow,Which non-diagnostic administrative/research workflows are costly?,Clinician-reviewed workflow study,Not started
+OM-R028,Clinical data governance,"What privacy, consent and regulatory controls apply in target markets?",Data protection assessment,Not started
+OM-R029,Drug discovery outcomes,Which AI discovery claims are supported by experimental/clinical evidence?,Evidence grading framework,Not started
+OM-R030,Materials discovery,Which public datasets and simulation methods are reproducible?,Dataset and benchmark registry,Not started
+OM-R031,Earth observation,Which satellite-data use cases have measurable customer demand?,Customer/product feasibility,Not started
+OM-R032,Orbital sustainability,"What debris, servicing and end-of-life requirements apply?",Safety/policy research dossier,Not started
+OM-R033,Ocean sensing,Which public datasets and partners can enable validated monitoring?,Prototype design,Not started
+OM-R034,Industrial digital twins,Which process data support useful operational decisions?,Factory pilot specification,Not started
+OM-R035,Supply-chain resilience,Which disruptions can be forecast or mitigated at tolerable false-alarm rates?,Scenario/value model,Not started
+OM-R036,Agricultural analytics,Which grower decisions are improved by reliable data?,Field-pilot design,Not started
+OM-R037,Post-quantum cryptography,What migration path suits the target systems and threat horizon?,Cryptographic inventory,Not started
+OM-R038,Software supply chain,"How can build provenance, signing and dependency integrity improve?",Secure build architecture,Not started
+OM-R039,Edge networking,Which workloads justify edge deployment?,Workload benchmark,Not started
+OM-R040,Learning science,Which interventions improve measured knowledge retention?,Controlled pilot plan,Not started
+OM-R041,Scientific reproducibility,Can selected published computational results be independently reproduced?,Reproduction report,Not started
+OM-R042,Urban operations,Which public-service workflows can be improved with consent and governance?,Institutional pilot proposal,Not started
+OM-R043,SME financial operations,Which back-office processes show measurable time/error reductions?,Process ROI study,Not started
+OM-R044,Accessibility interfaces,Which interaction barriers reduce task success for target users?,Co-designed usability study,Not started
+OM-R045,Startup landscape,"Which organisations are currently active, shipping and hiring/partnering?",Dated verified registry,Not started
+OM-R046,IP and standards,"Which patents, standards and licences constrain proposed designs?",IP/standards map,Not started
+OM-R047,Capital strategy,"What financing fits software, lab R&D and infrastructure?",Capital stack model,Not started
+OM-R048,Supply-chain sovereignty,Which critical components have geopolitical and single-source risk?,Dependency map,Not started
+OM-R049,Data-centre sustainability,"How can compute, power, cooling and water demands be jointly optimised?",Efficiency opportunity model,Not started
+OM-R050,Human-machine coordination,"What interface improves trust, oversight and delegation?",Controlled UX study,Not started

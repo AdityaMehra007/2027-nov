@@ -1,0 +1,1 @@
+# Standard-library-only baseline. Add model-provider dependencies only after an explicit technical decision.

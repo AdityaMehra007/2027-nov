@@ -1,0 +1,18 @@
+[package]
+name = "aether-omega-core"
+version = "2027.1.0"
+edition = "2021"
+authors = ["AETHER-OMEGA Consortium <consortium@aether-omega.org>"]
+description = "Tier-0 Civilization Megaproject: Planetary Compute, Fusion Energy & Post-Quantum Byzantine Mesh"
+license = "Apache-2.0"
+
+[lib]
+name = "aether_core"
+path = "src/kernel/aether_core.rs"
+
+[[bin]]
+name = "planetary_node"
+path = "src/kernel/planetary_node.rs"
+
+[dependencies]
+# Dependencies are abstracted zero-dependency in native mode
