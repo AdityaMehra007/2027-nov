@@ -32,6 +32,8 @@ class DatabaseEngine:
             import omniverse.modules.intelligence.models
             import omniverse.modules.bangalore.models
             import omniverse.modules.bangalore.banking
+            import omniverse.modules.agency.models
+            import omniverse.core.security
         except Exception:
             pass
         SQLModel.metadata.create_all(self.engine)
@@ -82,3 +84,9 @@ def get_session() -> Generator[Session, None, None]:
 
 def init_db() -> None:
     get_engine().init_db()
+
+try:
+    from omniverse.modules.agency.models import ClientAuditRecord
+except Exception:
+    pass
+

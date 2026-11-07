@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Aurelion Industrial OS — Legacy Oilworks & Chemical Engineering API",
+    "version": "1.0.0",
+    "description": "Refinery telemetry, pipeline cracking pressure monitoring, catalytic conversion unit analytics, and automated hazard boundary tripwires.",
+    "contact": {
+      "name": "Aditya Mehra",
+      "email": "ashishiash007@gmail.com",
+      "url": "https://github.com/AdityaMehra007/PROJECT-AURELION-THE-LEGACY-OILWORKS-INTELLIGENCE-PLATFORM"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://aurelion.omniverse.internal/api/v1",
+      "description": "Industrial Supervisory Control & Data Acquisition (SCADA) Gateway"
+    }
+  ],
+  "paths": {
+    "/telemetry/refinery/streams": {
+      "get": {
+        "summary": "Real-time sensor telemetry across fractional distillation and hydrocracking columns",
+        "responses": {
+          "200": {
+            "description": "Active column temperatures, barometric pressures, and flow rates"
+          }
+        }
+      }
+    },
+    "/compliance/batch/audit": {
+      "post": {
+        "summary": "Cryptographically sign and log chemical batch purity analysis to immutable audit ledger",
+        "responses": {
+          "201": {
+            "description": "Batch integrity verified and logged"
+          }
+        }
+      }
+    }
+  }
+}

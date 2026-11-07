@@ -1,0 +1,89 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Numisma Elite — Coin Intelligence, Authentication & Valuation API",
+    "version": "1.0.0",
+    "description": "Enterprise numismatic marketplace, machine vision coin grading, Sheldon scale verification, metal composition assay, and historical auction valuation.",
+    "contact": {
+      "name": "Aditya Mehra",
+      "email": "ashishiash007@gmail.com",
+      "url": "https://github.com/AdityaMehra007/Numisma-Elite"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://numisma.omniverse.internal/api/v1",
+      "description": "Numismatic Valuation Cluster"
+    }
+  ],
+  "paths": {
+    "/coins/appraise": {
+      "post": {
+        "summary": "Submit obverse/reverse imagery or metadata for AI grading and valuation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["dynasty_or_country", "denomination", "year"],
+                "properties": {
+                  "dynasty_or_country": { "type": "string", "example": "Mughal Empire" },
+                  "ruler": { "type": "string", "example": "Akbar the Great" },
+                  "denomination": { "type": "string", "example": "Mohur" },
+                  "mint": { "type": "string", "example": "Agra" },
+                  "year": { "type": "string", "example": "AH 982" },
+                  "surface_condition": { "type": "string", "enum": ["GOOD", "FINE", "VERY_FINE", "EXTREMELY_FINE", "UN増CIRCULATED", "MINT_STATE"], "default": "VERY_FINE" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Grading report and estimated auction valuation curve",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AppraisalReport" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/marketplace/lots": {
+      "get": {
+        "summary": "List authenticated rare numismatic lots available for bid/escrow clearing",
+        "responses": {
+          "200": {
+            "description": "Active verified lots"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppraisalReport": {
+        "type": "object",
+        "properties": {
+          "sheldon_grade": { "type": "string", "example": "MS-63 Choice Uncirculated" },
+          "rarity_index": { "type": "string", "example": "R-6 (Extremely Rare)" },
+          "estimated_market_value_usd": { "type": "number", "example": 4500.0 },
+          "confidence_pct": { "type": "number", "example": 94.2 },
+          "last_auction_comparables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "auction_house": { "type": "string", "example": "Classical Numismatic Group (CNG)" },
+                "hammer_price_usd": { "type": "number", "example": 4250.0 },
+                "date": { "type": "string", "example": "2025-11-14" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

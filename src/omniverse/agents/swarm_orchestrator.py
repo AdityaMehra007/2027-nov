@@ -84,6 +84,31 @@ class SupremeSwarmOrchestrator:
         blueprint = arch_res.get("blueprint", {})
 
         # Phase 3: Universal Code, Agent & Marketing Forge
+        self.code_forge.execute_task(AgentTask(
+            task_type="BUILD_CODE",
+            payload={
+                "client_name": client_name,
+                "client_id": client.client_id,
+                "budget_usd": contract_value_usd,
+            },
+        ))
+        self.agent_engineer.execute_task(AgentTask(
+            task_type="BUILD_AGENT",
+            payload={
+                "client_name": client_name,
+                "client_id": client.client_id,
+                "budget_usd": contract_value_usd,
+            },
+        ))
+        self.growth_marketing.execute_task(AgentTask(
+            task_type="BUILD_CAMPAIGN",
+            payload={
+                "client_name": client_name,
+                "client_id": client.client_id,
+                "budget_usd": contract_value_usd,
+            },
+        ))
+
         forged_package: ForgedPackage = self.pipeline.build_everything_for_client(
             client=client,
             budget_usd=contract_value_usd,
@@ -143,6 +168,17 @@ class SupremeSwarmOrchestrator:
         contract_value_usd: float = 15000.0,
     ) -> Dict[str, Any]:
         """Runs the entire autonomous swarm across an international cohort."""
+        hub_val = hub.value if isinstance(hub, GlobalHub) else (str(hub) if hub else None)
+        sector_val = sector.value if isinstance(sector, IndustrySector) else (str(sector) if sector else None)
+        self.prospector.execute_task(AgentTask(
+            task_type="DISCOVER_GLOBAL_CLIENTS",
+            payload={
+                "hub": hub_val,
+                "sector": sector_val,
+                "limit": limit,
+            },
+        ))
+
         cohort = self.directory.filter_clients(hub=hub, sector=sector)[:limit]
         results = []
         total_revenue_settled = 0.0

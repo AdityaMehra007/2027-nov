@@ -1,45 +1,30 @@
-# Orchestration Execution Plan
+# Orchestration Plan — CASHFLOW INFINITY: OMNIVERSE
 
 ## Objective
-Orchestrate the end-to-end delivery of the complete 300 startup venture creation portfolio, including:
-1. Production-grade venture blueprints for all 300 business models across all 15 industry sectors.
-2. Fully functional, deployable MVP prototype codebases for top-priority flagship ventures.
-3. Automated test suites, schema validators, and audit rubrics verifying 100% compliance with `300_startup_business_master_blueprint.md`.
+Operate, coordinate, and scale the CASHFLOW INFINITY: OMNIVERSE platform and workflows in production, executing full-scale autonomous agent coordination, client audits, and build forge pipelines across all 8 global commercial hubs and clients.
 
-## Execution Phases
+## Phase 0: Survey & Scope Discovery (3 Parallel Subagents)
+- **survey_spec_miner_1**:
+  - Task: Map SupremeSwarmOrchestrator and the 8 autonomous agents. Inspect the World Client Directory across all 8 global commercial hubs and 6 industry sectors. Document how audits are triggered, executed, and persisted to the database.
+- **survey_spec_miner_2**:
+  - Task: Map Universal Build Forge pipeline and architecture. Identify compiler deliverables: fullstack software, AI agents, MCP tool schemas, and marketing suites. Document build output artifact paths, DB models, and storage schemas.
+- **survey_explorer_3**:
+  - Task: Map platform CLI commands (`world-clients`, `audit-client`, `build-for-client`, `run-world-swarm`, `world-stats`), existing automated test suites, runtime environment, dependencies, and test runner invocations.
 
-### Phase 0: Survey & Scope Mapping (Current)
-- Dispatch 3 parallel survey agents (`teamwork_spec_miner` and `teamwork_explorer`) to inspect:
-  - Reference blueprint: `C:\Users\amehr\.gemini\antigravity\brain\6ea5ca16-6456-4c5d-8f82-9b4585b79bd5\300_startup_business_master_blueprint.md`
-  - Workspace directory structure and existing assets at `e:\2027 nov`
-  - All 15 industry sectors, all 300 business definitions, required sections, schema, flagship candidates, and testing requirements.
-- Synthesize findings into `PROJECT.md` Feature Inventory and Milestone decomposition.
+## Phase 1: Global Synthesis & Decomposition (`PROJECT.md`)
+- Aggregate survey reports into `PROJECT.md`.
+- Enumerate complete Feature Inventory from requirements R1, R2, R3.
+- Map out Milestones with clear boundaries, dependencies, and interface contracts.
+- Define Code Layout and write boundaries.
 
-### Phase 1: Global Project Architecture & Dual Track Setup
-- Author `e:\2027 nov\PROJECT.md` with:
-  - Feature inventory (300 ventures mapped to sectors and milestones)
-  - Code layout conventions (e.g. `ventures/<sector>/<venture_id>/`, `prototypes/<flagship_id>/`, `verification/`)
-  - Interface contracts and audit schemas
-- Spawn E2E Testing & Verification Track Orchestrator.
-- Spawn Sector/Venture Implementation Sub-Orchestrators.
+## Phase 2: Execution Track & Dual-Track Verification
+- Milestone 1: Autonomous Swarm Execution & Comprehensive Client Audits across all 8 global commercial hubs.
+- Milestone 2: Universal Build Forge Client Fulfillment (compile software, AI agents, MCP schemas, marketing suites; validate on disk and DB).
+- Milestone 3: CLI Verification & Telemetry Validation (`run-world-swarm`, `world-stats`) & Test Suite execution without fatal errors.
 
-### Phase 2: Dual Track Execution & Milestone Delivery
-- E2E Testing Track:
-  - Schema validators for blueprints (checking technical architecture, financial model, ICP positioning, GTM roadmap, no placeholders).
-  - Test suites and runners for flagship MVP codebases.
-  - Generates `TEST_READY.md`.
-- Implementation Track:
-  - Sector sub-orchestrators execute venture blueprint generations.
-  - Flagship prototype engineering teams build working MVPs with core business logic, API/CLI endpoints, unit tests, and run scripts.
+## Phase 3: Verification, Adversarial Hardening & Forensic Audit
+- Independent Reviewers and Challengers verify operations, database persistence, and compiled artifacts.
+- Forensic Auditor validates code/telemetry integrity (clean, non-stubbed, genuine execution).
 
-### Phase 3: Forensic Auditing & Verification Gates
-- Sub-orchestrators run Explorer -> Worker -> Reviewer -> Challenger -> teamwork_auditor.
-- Strict ZERO TOLERANCE integrity enforcement.
-- Pass 100% automated schema and functional tests.
-
-### Phase 4: Final Synthesis & Human Reporting
-- Verify all acceptance criteria are met:
-  - 300 distinct venture blueprints across 15 sectors with zero placeholders.
-  - Working flagship MVPs with passing tests.
-  - Audit rubric reports confirming 100% pass rates.
-- Report completion to Sentinel via `send_message`.
+## Phase 4: Final Synthesis & Sentinel Handoff
+- Produce comprehensive final operational report and notify parent agent.

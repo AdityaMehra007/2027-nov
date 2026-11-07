@@ -1,6 +1,6 @@
 # Self-Organizing Autonomous Edge Fabrics and Planetary Settlement Engines
 
-**Authors:** OMNIVERSE Research Core, AETHER Resilience Council  
+**Authors:** Supreme Chief Architect, OMNIVERSE Research Core  
 **Domain:** autonomous-planetary-resilience  
 **Date:** November 2026  
 **Affiliation:** OMNIVERSE Autonomous Intelligence & Planetary Research Institute  

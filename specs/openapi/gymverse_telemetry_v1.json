@@ -1,0 +1,44 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GymVerse OS — Complete Gym Operations & Equipment Telemetry API",
+    "version": "1.0.0",
+    "description": "Live gym floor crowd density monitoring, BLE equipment sensor utilization telemetry, personal trainer scheduling, and membership recurring billing.",
+    "contact": {
+      "name": "Aditya Mehra",
+      "email": "ashishiash007@gmail.com",
+      "url": "https://github.com/AdityaMehra007/GymVerse-OS"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://gymverse.omniverse.internal/api/v1",
+      "description": "Gym Operations Gateway"
+    }
+  ],
+  "paths": {
+    "/floor/density": {
+      "get": {
+        "summary": "Retrieve live zone crowd density index (Free Weights, Cardio, Functional Turf)",
+        "responses": {
+          "200": {
+            "description": "Live floor capacity and wait times"
+          }
+        }
+      }
+    },
+    "/equipment/{machine_id}/status": {
+      "get": {
+        "summary": "Check real-time machine usage telemetry and maintenance interval",
+        "parameters": [
+          { "name": "machine_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilization percentage and lifecycle status"
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,10 +29,10 @@ class AutonomousRevisionAgent:
 
     def __init__(
         self,
-        portal_engine: AgencyPortalEngine,
+        portal_engine: Optional[AgencyPortalEngine] = None,
         qa_governor: Optional[QAGovernor] = None,
     ):
-        self.portal = portal_engine
+        self.portal = portal_engine or AgencyPortalEngine()
         self.qa = qa_governor or QAGovernor()
 
     def apply_revision(self, order: JobOrder, feedback: str) -> RevisionResult:

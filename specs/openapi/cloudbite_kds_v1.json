@@ -1,0 +1,108 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CloudBite Black Label — Luxury Cloud Kitchen Platform API",
+    "version": "1.0.0",
+    "description": "Enterprise Kitchen Display System (KDS), multi-station line dispatching, recipe unit economics, and real-time inventory reconciliation.",
+    "contact": {
+      "name": "Aditya Mehra",
+      "email": "ashishiash007@gmail.com",
+      "url": "https://github.com/AdityaMehra007/cloudbite-"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://cloudbite.omniverse.internal/api/v1",
+      "description": "Production High-Throughput Node"
+    }
+  ],
+  "paths": {
+    "/kitchen/tickets": {
+      "get": {
+        "summary": "List active prep tickets across all kitchen lines",
+        "parameters": [
+          { "name": "station", "in": "query", "schema": { "type": "string", "enum": ["GRILL", "FRY", "PASTRY", "EXPEDITOR"] } },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["PENDING", "PREPARING", "READY", "DISPATCHED"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of synchronized kitchen tickets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/KitchenTicket" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Inject incoming POS / Aggregator order into KDS routing pipeline",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/KitchenTicket" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order queued with target prep duration and line assignment"
+          }
+        }
+      }
+    },
+    "/kitchen/tickets/{ticket_id}/bump": {
+      "post": {
+        "summary": "Advance ticket state on station bump bar (PREPARING -> READY -> DISPATCHED)",
+        "parameters": [
+          { "name": "ticket_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket advanced successfully"
+          }
+        }
+      }
+    },
+    "/financials/recipe-margins": {
+      "get": {
+        "summary": "Real-time recipe gross margin breakdown against daily market ingredient pricing",
+        "responses": {
+          "200": {
+            "description": "Ingredient cost vs menu price margins"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "KitchenTicket": {
+        "type": "object",
+        "required": ["ticket_id", "items", "station", "target_seconds"],
+        "properties": {
+          "ticket_id": { "type": "string", "example": "TKT-8849" },
+          "order_source": { "type": "string", "example": "SWIGGY_GOURMET" },
+          "station": { "type": "string", "enum": ["GRILL", "FRY", "PASTRY", "EXPEDITOR"] },
+          "status": { "type": "string", "enum": ["PENDING", "PREPARING", "READY", "DISPATCHED"] },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "example": "Truffle Wagyu Slider" },
+                "quantity": { "type": "integer", "example": 2 },
+                "notes": { "type": "string", "example": "Medium-rare, extra demi-glace" }
+              }
+            }
+          },
+          "target_seconds": { "type": "integer", "example": 480 }
+        }
+      }
+    }
+  }
+}

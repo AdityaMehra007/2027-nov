@@ -31,7 +31,8 @@ def format_inr(amount: float) -> str:
 class PilotFramework:
     """Institutional commercial gating engine for 6-week scoped GCC autonomous enterprise pilots."""
 
-    def __init__(self, matrix: Optional[GCCMatrix] = None):
+    def __init__(self, matrix: Optional[GCCMatrix] = None, proof_engine: Optional[Any] = None):
+        self.proof_engine = proof_engine
         self.matrix = matrix or GCCMatrix()
 
     def generate_agreement(

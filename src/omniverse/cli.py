@@ -1614,7 +1614,6 @@ def main():
             print("=" * 80 + "\n")
 
     elif args.command == "do-everything":
-        import time
         from fastapi.testclient import TestClient
         from omniverse.api.app import create_app
         from omniverse.modules.agency.daemon import AutonomousAgencyDaemon

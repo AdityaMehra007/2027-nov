@@ -41,6 +41,17 @@ from omniverse.modules.bangalore.banking import (
     TalentCompensationBand,
     BangaloreBankingEngine,
 )
+from omniverse.modules.bangalore.cash_logistics import (
+    CurrencyChestHub,
+    ArmoredDispatchRoute,
+    BangaloreCITLogisticsEngine,
+)
+from omniverse.modules.bangalore.regulatory_returns import (
+    FormAFortnightlyReturn,
+    LiquidityCoverageRatioReturn,
+    KarnatakaPSLAllocationReturn,
+    BangaloreRegulatoryReturnsEngine,
+)
 from omniverse.modules.bangalore.dashboard_html import render_banking_dashboard_html
 from omniverse.modules.bangalore.money_flow import simulate_capital_flow
 from omniverse.modules.bangalore.projects import (
@@ -90,6 +101,12 @@ class GCCBlueprintRequest(BaseModel):
     seats: int = 1500
     corridor: BankingCorridor = BankingCorridor.OUTER_RING_ROAD
     fitout_grade: FitoutGrade = FitoutGrade.ULTRA_GRADE_A_FINANCIAL
+
+class CITDispatchRequest(BaseModel):
+    origin_chest_id: str = "CHEST-BLR-01"
+    target_branches: Optional[List[str]] = None
+    cash_needed_inr_cr: float = 24.50
+    departure_hour: int = 6
 
 class RBIAuditRequest(BaseModel):
     bank_name: str
@@ -331,6 +348,47 @@ def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, 
     @router.get("/banking/dashboard", response_class=HTMLResponse)
     def render_banking_dashboard():
         return HTMLResponse(content=render_banking_dashboard_html(), status_code=200)
+
+    @router.get("/banking/cit/chests", response_model=List[CurrencyChestHub])
+    def get_currency_chests():
+        engine = BangaloreCITLogisticsEngine()
+        return engine.get_chests()
+
+    @router.post("/banking/cit/dispatch", response_model=ArmoredDispatchRoute)
+    def dispatch_armored_cit(req: CITDispatchRequest):
+        engine = BangaloreCITLogisticsEngine()
+        return engine.plan_armored_dispatch(
+            origin_chest_id=req.origin_chest_id,
+            target_branches=req.target_branches,
+            cash_needed_inr_cr=req.cash_needed_inr_cr,
+            departure_hour=req.departure_hour
+        )
+
+    @router.get("/banking/returns/form-a", response_model=FormAFortnightlyReturn)
+    def get_form_a_return(
+        bank_name: str = "Canara Bank (Consolidated Bengaluru)",
+        demand_cr: float = 48500.0,
+        time_cr: float = 96500.0
+    ):
+        engine = BangaloreRegulatoryReturnsEngine()
+        return engine.generate_form_a_return(bank_name=bank_name, demand_liabilities_cr=demand_cr, time_liabilities_cr=time_cr)
+
+    @router.get("/banking/returns/lcr", response_model=LiquidityCoverageRatioReturn)
+    def get_lcr_return(
+        bank_name: str = "State Bank of India (Bengaluru Circle)",
+        total_hqla_cr: float = 42500.0,
+        net_outflows_cr: float = 31200.0
+    ):
+        engine = BangaloreRegulatoryReturnsEngine()
+        return engine.generate_lcr_return(bank_name=bank_name, total_hqla_cr=total_hqla_cr, net_outflows_30d_cr=net_outflows_cr)
+
+    @router.get("/banking/returns/psl", response_model=KarnatakaPSLAllocationReturn)
+    def get_karnataka_psl_return(
+        bank_name: str = "HDFC Bank (Karnataka Zone)",
+        anbc_cr: float = 85000.0
+    ):
+        engine = BangaloreRegulatoryReturnsEngine()
+        return engine.generate_karnataka_psl_return(bank_name=bank_name, anbc_cr=anbc_cr)
 
     @router.get("/overview")
     def get_economic_overview():
