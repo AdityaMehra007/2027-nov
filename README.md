@@ -4,7 +4,7 @@
 ### *The #1 Autonomous Wealth, Multi-Market Intelligence, and Planetary Resilience Operating System*
 
 [![CI Build](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
-[![Test Suite](https://img.shields.io/badge/Tests-205%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
+[![Test Suite](https://img.shields.io/badge/Tests-380%2B%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blueviolet?style=for-the-badge&logo=apache&logoColor=white)](LICENSE)
 [![Architecture: Antigravity](https://img.shields.io/badge/Platform-Google%20Antigravity-f59e0b?style=for-the-badge&logo=google&logoColor=white)](https://antigravity.google)

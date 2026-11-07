@@ -266,6 +266,16 @@ def main():
     # Command: bangalore-banking-talent
     subparsers.add_parser("bangalore-banking-talent", help="Display verified salary, bonus, and stock benchmarks for Bengaluru banking & GCC talent")
 
+    # Command: bangalore-banking-cit
+    b_cit = subparsers.add_parser("bangalore-banking-cit", help="Plan armored cash-in-transit route avoiding Bengaluru traffic choke points")
+    b_cit.add_argument("--chest", default="CHEST-BLR-01", help="Origin currency chest ID")
+    b_cit.add_argument("--amount", type=float, default=24.50, help="Cash in Crores (INR)")
+    b_cit.add_argument("--hour", type=int, default=6, help="Departure hour (0-23, e.g. 6 for 6 AM off-peak)")
+
+    # Command: bangalore-banking-returns
+    b_ret = subparsers.add_parser("bangalore-banking-returns", help="Generate automated RBI statutory returns (Form A, LCR, Karnataka PSL)")
+    b_ret.add_argument("--type", choices=["form-a", "lcr", "psl", "all"], default="all", help="Return type")
+
     # Command: directive
     dir_parser = subparsers.add_parser("directive", help="Inspect and validate the Universal Master Directive and 12-Service Taxonomy")
     dir_parser.add_argument("--summary", action="store_true", default=True, help="Display directive executive summary")
@@ -383,6 +393,35 @@ def main():
     ac_parser = subparsers.add_parser("agency-cycle", help="Execute 0-touch autonomous agency cycle: hunt, audit, pitch, outreach, and fulfill")
     ac_parser.add_argument("--limit", type=int, default=2, help="Number of leads to process")
     ac_parser.add_argument("--budget", type=float, default=3000.0, help="Order budget in USD")
+
+    # Command: agency-daemon
+    ad_parser = subparsers.add_parser("agency-daemon", help="Run 24/7 autonomous prospecting and fulfillment daemon loop")
+    ad_parser.add_argument("--limit", type=int, default=2, help="Number of leads per cycle")
+    ad_parser.add_argument("--budget", type=float, default=3000.0, help="Order budget in USD")
+
+    # Command: agency-upi
+    au_parser = subparsers.add_parser("agency-upi", help="Generate dynamic NPCI UPI payment intent and QR payload")
+    au_parser.add_argument("--order-id", type=str, required=True, help="Order ID to settle")
+    au_parser.add_argument("--amount-usd", type=float, required=True, help="Amount in USD")
+    au_parser.add_argument("--exchange-rate", type=float, default=86.0, help="USD to INR exchange rate")
+
+    # Command: agency-crypto
+    acrypto_parser = subparsers.add_parser("agency-crypto", help="Generate segregated Web3 crypto escrow deposit intent")
+    acrypto_parser.add_argument("--order-id", type=str, required=True, help="Order ID to settle")
+    acrypto_parser.add_argument("--amount-usd", type=float, required=True, help="Amount in USD")
+    acrypto_parser.add_argument("--chain", type=str, default="BASE", choices=["SOLANA", "BASE", "ETHEREUM", "POLYGON"], help="Blockchain network")
+
+    # Command: agency-pseo
+    apseo_parser = subparsers.add_parser("agency-pseo", help="Generate competitor alternative programmatic SEO magnet page")
+    apseo_parser.add_argument("--competitor", type=str, required=True, help="Competitor brand name")
+    apseo_parser.add_argument("--our-solution", type=str, default="Omniverse Swarm", help="Our solution name")
+    apseo_parser.add_argument("--service", type=str, default="MARKETING_SUITE", help="Service type")
+    apseo_parser.add_argument("--niche", type=str, default="B2B SaaS", help="Target market niche")
+
+    # Command: agency-revise
+    arev_parser = subparsers.add_parser("agency-revise", help="Trigger autonomous client revision and self-healing agent")
+    arev_parser.add_argument("--order-id", type=str, required=True, help="Order ID to revise")
+    arev_parser.add_argument("--feedback", type=str, required=True, help="Revision feedback text")
 
     args = parser.parse_args()
 
@@ -1034,6 +1073,65 @@ def main():
                 print(f"  Retention  : {', '.join(b.retention_mechanisms)}")
                 print("--------------------------------------------------------------------------------")
 
+    elif args.command == "bangalore-banking-cit":
+        from omniverse.modules.bangalore.cash_logistics import BangaloreCITLogisticsEngine
+        cit_engine = BangaloreCITLogisticsEngine()
+        route = cit_engine.plan_armored_dispatch(
+            origin_chest_id=args.chest,
+            cash_needed_inr_cr=args.amount,
+            departure_hour=args.hour
+        )
+        print("\n================================================================================")
+        print(f"   BENGALURU ARMORED CASH-IN-TRANSIT (CIT) DISPATCH PLAN // {route.route_id}")
+        print("================================================================================")
+        print(f"Van Unit               : {route.van_id}")
+        print(f"Origin Currency Chest  : {route.origin_chest}")
+        print(f"Cash Payload           : ₹{route.cash_payload_inr_cr} Crores")
+        print(f"Escort Tier            : {route.escort_tier.value}")
+        print(f"Departure Window       : {route.departure_time_window}")
+        print(f"Estimated Transit Time : {route.estimated_transit_minutes} Minutes")
+        print(f"Transit Risk Index     : {route.risk_index} / 1.00 ({'LOW RISK' if route.risk_index < 0.3 else 'ELEVATED TRAFFIC RISK'})")
+        print(f"Geofence Protocol      : {route.geofence_status}\n")
+        print("DESTINATION DROP NODES:")
+        for d in route.destinations:
+            print(f"  • {d}")
+        print("\nCHOKEPOINTS MONITORED & MITIGATED:")
+        for c in route.chokepoints_mitigated:
+            print(f"  [✓] {c.value}")
+        print("================================================================================\n")
+
+    elif args.command == "bangalore-banking-returns":
+        from omniverse.modules.bangalore.regulatory_returns import BangaloreRegulatoryReturnsEngine
+        ret_engine = BangaloreRegulatoryReturnsEngine()
+        print("\n================================================================================")
+        print("   RESERVE BANK OF INDIA (BENGALURU REGIONAL OFFICE) STATUTORY RETURNS")
+        print("================================================================================")
+        if args.type in ["form-a", "all"]:
+            fa = ret_engine.generate_form_a_return()
+            print(f"• FORM A FORTNIGHTLY RETURN (SECTION 42(2) RBI ACT 1934)")
+            print(f"  Ref: {fa.return_ref} | Jurisdiction: {fa.rbi_jurisdiction}")
+            print(f"  NDTL: ₹{fa.net_demand_time_liabilities_ndtl_cr:,.2f} Cr (Demand: ₹{fa.demand_liabilities_inr_cr:,.2f} Cr + Time: ₹{fa.time_liabilities_inr_cr:,.2f} Cr)")
+            print(f"  CRR (4.50%): Required ₹{fa.crr_required_inr_cr:,.2f} Cr | Maintained ₹{fa.crr_actual_maintained_rbi_blr_cr:,.2f} Cr (Surplus: +₹{fa.crr_surplus_cr:,.2f} Cr)")
+            print(f"  SLR (18.00%): Required ₹{fa.slr_required_inr_cr:,.2f} Cr | Held ₹{fa.slr_eligible_assets_held_cr:,.2f} Cr (Surplus: +₹{fa.slr_surplus_cr:,.2f} Cr)")
+            print(f"  Status: {fa.compliance_status}\n")
+        if args.type in ["lcr", "all"]:
+            lcr = ret_engine.generate_lcr_return()
+            print(f"• LIQUIDITY COVERAGE RATIO RETURN (BASEL III / RBI MASTER DIRECTION)")
+            print(f"  Ref: {lcr.return_ref} | Institution: {lcr.bank_name}")
+            print(f"  Eligible HQLA: ₹{lcr.total_eligible_hqla_inr_cr:,.2f} Cr | 30-Day Outflows: ₹{lcr.net_cash_outflows_30d_stress_cr:,.2f} Cr")
+            print(f"  LCR Metric: {lcr.lcr_ratio_pct:.2f}% (Regulatory Min: {lcr.minimum_regulatory_threshold_pct:.0f}%)")
+            print(f"  Status: {lcr.compliance_status}\n")
+        if args.type in ["psl", "all"]:
+            psl = ret_engine.generate_karnataka_psl_return()
+            print(f"• KARNATAKA PRIORITY SECTOR LENDING (PSL) ALLOCATION RETURN")
+            print(f"  Ref: {psl.return_ref} | ANBC: ₹{psl.adjusted_net_bank_credit_anbc_cr:,.2f} Cr")
+            print(f"  Agriculture : {psl.agriculture_pct:.1f}% (Target: {psl.agriculture_mandate_pct:.1f}%) | ₹{psl.agriculture_lending_cr:,.2f} Cr")
+            print(f"  Micro-Enterp: {psl.micro_enterprises_pct:.1f}% (Target: {psl.micro_mandate_pct:.1f}%) | ₹{psl.micro_enterprises_cr:,.2f} Cr")
+            print(f"  Weaker Sect : {psl.weaker_sections_pct:.1f}% (Target: {psl.weaker_sections_mandate_pct:.1f}%) | ₹{psl.weaker_sections_cr:,.2f} Cr")
+            print(f"  Total PSL   : {psl.total_psl_pct:.1f}% (Target: {psl.total_psl_mandate_pct:.1f}%) | Status: {psl.compliance_status}")
+            print(f"  Clusters    : {', '.join(psl.karnataka_clusters_covered)}")
+        print("================================================================================\n")
+
     elif args.command == "swarm":
         from omniverse.swarm.cli import handle_swarm_command
         handle_swarm_command(args)
@@ -1535,6 +1633,120 @@ def main():
         print(f"Orders Created    : {cycle.orders_created}")
         print(f"Pipeline Value    : ${cycle.pipeline_value_usd:,.2f} USD")
         print(f"Collected Upfront : ${cycle.simulated_collected_usd:,.2f} USD")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-daemon":
+        from omniverse.modules.agency.daemon import AutonomousAgencyDaemon
+        daemon = AutonomousAgencyDaemon()
+        report = daemon.run_cycle(limit=args.limit, budget_per_order=args.budget)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE 24/7 AUTONOMOUS AGENCY DAEMON CYCLE       ")
+        print("=" * 80)
+        print(f"Cycle ID               : {report.cycle_id}")
+        print(f"Cycle Number           : {report.cycle_number}")
+        print(f"Leads Hunted           : {report.leads_hunted}")
+        print(f"Audits Performed       : {report.audits_performed}")
+        print(f"Pitches Generated      : {report.pitches_generated}")
+        print(f"Deliverables Completed : {report.deliverables_completed}")
+        print(f"Pipeline Generated     : ${report.pipeline_value_generated_usd:,.2f} USD")
+        print(f"Execution Duration     : {report.duration_sec:.2f}s")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-upi":
+        from omniverse.modules.agency.upi_gateway import InstantUPIEngine
+        engine = InstantUPIEngine()
+        intent = engine.generate_upi_intent(order_id=args.order_id, amount_usd=args.amount_usd, exchange_rate=args.exchange_rate)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE INSTANT UPI PAYMENT INTENT       ")
+        print("=" * 80)
+        print(f"Order ID       : {intent.order_id}")
+        print(f"Payee VPA      : {intent.vpa}")
+        print(f"Amount (INR)   : Rs {intent.amount_inr:,.2f}")
+        print(f"Deep Link URI  : {intent.intent_url}")
+        print(f"QR Payload     : {intent.qr_payload}")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-crypto":
+        from omniverse.modules.agency.crypto_gateway import Web3CryptoEscrow, CryptoChain
+        escrow = Web3CryptoEscrow()
+        chain_enum = CryptoChain(args.chain.upper())
+        intent = escrow.create_deposit_intent(order_id=args.order_id, amount_usd=args.amount_usd, chain=chain_enum)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE WEB3 CRYPTO ESCROW DEPOSIT INTENT       ")
+        print("=" * 80)
+        print(f"Order ID       : {intent.order_id}")
+        print(f"Target Chain   : {intent.chain.value}")
+        print(f"Amount (USDC)  : ${intent.expected_amount_usdc:,.2f}")
+        print(f"Vault Address  : {intent.deposit_address}")
+        print(f"Escrow Status  : {intent.status}")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-pseo":
+        from omniverse.modules.agency.inbound_pseo import ProgrammaticSEOMagnet
+        from omniverse.modules.agency.models import ServiceType
+        magnet = ProgrammaticSEOMagnet()
+        st = ServiceType.MARKETING_SUITE
+        for m in ServiceType:
+            if m.value == args.service.upper() or m.name == args.service.upper():
+                st = m
+                break
+        page = magnet.generate_competitor_alternative(
+            competitor_name=args.competitor,
+            our_solution=args.our_solution,
+            service_type=st,
+            target_niche=args.niche,
+        )
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE PROGRAMMATIC SEO MAGNET GENERATED       ")
+        print("=" * 80)
+        print(f"Slug           : {page.slug}")
+        print(f"Title          : {page.title}")
+        print(f"CTA URL        : {page.booking_cta_url}")
+        print(f"Schema Type    : {page.schema_json_ld.get('@type')}")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-revise":
+        from omniverse.modules.agency.revision_manager import AutonomousRevisionAgent
+        from omniverse.modules.agency.portal_engine import AgencyPortalEngine
+        from omniverse.modules.agency.models import JobOrder, ServiceType, Deliverable
+        portal = AgencyPortalEngine()
+        agent = AutonomousRevisionAgent(portal_engine=portal)
+        # Create or fetch order
+        order = portal.get_order(args.order_id)
+        if not order:
+            order = JobOrder(
+                client_id="cli_client",
+                order_id=args.order_id,
+                service_type=ServiceType.FULLSTACK_DEV,
+                brief="CLI Revision Target",
+                budget_usd=3000.0,
+            )
+            p = Path(f"artifacts/code/{args.order_id}/index.html")
+            p.parent.mkdir(parents=True, exist_ok=True)
+            initial_html = "<!DOCTYPE html><html><head><title>App</title></head><body>Hello</body></html>"
+            p.write_text(initial_html, encoding="utf-8")
+            order.deliverables = [
+                Deliverable(
+                    artifact_name="index.html",
+                    artifact_type="code",
+                    file_path=str(p),
+                    checksum="initial_checksum",
+                    size_bytes=len(initial_html.encode("utf-8")),
+                    qa_passed=True,
+                )
+            ]
+            portal.register_order(order)
+            portal.package_order_bundle(order)
+
+        result = agent.apply_revision(order=order, feedback=args.feedback)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE AUTONOMOUS CLIENT REVISION AGENT       ")
+        print("=" * 80)
+        print(f"Order ID       : {result.order_id}")
+        print(f"QA Verified    : {result.qa_verified}")
+        print(f"Files Updated  : {', '.join(result.files_updated)}")
+        print(f"Summary        : {result.summary}")
+        print(f"ZIP Bundle     : {result.zip_bundle_path}")
         print("=" * 80 + "\n")
 
     else:

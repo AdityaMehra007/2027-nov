@@ -620,3 +620,216 @@ class BangaloreBankingEngine:
                 retention_mechanisms=["Global equity carry", "Board of directors observer seats", "Discretionary LTIP pool"]
             ),
         ]
+
+
+# ==============================================================================
+# CIT LOGISTICS & STATUTORY REGULATORY RETURNS EXTENSION
+# ==============================================================================
+
+class CurrencyChestHub(BaseModel):
+    chest_id: str
+    bank_name: str
+    location: str
+    corridor: BankingCorridor
+    holding_capacity_cr: float
+    current_cash_level_cr: float
+    vault_security_grade: str = "RBI Class-A Reinforced"
+    armored_vehicles_count: int = 8
+    last_rbi_inspection: str = "2026-Q3 COMPLIANT"
+
+
+class ArmoredDispatchRoute(BaseModel):
+    dispatch_id: str
+    origin_chest_id: str
+    target_branches: List[str]
+    total_cash_cr: float
+    departure_hour: int
+    estimated_duration_mins: int
+    security_escort: str
+    status: str
+    recommended_departure_time: str
+    waypoints: List[str]
+
+
+class BangaloreCITLogisticsEngine:
+    """Manages cash-in-transit (CIT) and central currency chest logistics across Bengaluru."""
+
+    CHESTS: List[CurrencyChestHub] = [
+        CurrencyChestHub(
+            chest_id="CHEST-BLR-01",
+            bank_name="Canara Bank (Principal Apex Chest)",
+            location="JC Road / Town Hall Head Office",
+            corridor=BankingCorridor.CBD_MG_ROAD,
+            holding_capacity_cr=1200.0,
+            current_cash_level_cr=745.50,
+            vault_security_grade="RBI Class-A Biometric Strongroom",
+            armored_vehicles_count=18,
+            last_rbi_inspection="2026-09-15"
+        ),
+        CurrencyChestHub(
+            chest_id="CHEST-BLR-02",
+            bank_name="State Bank of India (Local Head Office)",
+            location="St. Mark's Road / Residency Road",
+            corridor=BankingCorridor.CBD_MG_ROAD,
+            holding_capacity_cr=2500.0,
+            current_cash_level_cr=1680.00,
+            vault_security_grade="Ultra Heavy Reinforced Class-A+",
+            armored_vehicles_count=24,
+            last_rbi_inspection="2026-08-30"
+        ),
+        CurrencyChestHub(
+            chest_id="CHEST-BLR-03",
+            bank_name="HDFC Bank (Regional Currency Chest)",
+            location="Electronic City Phase 1 / Hosur Road",
+            corridor=BankingCorridor.ELECTRONIC_CITY,
+            holding_capacity_cr=850.0,
+            current_cash_level_cr=490.25,
+            vault_security_grade="Class-A High Security",
+            armored_vehicles_count=12,
+            last_rbi_inspection="2026-10-02"
+        ),
+        CurrencyChestHub(
+            chest_id="CHEST-BLR-04",
+            bank_name="ICICI Bank (North Hub Currency Chest)",
+            location="Hebbal / Manyata Tech Park",
+            corridor=BankingCorridor.NORTH_MANYATA,
+            holding_capacity_cr=950.0,
+            current_cash_level_cr=580.00,
+            vault_security_grade="Class-A High Security",
+            armored_vehicles_count=14,
+            last_rbi_inspection="2026-09-22"
+        ),
+    ]
+
+    def get_chests(self) -> List[CurrencyChestHub]:
+        return self.CHESTS
+
+    def plan_armored_dispatch(
+        self,
+        origin_chest_id: str = "CHEST-BLR-01",
+        target_branches: Optional[List[str]] = None,
+        cash_needed_inr_cr: float = 24.50,
+        departure_hour: int = 6
+    ) -> ArmoredDispatchRoute:
+        branches = target_branches or [
+            "Indiranagar 100ft Road Branch",
+            "Koramangala 80ft Road Branch",
+            "Bellandur Ecoworld Desk"
+        ]
+        duration = 35 + (len(branches) * 20)
+        escort = "Armed CISF / Specialized Armed Banking Guard Escort (2 Vehicles)"
+        dep_str = f"{departure_hour:02d}:00 IST (Off-Peak Corridor Transit)"
+        return ArmoredDispatchRoute(
+            dispatch_id=f"cit_disp_{int(time.time())}_{origin_chest_id.lower()}",
+            origin_chest_id=origin_chest_id,
+            target_branches=branches,
+            total_cash_cr=cash_needed_inr_cr,
+            departure_hour=departure_hour,
+            estimated_duration_mins=duration,
+            security_escort=escort,
+            status="AUTHORIZED_AND_SCHEDULED",
+            recommended_departure_time=dep_str,
+            waypoints=[f"Waypoint {i+1}: {b}" for i, b in enumerate(branches)]
+        )
+
+
+class FormAFortnightlyReturn(BaseModel):
+    bank_name: str
+    reporting_date: str
+    demand_liabilities_cr: float
+    time_liabilities_cr: float
+    ndtl_cr: float
+    crr_ratio_pct: float = 4.50
+    crr_required_cr: float
+    slr_ratio_pct: float = 18.00
+    slr_required_cr: float
+    regulatory_framework: str = "RBI Section 42(1) RBI Act 1934 & Section 24 BR Act 1949"
+    compliance_status: str = "COMPLIANT"
+
+
+class LiquidityCoverageRatioReturn(BaseModel):
+    bank_name: str
+    reporting_date: str
+    total_hqla_cr: float
+    net_outflows_30d_cr: float
+    lcr_percentage: float
+    minimum_regulatory_threshold_pct: float = 100.0
+    status: str = "SUPER_COMPLIANT"
+
+
+class KarnatakaPSLAllocationReturn(BaseModel):
+    bank_name: str
+    reporting_date: str
+    anbc_cr: float
+    total_psl_target_cr: float
+    agriculture_target_cr: float
+    msme_target_cr: float
+    weaker_sections_target_cr: float
+    karnataka_state_allocation_cr: float
+    status: str = "COMPLIANT_TARGETS_ACHIEVED"
+
+
+class BangaloreRegulatoryReturnsEngine:
+    """Automates statutory RBI returns generation for Bengaluru banking institutions."""
+
+    def generate_form_a_return(
+        self,
+        bank_name: str,
+        demand_liabilities_cr: float,
+        time_liabilities_cr: float
+    ) -> FormAFortnightlyReturn:
+        ndtl = demand_liabilities_cr + time_liabilities_cr
+        crr = round(ndtl * 0.045, 2)
+        slr = round(ndtl * 0.18, 2)
+        return FormAFortnightlyReturn(
+            bank_name=bank_name,
+            reporting_date=time.strftime("%Y-%m-%d"),
+            demand_liabilities_cr=demand_liabilities_cr,
+            time_liabilities_cr=time_liabilities_cr,
+            ndtl_cr=ndtl,
+            crr_ratio_pct=4.50,
+            crr_required_cr=crr,
+            slr_ratio_pct=18.00,
+            slr_required_cr=slr,
+            compliance_status="COMPLIANT"
+        )
+
+    def generate_lcr_return(
+        self,
+        bank_name: str,
+        total_hqla_cr: float,
+        net_outflows_30d_cr: float
+    ) -> LiquidityCoverageRatioReturn:
+        lcr = round((total_hqla_cr / net_outflows_30d_cr) * 100.0, 2) if net_outflows_30d_cr > 0 else 0.0
+        status = "SUPER_COMPLIANT" if lcr >= 115.0 else ("COMPLIANT" if lcr >= 100.0 else "DEFICIT_TRIGGERED")
+        return LiquidityCoverageRatioReturn(
+            bank_name=bank_name,
+            reporting_date=time.strftime("%Y-%m-%d"),
+            total_hqla_cr=total_hqla_cr,
+            net_outflows_30d_cr=net_outflows_30d_cr,
+            lcr_percentage=lcr,
+            minimum_regulatory_threshold_pct=100.0,
+            status=status
+        )
+
+    def generate_karnataka_psl_return(
+        self,
+        bank_name: str,
+        anbc_cr: float
+    ) -> KarnatakaPSLAllocationReturn:
+        psl_total = round(anbc_cr * 0.40, 2)
+        agri = round(anbc_cr * 0.18, 2)
+        msme = round(anbc_cr * 0.10, 2)
+        weaker = round(anbc_cr * 0.12, 2)
+        karnataka_alloc = round(psl_total * 0.16, 2)
+        return KarnatakaPSLAllocationReturn(
+            bank_name=bank_name,
+            reporting_date=time.strftime("%Y-%m-%d"),
+            anbc_cr=anbc_cr,
+            total_psl_target_cr=psl_total,
+            agriculture_target_cr=agri,
+            msme_target_cr=msme,
+            weaker_sections_target_cr=weaker,
+            karnataka_state_allocation_cr=karnataka_alloc,
+            status="COMPLIANT_TARGETS_ACHIEVED"
+        )

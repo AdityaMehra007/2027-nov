@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import time
 import uuid
 from datetime import datetime, timezone
 from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, Field, computed_field
+from sqlmodel import SQLModel, Field as SQLField
 
 
 class ProspectArchetype(str, Enum):
@@ -145,3 +147,22 @@ class AgencyMetrics(BaseModel):
         if not self.total_leads_discovered:
             return 0.0
         return (self.completed_deliverables / self.total_leads_discovered) * 100.0
+
+
+class ClientAuditRecord(SQLModel, table=True):
+    __tablename__ = "client_audit_records"
+
+    id: Optional[int] = SQLField(default=None, primary_key=True)
+    client_name: str = SQLField(index=True)
+    hub: str = SQLField(index=True)
+    sector: str = SQLField(index=True)
+    performance_score: float
+    seo_score: float
+    conversion_score: float
+    overall_health: float
+    estimated_monthly_loss_usd: float
+    bottlenecks_json: str = SQLField(default="[]")
+    recommended_archetype: str = SQLField(default="FULL_TRANSFORMATION")
+    timestamp: float = SQLField(default_factory=time.time)
+
+

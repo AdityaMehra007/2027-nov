@@ -50,6 +50,19 @@ from omniverse.modules.bangalore.banking import (
     RBIAuditResult,
     BangaloreBankingEngine,
 )
+from omniverse.modules.bangalore.cash_logistics import (
+    BangaloreTrafficChokePoint,
+    SecurityEscortTier,
+    CurrencyChestHub,
+    ArmoredDispatchRoute,
+    BangaloreCITLogisticsEngine,
+)
+from omniverse.modules.bangalore.regulatory_returns import (
+    FormAFortnightlyReturn,
+    LiquidityCoverageRatioReturn,
+    KarnatakaPSLAllocationReturn,
+    BangaloreRegulatoryReturnsEngine,
+)
 
 __all__ = [
     "BangaloreCluster",
@@ -92,4 +105,13 @@ __all__ = [
     "GCCCapexOpexModel",
     "RBIAuditResult",
     "BangaloreBankingEngine",
+    "BangaloreTrafficChokePoint",
+    "SecurityEscortTier",
+    "CurrencyChestHub",
+    "ArmoredDispatchRoute",
+    "BangaloreCITLogisticsEngine",
+    "FormAFortnightlyReturn",
+    "LiquidityCoverageRatioReturn",
+    "KarnatakaPSLAllocationReturn",
+    "BangaloreRegulatoryReturnsEngine",
 ]

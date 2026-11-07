@@ -3,7 +3,7 @@
 from typing import Optional, List, Dict, Any
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import FileResponse, HTMLResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from omniverse.modules.agency.models import (
     ProspectArchetype,
@@ -25,6 +25,11 @@ from omniverse.modules.agency.fulfillment.automation_factory import AutomationFa
 from omniverse.modules.agency.qa_governor import QAGovernor
 from omniverse.modules.agency.portal_engine import AgencyPortalEngine
 from omniverse.modules.agency.outreach import MultiChannelOutreachDispatcher, OutreachMessage
+from omniverse.modules.agency.upi_gateway import InstantUPIEngine, UPIPaymentIntent
+from omniverse.modules.agency.crypto_gateway import Web3CryptoEscrow, CryptoChain, CryptoDepositIntent
+from omniverse.modules.agency.inbound_pseo import ProgrammaticSEOMagnet, SEOLandingPage
+from omniverse.modules.agency.daemon import AutonomousAgencyDaemon, AgencyCycleReport
+from omniverse.modules.agency.revision_manager import AutonomousRevisionAgent, RevisionResult
 from omniverse.api.routes.agency_ui import (
     render_agency_cockpit_html,
     render_client_portal_html,
@@ -41,6 +46,11 @@ automation_factory = AutomationFactory()
 qa_governor = QAGovernor()
 portal_engine = AgencyPortalEngine()
 outreach_dispatcher = MultiChannelOutreachDispatcher()
+upi_engine = InstantUPIEngine()
+crypto_escrow = Web3CryptoEscrow()
+pseo_magnet = ProgrammaticSEOMagnet()
+agency_daemon = AutonomousAgencyDaemon()
+revision_agent = AutonomousRevisionAgent(portal_engine=portal_engine, qa_governor=qa_governor)
 from omniverse.modules.agency.pipeline_runner import AutonomousAgencyPipelineRunner, AutonomousCampaignResult
 pipeline_runner = AutonomousAgencyPipelineRunner()
 
@@ -76,6 +86,57 @@ class CreateOrderRequest(BaseModel):
 class PaymentRequest(BaseModel):
     order_id: str
     payment_method: str = "STRIPE"
+
+
+class UPIGenerateRequest(BaseModel):
+    order_id: str
+    amount_usd: float
+    exchange_rate: float = 86.0
+
+
+class UPIConfirmRequest(BaseModel):
+    order_id: str
+    utr_number: str
+
+
+class CryptoDepositIntentRequest(BaseModel):
+    order_id: str
+    amount_usd: float
+    chain: CryptoChain = CryptoChain.BASE
+
+
+class CryptoVerifyRequest(BaseModel):
+    order_id: str
+    tx_hash: str
+    chain: Optional[CryptoChain] = None
+
+
+class PSEOGenerateRequest(BaseModel):
+    competitor_name: str
+    our_solution: str
+    service_type: ServiceType = ServiceType.MARKETING_SUITE
+    target_niche: str = "B2B SaaS"
+
+    @field_validator("service_type", mode="before")
+    @classmethod
+    def validate_service_type(cls, v: Any) -> ServiceType:
+        if isinstance(v, ServiceType):
+            return v
+        if isinstance(v, str):
+            v_upper = v.upper()
+            for member in ServiceType:
+                if member.value == v_upper or member.name == v_upper:
+                    return member
+        return ServiceType.MARKETING_SUITE
+
+
+class DaemonCycleRequest(BaseModel):
+    limit: int = 2
+    budget_per_order: float = 3000.0
+
+
+class RevisionRequest(BaseModel):
+    feedback: str
 
 
 def get_agency_router() -> APIRouter:
@@ -288,5 +349,74 @@ def get_agency_router() -> APIRouter:
     def get_autonomous_cycle_history() -> List[Dict[str, Any]]:
         """Returns history of all autonomous campaign cycles executed."""
         return pipeline_runner.get_pipeline_history()
+
+    @router.post("/orders/{order_id}/revise", response_model=RevisionResult)
+    def revise_order_deliverables(order_id: str, req: RevisionRequest) -> RevisionResult:
+        """Autonomous client revision and self-healing agent."""
+        order = _orders.get(order_id)
+        if not order:
+            raise HTTPException(status_code=404, detail="Order not found")
+        result = revision_agent.apply_revision(order=order, feedback=req.feedback)
+        return result
+
+    @router.post("/payments/upi/generate")
+    def generate_upi_payment_intent(req: UPIGenerateRequest) -> Dict[str, Any]:
+        """Generate instant NPCI UPI payment intent and dynamic QR."""
+        intent = upi_engine.generate_upi_intent(
+            order_id=req.order_id,
+            amount_usd=req.amount_usd,
+            exchange_rate=req.exchange_rate,
+        )
+        return intent.model_dump()
+
+    @router.post("/payments/upi/confirm")
+    def confirm_upi_payment(req: UPIConfirmRequest) -> Dict[str, Any]:
+        """Confirm and settle UPI payment with replay protection."""
+        res = upi_engine.confirm_upi_payment(order_id=req.order_id, utr_number=req.utr_number)
+        if not res.get("settled"):
+            raise HTTPException(status_code=400, detail=res.get("error", "UPI settlement failed"))
+        res["utr_number"] = req.utr_number
+        return res
+
+    @router.post("/payments/crypto/deposit-intent")
+    def create_crypto_deposit_intent(req: CryptoDepositIntentRequest) -> Dict[str, Any]:
+        """Create a segregated Web3 crypto escrow deposit intent."""
+        intent = crypto_escrow.create_deposit_intent(
+            order_id=req.order_id,
+            amount_usd=req.amount_usd,
+            chain=req.chain,
+        )
+        return intent.model_dump()
+
+    @router.post("/payments/crypto/verify")
+    def verify_crypto_payment(req: CryptoVerifyRequest) -> Dict[str, Any]:
+        """Verify on-chain crypto payment with zero-trust replay protection."""
+        res = crypto_escrow.verify_transaction(order_id=req.order_id, tx_hash=req.tx_hash)
+        if not res.get("verified"):
+            raise HTTPException(status_code=400, detail=res.get("error", "Transaction verification failed"))
+        return {
+            "verified": True,
+            "status": res.get("status", "SETTLED"),
+            "amount_settled_usd": res.get("settled_usd", 0.0),
+            "tx_hash": req.tx_hash,
+            "order_id": req.order_id,
+        }
+
+    @router.post("/pseo/generate")
+    def generate_pseo_page(req: PSEOGenerateRequest) -> Dict[str, Any]:
+        """Manufacture automated competitor comparison pSEO landing page."""
+        page = pseo_magnet.generate_competitor_alternative(
+            competitor_name=req.competitor_name,
+            our_solution=req.our_solution,
+            service_type=req.service_type,
+            target_niche=req.target_niche,
+        )
+        return page.model_dump()
+
+    @router.post("/daemon/cycle")
+    def run_agency_daemon_cycle(req: DaemonCycleRequest) -> Dict[str, Any]:
+        """Trigger one 24/7 autonomous prospecting and delivery cycle."""
+        report = agency_daemon.run_cycle(limit=req.limit, budget_per_order=req.budget_per_order)
+        return report.model_dump()
 
     return router

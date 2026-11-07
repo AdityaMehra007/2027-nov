@@ -27,7 +27,7 @@ services:
       - omniverse-reports:/app/reports
     command: ["python", "-m", "uvicorn", "omniverse.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/ops/health')\" || exit 1"]
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')\" || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3

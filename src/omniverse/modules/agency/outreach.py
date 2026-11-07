@@ -6,6 +6,7 @@ outreach messages, generating WhatsApp deep-links and transactional webhook disp
 
 from __future__ import annotations
 
+import time
 import urllib.parse
 from enum import Enum
 from typing import Dict, Any, List, Optional
@@ -223,3 +224,70 @@ class MultiChannelOutreachDispatcher:
             "messages": [m.model_dump() for m in messages_dispatched],
         }
 
+
+
+class VideoPitchScript(BaseModel):
+    """Personalized 60-second video audit script for Loom/HeyGen/Synthesia generation."""
+    lead_id: str
+    target_duration_sec: int = 60
+    hook: str
+    script_content: str
+    call_to_action: str
+    created_at: float = Field(default_factory=time.time if "time" in globals() else lambda: 1730000000.0)
+
+
+class OmnichannelOutreachDispatcher:
+    """Enterprise multi-channel client outreach dispatcher and video pitch synthesizer."""
+
+    def __init__(self):
+        self.wa_engine = WhatsAppOutreachEngine()
+        self.email_engine = EmailOutreachEngine()
+
+    def generate_video_script(self, lead: Lead, audit: AuditReport) -> VideoPitchScript:
+        """Produce a high-retention 60-second personalized audit video script."""
+        hook = f"Hey {lead.business_name} team — I was checking your digital footprint and spotted 3 high-friction leaks."
+        body = (
+            f"00:00 - 00:10 [HOOK]: {hook}\n"
+            f"00:10 - 00:30 [LEAKS]: Your initial load time is holding conversion back, costing an estimated "
+            f"${audit.estimated_monthly_loss_usd:,.0f}/mo in lost customer demand.\n"
+            f"00:30 - 00:45 [THE FIX]: We've already engineered a turnkey, sub-second modern build at {lead.website or 'your domain'}.\n"
+            f"00:45 - 01:00 [CTA]: Tap the link below to preview the live prototype. Zero friction, instant deployment."
+        )
+        cta = f"View your custom prototype for {lead.business_name} and claim your growth slot."
+
+        return VideoPitchScript(
+            lead_id=lead.id,
+            target_duration_sec=60,
+            hook=hook,
+            script_content=body,
+            call_to_action=cta,
+        )
+
+    def build_outreach_campaign(self, lead: Lead) -> Dict[str, Any]:
+        """Synthesize unified multi-channel campaign payloads."""
+        email_recipient = lead.contact_email or f"founders@{lead.website.replace('https://', '').replace('http://', '').strip('/')}"
+        subject = f"Accelerate {lead.business_name} Customer Conversion [Live Demo Attached]"
+        email_body = (
+            f"Hi {lead.business_name} Leadership,\n\n"
+            f"We ran an autonomous technical diagnosis on {lead.website} and uncovered actionable revenue opportunities.\n"
+            f"Our turnkey edge architecture is pre-built to resolve these bottlenecks immediately.\n\n"
+            f"Best regards,\nOmniverse Autonomous Systems"
+        )
+        phone = getattr(lead, "contact_phone", None) or "919988776655"
+        wa_text = f"Hi {lead.business_name}! We audited your site and built a live conversion prototype. Let's connect!"
+        wa_url = self.wa_engine.build_deep_link(phone, wa_text)
+
+        return {
+            "lead_id": lead.id,
+            "business_name": lead.business_name,
+            "channel_email": {
+                "recipient": email_recipient,
+                "subject": subject,
+                "body": email_body,
+            },
+            "channel_whatsapp": {
+                "phone": phone,
+                "text": wa_text,
+                "url": wa_url,
+            },
+        }

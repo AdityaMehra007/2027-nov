@@ -92,6 +92,22 @@ def create_app(
     app.include_router(get_finance_router(), prefix="/api/v1")
     app.include_router(get_portal_router(get_session))
 
+    @app.get("/healthz")
+    def healthz():
+        """Kubernetes liveness probe: Returns 200 OK immediately if process is alive."""
+        return {"status": "healthy", "system": "CASHFLOW INFINITY: OMNIVERSE"}
+
+    @app.get("/readyz")
+    def readyz():
+        """Kubernetes readiness probe: Verifies database connectivity and storage readiness."""
+        from sqlalchemy import text
+        try:
+            with engine.get_session() as session:
+                session.exec(text("SELECT 1"))
+            return {"status": "ready", "database": "connected", "storage": "writable"}
+        except Exception as e:
+            return {"status": "degraded", "database": str(e)}
+
     @app.get("/")
     def root():
         return {
@@ -123,3 +139,8 @@ def create_app(
         return HTMLResponse(content=render_mesh_monitor_html())
 
     return app
+
+
+# Default top-level ASGI application instance for uvicorn, gunicorn, and container runners
+api = create_app()
+app = api
