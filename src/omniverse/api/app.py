@@ -19,6 +19,8 @@ from omniverse.api.routes.clearing import get_clearing_router
 from omniverse.api.routes.finance import get_finance_router
 from omniverse.ui.aether_map import render_aether_map_html
 from omniverse.ui.cockpit_template import render_conglomerate_cockpit_html
+from omniverse.ui.saas_portal_template import render_saas_portal_html
+from omniverse.ui.mesh_monitor_template import render_mesh_monitor_html
 
 def create_app(
     db_engine: DatabaseEngine | None = None,
@@ -111,5 +113,13 @@ def create_app(
     @app.get("/cockpit", include_in_schema=False, response_class=HTMLResponse)
     def conglomerate_cockpit_root():
         return HTMLResponse(content=render_conglomerate_cockpit_html())
+
+    @app.get("/saas", include_in_schema=False, response_class=HTMLResponse)
+    def saas_portal_root():
+        return HTMLResponse(content=render_saas_portal_html())
+
+    @app.get("/mesh-monitor", include_in_schema=False, response_class=HTMLResponse)
+    def mesh_monitor_root():
+        return HTMLResponse(content=render_mesh_monitor_html())
 
     return app

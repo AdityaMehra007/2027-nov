@@ -374,6 +374,16 @@ def main():
     cs_parser.add_argument("--target-cur", default="INR", help="Target currency code")
     cs_parser.add_argument("--amount", type=float, default=50000.0, help="Gross settlement amount")
 
+    # Command: arbitrage-bot
+    arb_parser = subparsers.add_parser("arbitrage-bot", help="Run autonomous triangular cross-currency arbitrage execution cycles")
+    arb_parser.add_argument("--capital", type=float, default=100000.0, help="Working arbitrage capital in base currency")
+    arb_parser.add_argument("--min-profit", type=float, default=0.05, help="Minimum net profit percentage threshold")
+
+    # Command: agency-cycle
+    ac_parser = subparsers.add_parser("agency-cycle", help="Execute 0-touch autonomous agency cycle: hunt, audit, pitch, outreach, and fulfill")
+    ac_parser.add_argument("--limit", type=int, default=2, help="Number of leads to process")
+    ac_parser.add_argument("--budget", type=float, default=3000.0, help="Order budget in USD")
+
     args = parser.parse_args()
 
     init_db()
@@ -1493,6 +1503,38 @@ def main():
         print(f"Fee Captured     : {fee:,.2f} {tx.target_currency.value} (15 bps)")
         print(f"Net Target Settled: {net:,.2f} {tx.target_currency.value}")
         print(f"Timestamp        : {tx.timestamp}")
+        print("=" * 80 + "\n")
+
+    elif args.command == "arbitrage-bot":
+        from omniverse.modules.finance.arbitrage_bot import AutonomousArbitrageBot
+        bot = AutonomousArbitrageBot()
+        results = bot.execute_arbitrage_cycle(capital=args.capital, min_profit_pct=args.min_profit)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE AUTONOMOUS ARBITRAGE BOT EXECUTION       ")
+        print("=" * 80)
+        print(f"Scanned Triangles : {results['scanned_triangles']}")
+        print(f"Executed Trades   : {results['executed_trades_count']}")
+        print(f"Treasury Profit   : ₹{results['cumulative_treasury_profit_inr']:,.2f} INR")
+        print(f"Bot Status        : {results['status']}")
+        for trade in results.get("executed_trades", []):
+            print(f"  • Trade {trade['trade_id']}: {' -> '.join(trade['path'])} | Net Profit: ₹{trade['net_profit']:,.2f} ({trade['profit_pct']:.3f}%)")
+        print("=" * 80 + "\n")
+
+    elif args.command == "agency-cycle":
+        from omniverse.modules.agency.pipeline_runner import AutonomousAgencyPipelineRunner
+        runner = AutonomousAgencyPipelineRunner()
+        cycle = runner.run_autonomous_cycle(limit=args.limit, budget_per_order=args.budget)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE AUTONOMOUS AGENCY CYCLE EXECUTION       ")
+        print("=" * 80)
+        print(f"Cycle ID          : {cycle.cycle_id}")
+        print(f"Leads Discovered  : {cycle.leads_discovered}")
+        print(f"Audits Completed  : {cycle.audits_completed}")
+        print(f"Pitches Formulated: {cycle.pitches_generated}")
+        print(f"Outreach Messages : {cycle.outreach_messages_dispatched}")
+        print(f"Orders Created    : {cycle.orders_created}")
+        print(f"Pipeline Value    : ${cycle.pipeline_value_usd:,.2f} USD")
+        print(f"Collected Upfront : ${cycle.simulated_collected_usd:,.2f} USD")
         print("=" * 80 + "\n")
 
     else:

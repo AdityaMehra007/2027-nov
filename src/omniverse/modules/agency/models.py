@@ -19,6 +19,8 @@ class LeadStage(str, Enum):
     AUDITED = "AUDITED"
     PITCHED = "PITCHED"
     CONVERTED = "CONVERTED"
+    WON = "WON"
+    CLOSED = "CLOSED"
     LOST = "LOST"
 
 

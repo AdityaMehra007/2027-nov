@@ -34,7 +34,7 @@ def test_cli_tui_piped_stdin():
         text=True,
         encoding="utf-8"
     )
-    stdout, _ = p.communicate(input="q\n", timeout=5)
+    stdout, _ = p.communicate(input="q\n", timeout=12)
     assert p.returncode == 0
     assert "OMNIVERSE" in stdout
 

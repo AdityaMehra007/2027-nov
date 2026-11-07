@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import HTMLResponse
 from typing import Callable, Generator, List, Dict, Any, Optional
 from pydantic import BaseModel
 from sqlmodel import Session, select
@@ -36,8 +37,11 @@ from omniverse.modules.bangalore.banking import (
     BangaloreBankOffice,
     GCCCapexOpexModel,
     RBIAuditResult,
+    BranchNetworkPlan,
+    TalentCompensationBand,
     BangaloreBankingEngine,
 )
+from omniverse.modules.bangalore.dashboard_html import render_banking_dashboard_html
 from omniverse.modules.bangalore.money_flow import simulate_capital_flow
 from omniverse.modules.bangalore.projects import (
     get_project_archetypes,
@@ -313,6 +317,20 @@ def get_bangalore_router(session_factory: Callable[[], Generator[Session, None, 
             npl_clock_sync=req.npl_clock_sync,
             vault_cctv_90day=req.vault_cctv_90day
         )
+
+    @router.get("/banking/branches", response_model=List[BranchNetworkPlan])
+    def get_banking_branches(session: Session = Depends(session_factory)):
+        engine = BangaloreBankingEngine(session)
+        return engine.get_branch_network_plans()
+
+    @router.get("/banking/talent", response_model=List[TalentCompensationBand])
+    def get_banking_talent(session: Session = Depends(session_factory)):
+        engine = BangaloreBankingEngine(session)
+        return engine.get_talent_benchmarks()
+
+    @router.get("/banking/dashboard", response_class=HTMLResponse)
+    def render_banking_dashboard():
+        return HTMLResponse(content=render_banking_dashboard_html(), status_code=200)
 
     @router.get("/overview")
     def get_economic_overview():

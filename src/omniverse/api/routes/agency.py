@@ -41,6 +41,8 @@ automation_factory = AutomationFactory()
 qa_governor = QAGovernor()
 portal_engine = AgencyPortalEngine()
 outreach_dispatcher = MultiChannelOutreachDispatcher()
+from omniverse.modules.agency.pipeline_runner import AutonomousAgencyPipelineRunner, AutonomousCampaignResult
+pipeline_runner = AutonomousAgencyPipelineRunner()
 
 # State caches
 _discovered_leads: Dict[str, Lead] = {}
@@ -268,5 +270,23 @@ def get_agency_router() -> APIRouter:
 
         client_orders = [o.model_dump() for o in _orders.values() if o.client_id == client.id]
         return HTMLResponse(content=render_client_portal_html(client, client_orders))
+
+    @router.post("/autonomous-cycle", response_model=AutonomousCampaignResult)
+    def run_autonomous_cycle(
+        archetype: Optional[ProspectArchetype] = None,
+        limit: int = 2,
+        budget_per_order: float = 3000.0,
+    ):
+        """Executes full autonomous cycle from discovery to conversion and fulfillment."""
+        return pipeline_runner.run_autonomous_cycle(
+            archetype=archetype,
+            limit=limit,
+            budget_per_order=budget_per_order
+        )
+
+    @router.get("/autonomous-cycle/history")
+    def get_autonomous_cycle_history() -> List[Dict[str, Any]]:
+        """Returns history of all autonomous campaign cycles executed."""
+        return pipeline_runner.get_pipeline_history()
 
     return router

@@ -16,9 +16,11 @@ from omniverse.modules.intelligence.derivatives import (
 )
 from omniverse.modules.markets.engine import MultiMarketEngine
 from omniverse.modules.markets.models import MarketQuote, MacroEnvironment
+from omniverse.modules.finance.arbitrage_bot import AutonomousArbitrageBot
 
 _derivatives_engine = DerivativesEngine()
 _market_engine = MultiMarketEngine()
+_arbitrage_bot = AutonomousArbitrageBot()
 
 
 class OptionGreeksRequest(BaseModel):
@@ -76,5 +78,23 @@ def get_finance_router():
             repo_rate_pct=req.repo_rate_pct,
             gdp_growth_pct=req.gdp_growth_pct
         )
+
+    @router.get("/arbitrage/bot/status")
+    def get_arbitrage_bot_status() -> Dict[str, Any]:
+        """Returns runtime health, executed trade count, and cumulative treasury profit."""
+        return _arbitrage_bot.get_bot_status()
+
+    @router.post("/arbitrage/bot/cycle")
+    def trigger_arbitrage_cycle(capital: float = 100000.0, min_profit_pct: float = 0.05) -> Dict[str, Any]:
+        """Triggers autonomous scan and execution of profitable triangular arbitrage cycles."""
+        return _arbitrage_bot.execute_arbitrage_cycle(capital=capital, min_profit_pct=min_profit_pct)
+
+    @router.get("/arbitrage/bot/scan")
+    def scan_triangles(capital: float = 100000.0) -> Dict[str, Any]:
+        """Scans all supported cross-currency triangles without executing orders."""
+        return {
+            "capital": capital,
+            "opportunities": _arbitrage_bot.scan_all_triangles(capital=capital)
+        }
 
     return router

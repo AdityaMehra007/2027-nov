@@ -151,3 +151,37 @@ def test_api_banking_endpoints(test_client):
     assert audit_data["overall_score"] == 45.0
     assert audit_data["status"] == "NON_COMPLIANT"
     assert len(audit_data["detected_violations"]) == 2
+
+    # 6. Branch Network Plans
+    resp_branches = test_client.get("/api/v1/bangalore/banking/branches")
+    assert resp_branches.status_code == 200
+    branch_data = resp_branches.json()
+    assert len(branch_data) >= 4
+    assert any("Indiranagar" in b["locality"] for b in branch_data)
+
+    # 7. Talent Compensation Matrix
+    resp_talent = test_client.get("/api/v1/bangalore/banking/talent")
+    assert resp_talent.status_code == 200
+    talent_data = resp_talent.json()
+    assert len(talent_data) >= 4
+    assert any("Quant" in t["role_title"] for t in talent_data)
+
+    # 8. Interactive HTML Dashboard
+    resp_dash = test_client.get("/api/v1/bangalore/banking/dashboard")
+    assert resp_dash.status_code == 200
+    assert "text/html" in resp_dash.headers["content-type"]
+    assert "BENGALURU BANKING OPERATIONS" in resp_dash.text
+
+def test_branches_and_talent_benchmarks(mem_session):
+    engine = BangaloreBankingEngine(mem_session)
+    branches = engine.get_branch_network_plans()
+    assert len(branches) >= 4
+    indira = [b for b in branches if "Indiranagar" in b.locality][0]
+    assert indira.setup_capex_inr_cr == 2.20
+    assert "Private Wealth Lounge" in indira.features
+
+    talent = engine.get_talent_benchmarks()
+    assert len(talent) >= 4
+    sde = [t for t in talent if "SDE" in t.role_title or "Software Development" in t.role_title][0]
+    assert sde.fixed_base_inr_lakhs_min >= 14.0
+    assert "IIIT-Bangalore" in sde.feeder_institutions
