@@ -17,6 +17,9 @@ from omniverse.api.routes.webhooks import get_webhooks_router
 from omniverse.api.routes.portal import get_portal_router
 from omniverse.api.routes.clearing import get_clearing_router
 from omniverse.api.routes.finance import get_finance_router
+from omniverse.api.routes.apex import get_apex_router, render_apex_dashboard_html
+from omniverse.api.routes.career import get_career_router
+from omniverse.ui.career_os_template import render_career_os_html
 from omniverse.ui.aether_map import render_aether_map_html
 from omniverse.ui.cockpit_template import render_conglomerate_cockpit_html
 from omniverse.ui.saas_portal_template import render_saas_portal_html
@@ -90,6 +93,8 @@ def create_app(
     app.include_router(get_webhooks_router(get_session), prefix="/api/v1")
     app.include_router(get_clearing_router(), prefix="/api/v1")
     app.include_router(get_finance_router(), prefix="/api/v1")
+    app.include_router(get_apex_router(), prefix="/api/v1")
+    app.include_router(get_career_router(), prefix="/api/v1")
     app.include_router(get_portal_router(get_session))
 
     @app.get("/healthz")
@@ -133,6 +138,14 @@ def create_app(
     @app.get("/saas", include_in_schema=False, response_class=HTMLResponse)
     def saas_portal_root():
         return HTMLResponse(content=render_saas_portal_html())
+
+    @app.get("/career", include_in_schema=False, response_class=HTMLResponse)
+    def career_os_root():
+        return HTMLResponse(content=render_career_os_html())
+
+    @app.get("/apex", include_in_schema=False, response_class=HTMLResponse)
+    def apex_dashboard_root():
+        return HTMLResponse(content=render_apex_dashboard_html())
 
     @app.get("/mesh-monitor", include_in_schema=False, response_class=HTMLResponse)
     def mesh_monitor_root():
