@@ -348,6 +348,26 @@ def main():
     es_parser.add_argument("--cloud", default="aws", choices=["aws", "azure", "gcp"], help="Cloud provider")
     es_parser.add_argument("--dossier", action="store_true", help="Emit full CISO whitepaper")
 
+    # Command: agency-outreach
+    ao_parser = subparsers.add_parser("agency-outreach", help="Dispatch multi-channel outreach campaigns across WhatsApp and Email")
+    ao_parser.add_argument("--channel", default="ALL", choices=["ALL", "WHATSAPP", "EMAIL"], help="Outreach channel")
+    ao_parser.add_argument("--limit", type=int, default=5, help="Number of prospects to contact")
+
+    # Command: saas-fleet
+    sf_parser = subparsers.add_parser("saas-fleet", help="Inspect and provision multi-tenant vertical SaaS holdings")
+    sf_parser.add_argument("--action", default="summary", choices=["summary", "list", "provision"], help="Fleet action")
+    sf_parser.add_argument("--name", default=None, help="Tenant company name")
+    sf_parser.add_argument("--vertical", choices=["CloudBite", "GymVerse", "RentShield", "ClinicFlow"], default=None, help="SaaS vertical")
+    sf_parser.add_argument("--plan", choices=["starter", "growth", "enterprise"], default="growth", help="Subscription plan tier")
+
+    # Command: clearing-settle
+    cs_parser = subparsers.add_parser("clearing-settle", help="Execute sub-second atomic cross-currency RTGS settlement")
+    cs_parser.add_argument("--sender", default="CORP_TREASURY_ALPHA", help="Sender settlement ID")
+    cs_parser.add_argument("--recipient", default="SETTLEMENT_ESCROW_BETA", help="Recipient settlement ID")
+    cs_parser.add_argument("--source-cur", default="USD", help="Source currency code (USD, INR, EUR, GBP, SGD, AED)")
+    cs_parser.add_argument("--target-cur", default="INR", help="Target currency code")
+    cs_parser.add_argument("--amount", type=float, default=50000.0, help="Gross settlement amount")
+
     args = parser.parse_args()
 
     init_db()
@@ -1357,6 +1377,86 @@ def main():
             for c in pack.compliance_standards:
                 print(f"  ✓ {c}")
             print("=" * 80 + "\n")
+
+    elif args.command == "agency-outreach":
+        from omniverse.modules.agency.outreach import MultiChannelOutreachDispatcher
+        dispatcher = MultiChannelOutreachDispatcher()
+        results = dispatcher.dispatch_campaign(channel=args.channel, limit=args.limit)
+        print("\n" + "=" * 80)
+        print("       OMNIVERSE MULTI-CHANNEL AGENCY OUTREACH       ")
+        print("=" * 80)
+        print(f"Total Dispatched : {results['total_dispatched']}")
+        print(f"Success Rate     : {results['overall_success_rate'] * 100:.1f}%")
+        print(f"Channel          : {args.channel}")
+        print("Channel Breakdown:")
+        for ch, stats in results.get("channels", {}).items():
+            print(f"  • {ch}: {stats['sent']} sent, {stats['delivered']} delivered ({stats['success_rate']*100:.1f}%)")
+        print("=" * 80 + "\n")
+
+    elif args.command == "saas-fleet":
+        from omniverse.modules.saas.fleet import VerticalSaaSFleetEngine
+        fleet = VerticalSaaSFleetEngine()
+        if args.action == "summary":
+            summary = fleet.calculate_fleet_summary()
+            print("\n" + "=" * 80)
+            print("       OMNIVERSE VERTICAL SAAS HOLDINGS FLEET       ")
+            print("=" * 80)
+            print(f"Total Tenants    : {summary['total_subscribers']}")
+            print(f"Combined MRR     : ${summary['total_mrr_usd']:,.2f}")
+            print(f"Projected ARR    : ${summary['total_arr_usd']:,.2f}")
+            print("Vertical Breakdown:")
+            for v, data in summary.get("verticals", {}).items():
+                print(f"  • {v:12s}: {data['active_subscribers']} tenants | MRR: ${data['mrr_usd']:,.2f} | ARR: ${data['arr_usd']:,.2f}")
+            print("=" * 80 + "\n")
+        elif args.action == "list":
+            tenants = fleet.list_tenants()
+            print("\n" + "=" * 80)
+            print(f"       REGISTERED FLEET TENANTS ({len(tenants)})       ")
+            print("=" * 80)
+            for t in tenants:
+                print(f"[{t.vertical.value}] {t.name} (Plan: {t.plan.value}, MRR: ${t.mrr_usd:,.2f}, Domain: {t.custom_domain})")
+            print("=" * 80 + "\n")
+        elif args.action == "provision":
+            tenant_name = args.name or "Apollo Global Kitchens"
+            vertical_name = args.vertical or "CloudBite"
+            tenant = fleet.provision_tenant(name=tenant_name, vertical=vertical_name, plan=args.plan)
+            print("\n" + "=" * 80)
+            print(f"       TENANT PROVISIONED: {tenant.name}       ")
+            print("=" * 80)
+            print(f"Tenant ID        : {tenant.tenant_id}")
+            print(f"Vertical         : {tenant.vertical.value}")
+            print(f"Plan Tier        : {tenant.plan.value}")
+            print(f"MRR (USD)        : ${tenant.mrr_usd:,.2f}")
+            print(f"Domain           : {tenant.custom_domain}")
+            print(f"Created At       : {tenant.created_at}")
+            print("=" * 80 + "\n")
+
+    elif args.command == "clearing-settle":
+        from omniverse.modules.settlement import GlobalClearingHouse, CurrencyCode
+        clearing = GlobalClearingHouse()
+        tx = clearing.execute_atomic_settlement(
+            sender_id=args.sender,
+            recipient_id=args.recipient,
+            source_currency=CurrencyCode(args.source_cur.upper()),
+            target_currency=CurrencyCode(args.target_cur.upper()),
+            source_amount=args.amount,
+        )
+        print("\n" + "=" * 80)
+        print("       OMNISWARM ATOMIC TREASURY CLEARING SETTLEMENT       ")
+        print("=" * 80)
+        fee = round(tx.target_amount * 0.0015, 2)
+        net = round(tx.target_amount - fee, 2)
+        print(f"Transaction ID   : {tx.tx_id}")
+        print(f"Status           : {tx.status}")
+        print(f"Sender           : {tx.sender_id}")
+        print(f"Recipient        : {tx.recipient_id}")
+        print(f"Gross Source     : {tx.source_amount:,.2f} {tx.source_currency.value}")
+        print(f"Hedged Rate      : {tx.hedged_fx_rate:.4f}")
+        print(f"Gross Target     : {tx.target_amount:,.2f} {tx.target_currency.value}")
+        print(f"Fee Captured     : {fee:,.2f} {tx.target_currency.value} (15 bps)")
+        print(f"Net Target Settled: {net:,.2f} {tx.target_currency.value}")
+        print(f"Timestamp        : {tx.timestamp}")
+        print("=" * 80 + "\n")
 
     else:
         parser.print_help()

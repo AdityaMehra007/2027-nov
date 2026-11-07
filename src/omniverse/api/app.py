@@ -15,7 +15,10 @@ from omniverse.api.routes.bangalore import get_bangalore_router
 from omniverse.api.routes.agency import get_agency_router
 from omniverse.api.routes.webhooks import get_webhooks_router
 from omniverse.api.routes.portal import get_portal_router
+from omniverse.api.routes.clearing import get_clearing_router
+from omniverse.api.routes.finance import get_finance_router
 from omniverse.ui.aether_map import render_aether_map_html
+from omniverse.ui.cockpit_template import render_conglomerate_cockpit_html
 
 def create_app(
     db_engine: DatabaseEngine | None = None,
@@ -83,6 +86,8 @@ def create_app(
     app.include_router(get_bangalore_router(get_session), prefix="/api/v1")
     app.include_router(get_agency_router(), prefix="/api/v1")
     app.include_router(get_webhooks_router(get_session), prefix="/api/v1")
+    app.include_router(get_clearing_router(), prefix="/api/v1")
+    app.include_router(get_finance_router(), prefix="/api/v1")
     app.include_router(get_portal_router(get_session))
 
     @app.get("/")
@@ -102,5 +107,9 @@ def create_app(
     @app.get("/aether-map", include_in_schema=False, response_class=HTMLResponse)
     def aether_map_root():
         return HTMLResponse(content=render_aether_map_html())
+
+    @app.get("/cockpit", include_in_schema=False, response_class=HTMLResponse)
+    def conglomerate_cockpit_root():
+        return HTMLResponse(content=render_conglomerate_cockpit_html())
 
     return app

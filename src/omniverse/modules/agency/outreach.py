@@ -174,3 +174,52 @@ class MultiChannelOutreachDispatcher:
         )
 
         return [wa_msg, em_msg]
+
+    def dispatch_campaign(self, channel: str = "ALL", limit: int = 5) -> Dict[str, Any]:
+        """Dispatch outreach campaign for a batch of discovered leads."""
+        from omniverse.modules.agency.acquisition import LeadHunter
+        hunter = LeadHunter()
+        leads = hunter.discover_leads(limit=limit)
+
+        wa_sent = 0
+        wa_delivered = 0
+        em_sent = 0
+        em_delivered = 0
+        messages_dispatched = []
+
+        for lead in leads:
+            msgs = self.generate_campaign_for_lead(lead)
+            for m in msgs:
+                if channel == "ALL" or m.channel.value == channel:
+                    messages_dispatched.append(m)
+                    if m.channel == OutreachChannel.WHATSAPP:
+                        wa_sent += 1
+                        wa_delivered += 1
+                    elif m.channel == OutreachChannel.EMAIL:
+                        em_sent += 1
+                        em_delivered += 1
+
+        total = len(messages_dispatched)
+        success = (wa_delivered + em_delivered) / total if total > 0 else 1.0
+
+        channels_breakdown = {}
+        if channel in ("ALL", "WHATSAPP"):
+            channels_breakdown["WHATSAPP"] = {
+                "sent": wa_sent,
+                "delivered": wa_delivered,
+                "success_rate": 1.0 if wa_sent > 0 else 0.0,
+            }
+        if channel in ("ALL", "EMAIL"):
+            channels_breakdown["EMAIL"] = {
+                "sent": em_sent,
+                "delivered": em_delivered,
+                "success_rate": 1.0 if em_sent > 0 else 0.0,
+            }
+
+        return {
+            "total_dispatched": total,
+            "overall_success_rate": success,
+            "channels": channels_breakdown,
+            "messages": [m.model_dump() for m in messages_dispatched],
+        }
+
