@@ -260,6 +260,12 @@ def main():
     b_audit.add_argument("--missing-npl-ntp", action="store_true", help="Simulate non-sync with National Physical Laboratory NTP")
     b_audit.add_argument("--missing-vault-cctv", action="store_true", help="Simulate CCTV storage < 90 days")
 
+    # Command: bangalore-banking-branches
+    subparsers.add_parser("bangalore-banking-branches", help="List smart branch network layouts and wealth lounges across Bengaluru micro-markets")
+
+    # Command: bangalore-banking-talent
+    subparsers.add_parser("bangalore-banking-talent", help="Display verified salary, bonus, and stock benchmarks for Bengaluru banking & GCC talent")
+
     # Command: directive
     dir_parser = subparsers.add_parser("directive", help="Inspect and validate the Universal Master Directive and 12-Service Taxonomy")
     dir_parser.add_argument("--summary", action="store_true", default=True, help="Display directive executive summary")
@@ -986,6 +992,37 @@ def main():
             else:
                 print("ALL MANDATORY INDIAN REGULATORY & CYBER DIRECTIVES SATISFIED.")
             print("================================================================================\n")
+
+    elif args.command == "bangalore-banking-branches":
+        with engine.get_session() as session:
+            b_engine = BangaloreBankingEngine(session)
+            plans = b_engine.get_branch_network_plans()
+            print("\n================================================================================")
+            print("   BENGALURU SMART BRANCH & TECH WEALTH NETWORK BLUEPRINT")
+            print("================================================================================")
+            print(f"Total Strategic Branch Locations: {len(plans)}\n")
+            for p in plans:
+                print(f"• {p.locality.upper()} [{p.archetype.value}]")
+                print(f"  Corridor : {p.corridor.value} | Area: {p.carpet_area_sqft:,.0f} sq ft carpet")
+                print(f"  Economics: Capex ₹{p.setup_capex_inr_cr} Cr | Opex ₹{p.monthly_opex_inr_lakhs} Lakhs/mo")
+                print(f"  Clientele: {p.target_clientele}")
+                print(f"  Features : {', '.join(p.features)}")
+                print("--------------------------------------------------------------------------------")
+
+    elif args.command == "bangalore-banking-talent":
+        with engine.get_session() as session:
+            b_engine = BangaloreBankingEngine(session)
+            bands = b_engine.get_talent_benchmarks()
+            print("\n================================================================================")
+            print("   BENGALURU GCC & INVESTMENT BANKING COMPENSATION BENCHMARKS")
+            print("================================================================================")
+            for b in bands:
+                print(f"• {b.role_title.upper()} ({b.experience_bracket})")
+                print(f"  Base Salary: ₹{b.fixed_base_inr_lakhs_min:.1f}L – ₹{b.fixed_base_inr_lakhs_max:.1f}L INR")
+                print(f"  Bonus & RSU: {b.performance_bonus_pct:.0f}% Bonus | ${b.annual_rsu_usd_k:,.0f}k USD RSUs/yr")
+                print(f"  Feeders    : {', '.join(b.feeder_institutions)}")
+                print(f"  Retention  : {', '.join(b.retention_mechanisms)}")
+                print("--------------------------------------------------------------------------------")
 
     elif args.command == "swarm":
         from omniverse.swarm.cli import handle_swarm_command

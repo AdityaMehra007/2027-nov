@@ -432,3 +432,8 @@ class WorldClientDirectory:
             )
             leads.append(lead)
         return leads
+
+
+# Backward-compatibility aliases
+InternationalHub = GlobalHub
+GlobalCommercialDirectory = WorldClientDirectory
