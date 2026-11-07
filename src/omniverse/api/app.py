@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from omniverse.core.config import OmniverseSettings, get_settings
 from omniverse.core.database import DatabaseEngine, get_engine
@@ -13,6 +13,9 @@ from omniverse.api.routes.ws import get_ws_router
 from omniverse.api.routes.planetary import get_planetary_router
 from omniverse.api.routes.bangalore import get_bangalore_router
 from omniverse.api.routes.agency import get_agency_router
+from omniverse.api.routes.webhooks import get_webhooks_router
+from omniverse.api.routes.portal import get_portal_router
+from omniverse.ui.aether_map import render_aether_map_html
 
 def create_app(
     db_engine: DatabaseEngine | None = None,
@@ -79,6 +82,8 @@ def create_app(
     app.include_router(get_planetary_router(), prefix="/api/v1")
     app.include_router(get_bangalore_router(get_session), prefix="/api/v1")
     app.include_router(get_agency_router(), prefix="/api/v1")
+    app.include_router(get_webhooks_router(get_session), prefix="/api/v1")
+    app.include_router(get_portal_router(get_session))
 
     @app.get("/")
     def root():
@@ -93,5 +98,9 @@ def create_app(
     @app.get("/dashboard/", include_in_schema=False)
     def dashboard_redirect():
         return RedirectResponse(url="/api/v1/dashboard/")
+
+    @app.get("/aether-map", include_in_schema=False, response_class=HTMLResponse)
+    def aether_map_root():
+        return HTMLResponse(content=render_aether_map_html())
 
     return app

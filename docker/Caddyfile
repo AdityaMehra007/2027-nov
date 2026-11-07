@@ -1,0 +1,42 @@
+# ==============================================================================
+# CASHFLOW INFINITY: OMNIVERSE CADDY CONFIGURATION
+# Automated TLS, Security Headers, Reverse Proxy & Rate Limiting
+# ==============================================================================
+
+{
+    admin off
+    email admin@omniverse.cashflow.io
+}
+
+:80 {
+    # Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-XSS-Protection "1; mode=block"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        -Server
+    }
+
+    # Gzip / Zstandard Compression
+    encode zstd gzip
+
+    # Reverse proxy to FastAPI uvicorn backend
+    reverse_proxy api:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        
+        health_uri /api/v1/ops/health
+        health_interval 15s
+        health_timeout 3s
+    }
+
+    # Logging
+    log {
+        output stdout
+        format json
+    }
+}

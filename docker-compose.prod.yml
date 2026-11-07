@@ -1,0 +1,86 @@
+# ==============================================================================
+# CASHFLOW INFINITY: PRODUCTION DOCKER SWARM & COMPOSE SPECIFICATION
+# Orchestrates API, 24/7 Background Cashflow Daemons, and Caddy Edge Proxy
+# ==============================================================================
+
+name: omniverse-prod
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: omniverse-api:latest
+    container_name: omniverse_api_prod
+    restart: always
+    environment:
+      - OMNIVERSE_ENV=production
+      - DB_URL=sqlite:////app/data/omniverse.db
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WEBHOOK_SECRET_STRIPE=${WEBHOOK_SECRET_STRIPE:-whsec_omniverse_live}
+      - WEBHOOK_SECRET_RAZORPAY=${WEBHOOK_SECRET_RAZORPAY:-rzp_live_secret}
+      - RTGS_HMAC_SECRET=${RTGS_HMAC_SECRET:-rtgs_secure_key}
+    volumes:
+      - omniverse-data:/app/data
+      - omniverse-artifacts:/app/artifacts
+      - omniverse-reports:/app/reports
+    command: ["python", "-m", "uvicorn", "omniverse.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/ops/health')\" || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - omniverse-internal
+
+  daemon:
+    image: omniverse-api:latest
+    container_name: omniverse_daemon_prod
+    restart: always
+    environment:
+      - OMNIVERSE_ENV=production
+      - DB_URL=sqlite:////app/data/omniverse.db
+      - DAEMON_SLEEP_SEC=60
+    volumes:
+      - omniverse-data:/app/data
+      - omniverse-artifacts:/app/artifacts
+      - omniverse-reports:/app/reports
+    command: ["python", "-m", "omniverse.cli", "daemon", "--interval", "60"]
+    depends_on:
+      - api
+    networks:
+      - omniverse-internal
+
+  proxy:
+    image: caddy:2-alpine
+    container_name: omniverse_proxy_prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - api
+    networks:
+      - omniverse-internal
+
+networks:
+  omniverse-internal:
+    driver: bridge
+
+volumes:
+  omniverse-data:
+    driver: local
+  omniverse-artifacts:
+    driver: local
+  omniverse-reports:
+    driver: local
+  caddy-data:
+    driver: local
+  caddy-config:
+    driver: local

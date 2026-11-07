@@ -24,6 +24,7 @@ from omniverse.modules.agency.fulfillment.marketing_factory import MarketingFact
 from omniverse.modules.agency.fulfillment.automation_factory import AutomationFactory
 from omniverse.modules.agency.qa_governor import QAGovernor
 from omniverse.modules.agency.portal_engine import AgencyPortalEngine
+from omniverse.modules.agency.outreach import MultiChannelOutreachDispatcher, OutreachMessage
 from omniverse.api.routes.agency_ui import (
     render_agency_cockpit_html,
     render_client_portal_html,
@@ -39,6 +40,7 @@ marketing_factory = MarketingFactory()
 automation_factory = AutomationFactory()
 qa_governor = QAGovernor()
 portal_engine = AgencyPortalEngine()
+outreach_dispatcher = MultiChannelOutreachDispatcher()
 
 # State caches
 _discovered_leads: Dict[str, Lead] = {}
@@ -118,6 +120,16 @@ def get_agency_router() -> APIRouter:
         lead.stage = LeadStage.AUDITED
         _discovered_leads[lead.id] = lead
         return report.model_dump()
+
+    @router.post("/outreach")
+    def generate_outreach(lead: Lead) -> Dict[str, Any]:
+        """Generate multi-channel outreach campaigns (WhatsApp and Email) for lead."""
+        messages = outreach_dispatcher.generate_campaign_for_lead(lead)
+        return {
+            "success": True,
+            "business_name": lead.business_name,
+            "campaigns": [m.model_dump() for m in messages],
+        }
 
     @router.post("/pitch")
     def generate_pitch(req: PitchRequest) -> Dict[str, Any]:

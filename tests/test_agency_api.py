@@ -96,3 +96,17 @@ def test_agency_full_order_execution_and_payment_flow(client):
     pay_data = pay_res.json()
     assert pay_data["settlement"]["status"] == "RECONCILED"
     assert pay_data["settlement"]["amount_usd"] == 3200.0
+
+
+def test_agency_outreach_endpoint(client):
+    hunt_res = client.post("/api/v1/agency/hunt", json={"limit": 1})
+    lead = hunt_res.json()["leads"][0]
+
+    response = client.post("/api/v1/agency/outreach", json=lead)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert len(data["campaigns"]) == 2
+    channels = {c["channel"] for c in data["campaigns"]}
+    assert "WHATSAPP" in channels
+    assert "EMAIL" in channels

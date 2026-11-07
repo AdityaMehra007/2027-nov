@@ -7,14 +7,21 @@ landing pages with valid JSON-LD schema, conversion CTAs, and XML sitemaps.
 """
 
 import json
+import re
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Union
 
 class ProgrammaticSEOEngine:
     """High-velocity programmatic landing page and directory compiler."""
 
     def __init__(self, base_url: str = "https://omniverse.cashflow.io"):
         self.base_url = base_url.rstrip("/")
+
+    @staticmethod
+    def slugify(text: str) -> str:
+        """Create URL-safe lowercase slug."""
+        clean = re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-").lower()
+        return f"{clean}-alternative"
 
     def generate_software_alternative_page(
         self,
@@ -24,24 +31,35 @@ class ProgrammaticSEOEngine:
         features_diff: List[Dict[str, Any]],
         pricing_our: str,
         pricing_competitor: str,
+        category: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Generates a high-converting 'X Alternative' landing page."""
-        slug = f"{competitor_name.lower().replace(' ', '-')}-alternative"
+        slug = self.slugify(competitor_name)
         url = f"{self.base_url}/alternatives/{slug}"
+
+        clean_price = (
+            pricing_our.replace("$", "")
+            .replace("₹", "")
+            .replace("/mo", "")
+            .replace(",", "")
+            .strip()
+        )
 
         schema = {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             "name": our_product_name,
-            "applicationCategory": "BusinessApplication",
+            "applicationCategory": category or "BusinessApplication",
             "operatingSystem": "All",
             "offers": {
                 "@type": "Offer",
-                "price": pricing_our.replace("$", "").replace("/mo", "").strip(),
-                "priceCurrency": "USD"
+                "price": clean_price,
+                "priceCurrency": "USD" if "$" in pricing_our else "INR"
             },
             "description": f"The premier modern alternative to {competitor_name} for {niche}."
         }
+
+        cat_badge = f"\n**Category**: {category}  " if category else ""
 
         markdown = f"""---
 title: "Best {competitor_name} Alternative in 2027: Why Modern Teams Choose {our_product_name}"
@@ -51,7 +69,7 @@ schema: {json.dumps(schema)}
 ---
 
 # Why {our_product_name} is the #1 Alternative to {competitor_name}
-
+{cat_badge}
 If you are frustrated by {competitor_name}'s rising prices ({pricing_competitor}) and legacy complexity, **{our_product_name}** offers a lightweight, high-performance solution built specifically for {niche}.
 
 ## Feature Comparison Matrix
@@ -76,6 +94,7 @@ If you are frustrated by {competitor_name}'s rising prices ({pricing_competitor}
             "slug": slug,
             "url": url,
             "title": f"Best {competitor_name} Alternative in 2027",
+            "category": category or "Software",
             "schema_json_ld": schema,
             "content_markdown": markdown
         }
@@ -95,7 +114,7 @@ If you are frustrated by {competitor_name}'s rising prices ({pricing_competitor}
 
     def batch_compile_to_disk(
         self,
-        competitors: List[str],
+        competitors: List[Union[str, Dict[str, Any]]],
         our_product: str,
         niche: str,
         output_dir: Path
@@ -105,18 +124,38 @@ If you are frustrated by {competitor_name}'s rising prices ({pricing_competitor}
         output_dir.mkdir(parents=True, exist_ok=True)
 
         pages = []
-        for comp in competitors:
-            page = self.generate_software_alternative_page(
-                competitor_name=comp,
-                our_product_name=our_product,
-                niche=niche,
-                features_diff=[
+        for item in competitors:
+            if isinstance(item, dict):
+                comp_name = item["name"]
+                cat = item.get("category", "Enterprise Software")
+                item_niche = item.get("niche", niche)
+                diff = item.get("features_diff", [
                     {"feature": "Autonomous 24/7 Daemon", "us": "✅ Built-in", "them": "❌ Not available"},
                     {"feature": "Zero-Brokerage Gating", "us": "✅ Included", "them": "❌ 1-2 Mo Brokerage"},
                     {"feature": "Automated Setup Time", "us": "⚡ 3 Minutes", "them": "⏳ 2-4 Weeks"}
-                ],
-                pricing_our="$29/mo",
-                pricing_competitor="$149/mo"
+                ])
+                price_our = item.get("pricing_our", "$29/mo")
+                price_comp = item.get("pricing_competitor", "$149/mo")
+            else:
+                comp_name = str(item)
+                cat = None
+                item_niche = niche
+                diff = [
+                    {"feature": "Autonomous 24/7 Daemon", "us": "✅ Built-in", "them": "❌ Not available"},
+                    {"feature": "Zero-Brokerage Gating", "us": "✅ Included", "them": "❌ 1-2 Mo Brokerage"},
+                    {"feature": "Automated Setup Time", "us": "⚡ 3 Minutes", "them": "⏳ 2-4 Weeks"}
+                ]
+                price_our = "$29/mo"
+                price_comp = "$149/mo"
+
+            page = self.generate_software_alternative_page(
+                competitor_name=comp_name,
+                our_product_name=our_product,
+                niche=item_niche,
+                features_diff=diff,
+                pricing_our=price_our,
+                pricing_competitor=price_comp,
+                category=cat
             )
             file_path = output_dir / f"{page['slug']}.md"
             file_path.write_text(page["content_markdown"], encoding="utf-8")
