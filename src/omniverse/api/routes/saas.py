@@ -9,9 +9,11 @@ from omniverse.modules.saas.fleet import (
     SaaSPlan,
     SaaSTenant,
 )
+from omniverse.modules.saas.template_store import TemplateStoreEngine, AutomationTemplate
 
-# Global engine instance for fleet state
+# Global engine instances for fleet state
 _fleet_engine = VerticalSaaSFleetEngine()
+_template_store = TemplateStoreEngine()
 
 
 class ScaffoldRequest(BaseModel):
@@ -113,5 +115,33 @@ def get_saas_router():
             symptoms=req.symptoms,
             severity_1_to_10=req.severity_1_to_10
         )
+
+    # 5. 1-Click Automation Template Store & Viral Growth Engine
+    @router.get("/templates")
+    def list_templates(category: Optional[str] = Query(default=None)):
+        """Retrieve pre-seeded 1-click automation templates."""
+        return [t.model_dump() for t in _template_store.list_templates(category=category)]
+
+    @router.get("/templates/{template_id}")
+    def get_template(template_id: str):
+        """Fetch template blueprint details."""
+        tpl = _template_store.get_template(template_id)
+        if not tpl:
+            return {"error": f"Template {template_id} not found"}
+        return tpl.model_dump()
+
+    @router.post("/templates/{template_id}/install")
+    def install_template(template_id: str, tenant_id: str = Query(default="tnt_default")):
+        """1-Click provision automation into a tenant workspace."""
+        try:
+            return _template_store.install_template(template_id=template_id, tenant_id=tenant_id)
+        except KeyError as e:
+            return {"error": str(e)}
+
+    @router.get("/templates/{template_id}/badge")
+    def get_viral_badge(template_id: str):
+        """Generate embeddable viral HTML badge with clone CTA."""
+        badge_html = _template_store.generate_viral_badge(template_id)
+        return {"template_id": template_id, "badge_html": badge_html}
 
     return router

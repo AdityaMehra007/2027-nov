@@ -17,6 +17,11 @@ def test_saas_portal_template_rendering():
     assert "RentShield" in html
     assert "ClinicFlow" in html
     assert "Active Fleet Tenants" in html
+    assert "1-Click Automation Store" in html
+    assert "tpl_invoice_ocr" in html
+    assert "tpl_whatsapp_sales" in html
+    assert "tpl_client_growth_kit" in html
+    assert "Viral Clone Badge" in html
 
 
 def test_saas_portal_route():
@@ -26,3 +31,5 @@ def test_saas_portal_route():
     assert res.status_code == 200
     assert "text/html" in res.headers["content-type"]
     assert "Vertical SaaS Fleet Command" in res.text
+    assert "1-Click Automation Store" in res.text
+    assert "tpl_invoice_ocr" in res.text

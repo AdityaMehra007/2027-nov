@@ -376,6 +376,12 @@ def main():
     sf_parser.add_argument("--vertical", choices=["CloudBite", "GymVerse", "RentShield", "ClinicFlow"], default=None, help="SaaS vertical")
     sf_parser.add_argument("--plan", choices=["starter", "growth", "enterprise"], default="growth", help="Subscription plan tier")
 
+    # Command: saas-templates
+    st_parser = subparsers.add_parser("saas-templates", help="Explore pre-seeded 1-click automation template store")
+    st_parser.add_argument("--category", default=None, choices=["finance", "sales", "engineering", "operations", "agency"], help="Filter by template category")
+    st_parser.add_argument("--install", default=None, help="Template ID to provision into tenant")
+    st_parser.add_argument("--tenant", default="tnt_flagship_1", help="Target tenant ID for installation")
+
     # Command: clearing-settle
     cs_parser = subparsers.add_parser("clearing-settle", help="Execute sub-second atomic cross-currency RTGS settlement")
     cs_parser.add_argument("--sender", default="CORP_TREASURY_ALPHA", help="Sender settlement ID")
@@ -1574,6 +1580,34 @@ def main():
             print(f"MRR (USD)        : ${tenant.mrr_usd:,.2f}")
             print(f"Domain           : {tenant.custom_domain}")
             print(f"Created At       : {tenant.created_at}")
+            print("=" * 80 + "\n")
+
+    elif args.command == "saas-templates":
+        from omniverse.modules.saas.template_store import TemplateStoreEngine
+        store = TemplateStoreEngine()
+        if args.install:
+            result = store.install_template(args.install, args.tenant)
+            print("\n" + "=" * 80)
+            print("       OMNIVERSE 1-CLICK AUTOMATION PROVISIONED       ")
+            print("=" * 80)
+            print(f"Template Name : {result['template']['name']}")
+            print(f"Category      : {result['template']['category'].upper()}")
+            print(f"Tenant ID     : {result['tenant_id']}")
+            print(f"Installation  : {result['installation_id']}")
+            print(f"Status        : {result['status']}")
+            print(f"Estimated ROI : ${result['template']['estimated_monthly_roi_usd']:,.2f}/mo")
+            print("=" * 80 + "\n")
+        else:
+            templates = store.list_templates(args.category)
+            print("\n" + "=" * 80)
+            print("       OMNIVERSE 1-CLICK AUTOMATION TEMPLATE STORE       ")
+            print("=" * 80)
+            for t in templates:
+                print(f"[{t.id}] {t.name}")
+                print(f"  Category: {t.category} | ROI: ${t.estimated_monthly_roi_usd:,.2f}/mo | Installs: {t.install_count}")
+                print(f"  Audience: {t.target_audience}")
+                print(f"  Summary : {t.description}")
+                print("-" * 80)
             print("=" * 80 + "\n")
 
     elif args.command == "clearing-settle":

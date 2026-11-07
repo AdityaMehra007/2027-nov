@@ -3,14 +3,45 @@
 
 """Interactive Multi-Tenant Vertical SaaS Fleet UI Template.
 
-Provides real-time interactive dashboards and algorithmic simulators for:
+Provides real-time interactive dashboards, 1-click automation template store,
+and algorithmic simulators for:
+- 1-Click Automation Store: 10 flagship enterprise workflows & viral embed flywheel
 - CloudBite: Food cost accounting & kitchen recipe margins
 - GymVerse: Member retention risk & churn prediction
 - RentShield: Tenant lease default underwriting
 - ClinicFlow: Outpatient symptom triage queue priority
 """
 
+from omniverse.modules.saas.template_store import TemplateStoreEngine
+
+
 def render_saas_portal_html() -> str:
+    store = TemplateStoreEngine()
+    templates = store.list_templates()
+
+    cards_html_list = []
+    for t in templates:
+        cards_html_list.append(f"""
+            <div class="template-card" data-category="{t.category}">
+                <div class="template-header">
+                    <span class="badge badge-cat badge-cat-{t.category}">{t.category.upper()}</span>
+                    <span class="badge badge-roi">+${t.estimated_monthly_roi_usd:,.0f}/mo ROI</span>
+                </div>
+                <h3 class="template-title">{t.name}</h3>
+                <p class="template-desc">{t.description}</p>
+                <div class="template-audience">🎯 <span>{t.target_audience}</span></div>
+                <div class="template-meta">
+                    <span class="template-installs">🚀 <strong>{t.install_count}</strong> active installs</span>
+                    <span class="template-id"><code>{t.id}</code></span>
+                </div>
+                <div class="template-actions">
+                    <button class="btn btn-deploy" onclick="installTemplate('{t.id}', '{t.name}')">⚡ 1-Click Deploy</button>
+                    <button class="btn btn-badge" onclick="openBadgeModal('{t.id}', '{t.name}')">🔗 Viral Badge</button>
+                </div>
+            </div>
+        """)
+    templates_cards_html = "\n".join(cards_html_list)
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,6 +170,7 @@ def render_saas_portal_html() -> str:
         }}
         .tabs {{
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             border-bottom: 1px solid var(--surface-border);
             padding-bottom: 12px;
@@ -173,6 +205,147 @@ def render_saas_portal_html() -> str:
         }}
         .panel.active {{
             display: block;
+        }}
+        .template-filter-bar {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }}
+        .filter-pill {{
+            background: rgba(11, 19, 41, 0.7);
+            color: var(--text-muted);
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }}
+        .filter-pill:hover, .filter-pill.active {{
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.5);
+        }}
+        .template-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }}
+        .template-card {{
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease-in-out;
+        }}
+        .template-card:hover {{
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+        }}
+        .template-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }}
+        .badge-cat {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }}
+        .badge-cat-finance {{ background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }}
+        .badge-cat-sales {{ background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }}
+        .badge-cat-engineering {{ background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3); }}
+        .badge-cat-operations {{ background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }}
+        .badge-cat-agency {{ background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.3); }}
+        .badge-roi {{
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+        }}
+        .template-title {{
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }}
+        .template-desc {{
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 14px;
+            flex-grow: 1;
+        }}
+        .template-audience {{
+            font-size: 12px;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px 10px;
+            border-radius: 6px;
+        }}
+        .template-meta {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+            margin-bottom: 16px;
+        }}
+        .template-actions {{
+            display: flex;
+            gap: 10px;
+        }}
+        .btn-deploy {{
+            flex: 1;
+            padding: 10px 14px;
+            font-size: 13px;
+            background: var(--accent-cyan);
+            color: #030712;
+        }}
+        .btn-badge {{
+            padding: 10px 14px;
+            font-size: 13px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--surface-border);
+        }}
+        .btn-badge:hover {{
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-cyan);
+        }}
+        .modal-overlay {{
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }}
+        .modal-overlay.active {{
+            display: flex;
+        }}
+        .modal-box {{
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 14px;
+            padding: 28px;
+            width: 90%;
+            max-width: 640px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }}
         .form-grid {{
             display: grid;
@@ -301,15 +474,40 @@ def render_saas_portal_html() -> str:
         </div>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('cloudbite')">🍳 CloudBite (Kitchens)</button>
+            <button class="tab-btn active" onclick="switchTab('templates')">⚡ 1-Click Automation Store (10)</button>
+            <button class="tab-btn" onclick="switchTab('cloudbite')">🍳 CloudBite (Kitchens)</button>
             <button class="tab-btn" onclick="switchTab('gymverse')">🏋️ GymVerse (Fitness)</button>
             <button class="tab-btn" onclick="switchTab('rentshield')">🛡️ RentShield (Real Estate)</button>
             <button class="tab-btn" onclick="switchTab('clinicflow')">🩺 ClinicFlow (Healthcare)</button>
             <button class="tab-btn" onclick="switchTab('tenants')">📋 Registered Tenants</button>
         </div>
 
+        <!-- 1-CLICK AUTOMATION STORE -->
+        <div id="panel-templates" class="panel active">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                <div>
+                    <h2 style="margin-bottom: 6px;">1-Click Automation Catalog & Viral Flywheel</h2>
+                    <p style="color: var(--text-muted); font-size: 14px;">Instant enterprise workflow blueprints. Deploy into any tenant or embed viral clone badges.</p>
+                </div>
+                <span class="badge badge-success" style="padding: 6px 12px; font-size: 12px;">10 PRODUCTION AUTOMATIONS LIVE</span>
+            </div>
+
+            <div class="template-filter-bar">
+                <button class="filter-pill active" onclick="filterTemplates('ALL')">All Templates (10)</button>
+                <button class="filter-pill" onclick="filterTemplates('FINANCE')">Finance</button>
+                <button class="filter-pill" onclick="filterTemplates('SALES')">Sales</button>
+                <button class="filter-pill" onclick="filterTemplates('OPERATIONS')">Operations</button>
+                <button class="filter-pill" onclick="filterTemplates('ENGINEERING')">Engineering</button>
+                <button class="filter-pill" onclick="filterTemplates('AGENCY')">Agency</button>
+            </div>
+
+            <div class="template-grid">
+                {templates_cards_html}
+            </div>
+        </div>
+
         <!-- CLOUDBITE -->
-        <div id="panel-cloudbite" class="panel active">
+        <div id="panel-cloudbite" class="panel">
             <h2 style="margin-bottom: 8px;">CloudBite: Food Cost & Margin Calculator</h2>
             <p style="color: var(--text-muted); margin-bottom: 24px;">Algorithmic recipe margin optimization and ingredient waste prevention.</p>
             <div class="form-grid">
@@ -446,13 +644,104 @@ def render_saas_portal_html() -> str:
         </div>
     </main>
 
+    <!-- VIRAL CLONE BADGE MODAL -->
+    <div id="badge-modal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
+        <div class="modal-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 id="modal-template-title" style="font-size: 18px; color: var(--accent-cyan);">Viral Clone Badge</h3>
+                <button onclick="closeModal()" style="background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Embed this badge in READMEs, GitHub repos, or SaaS dashboards. Every click drives viral referrals back to your instance.</p>
+            
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label>Markdown Badge (for README.md):</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="modal-badge-md" class="form-control" readonly>
+                    <button class="btn" style="padding: 10px 16px;" onclick="copyToClipboard('modal-badge-md')">Copy</button>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>HTML Embed (for Websites / Footers):</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="modal-badge-html" class="form-control" readonly>
+                    <button class="btn" style="padding: 10px 16px;" onclick="copyToClipboard('modal-badge-html')">Copy</button>
+                </div>
+            </div>
+
+            <div style="text-align: right;">
+                <button class="btn" style="background: var(--surface-border); color: #fff;" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function switchTab(vertical) {{
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {{
+                event.target.classList.add('active');
+            }}
             const panel = document.getElementById(`panel-${{vertical}}`);
             if (panel) panel.classList.add('active');
+        }}
+
+        function filterTemplates(cat) {{
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            if (event && event.target) {{
+                event.target.classList.add('active');
+            }}
+            const cards = document.querySelectorAll('.template-card');
+            cards.forEach(c => {{
+                if (cat === 'ALL' || c.getAttribute('data-category') === cat.toLowerCase()) {{
+                    c.style.display = 'flex';
+                }} else {{
+                    c.style.display = 'none';
+                }}
+            }});
+        }}
+
+        async function installTemplate(templateId, templateName) {{
+            const tenantId = prompt(`Enter target Tenant ID to deploy [${{templateName}}]:`, "tenant_demo_enterprise");
+            if (!tenantId) return;
+            try {{
+                const res = await fetch(`/api/v1/saas/templates/${{templateId}}/install?tenant_id=${{encodeURIComponent(tenantId)}}`, {{
+                    method: 'POST'
+                }});
+                const data = await res.json();
+                if (res.ok) {{
+                    alert(`✅ Successfully deployed [${{templateName}}] into Tenant [${{tenantId}}]!\n\nDeployment ID: ${{data.deployment_id}}\nStatus: ${{data.status}}`);
+                }} else {{
+                    alert(`❌ Error deploying template: ${{data.detail || 'Unknown error'}}`);
+                }}
+            }} catch (err) {{
+                alert(`❌ Deployment network error: ${{err.message}}`);
+            }}
+        }}
+
+        function openBadgeModal(templateId, templateName) {{
+            const modal = document.getElementById('badge-modal');
+            document.getElementById('modal-template-title').innerText = templateName;
+            const origin = window.location.origin || 'http://localhost:8000';
+            const badgeUrl = `${{origin}}/api/v1/saas/templates/${{templateId}}/badge`;
+            const installUrl = `${{origin}}/api/v1/saas/templates/${{templateId}}/install`;
+            const md = `[![Powered by CASHFLOW INFINITY](${{badgeUrl}})](${{installUrl}})`;
+            const html = `<a href="${{installUrl}}" target="_blank"><img src="${{badgeUrl}}" alt="Deploy on CASHFLOW INFINITY" /></a>`;
+            document.getElementById('modal-badge-md').value = md;
+            document.getElementById('modal-badge-html').value = html;
+            modal.classList.add('active');
+        }}
+
+        function closeModal() {{
+            const modal = document.getElementById('badge-modal');
+            if (modal) modal.classList.remove('active');
+        }}
+
+        function copyToClipboard(elementId) {{
+            const copyText = document.getElementById(elementId);
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value);
+            alert("Copied embed code to clipboard!");
         }}
 
         async function calculateCloudBite() {{
