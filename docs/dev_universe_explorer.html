@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniDev Universe | 8,700+ Developer Knowledge Index</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 27, 46, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(33, 41, 70, 0.85);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #9d4edd;
+      --accent-green: #00f5d4;
+      --accent-amber: #f7b731;
+      --accent-pink: #ff007f;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --tag-bg: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #151b33 0%, var(--bg) 70%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 60px;
+    }
+
+    header {
+      padding: 40px 24px 24px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .badge-top {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 80%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .stat-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 110px;
+    }
+
+    .stat-pill .num {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .stat-pill .lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .search-container {
+      max-width: 1100px;
+      margin: 0 auto 24px;
+      width: 100%;
+      padding: 0 24px;
+    }
+
+    .search-box-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      font-size: 1.1rem;
+      background: rgba(18, 23, 40, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      color: #fff;
+      outline: none;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 24px rgba(0, 242, 254, 0.25);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: var(--text-muted);
+      width: 20px;
+      height: 20px;
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .type-btn {
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .type-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .type-btn.active {
+      background: var(--accent-cyan);
+      color: #050811;
+      border-color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .cat-select {
+      margin-left: auto;
+      background: rgba(18, 23, 40, 0.85);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .results-info {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .card:hover {
+      border-color: rgba(0, 242, 254, 0.4);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-type {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .type-book { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
+    .type-course { background: rgba(0, 245, 212, 0.15); color: var(--accent-green); border: 1px solid rgba(0, 245, 212, 0.3); }
+    .type-build-project { background: rgba(157, 78, 221, 0.15); color: var(--accent-purple); border: 1px solid rgba(157, 78, 221, 0.3); }
+    .type-api { background: rgba(247, 183, 49, 0.15); color: var(--accent-amber); border: 1px solid rgba(247, 183, 49, 0.3); }
+    .type-cheatsheet { background: rgba(79, 172, 254, 0.15); color: var(--accent-blue); border: 1px solid rgba(79, 172, 254, 0.3); }
+    .type-podcast { background: rgba(255, 0, 127, 0.15); color: var(--accent-pink); border: 1px solid rgba(255, 0, 127, 0.3); }
+    .type-curated-list { background: rgba(255, 255, 255, 0.1); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); }
+    .type-library { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .type-newsletter { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .type-self-hosted { background: rgba(0, 242, 254, 0.18); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.4); }
+    .type-self-hosted-proprietary { background: rgba(247, 183, 49, 0.18); color: var(--accent-amber); border: 1px solid rgba(247, 183, 49, 0.4); }
+    .type-roadmap { background: rgba(157, 78, 221, 0.18); color: #c084fc; border: 1px solid rgba(157, 78, 221, 0.4); }
+
+    .card-source {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.45;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .meta-tag {
+      background: var(--tag-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      padding: 3px 6px;
+      color: #cbd5e1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-open {
+      flex: 1;
+      padding: 8px 12px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 6px;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-open:hover {
+      background: var(--accent-cyan);
+      color: #050811;
+    }
+
+    .btn-copy {
+      padding: 8px 12px;
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .load-more-container {
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .btn-load-more {
+      padding: 12px 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-load-more:hover {
+      background: rgba(0, 242, 254, 0.2);
+      border-color: var(--accent-cyan);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-top">OmniDev Knowledge Core</div>
+    <h1>Developer Resource Universe</h1>
+    <p class="subtitle">Unified intelligence across 10,000+ curated developer books, self-hosted applications, roadmaps, APIs & courses</p>
+
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-pill"><span class="num" id="statTotal">10,189</span><span class="lbl">Total Resources</span></div>
+      <div class="stat-pill"><span class="num">2,521</span><span class="lbl">Books</span></div>
+      <div class="stat-pill"><span class="num">2,380</span><span class="lbl">Public APIs</span></div>
+      <div class="stat-pill"><span class="num">1,359</span><span class="lbl">Self-Hosted</span></div>
+      <div class="stat-pill"><span class="num">1,343</span><span class="lbl">Courses</span></div>
+      <div class="stat-pill"><span class="num">662</span><span class="lbl">Awesome Lists</span></div>
+      <div class="stat-pill"><span class="num">538</span><span class="lbl">Python Libs</span></div>
+      <div class="stat-pill"><span class="num">362</span><span class="lbl">Build Your Own</span></div>
+      <div class="stat-pill"><span class="num">96</span><span class="lbl">Roadmaps</span></div>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <div class="search-box-wrapper">
+      <svg class="search-icon" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search Python, Rust, Neural Networks, Docker, Weather API, Git, Compilers..." autocomplete="off">
+    </div>
+
+    <div class="filters-row">
+      <button class="type-btn active" data-type="all">All (10,189)</button>
+      <button class="type-btn" data-type="self-hosted">Self-Hosted Apps</button>
+      <button class="type-btn" data-type="roadmap">Roadmaps</button>
+      <button class="type-btn" data-type="library">Python Libraries</button>
+      <button class="type-btn" data-type="book">Books</button>
+      <button class="type-btn" data-type="build-project">Build Your Own</button>
+      <button class="type-btn" data-type="api">Public APIs</button>
+      <button class="type-btn" data-type="course">Courses</button>
+      <button class="type-btn" data-type="cheatsheet">Cheatsheets</button>
+      <button class="type-btn" data-type="interactive">Interactive</button>
+      <button class="type-btn" data-type="podcast">Podcasts</button>
+      <button class="type-btn" data-type="curated-list">Awesome Lists</button>
+
+      <select id="catSelect" class="cat-select">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
+
+    <div class="results-info">
+      <span id="resultsCount">Showing 0 matching resources</span>
+      <span id="filterLabel">Filtered across 5 knowledge bases</span>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+      <button class="btn-load-more" id="btnLoadMore">Load More Resources</button>
+    </div>
+  </div>
+
+  <!-- Load Data -->
+  <script src="dev_universe_data.js"></script>
+
+  <script>
+    (function() {
+      const data = window.DEV_UNIVERSE_DATA || [];
+      let currentType = 'all';
+      let currentCat = 'all';
+      let currentQuery = '';
+      let displayedCount = 0;
+      const PAGE_SIZE = 60;
+      let filteredData = [];
+
+      const searchInput = document.getElementById('searchInput');
+      const catSelect = document.getElementById('catSelect');
+      const cardsGrid = document.getElementById('cardsGrid');
+      const resultsCount = document.getElementById('resultsCount');
+      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      const btnLoadMore = document.getElementById('btnLoadMore');
+      const typeButtons = document.querySelectorAll('.type-btn');
+
+      // Populate Categories Dropdown
+      const catCounts = {};
+      data.forEach(item => {
+        const cat = item.category || 'General';
+        catCounts[cat] = (catCounts[cat] || 0) + 1;
+      });
+
+      const sortedCats = Object.entries(catCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 40);
+
+      sortedCats.forEach(([cat, cnt]) => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = `${cat} (${cnt})`;
+        catSelect.appendChild(opt);
+      });
+
+      function applyFilters() {
+        const q = currentQuery.toLowerCase().trim();
+        filteredData = data.filter(item => {
+          // Type filter
+          if (currentType !== 'all' && item.type !== currentType) {
+            return false;
+          }
+          // Category filter
+          if (currentCat !== 'all' && item.category !== currentCat) {
+            return false;
+          }
+          // Query filter
+          if (q) {
+            const inTitle = (item.title || '').toLowerCase().includes(q);
+            const inCat = (item.category || '').toLowerCase().includes(q);
+            const inSub = (item.subcategory || '').toLowerCase().includes(q);
+            const inDesc = (item.description || '').toLowerCase().includes(q);
+            const inLang = (item.language || '').toLowerCase().includes(q);
+            if (!inTitle && !inCat && !inSub && !inDesc && !inLang) {
+              return false;
+            }
+          }
+          return true;
+        });
+
+        displayedCount = 0;
+        cardsGrid.innerHTML = '';
+        renderNextBatch();
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function renderCard(item) {
+        const typeClass = `type-${item.type}` || 'type-book';
+        const typeLabel = item.type.replace('-', ' ');
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <span class="card-type ${typeClass}">${escapeHtml(typeLabel)}</span>
+              <span class="card-source">${escapeHtml(item.source_repo)}</span>
+            </div>
+            <h3 class="card-title">${escapeHtml(item.title)}</h3>
+            <p class="card-desc">${escapeHtml(item.description || 'Curated reference resource.')}</p>
+          </div>
+          <div>
+            <div class="card-meta">
+              <span class="meta-tag">📁 ${escapeHtml(item.category)}</span>
+              ${item.format ? `<span class="meta-tag">📄 ${escapeHtml(item.format)}</span>` : ''}
+              ${item.language && item.language !== 'English' && item.language !== item.category ? `<span class="meta-tag">🌐 ${escapeHtml(item.language)}</span>` : ''}
+            </div>
+            <div class="card-actions">
+              <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="btn-open">Visit Resource ↗</a>
+              <button class="btn-copy" onclick="navigator.clipboard.writeText('${escapeHtml(item.url)}'); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 1500)">Copy</button>
+            </div>
+          </div>
+        `;
+        return card;
+      }
+
+      function renderNextBatch() {
+        const nextBatch = filteredData.slice(displayedCount, displayedCount + PAGE_SIZE);
+        displayedCount += nextBatch.length;
+
+        resultsCount.textContent = `Showing ${displayedCount.toLocaleString()} of ${filteredData.length.toLocaleString()} resources`;
+
+        if (filteredData.length === 0) {
+          cardsGrid.innerHTML = `
+            <div class="empty-state">
+              <h3>No resources found matching your search.</h3>
+              <p style="margin-top: 8px;">Try broadening your keywords or clearing the category filter.</p>
+            </div>
+          `;
+          loadMoreContainer.style.display = 'none';
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        nextBatch.forEach(item => {
+          fragment.appendChild(renderCard(item));
+        });
+        cardsGrid.appendChild(fragment);
+
+        if (displayedCount < filteredData.length) {
+          loadMoreContainer.style.display = 'block';
+        } else {
+          loadMoreContainer.style.display = 'none';
+        }
+      }
+
+      // Event Listeners
+      let debounceTimer = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          currentQuery = e.target.value;
+          applyFilters();
+        }, 150);
+      });
+
+      typeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          typeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentType = btn.getAttribute('data-type');
+          applyFilters();
+        });
+      });
+
+      catSelect.addEventListener('change', (e) => {
+        currentCat = e.target.value;
+        applyFilters();
+      });
+
+      btnLoadMore.addEventListener('click', () => {
+        renderNextBatch();
+      });
+
+      // Initial Render
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>

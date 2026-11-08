@@ -1,21 +1,69 @@
+# ─── Python ───
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+*.egg-info/
+
+# ─── Virtual Environments ───
 env/
 venv/
 ENV/
 .env
 .env.local
 .venv/
+
+# ─── Test & Lint Caches ───
 .pytest_cache/
+.ruff_cache/
 .coverage
 htmlcov/
+
+# ─── Build Artifacts ───
 build/
-*.egg-info/
+dist/
+
+# ─── OS / IDE ───
 .DS_Store
+Thumbs.db
+*.code-workspace
+
+# ─── Infrastructure ───
 .terraform/
 *.lock.hcl
+
+# ─── Runtime Data (tracked selectively) ───
 artifacts/
 data/*.db
+
+# ─── Temp / Scratch Files ───
+chunks.txt
+full_chat_transcript.txt
+prompt_download.json
+python_executions.json
+parsed_content.md
+STATE.json
+
+# ─── Cloned Reference Repos (not project code) ───
+996.ICU/
+OpenDots/
+awesome/
+awesome-python/
+awesome-selfhosted/
+build-your-own-x/
+developer-roadmap/
+free-programming-books/
+freeCodeCamp/
+project-based-learning/
+public-apis/
+system-design-primer/
+superpowers/
+generated_saas/
+
+# ─── Agent Teamwork Logs (internal) ───
+.agents/teamwork/
+.superpowers/
+
+# ─── Misc ───
+node_modules/

@@ -35,6 +35,11 @@ class OmniverseSettings(BaseSettings):
     primary_market: str = "Bengaluru, India"
     currency: str = "INR"
 
+    # Webhook Gateway Secrets (TM-004)
+    stripe_webhook_secret: str = Field(default="whsec_mock", description="Stripe Webhook Signing Secret")
+    razorpay_key_secret: str = Field(default="rzp_sec_mock", description="Razorpay Webhook Key Secret")
+    rtgs_webhook_secret: str = Field(default="rtgs_sec_mock", description="RTGS Webhook HMAC Secret")
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 @lru_cache()
