@@ -24,7 +24,9 @@
 [OmniSwarm Mesh](#-omniswarm-decentralized-multi-agent-peer-mesh) •
 [Empirical Benchmarks](#-empirical-benchmarking-suite) •
 [Multi-Cloud IaC](#-multi-cloud-kubernetes--infrastructure-as-code) •
-[Documentation](MASTER_DIRECTIVE.md)
+[Documentation](MASTER_DIRECTIVE.md) •
+[32 Engines Spec](docs/SINGULARITY_32_ENGINES_SPEC.md) •
+[Contributing](CONTRIBUTING.md)
 
 </div>
 

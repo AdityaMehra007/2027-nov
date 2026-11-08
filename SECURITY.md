@@ -1,21 +1,46 @@
-# Security Policy
+# 🛡️ OMNIVERSE Security Policy & Sovereign Trust Protocol
 
-## Supported Versions
-Only the latest release on the primary development branch is actively supported with security patches.
+The integrity of autonomous execution engines, quantitative capital settlement adapters, and planetary resilience systems demands uncompromising cryptographic safeguards.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
-| < 1.0   | :x:                |
+---
 
-## Reporting a Vulnerability
-The security of autonomous agents and quantitative systems is of paramount importance. 
+## 🔒 Supported Versions
 
-If you discover a security vulnerability (such as a flaw in the `SecurityGovernor`, an unauthenticated command execution risk, or sensitive data exposure):
-1. **Do not open a public issue.**
-2. Send a detailed report to security@omniverse.ai with reproduction steps.
-3. We will acknowledge receipt within 24 hours and provide an estimated remediation timeline.
+Only active production releases and primary development branches receive formal security patches.
 
-## Safety Principles
-- **No Autonomous Live Capital Transfer**: All financial settlements, wire transfers, and broker orders must be held for human approval by default.
-- **Credential Protection**: Never commit `.env` files or API secrets into git.
+| Version | Status | Hotfix SLA | Critical Vulnerability Response |
+| :--- | :---: | :---: | :---: |
+| **`v2027.1.x` (Singularity)** | :white_check_mark: Active Primary | < 12 Hours | P0 Priority |
+| **`v1.0.x` (Apex)** | :white_check_mark: Supported | < 48 Hours | P1 Priority |
+| `< 1.0.0` | :x: Deprecated | None | Upgrade Required |
+
+---
+
+## 🛑 Air-Gapped Safety Governors & Capital Bounds
+
+CASHFLOW INFINITY: OMNIVERSE enforces hardware-in-the-loop and cryptographic gates across all autonomous divisions:
+
+1. **Air-Gapped HMAC-SHA256 Signature Governor**:
+   - Outbound capital transfers exceeding **$10,000 USD** (or equivalent INR) pause indefinitely in the `PendingActionsQueue`.
+   - Autonomous agents are physically incapable of forging signed settlement tokens without the human-held cryptographic key.
+2. **Zero-Trust Network Perimeter (Linux eBPF XDP)**:
+   - Packet-level firewalling drops unauthorized egress and peer mesh traffic prior to kernel network stack parsing.
+3. **Double-Entry Balance Invariants**:
+   - Strict mathematical ledger invariants prevent synthetic balance creation. Speculative pipeline value cannot be credited as collected revenue.
+4. **Credential Isolation**:
+   - Secrets are loaded exclusively via environment variables (`.env` is strictly gitignored). No raw API keys (Stripe, Razorpay, LLM providers) are persisted to SQLite databases.
+
+---
+
+## 🚨 Reporting a Vulnerability
+
+If you discover a security vulnerability, side-channel attack, or bypass of the `SecurityGovernor`:
+
+1. **Do not create a public GitHub Issue or Pull Request.**
+2. Email full reproduction steps, proof-of-concept scripts, and threat analysis to:
+   - 📧 **Primary Security Officer:** [ashishiash007@gmail.com](mailto:ashishiash007@gmail.com)
+   - 🔒 **Subject:** `[SECURITY DISCLOSURE] OMNIVERSE - <Component Name>`
+3. **Response Timeline**:
+   - Initial acknowledgement: **Within 12 hours**
+   - Severity triage & CVSS scoring: **Within 24 hours**
+   - Coordinated public disclosure & patch release: **Within 7 business days**
