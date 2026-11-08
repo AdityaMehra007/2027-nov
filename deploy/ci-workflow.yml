@@ -1,0 +1,97 @@
+name: OMNIVERSE CI & TDD Gateway
+
+on:
+  push:
+    branches: [ main, feature/** ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-matrix:
+    name: Pytest Verification (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pytest pytest-cov pydantic pydantic-settings fastapi uvicorn requests sqlmodel
+
+      - name: Run Hermetic Pytest Suite
+        run: |
+          python -m pytest tests/test_apex_core_package.py \
+                           tests/test_offline_master_verification.py \
+                           tests/test_omni_corp_engine.py \
+                           tests/test_universal_engines_32.py \
+                           tests/test_singularity_civilization_codex.py \
+                           tests/test_adversarial_m1_m2.py \
+                           tests/test_challenger_2_adversarial.py \
+                           --maxfail=3 -v
+
+  distribution-build:
+    name: Package Wheel & Artifact Build Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Build Tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build setuptools wheel
+
+      - name: Build Apex Core Wheel
+        run: |
+          cd packages/apex-core
+          python -m build --wheel --sdist
+
+      - name: Validate Wheel Installation
+        run: |
+          pip install packages/apex-core/dist/*.whl
+          python -c "import apex_core; print('Apex Core Version:', apex_core.__version__)"
+
+  genesis-smoke-test:
+    name: 32-Engine Genesis Monolith Smoke Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Runtime Prerequisites
+        run: |
+          pip install numpy pydantic pydantic-settings fastapi uvicorn requests sqlmodel
+
+      - name: Run Monolith Executions
+        run: |
+          python aether_omni_singularity.py
+          python prometheus_universal_genesis.py
+          python titan_5000_genesis.py
+          python omega_genesis.py
+          python universitas_genesis.py
