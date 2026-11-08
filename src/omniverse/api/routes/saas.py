@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, HTTPException
 from pydantic import BaseModel
 from pathlib import Path
 from typing import Optional, List
@@ -58,13 +58,17 @@ def get_saas_router():
     # 1. Existing Scaffolder Route (Backward Compatible)
     @router.post("/scaffold")
     def scaffold_saas(req: ScaffoldRequest):
-        scaffolder = SaaSFactoryScaffolder()
-        return scaffolder.scaffold_project(
-            app_name=req.name,
-            target_dir=Path(req.target_dir),
-            include_auth=req.include_auth,
-            pricing_model=req.pricing_model
-        )
+        try:
+            sandbox_dir = Path("./generated_saas").resolve()
+            scaffolder = SaaSFactoryScaffolder(sandbox_root=sandbox_dir)
+            return scaffolder.scaffold_project(
+                app_name=req.name,
+                target_dir=Path(req.target_dir),
+                include_auth=req.include_auth,
+                pricing_model=req.pricing_model
+            )
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     # 2. Fleet Summary & MRR Overview
     @router.get("/fleet/summary")

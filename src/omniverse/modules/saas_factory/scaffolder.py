@@ -1,17 +1,40 @@
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 class SaaSFactoryScaffolder:
     """Scaffolds complete, deployable FastAPI micro-services, billing routes, and UI."""
 
+    def __init__(self, sandbox_root: Optional[Path] = None):
+        self.sandbox_root = Path(sandbox_root).resolve() if sandbox_root is not None else None
+
     def scaffold_project(
         self,
         app_name: str,
-        target_dir: Path,
+        target_dir: Path | str,
         include_auth: bool = True,
         pricing_model: str = "freemium"
     ) -> Dict[str, Any]:
-        target_dir = Path(target_dir)
+        target_str = str(target_dir).strip()
+        raw_path = Path(target_dir)
+
+        # Reject path traversal components
+        if ".." in raw_path.parts or ".." in target_str:
+            raise ValueError("Path traversal detected: '..' not allowed in target_dir")
+
+        # Reject leading slashes when relative
+        if not raw_path.is_absolute() and (target_str.startswith("/") or target_str.startswith("\\")):
+            raise ValueError("Path traversal detected: leading slashes not allowed in relative target_dir")
+
+        target_path = raw_path.resolve()
+
+        if self.sandbox_root is not None:
+            sandbox = self.sandbox_root.resolve()
+            if not target_path.is_relative_to(sandbox):
+                raise ValueError(
+                    f"Path traversal detected: target directory '{target_path}' is outside sandbox root '{sandbox}'"
+                )
+
+        target_dir = target_path
         target_dir.mkdir(parents=True, exist_ok=True)
         templates_dir = target_dir / "templates"
         templates_dir.mkdir(exist_ok=True)
