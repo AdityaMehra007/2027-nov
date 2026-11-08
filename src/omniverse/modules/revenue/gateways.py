@@ -54,7 +54,14 @@ class StripeGatewayAdapter:
             "created_at": time.time(),
         }
 
-    def verify_webhook(self, payload: bytes, signature_header: str) -> PaymentWebhookResult:
+    def verify_webhook(
+        self,
+        payload: bytes,
+        signature_header: str,
+        env: Optional[str] = None
+    ) -> PaymentWebhookResult:
+        if (env or "").strip().lower() == "production" and self.webhook_secret == "whsec_mock":
+            raise RuntimeError("Insecure default mock webhook secret in production")
         try:
             parts = dict(item.split("=", 1) for item in signature_header.split(",") if "=" in item)
             timestamp = parts.get("t")
@@ -121,8 +128,12 @@ class RazorpayGatewayAdapter:
         payment_id: str,
         order_id: str,
         signature: str,
-        invoice_id: Optional[int] = None
+        invoice_id: Optional[int] = None,
+        env: Optional[str] = None
     ) -> PaymentWebhookResult:
+        if (env or "").strip().lower() == "production" and self.key_secret == "rzp_sec_mock":
+            raise RuntimeError("Insecure default mock webhook secret in production")
+
         msg = f"{payment_id}|{order_id}".encode("utf-8")
         expected_sig = hmac.new(
             self.key_secret.encode("utf-8"),
@@ -138,6 +149,22 @@ class RazorpayGatewayAdapter:
             invoice_id=invoice_id,
             transaction_ref=payment_id,
             currency="INR"
+        )
+
+    def verify_webhook_signature(
+        self,
+        payment_id: str,
+        order_id: str,
+        signature: str,
+        invoice_id: Optional[int] = None,
+        env: Optional[str] = None
+    ) -> PaymentWebhookResult:
+        return self.verify_payment_signature(
+            payment_id=payment_id,
+            order_id=order_id,
+            signature=signature,
+            invoice_id=invoice_id,
+            env=env
         )
 
 
@@ -200,8 +227,13 @@ class UnifiedPaymentRouter:
         else:
             return "STRIPE"
 
-    def handle_stripe_webhook(self, payload: bytes, signature_header: str) -> Optional[Invoice]:
-        res = self.stripe.verify_webhook(payload, signature_header)
+    def handle_stripe_webhook(
+        self,
+        payload: bytes,
+        signature_header: str,
+        env: Optional[str] = None
+    ) -> Optional[Invoice]:
+        res = self.stripe.verify_webhook(payload, signature_header, env=env)
         if not res.is_valid or not res.invoice_id or not res.transaction_ref:
             return None
 
@@ -214,9 +246,10 @@ class UnifiedPaymentRouter:
         payment_id: str,
         order_id: str,
         signature: str,
-        invoice_id: int
+        invoice_id: int,
+        env: Optional[str] = None
     ) -> Optional[Invoice]:
-        res = self.razorpay.verify_payment_signature(payment_id, order_id, signature, invoice_id=invoice_id)
+        res = self.razorpay.verify_payment_signature(payment_id, order_id, signature, invoice_id=invoice_id, env=env)
         if not res.is_valid or not res.invoice_id or not res.transaction_ref:
             return None
 

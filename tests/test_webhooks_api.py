@@ -13,6 +13,11 @@ from omniverse.api.app import create_app
 from omniverse.core.database import DatabaseEngine
 from omniverse.modules.revenue.models import Lead, Invoice, InvoiceStatus
 from omniverse.modules.revenue.payments import PaymentWorkflow
+from omniverse.modules.revenue.gateways import (
+    StripeGatewayAdapter,
+    RazorpayGatewayAdapter,
+    UnifiedPaymentRouter,
+)
 
 
 @pytest.fixture(name="client")
@@ -163,3 +168,57 @@ def test_rtgs_settlement_webhook_flow(client):
     assert res_data["status"] == "success"
     assert res_data["gateway"] == "RTGS"
     assert res_data["invoice_status"] == "PAID"
+
+
+def test_production_mock_secret_rejection():
+    # Stripe adapter fails closed on mock secret in production
+    adapter = StripeGatewayAdapter(webhook_secret="whsec_mock")
+    with pytest.raises(RuntimeError, match="Insecure default mock webhook secret in production"):
+        adapter.verify_webhook(b"{}", "t=123,v1=abc", env="production")
+
+    # Razorpay adapter fails closed on mock secret in production
+    rzp_adapter = RazorpayGatewayAdapter(key_secret="rzp_sec_mock")
+    with pytest.raises(RuntimeError, match="Insecure default mock webhook secret in production"):
+        rzp_adapter.verify_payment_signature("pay_123", "order_456", "sig", env="production")
+    with pytest.raises(RuntimeError, match="Insecure default mock webhook secret in production"):
+        rzp_adapter.verify_webhook_signature("pay_123", "order_456", "sig", env="production")
+
+
+def test_production_webhook_endpoints_fail_closed(client, monkeypatch):
+    test_client, _ = client
+    from omniverse.core.config import get_settings
+    settings = get_settings()
+    monkeypatch.setattr(settings, "env", "production")
+
+    # Stripe endpoint in production with mock secret raises 500
+    resp_stripe = test_client.post(
+        "/api/v1/webhooks/stripe",
+        content=b"{}",
+        headers={"Content-Type": "application/json", "Stripe-Signature": "t=123,v1=abc"}
+    )
+    assert resp_stripe.status_code == 500
+    assert "Insecure default mock webhook secret in production" in resp_stripe.json()["detail"]
+
+    # Razorpay endpoint in production with mock secret raises 500
+    resp_rzp = test_client.post(
+        "/api/v1/webhooks/razorpay",
+        json={
+            "razorpay_payment_id": "pay_123",
+            "razorpay_order_id": "order_456",
+            "razorpay_signature": "sig",
+            "invoice_id": 1
+        }
+    )
+    assert resp_rzp.status_code == 500
+    assert "Insecure default mock webhook secret in production" in resp_rzp.json()["detail"]
+
+
+def test_production_valid_custom_secrets_allowed():
+    # Custom non-mock secrets should not trigger the mock secret guardrail in production
+    adapter = StripeGatewayAdapter(webhook_secret="whsec_live_custom_secret_123")
+    res = adapter.verify_webhook(b"{}", "t=123,v1=abc", env="production")
+    assert res.is_valid is False
+
+    rzp_adapter = RazorpayGatewayAdapter(key_secret="rzp_live_custom_secret_456")
+    res_rzp = rzp_adapter.verify_payment_signature("pay_123", "order_456", "invalidsig", env="production")
+    assert res_rzp.is_valid is False

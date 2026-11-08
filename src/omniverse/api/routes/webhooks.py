@@ -60,10 +60,16 @@ def get_webhooks_router(get_session_dep):
 
         body_bytes = await request.body()
         payments = PaymentWorkflow(session)
-        adapter = StripeGatewayAdapter(webhook_secret=stripe_secret)
+        curr_settings = get_settings()
+        curr_stripe_secret = getattr(curr_settings, "stripe_webhook_secret", stripe_secret)
+        adapter = StripeGatewayAdapter(webhook_secret=curr_stripe_secret)
         router_svc = UnifiedPaymentRouter(stripe_gateway=adapter, payment_workflow=payments)
 
-        invoice = router_svc.handle_stripe_webhook(body_bytes, stripe_signature)
+        try:
+            invoice = router_svc.handle_stripe_webhook(body_bytes, stripe_signature, env=curr_settings.env)
+        except RuntimeError as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
         if not invoice:
             raise HTTPException(status_code=400, detail="Stripe webhook signature verification failed or invoice not found")
 
@@ -81,15 +87,22 @@ def get_webhooks_router(get_session_dep):
         session: Session = Depends(get_session_dep)
     ):
         payments = PaymentWorkflow(session)
-        adapter = RazorpayGatewayAdapter(key_secret=razorpay_secret)
+        curr_settings = get_settings()
+        curr_razorpay_secret = getattr(curr_settings, "razorpay_key_secret", razorpay_secret)
+        adapter = RazorpayGatewayAdapter(key_secret=curr_razorpay_secret)
         router_svc = UnifiedPaymentRouter(razorpay_gateway=adapter, payment_workflow=payments)
 
-        invoice = router_svc.handle_razorpay_webhook(
-            payment_id=payload.razorpay_payment_id,
-            order_id=payload.razorpay_order_id,
-            signature=payload.razorpay_signature,
-            invoice_id=payload.invoice_id
-        )
+        try:
+            invoice = router_svc.handle_razorpay_webhook(
+                payment_id=payload.razorpay_payment_id,
+                order_id=payload.razorpay_order_id,
+                signature=payload.razorpay_signature,
+                invoice_id=payload.invoice_id,
+                env=curr_settings.env
+            )
+        except RuntimeError as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
         if not invoice:
             raise HTTPException(status_code=400, detail="Razorpay webhook signature verification failed or invoice not found")
 
