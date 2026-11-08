@@ -7,6 +7,12 @@ Universal 1-Click Operational Interface for the 24/7 Wealth Engine.
 """
 
 import sys
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 import os
 import subprocess
 import time
@@ -66,6 +72,10 @@ def run_command(cmd, wait=True):
         time.sleep(1)
 
 def main():
+    if "--check" in sys.argv:
+        print_menu()
+        print(f"\n{GREEN}[OK] Master launch empire menu verified successfully.{RESET}")
+        return
     while True:
         clear_screen()
         print_menu()
