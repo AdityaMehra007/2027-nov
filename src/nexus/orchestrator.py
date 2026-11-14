@@ -118,8 +118,9 @@ class UniversalOrchestrator:
             # Science and Frontier Technology
             quantum_fidelity = 0.9999
             if HAS_PUG and hasattr(pug, "Engine19_SurfaceCodeQuantumEngine"):
-                qec = pug.Engine19_SurfaceCodeQuantumEngine(distance=3)
-                quantum_fidelity = qec.logical_error_rate() if hasattr(qec, "logical_error_rate") else 0.99995
+                qec = pug.Engine19_SurfaceCodeQuantumEngine()
+                qec_res = qec.run_qec_cycle()
+                quantum_fidelity = qec_res.get("post_qec_logical_fidelity", 1.0)
 
             return {
                 "status": "COMPLETED",
