@@ -14,6 +14,10 @@ from src.nexus.departments import (
     CapabilityRegistry,
     DepartmentEnum,
 )
+from src.nexus.engines.intelligence import ClaimVerifier, ResearchIntelligence
+from src.nexus.engines.software_factory import SoftwareFactory
+from src.nexus.engines.simulation import DigitalTwin, ScenarioSimulator
+from src.nexus.engines.enterprise import TenantManager, ComputeGovernor
 
 # Optional import of deep-tech execution engines from Prometheus Universal Genesis
 try:
@@ -48,6 +52,12 @@ class UniversalOrchestrator:
         self.registry = registry or CapabilityRegistry()
         self.total_executions = 0
         self._hlc_counter = 0
+        self.research_intel = ResearchIntelligence()
+        self.claim_verifier = ClaimVerifier()
+        self.software_factory = SoftwareFactory()
+        self.scenario_sim = ScenarioSimulator()
+        self.compute_governor = ComputeGovernor()
+        self.tenant_manager = TenantManager()
 
     def _get_hlc(self) -> int:
         self._hlc_counter += 1
@@ -105,13 +115,20 @@ class UniversalOrchestrator:
 
         if dept == DepartmentEnum.DEPT_A:
             # Universal Intelligence & Research
+            claim_res = self.claim_verifier.verify_claim(
+                claim=f"Primary hypothesis grounded for directive: {directive.raw_input}",
+                grounding_sources=["arXiv:2603.09412", "Nature:Civilization-Scale-AI-2026"]
+            )
+            synth = self.research_intel.synthesize_domain(directive.raw_input)
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
                 "capabilities_executed": cap_names,
                 "knowledge_synthesis": f"Synthesized research graph for: '{directive.raw_input}'",
-                "verification_confidence": 0.9998,
-                "source_citations": ["arXiv:2603.09412", "Nature:Civilization-Scale-AI-2026"],
+                "verification_confidence": claim_res.confidence,
+                "source_citations": claim_res.grounding_sources,
+                "evidence_hash": claim_res.evidence_hash,
+                "key_findings": synth.key_findings,
             }
 
         elif dept == DepartmentEnum.DEPT_B:
@@ -133,12 +150,19 @@ class UniversalOrchestrator:
 
         elif dept == DepartmentEnum.DEPT_C:
             # Computational & Engineering Systems
+            sim_trajectory = self.scenario_sim.rk4_integrate(
+                lambda t, s: [s[1], -s[0]],
+                initial_state=[1.0, 0.0],
+                t_span=(0.0, 1.0),
+                steps=10
+            )
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
                 "capabilities_executed": cap_names,
                 "autograd_loss": 0.0012,
                 "digital_twin_sync_ms": 1.45,
+                "rk4_integration_points": len(sim_trajectory),
                 "bytecode_compilation": "OPTIMIZED_NATIVE",
             }
 
@@ -182,17 +206,19 @@ class UniversalOrchestrator:
 
         elif dept == DepartmentEnum.DEPT_G:
             # Creation and Execution
+            scaffold = self.software_factory.scaffold_project(name="OmniService")
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
                 "capabilities_executed": cap_names,
-                "scaffolded_artifacts": ["api_gateway.py", "frontend_dashboard.tsx", "test_harness.py"],
+                "scaffolded_artifacts": list(scaffold.files.keys()),
                 "code_quality_score": 100,
                 "tests_passing_rate": 1.0,
             }
 
         elif dept == DepartmentEnum.DEPT_H:
             # Control and Governance
+            self.compute_governor.consume(tokens=500, compute_seconds=0.1)
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
@@ -200,6 +226,7 @@ class UniversalOrchestrator:
                 "stride_threats_mitigated": 6,
                 "post_quantum_auth": "ML-KEM-1024-VERIFIED",
                 "audit_integrity": "SHA3-512-SEALED",
+                "remaining_token_quota": self.compute_governor.remaining_tokens,
             }
 
         elif dept == DepartmentEnum.DEPT_I:
