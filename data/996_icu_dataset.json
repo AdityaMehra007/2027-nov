@@ -1,0 +1,5229 @@
+{
+  "metadata": {
+    "source": "996.ICU",
+    "repository": "https://github.com/996icu/996.ICU",
+    "license": "Anti-996 License 1.0 (Draft)"
+  },
+  "stats": {
+    "active_blacklisted_companies": 235,
+    "canceled_blacklisted_companies": 6,
+    "whitelisted_wlb_companies": 10,
+    "remote_friendly_companies": 3,
+    "anti996_licensed_projects": 160,
+    "community_proposals": 6,
+    "top_blacklist_cities": {
+      "北京": 58,
+      "深圳": 33,
+      "上海": 29,
+      "杭州": 16,
+      "成都": 9,
+      "广州": 9,
+      "天津": 7,
+      "武汉": 7,
+      "南京": 6,
+      "大连": 5
+    },
+    "top_whitelist_cities": {
+      "北京": 3,
+      "上海": 2,
+      "杭州": 1,
+      "成都": 1,
+      "深圳": 1,
+      "长沙": 1,
+      "北京, 西安": 1
+    },
+    "schedule_patterns": {
+      "Unpaid Mandatory Overtime": 1,
+      "Alternating 6-day (大小周)": 30,
+      "996 Standard (72h/wk)": 121,
+      "11-11-6 / Two-Shift Extreme": 1,
+      "Other 6-day Schedules (966/10106)": 16,
+      "997 (7 Days/Week)": 5,
+      "Custom Excessive Overtime": 61
+    }
+  },
+  "active_blacklist": [
+    {
+      "city": "杭州",
+      "company_name": "彩讯股份",
+      "company_url": "https://www.richinfo.cn/",
+      "date": "2025年01月",
+      "schedule": "十年社保只有五天年假(严重违法)，每月义务加班4.5天不等，绩效按加班时长排",
+      "evidence": "[年假01](img/caixun01.png)、[年假02](img/caixun02.png)、[无偿加班](img/caixun03.png)",
+      "evidence_links": [
+        {
+          "text": "年假01",
+          "url": "img/caixun01.png"
+        },
+        {
+          "text": "年假02",
+          "url": "img/caixun02.png"
+        },
+        {
+          "text": "无偿加班",
+          "url": "img/caixun03.png"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "云账户",
+      "company_url": "https://www.yunzhanghu.com/",
+      "date": "2019年6月",
+      "schedule": "大小周",
+      "evidence": "[公司邮件](https://i.loli.net/2021/08/22/PKcnGhmfQ64OT18.png)",
+      "evidence_links": [
+        {
+          "text": "公司邮件",
+          "url": "https://i.loli.net/2021/08/22/PKcnGhmfQ64OT18.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "中国农业银行研发中心",
+      "company_url": "http://www.abchina.com/cn/",
+      "date": "2015年1月",
+      "schedule": "996无偿加班，降薪",
+      "evidence": "[脉脉员工发多个帖子1300+评论](https://maimai.cn/web/gossip_detail?src=app&webid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlZ2lkIjoiNzlhYTRlOWIwYTIxMTFlYzg4NTBlNDQzNGIyZmE4ODgiLCJ1IjoyMjU2OTYxNTcsImlkIjoyOTM1MjMxOH0.Hrz8kApYUk4jt8-AG8daEbT7s6Dy6jvX56m3YNVVblo&share_channel=2&_share_channel=wechat) / [帖子2](https://maimai.cn/web/gossip_detail?src=app&webid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlZ2lkIjoiZGM0MmFkYmQwYmJhMTFlY2JkZTZlNDQzNGIyZmE4ODgiLCJ1Ijo3NzA0NDc0MSwiaWQiOjI5MzYwODA2fQ._s1E-UBE0b_BIyDjJJOqYBU6UOnHMNO3F6QERm-K3qw&share_channel=2&_share_channel=wechat) / [知乎帖子](https://www.zhihu.com/question/484172369?utm_source=wechat_session&utm_medium=social&utm_oi=1101404494474088448&utm_content=group1_supplementQuestions&utm_campaign=shareopn)",
+      "evidence_links": [
+        {
+          "text": "脉脉员工发多个帖子1300+评论",
+          "url": "https://maimai.cn/web/gossip_detail?src=app&webid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlZ2lkIjoiNzlhYTRlOWIwYTIxMTFlYzg4NTBlNDQzNGIyZmE4ODgiLCJ1IjoyMjU2OTYxNTcsImlkIjoyOTM1MjMxOH0.Hrz8kApYUk4jt8-AG8daEbT7s6Dy6jvX56m3YNVVblo&share_channel=2&_share_channel=wechat"
+        },
+        {
+          "text": "帖子2",
+          "url": "https://maimai.cn/web/gossip_detail?src=app&webid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlZ2lkIjoiZGM0MmFkYmQwYmJhMTFlY2JkZTZlNDQzNGIyZmE4ODgiLCJ1Ijo3NzA0NDc0MSwiaWQiOjI5MzYwODA2fQ._s1E-UBE0b_BIyDjJJOqYBU6UOnHMNO3F6QERm-K3qw&share_channel=2&_share_channel=wechat"
+        },
+        {
+          "text": "知乎帖子",
+          "url": "https://www.zhihu.com/question/484172369?utm_source=wechat_session&utm_medium=social&utm_oi=1101404494474088448&utm_content=group1_supplementQuestions&utm_campaign=shareopn"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "百安居",
+      "company_url": "https://www.bthome.com/",
+      "date": "2019年6月",
+      "schedule": "996",
+      "evidence": "领导口头描述",
+      "evidence_links": []
+    },
+    {
+      "city": "上海",
+      "company_name": "拼多多",
+      "company_url": "https://www.pinduoduo.com//",
+      "date": "2019年2月",
+      "schedule": "11116、两班倒",
+      "evidence": "[996还不敷，拼多多又玩两班倒，员工大喊：比富士康还狠](http://www.taobao92.com/thread-1313-1-1.html), [如何看待网传拼多多员工加班后猝死一事？拼多多需要承担哪些责任？](https://www.zhihu.com/question/437702180)",
+      "evidence_links": [
+        {
+          "text": "996还不敷，拼多多又玩两班倒，员工大喊：比富士康还狠",
+          "url": "http://www.taobao92.com/thread-1313-1-1.html"
+        },
+        {
+          "text": "如何看待网传拼多多员工加班后猝死一事？拼多多需要承担哪些责任？",
+          "url": "https://www.zhihu.com/question/437702180"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "盛赫游戏",
+      "company_url": "http://www.shengheyouxi.com",
+      "date": "2019年3月",
+      "schedule": "大小周",
+      "evidence": "[boss直聘](https://www.zhipin.com/gongsi/c57418b66b0cf3bf0nd52928.html?ka=brand_list_company_9)",
+      "evidence_links": [
+        {
+          "text": "boss直聘",
+          "url": "https://www.zhipin.com/gongsi/c57418b66b0cf3bf0nd52928.html?ka=brand_list_company_9"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "砸立",
+      "company_url": "https://m.eyee.com/",
+      "date": "2019年1月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5728610tl526.html?ka=review-label2)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5728610tl526.html?ka=review-label2"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "游族网络",
+      "company_url": "https://www.youzu.com/",
+      "date": "2018年3月",
+      "schedule": "996",
+      "evidence": "[你为什么从游族离职?-知乎](https://www.zhihu.com/question/22411680?sort=created)",
+      "evidence_links": [
+        {
+          "text": "你为什么从游族离职?-知乎",
+          "url": "https://www.zhihu.com/question/22411680?sort=created"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "蝴蝶互动",
+      "company_url": "http://hoodinn.hgame.com/default/index",
+      "date": "2019年2月",
+      "schedule": "966",
+      "evidence": "[知乎：如何评价蝴蝶互动？](https://www.zhihu.com/question/40858342/answer/616999472) / [聊天记录截图](img/蝴蝶互动-聊天记录.png) / ([所受委>托资料-0](img/蝴蝶互动-报告委托截图-0.jpg)  [所受委托资料-1](img/蝴蝶互动-报告委托截图-1.jpg))",
+      "evidence_links": [
+        {
+          "text": "知乎：如何评价蝴蝶互动？",
+          "url": "https://www.zhihu.com/question/40858342/answer/616999472"
+        },
+        {
+          "text": "聊天记录截图",
+          "url": "img/蝴蝶互动-聊天记录.png"
+        },
+        {
+          "text": "所受委>托资料-0",
+          "url": "img/蝴蝶互动-报告委托截图-0.jpg"
+        },
+        {
+          "text": "所受委托资料-1",
+          "url": "img/蝴蝶互动-报告委托截图-1.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海联影医疗科技有限公司",
+      "company_url": "https://www.united-imaging.com/cn/home/",
+      "date": "2019年4月4日",
+      "schedule": "996、无加班费",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6045694.html)、 [CSDN](https://bbs.csdn.net/topics/380214818)、[看准网](https://www.kanzhun.com/pl6212987.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6045694.html"
+        },
+        {
+          "text": "CSDN",
+          "url": "https://bbs.csdn.net/topics/380214818"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6212987.html"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "依图网络科技有限公司",
+      "company_url": "http://www.yitutech.com/",
+      "date": "2019年4月5日",
+      "schedule": "996",
+      "evidence": "[知乎](https://www.zhihu.com/question/300132949/answer/606529193)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/300132949/answer/606529193"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "饿了么",
+      "company_url": "https://www.ele.me/",
+      "date": "2019年4月7日",
+      "schedule": "996 or 997",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1879439.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1879439.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "德邦物流",
+      "company_url": "https://www.deppon.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr16378tl56.html?ka=review-label9)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr16378tl56.html?ka=review-label9"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "兴业数字金融服务",
+      "company_url": "www.cibfintech.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr6355543tl526.html?ka=review-label4)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr6355543tl526.html?ka=review-label4"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "小红书",
+      "company_url": "https://www.xiaohongshu.com/",
+      "date": "2019年4月7日",
+      "schedule": "1095",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1950189.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1950189.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "依图科技",
+      "company_url": "https://www.yitutech.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1669492tl526.html?ka=review-label13)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1669492tl526.html?ka=review-label13"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海壹米滴答供应链管理有限公司",
+      "company_url": "https://www.yimidida.com",
+      "date": "2019年4月8日",
+      "schedule": "大小周",
+      "evidence": "[壹米滴答日历](img/yimidida.jpeg)",
+      "evidence_links": [
+        {
+          "text": "壹米滴答日历",
+          "url": "img/yimidida.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "金杜律师事务所",
+      "company_url": "https://www.kwm.com/zh/cn",
+      "date": "2019年4月8日",
+      "schedule": "早10晚6但基本9点以后下班，周末给任务，请假给任务",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr14366.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr14366.html"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海鱼泡泡信息科技有限公司",
+      "company_url": "https://www.yupaopao.com//",
+      "date": "2018年12月",
+      "schedule": "996",
+      "evidence": "[脉脉](https://maimai.cn/web/gossip_detail?encode_id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA4NjEwNjcsImlhdCI6MTU1NDk1MDU0OX0.Hd0uP3y9GMnN1OA8fhV0xvCQKT-GBQ33BzUmT1CCavk)",
+      "evidence_links": [
+        {
+          "text": "脉脉",
+          "url": "https://maimai.cn/web/gossip_detail?encode_id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA4NjEwNjcsImlhdCI6MTU1NDk1MDU0OX0.Hd0uP3y9GMnN1OA8fhV0xvCQKT-GBQ33BzUmT1CCavk"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "掌门一对一教育有限公司",
+      "company_url": "https://www.zhangmen.com/",
+      "date": "2019年4月",
+      "schedule": "大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/pl7018849.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7018849.html"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "七牛云",
+      "company_url": "https://www.qiniu.com/",
+      "date": "2018年11月",
+      "schedule": "995、裁员",
+      "evidence": "[Boss直聘](img/七牛云995.jpg)、[脉脉](img/七牛云裁员1.jpg)、[脉脉](img/七牛云裁员2.jpg)、[脉脉](img/七牛云裁员3.jpg)、[看准网](https://www.kanzhun.com/pl7147841.html?ka=comreview-result1)",
+      "evidence_links": [
+        {
+          "text": "Boss直聘",
+          "url": "img/七牛云995.jpg"
+        },
+        {
+          "text": "脉脉",
+          "url": "img/七牛云裁员1.jpg"
+        },
+        {
+          "text": "脉脉",
+          "url": "img/七牛云裁员2.jpg"
+        },
+        {
+          "text": "脉脉",
+          "url": "img/七牛云裁员3.jpg"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7147841.html?ka=comreview-result1"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "邻趣网络有限公司",
+      "company_url": "https://linjia.me",
+      "date": "2018年9月",
+      "schedule": "995",
+      "evidence": "七点左右下班要在群里报备 [工作群截图1](img/邻趣工作群截图.jpeg ) [工作群截图2](img/邻趣工作群截图2.jpeg) [工作群截图3](img/邻趣工作群截图3.jpeg)",
+      "evidence_links": [
+        {
+          "text": "工作群截图1",
+          "url": "img/邻趣工作群截图.jpeg"
+        },
+        {
+          "text": "工作群截图2",
+          "url": "img/邻趣工作群截图2.jpeg"
+        },
+        {
+          "text": "工作群截图3",
+          "url": "img/邻趣工作群截图3.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "东莞",
+      "company_name": "步步高",
+      "company_url": "www.gdbbk.com/",
+      "date": "2019年4月7日",
+      "schedule": "8106 ！",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr3153tl56.html?ka=review-label12)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr3153tl56.html?ka=review-label12"
+        }
+      ]
+    },
+    {
+      "city": "佛山",
+      "company_name": "美的集团",
+      "company_url": "https://www.midea.cn/",
+      "date": "2019年4月7日",
+      "schedule": "996大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr7884tl56.html?ka=review-label14)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr7884tl56.html?ka=review-label14"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "京东",
+      "company_url": "https://www.jd.com",
+      "date": "2019年3月",
+      "schedule": "995",
+      "evidence": "[京东回应995工作制：不会强制要求 但要全情投入](http://tech.163.com/19/0312/13/EA2QGIOK00097U7R.html)<br>[刘强东内部邮件称要淘汰或协商解决掉“三种人”](https://i.loli.net/2019/04/02/5ca2e8727f213.jpg)",
+      "evidence_links": [
+        {
+          "text": "京东回应995工作制：不会强制要求 但要全情投入",
+          "url": "http://tech.163.com/19/0312/13/EA2QGIOK00097U7R.html"
+        },
+        {
+          "text": "刘强东内部邮件称要淘汰或协商解决掉“三种人”",
+          "url": "https://i.loli.net/2019/04/02/5ca2e8727f213.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "58同城",
+      "company_url": "https://www.58.com",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[58同城实行全员996工作制 被指意图逼员工主动辞职](http://finance.cnr.cn/gs/20160901/t20160901_523105136.shtml)<br>[看准网](https://www.kanzhun.com/gsr10329.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "58同城实行全员996工作制 被指意图逼员工主动辞职",
+          "url": "http://finance.cnr.cn/gs/20160901/t20160901_523105136.shtml"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr10329.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "途家网",
+      "company_url": "https://www.tujia.com",
+      "date": "2017年12月",
+      "schedule": "897",
+      "evidence": "[暴力裁员、996加班、发感冒冲剂、搭睡觉帐篷、诉讼材料](https://www.tujia.xyz/)",
+      "evidence_links": [
+        {
+          "text": "暴力裁员、996加班、发感冒冲剂、搭睡觉帐篷、诉讼材料",
+          "url": "https://www.tujia.xyz/"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "每日优鲜",
+      "company_url": "https://www.missfresh.cn/",
+      "date": "-----",
+      "schedule": "007/996",
+      "evidence": "[app更新记录,大肆鼓吹996](img/每日优鲜鼓吹996.png)",
+      "evidence_links": [
+        {
+          "text": "app更新记录,大肆鼓吹996",
+          "url": "img/每日优鲜鼓吹996.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "字节跳动",
+      "company_url": "https://bytedance.com",
+      "date": "2017年7月",
+      "schedule": "996",
+      "evidence": "[看准网1](https://www.kanzhun.com/gsr5622411tl56.html)、[看准网2](https://www.kanzhun.com/pl6583181.html)、[搜狐](https://www.sohu.com/a/256795805_231667)",
+      "evidence_links": [
+        {
+          "text": "看准网1",
+          "url": "https://www.kanzhun.com/gsr5622411tl56.html"
+        },
+        {
+          "text": "看准网2",
+          "url": "https://www.kanzhun.com/pl6583181.html"
+        },
+        {
+          "text": "搜狐",
+          "url": "https://www.sohu.com/a/256795805_231667"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "用友",
+      "company_url": "http://www.yonyou.com/",
+      "date": "2018年12月",
+      "schedule": "997",
+      "evidence": "[在用友工作是怎样一番体验？ - 知乎](https://www.zhihu.com/question/26683235)",
+      "evidence_links": [
+        {
+          "text": "在用友工作是怎样一番体验？ - 知乎",
+          "url": "https://www.zhihu.com/question/26683235"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "神策数据",
+      "company_url": "https://www.sensorsdata.cn/",
+      "date": "2019年3月",
+      "schedule": "大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6409927.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6409927.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "中软国际",
+      "company_url": "http://www.chinasofti.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[智联招聘](https://jobs.zhaopin.com/CC508620126J00303154805.htm)",
+      "evidence_links": [
+        {
+          "text": "智联招聘",
+          "url": "https://jobs.zhaopin.com/CC508620126J00303154805.htm"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "柯莱特",
+      "company_url": "http://www.camelotchina.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[智联招聘](https://jobs.zhaopin.com/CC120179637J00117070515.htm)",
+      "evidence_links": [
+        {
+          "text": "智联招聘",
+          "url": "https://jobs.zhaopin.com/CC120179637J00117070515.htm"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "高伟达",
+      "company_url": "http://www.git.com.cn/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[智联招聘](https://jobs.zhaopin.com/CC120702341J00114014810.htm)",
+      "evidence_links": [
+        {
+          "text": "智联招聘",
+          "url": "https://jobs.zhaopin.com/CC120702341J00114014810.htm"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "霁云科技",
+      "company_url": "https://xin.baidu.com/detail/compinfo?pid=xlTM-TogKuTwdr2zNtf0Zpjhxx2gQd9FZQmd&from=ps",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[boss直聘](https://www.zhipin.com/gongsi/2c08264377f4a5c61nx739i-Fw~~.html?ka=search_rcmd_company_2c08264377f4a5c61nx739i-Fw~~)",
+      "evidence_links": [
+        {
+          "text": "boss直聘",
+          "url": "https://www.zhipin.com/gongsi/2c08264377f4a5c61nx739i-Fw~~.html?ka=search_rcmd_company_2c08264377f4a5c61nx739i-Fw~~"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京关键科技股份有限公司",
+      "company_url": "http://www.keyware.com.cn/",
+      "date": "2019年3月",
+      "schedule": "986",
+      "evidence": "986且没加班费不能换休[图片-1](img/keyware1.jpg)<br>[图片-2](img/keyware2.jpg)",
+      "evidence_links": [
+        {
+          "text": "图片-1",
+          "url": "img/keyware1.jpg"
+        },
+        {
+          "text": "图片-2",
+          "url": "img/keyware2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "首约科技（北京）有限公司",
+      "company_url": "https://www.01zhuanche.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "工作日无加班费无调休、加班时长作为KPI评估标准",
+      "evidence_links": []
+    },
+    {
+      "city": "北京",
+      "company_name": "Boss直聘(北京华品博睿网络技术有限公司)",
+      "company_url": "https://www.zhipin.com/",
+      "date": "2019年4月2日",
+      "schedule": "大小周",
+      "evidence": "[OFFER邮件(已处理图片和关键字过滤)](https://upload.cc/i1/2019/04/03/1wfI7o.png) + 亲历",
+      "evidence_links": [
+        {
+          "text": "OFFER邮件(已处理图片和关键字过滤)",
+          "url": "https://upload.cc/i1/2019/04/03/1wfI7o.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京游奕互动软件有限公司",
+      "company_url": "http://www.uegame.com/",
+      "date": "2016年3月",
+      "schedule": "986",
+      "evidence": "加班不给钱的那种，用这个来卡大家项目上线分红[打卡记录](img/yyhd.png)",
+      "evidence_links": [
+        {
+          "text": "打卡记录",
+          "url": "img/yyhd.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "小米",
+      "company_url": "https://www.mi.com",
+      "date": "2019年4月7日",
+      "schedule": "10106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr347791.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr347791.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "亚信(AsiaInfo)",
+      "company_url": "https://www.asiainfo.com",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr19887tl56.html?ka=review-label13)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr19887tl56.html?ka=review-label13"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "猎聘网",
+      "company_url": "https://www.liepin.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1087027.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1087027.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "百度",
+      "company_url": "https://www.baidu.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr11514tl56.html?ka=review-label17)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr11514tl56.html?ka=review-label17"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "便利蜂",
+      "company_url": "https://www.bianlifeng.com/",
+      "date": "2019年4月7日",
+      "schedule": "10105",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr6351491tl526.html?ka=review-label8)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr6351491tl526.html?ka=review-label8"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "VIPKID",
+      "company_url": "https://www.vipkid.com.cn/",
+      "date": "2019年4月7日",
+      "schedule": "10106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5616047tl56.html?ka=review-label14)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5616047tl56.html?ka=review-label14"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "天眼查",
+      "company_url": "https://www.tianyancha.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5681112tl526.html?ka=review-label4)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5681112tl526.html?ka=review-label4"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "去哪儿网",
+      "company_url": "https://www.qunar.com/",
+      "date": "2019年4月7日",
+      "schedule": "10106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr61692tl56.html?ka=review-label13)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr61692tl56.html?ka=review-label13"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "云鸟科技",
+      "company_url": "https://www.yunniao.cn/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr2477689tl56.html?ka=review-label3)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr2477689tl56.html?ka=review-label3"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "iCourt",
+      "company_url": "www.icourt.cc/",
+      "date": "2019年4月7日",
+      "schedule": "996 or 10116",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5731719tl526.html?ka=review-label5)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5731719tl526.html?ka=review-label5"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "初见科技",
+      "company_url": "www.chujian.com/",
+      "date": "2019年4月7日",
+      "schedule": "995",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr2031621.html?ka=com1-review)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr2031621.html?ka=com1-review"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "作业帮",
+      "company_url": "https://www.zybang.com/",
+      "date": "2019年4月7日",
+      "schedule": "大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6288762.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6288762.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "数美科技",
+      "company_url": "https://www.ishumei.com/",
+      "date": "2019年4月8日",
+      "schedule": "大小周，加班",
+      "evidence": "[知乎](https://www.zhihu.com/question/290696102)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/290696102"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "快方送药",
+      "company_url": "http://www.kfyao.com/",
+      "date": "已经施行一段时间了",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl5675303.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5675303.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "快陪练",
+      "company_url": "https://www.kuaipeilian.com",
+      "date": "2019年4月8日",
+      "schedule": "996",
+      "evidence": "[发言为其招聘经理](https://pic.superbed.cn/item/5cad617f3a213b0417f7cc2a)",
+      "evidence_links": [
+        {
+          "text": "发言为其招聘经理",
+          "url": "https://pic.superbed.cn/item/5cad617f3a213b0417f7cc2a"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "广东虚拟现实科技有限公司(Ximmerse)",
+      "company_url": "https://www.ximmerse.com/",
+      "date": "2016年06月1日",
+      "schedule": "996",
+      "evidence": "[邮件通知](img/Ximmerse考勤邮件.png) [制度截图](img/Ximmerse制度方案.png)",
+      "evidence_links": [
+        {
+          "text": "邮件通知",
+          "url": "img/Ximmerse考勤邮件.png"
+        },
+        {
+          "text": "制度截图",
+          "url": "img/Ximmerse制度方案.png"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都二次元动漫有限公司",
+      "company_url": "https://www.kanman.com/",
+      "date": "2018年12月1日",
+      "schedule": "996",
+      "evidence": "[图片-1](img/ecy1.jpg) [图片-2](img/ecy12.jpg)[图片-3](img/ecy4.jpg) + 亲历",
+      "evidence_links": [
+        {
+          "text": "图片-1",
+          "url": "img/ecy1.jpg"
+        },
+        {
+          "text": "图片-2",
+          "url": "img/ecy12.jpg"
+        },
+        {
+          "text": "图片-3",
+          "url": "img/ecy4.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "东华软件股份公司",
+      "company_url": "http://www.dhcc.com.cn/",
+      "date": "2018年2月",
+      "schedule": "996",
+      "evidence": "亲历 [百度口碑](https://koubei.baidu.com/s/xt.dhcc.com.cn?from=ps_pc1)",
+      "evidence_links": [
+        {
+          "text": "百度口碑",
+          "url": "https://koubei.baidu.com/s/xt.dhcc.com.cn?from=ps_pc1"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "易思维(杭州/天津)科技有限公司",
+      "company_url": "http://www.tjisv.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6228054.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6228054.html"
+        }
+      ]
+    },
+    {
+      "city": "长沙",
+      "company_name": "湖南创发科技有限公司",
+      "company_url": "http://www.transfar.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "亲历 [看准网](https://www.kanzhun.com/gso238619.html?ka=com1-title) [博客园](http://www.cnblogs.com/rawman/p/3401579.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso238619.html?ka=com1-title"
+        },
+        {
+          "text": "博客园",
+          "url": "http://www.cnblogs.com/rawman/p/3401579.html"
+        }
+      ]
+    },
+    {
+      "city": "珠海",
+      "company_name": "金山软件",
+      "company_url": "http://www.kingsoft.com/",
+      "date": "2017年7月12日",
+      "schedule": "996/9106",
+      "evidence": "[图片](img/金山软件-9106.png)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/金山软件-9106.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "信美人寿相互保险社",
+      "company_url": "https://www.trustlife.com/",
+      "date": "2019年",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5723919.html?ka=com-blocker1-review)、[看准网](https://www.kanzhun.com/gsr6603074.html?ka=com1-review)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5723919.html?ka=com-blocker1-review"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr6603074.html?ka=com1-review"
+        }
+      ]
+    },
+    {
+      "city": "太原",
+      "company_name": "辉讯网络技术有限公司",
+      "company_url": "http://www.7zy.net/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "亲历 [考勤](https://i.loli.net/2019/04/11/5cae537484b5d.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤",
+          "url": "https://i.loli.net/2019/04/11/5cae537484b5d.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海基分文化传播有限公司",
+      "company_url": "https://www.qutoutiao.net//",
+      "date": "2019年12月",
+      "schedule": "995+大小周",
+      "evidence": "[趣头条,米读小说,萌推,比格基地等](https://www.qutoutiao.net/)",
+      "evidence_links": [
+        {
+          "text": "趣头条,米读小说,萌推,比格基地等",
+          "url": "https://www.qutoutiao.net/"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海鱼泡泡信息科技有限公司",
+      "company_url": "https://www.yupaopao.com//",
+      "date": "2018年12月",
+      "schedule": "996",
+      "evidence": "[脉脉](https://maimai.cn/web/gossip_detail?encode_id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA4NjEwNjcsImlhdCI6MTU1NDk1MDU0OX0.Hd0uP3y9GMnN1OA8fhV0xvCQKT-GBQ33BzUmT1CCavk)",
+      "evidence_links": [
+        {
+          "text": "脉脉",
+          "url": "https://maimai.cn/web/gossip_detail?encode_id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA4NjEwNjcsImlhdCI6MTU1NDk1MDU0OX0.Hd0uP3y9GMnN1OA8fhV0xvCQKT-GBQ33BzUmT1CCavk"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "武汉星云海数字科技股份有限公司",
+      "company_url": "http://www.scotec.net/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[图片](img/hxqc1.jpg)、[图片](img/hxqc2.jpg)、[图片](img/hxqc3.jpg)、[看准网](https://www.kanzhun.com/gso5662099.html)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/hxqc1.jpg"
+        },
+        {
+          "text": "图片",
+          "url": "img/hxqc2.jpg"
+        },
+        {
+          "text": "图片",
+          "url": "img/hxqc3.jpg"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso5662099.html"
+        }
+      ]
+    },
+    {
+      "city": "福建",
+      "company_name": "福建浔兴拉链科技股份有限公司",
+      "company_url": "http://www.sbszipper.com/",
+      "date": "2019年6月17日",
+      "schedule": "单休",
+      "evidence": "亲历+[大小休改单休！](img/sbs-大小周改单休.png)",
+      "evidence_links": [
+        {
+          "text": "大小休改单休！",
+          "url": "img/sbs-大小周改单休.png"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "掌门一对一教育有限公司",
+      "company_url": "https://www.zhangmen.com/",
+      "date": "2019年4月",
+      "schedule": "大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/pl7018849.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7018849.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京中广创思文化传播有限公司",
+      "company_url": "http://www.cbct.cn/",
+      "date": "2019年4月",
+      "schedule": "996/9107",
+      "evidence": "[图片](img/北京中广创思9107钉钉截图.jpg)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/北京中广创思9107钉钉截图.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "易车网",
+      "company_url": "http://beijing.bitauto.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[办公软件截图](img/易车996.png )、[脉脉](img/易车脉脉.png)",
+      "evidence_links": [
+        {
+          "text": "办公软件截图",
+          "url": "img/易车996.png"
+        },
+        {
+          "text": "脉脉",
+          "url": "img/易车脉脉.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京今始科技有限公司",
+      "company_url": "https://linkface.cn/",
+      "date": "2019年3月",
+      "schedule": "996、恶意裁员",
+      "evidence": "[邮件截图](img/linkface-996.jpg )、[知乎](https://www.zhihu.com/question/300467880/answer/532121441)",
+      "evidence_links": [
+        {
+          "text": "邮件截图",
+          "url": "img/linkface-996.jpg"
+        },
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/300467880/answer/532121441"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京数码视讯科技股份有限公司",
+      "company_url": "http://www.sumavision.com/",
+      "date": "2011年4月",
+      "schedule": "996，大小周",
+      "evidence": "亲历 [看准网](https://www.kanzhun.com/pl474513.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl474513.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京声智科技有限公司",
+      "company_url": "http://www.soundai.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网：包括 HR 全员996](https://www.kanzhun.com/gsr5680797tl526.html?ka=review-label1)",
+      "evidence_links": [
+        {
+          "text": "看准网：包括 HR 全员996",
+          "url": "https://www.kanzhun.com/gsr5680797tl526.html?ka=review-label1"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "蛋壳公寓",
+      "company_url": "https://www.danke.com/",
+      "date": "2018年7月",
+      "schedule": "10106/10107",
+      "evidence": "[看准网](https://www.kanzhun.com/gsm5710300.html?ka=com-blocker1-interview#co_tab%EF%BC%89)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsm5710300.html?ka=com-blocker1-interview#co_tab%EF%BC%89"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京掌握时代科技股份有限公司",
+      "company_url": "http://www.mastertimes.net/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl7093100.html?ka=review-item-ckqw)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7093100.html?ka=review-item-ckqw"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "快手",
+      "company_url": "https://kuaishou.com",
+      "date": "2019年6月18日",
+      "schedule": "996",
+      "evidence": "[腾讯新闻](https://new.qq.com/omn/20190619/20190619A0NKNM.html)",
+      "evidence_links": [
+        {
+          "text": "腾讯新闻",
+          "url": "https://new.qq.com/omn/20190619/20190619A0NKNM.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "51talk",
+      "company_url": "http://www.51talk.com/",
+      "date": "2019年4月",
+      "schedule": "早11晚10一周6天，领导不高兴就不放假或者让你晚上12点走",
+      "evidence": "[看准网](https://www.kanzhun.com/question/769860.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/question/769860.html"
+        }
+      ]
+    },
+    {
+      "city": "南京",
+      "company_name": "苏宁",
+      "company_url": "http://www.suning.com",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[如何评价今年苏宁正式实行996工作制?](https://www.zhihu.com/question/314152843/answer/613149536)",
+      "evidence_links": [
+        {
+          "text": "如何评价今年苏宁正式实行996工作制?",
+          "url": "https://www.zhihu.com/question/314152843/answer/613149536"
+        }
+      ]
+    },
+    {
+      "city": "厦门",
+      "company_name": "4399游戏",
+      "company_url": "www.4399.com/",
+      "date": "2019年4月7日",
+      "schedule": "10106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr3284tl56.html?ka=review-label13)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr3284tl56.html?ka=review-label13"
+        }
+      ]
+    },
+    {
+      "city": "厦门",
+      "company_name": "联生活科技集团",
+      "company_url": "https://www.lsh1688.cn/",
+      "date": "2021年5月29日",
+      "schedule": "大小周+经常加班+拖欠工资+不缴纳一金",
+      "evidence": "[BOSS直聘](https://www.zhipin.com/gongsi/7fd7ad361f562fae1nZ82Nm4ElY~.html?ka=company-intro)[截图1](img/联生活1.png)[截图2](img/联生活2.png)[截图3](img/联生活3.png)",
+      "evidence_links": [
+        {
+          "text": "BOSS直聘",
+          "url": "https://www.zhipin.com/gongsi/7fd7ad361f562fae1nZ82Nm4ElY~.html?ka=company-intro"
+        },
+        {
+          "text": "截图1",
+          "url": "img/联生活1.png"
+        },
+        {
+          "text": "截图2",
+          "url": "img/联生活2.png"
+        },
+        {
+          "text": "截图3",
+          "url": "img/联生活3.png"
+        }
+      ]
+    },
+    {
+      "city": "嘉兴/广州",
+      "company_name": "蓝鸽集团有限公司",
+      "company_url": "http://www.chinalancoo.com",
+      "date": "2019年4月4日",
+      "schedule": "每月仅加班需满50小时",
+      "evidence": "曾经一个月加班60小时被喝茶、[知乎爆料](https://www.zhihu.com/question/40782949)、[工资中的一半是要靠加班和绩效才能取得](https://tieba.baidu.com/f?kz=4421231059&mo_device=1&ssid=0&from=844b&uid=0&pu=usm@2\\",
+      "evidence_links": [
+        {
+          "text": "知乎爆料",
+          "url": "https://www.zhihu.com/question/40782949"
+        }
+      ]
+    },
+    {
+      "city": "大连",
+      "company_name": "大连东软集团",
+      "company_url": "https://www.neusoft.com/cn/",
+      "date": "2019年4月",
+      "schedule": "9106",
+      "evidence": "[看准网](https://www.kanzhun.com/pl5758283.html?ka=review-item2)、[看准网](https://www.kanzhun.com/pl5892120.html?ka=review-item10)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5758283.html?ka=review-item2"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5892120.html?ka=review-item10"
+        }
+      ]
+    },
+    {
+      "city": "大连",
+      "company_name": "大连同方软银科技股份有限公司",
+      "company_url": "http://www.tfrunning.com.cn",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl5661184.html?ka=review-item6)、[看准网](https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5661184.html?ka=review-item6"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "长城汽车股份有限公司天津园区",
+      "company_url": "http://www.gwm.com.cn/",
+      "date": "2019年3月28日",
+      "schedule": "大小周",
+      "evidence": "[招聘简章](http://www.hljsxy.org.cn/website/sites/common/readwNews.aspx?JpkId=1&id=13289)",
+      "evidence_links": [
+        {
+          "text": "招聘简章",
+          "url": "http://www.hljsxy.org.cn/website/sites/common/readwNews.aspx?JpkId=1&id=13289"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "小黑鱼",
+      "company_url": "https://blackfish.cn",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://m.kanzhun.com/gsr6771936.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://m.kanzhun.com/gsr6771936.html"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "天津天地伟业科技有限公司",
+      "company_url": "http://tideway.com.cn/",
+      "date": "2019年4月8日",
+      "schedule": "强制996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1634154tl56.html?ka=review-label11)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1634154tl56.html?ka=review-label11"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "易思维(杭州/天津)科技有限公司",
+      "company_url": "http://www.tjisv.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6228054.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6228054.html"
+        }
+      ]
+    },
+    {
+      "city": "太原",
+      "company_name": "辉讯网络技术有限公司",
+      "company_url": "http://www.7zy.net/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "亲历 [考勤](https://i.loli.net/2019/04/11/5cae537484b5d.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤",
+          "url": "https://i.loli.net/2019/04/11/5cae537484b5d.jpg"
+        }
+      ]
+    },
+    {
+      "city": "山东淄博",
+      "company_name": "山东兆物网络技术股份有限公司",
+      "company_url": "http://www.imegaware.com/",
+      "date": "2019年4月9日",
+      "schedule": "8106",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6588029.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6588029.html"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "小鹏汽车(XPENG Motors)",
+      "company_url": "http://www.xiaopeng.com/",
+      "date": "2018年",
+      "schedule": "大小周、大会战（996）、各部门的上班时间进行排名",
+      "evidence": "[工作日程安排表](https://raw.githubusercontent.com/xiaopeng996icu/996.ICU/2b01c57202351af334c157361ffe702d42765bbc/blacklist/img/%E5%B0%8F%E9%B9%8F%E6%B1%BD%E8%BD%A6.JPG)",
+      "evidence_links": [
+        {
+          "text": "工作日程安排表",
+          "url": "https://raw.githubusercontent.com/xiaopeng996icu/996.ICU/2b01c57202351af334c157361ffe702d42765bbc/blacklist/img/%E5%B0%8F%E9%B9%8F%E6%B1%BD%E8%BD%A6.JPG"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "鲸鱼游戏",
+      "company_url": "http://www.adjingyu.com/",
+      "date": "2017年3月",
+      "schedule": "996",
+      "evidence": "[考勤](https://raw.githubusercontent.com/xuhaodong/img/master/196803444329033095.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤",
+          "url": "https://raw.githubusercontent.com/xuhaodong/img/master/196803444329033095.jpg"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "多益网络",
+      "company_url": "https://www.duoyi.com",
+      "date": "2018年3月",
+      "schedule": "9106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1365983tl56.html)、[知乎](https://www.zhihu.com/question/22713470/answer/145287600)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1365983tl56.html"
+        },
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/22713470/answer/145287600"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "网易游戏",
+      "company_url": "https://game.163.com/",
+      "date": "2019年4月7日",
+      "schedule": "10106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr15379tl56.html?ka=review-label14)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr15379tl56.html?ka=review-label14"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "三七互娱",
+      "company_url": "www.37wan.net/",
+      "date": "2019年4月7日",
+      "schedule": "9115 9116?",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1906275.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1906275.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "广州创思信息技术有限公司（9377 游戏）",
+      "company_url": "https://www.9377.com",
+      "date": "2019年4月8日",
+      "schedule": "大小周加班",
+      "evidence": "[知乎](https://www.zhihu.com/question/53318899)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/53318899"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "tap4fun",
+      "company_url": "https://www.tap4fun.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr59860tl56.html?ka=review-label15)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr59860tl56.html?ka=review-label15"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都二次元动漫有限公司",
+      "company_url": "https://www.kanman.com/",
+      "date": "2018年12月1日",
+      "schedule": "996",
+      "evidence": "[图片-1](img/ecy1.jpg) [图片-2](img/ecy12.jpg)[图片-3](img/ecy4.jpg) + 亲历",
+      "evidence_links": [
+        {
+          "text": "图片-1",
+          "url": "img/ecy1.jpg"
+        },
+        {
+          "text": "图片-2",
+          "url": "img/ecy12.jpg"
+        },
+        {
+          "text": "图片-3",
+          "url": "img/ecy4.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都索贝数码科技股份有限公司",
+      "company_url": "http://www.sobey.com/",
+      "date": "2019年4月8日",
+      "schedule": "996 无倒休",
+      "evidence": "[看准网](https://www.kanzhun.com/pl7169544.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7169544.html"
+        }
+      ]
+    },
+    {
+      "city": "河北秦皇岛",
+      "company_name": "河北东软软件有限公司",
+      "company_url": "https://www.neuqsoft.com/",
+      "date": "2019年4月",
+      "schedule": "8.30-21,副总亲自回复邮件加班",
+      "evidence": "[邮件截图](img/河北东软软件有限公司申请加班.png),[微信聊天记录](img/neuq_work_overtime_evidence2.jpg),[微信聊天记录2](img/neuq_work_overtime_evidence3.jpg)",
+      "evidence_links": [
+        {
+          "text": "邮件截图",
+          "url": "img/河北东软软件有限公司申请加班.png"
+        },
+        {
+          "text": "微信聊天记录",
+          "url": "img/neuq_work_overtime_evidence2.jpg"
+        },
+        {
+          "text": "微信聊天记录2",
+          "url": "img/neuq_work_overtime_evidence3.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都未知未来科技有限公司",
+      "company_url": "https://cdxfuture.com/xf/",
+      "date": "2018年12月",
+      "schedule": "大小周、拖欠工资，裁员无补偿",
+      "evidence": "[周六加班](img/xf周六加班通知.png)，[提醒补加班](img/xf提醒补加班.png)，[裁员后还拖欠工资](img/xf被裁员拖欠薪资.jpg)，[仲裁书](img/xf劳动仲裁书.jpg)",
+      "evidence_links": [
+        {
+          "text": "周六加班",
+          "url": "img/xf周六加班通知.png"
+        },
+        {
+          "text": "提醒补加班",
+          "url": "img/xf提醒补加班.png"
+        },
+        {
+          "text": "裁员后还拖欠工资",
+          "url": "img/xf被裁员拖欠薪资.jpg"
+        },
+        {
+          "text": "仲裁书",
+          "url": "img/xf劳动仲裁书.jpg"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "阿里巴巴",
+      "company_url": "https://www.alibabagroup.com/",
+      "date": "2018年6月",
+      "schedule": "996",
+      "evidence": "[阿里巴巴的996加班文化，看到这些恐怖数据，你也会辞职！](https://kuaibao.qq.com/s/20180612A1FAPU00)<br>[马云：996是修来的福报! 律师：涉嫌违法](http://m.sohu.com/a/307564633_241241)<br>[马云：后悔忙于工作 没时间陪家人 有来生绝不这样](https://v.qq.com/x/page/h0860wwt0xl.html)",
+      "evidence_links": [
+        {
+          "text": "阿里巴巴的996加班文化，看到这些恐怖数据，你也会辞职！",
+          "url": "https://kuaibao.qq.com/s/20180612A1FAPU00"
+        },
+        {
+          "text": "马云：996是修来的福报! 律师：涉嫌违法",
+          "url": "http://m.sohu.com/a/307564633_241241"
+        },
+        {
+          "text": "马云：后悔忙于工作 没时间陪家人 有来生绝不这样",
+          "url": "https://v.qq.com/x/page/h0860wwt0xl.html"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "蚂蚁金服",
+      "company_url": "https://www.antfin.com/",
+      "date": "2018年11月",
+      "schedule": "9106",
+      "evidence": "[阿里前员工吐槽：从蚂蚁金服离职了，真的拿员工当蚂蚁使](https://t.cj.sina.com.cn/articles/view/6680234487/18e2c49f700100dq3q)",
+      "evidence_links": [
+        {
+          "text": "阿里前员工吐槽：从蚂蚁金服离职了，真的拿员工当蚂蚁使",
+          "url": "https://t.cj.sina.com.cn/articles/view/6680234487/18e2c49f700100dq3q"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "有赞",
+      "company_url": "https://www.youzan.com",
+      "date": "2019年1月",
+      "schedule": "996",
+      "evidence": "[年会成了“鸿门宴”，这家公司“强制996”被员工举报](http://www.linkshop.com.cn/web/archives/2019/418163.shtml)",
+      "evidence_links": [
+        {
+          "text": "年会成了“鸿门宴”，这家公司“强制996”被员工举报",
+          "url": "http://www.linkshop.com.cn/web/archives/2019/418163.shtml"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "智贝科技",
+      "company_url": "https://www.zhipin.com/gongsi/09aefd7a9d507c2f1nd82tu9Ew~~.html",
+      "date": "2019年3月",
+      "schedule": "强制996、歧视程序员",
+      "evidence": "[程序员吐槽：薪资低，996加班无补助，歧视程序员，这hr真乃神人](https://baijiahao.baidu.com/s?id=1627625016599313128)",
+      "evidence_links": [
+        {
+          "text": "程序员吐槽：薪资低，996加班无补助，歧视程序员，这hr真乃神人",
+          "url": "https://baijiahao.baidu.com/s?id=1627625016599313128"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "同花顺",
+      "company_url": "http://www.10jqka.com.cn/",
+      "date": "2018年12月",
+      "schedule": "大小周、加班",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6896401.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6896401.html"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "杭州海康威视数字技术股份有限公司",
+      "company_url": "https://www.hikvision.com/cn/",
+      "date": "2018年",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6448138.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6448138.html"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "浙江大华技术股份有限公司",
+      "company_url": "https://www.dahuatech.com/",
+      "date": "2018年",
+      "schedule": "加班",
+      "evidence": "[职业圈](http://www.7360.cc/Review-80253)，[看准网](https://www.kanzhun.com/pl6360251.html)",
+      "evidence_links": [
+        {
+          "text": "职业圈",
+          "url": "http://www.7360.cc/Review-80253"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6360251.html"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "浙江宇视科技有限公司",
+      "company_url": "http://fenxiao.uniview.com/",
+      "date": "2018年",
+      "schedule": "大小周加班",
+      "evidence": "[看准网](https://www.kanzhun.com/gsmsh10805642.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsmsh10805642.html"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "网易考拉海购",
+      "company_url": "https://www.kaola.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5686940tl526.html?ka=review-label14)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5686940tl526.html?ka=review-label14"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "盘石信息科技有限公司",
+      "company_url": "http://www.adyun.com/zh-cn/index.html",
+      "date": "2018年11月12日",
+      "schedule": "996/9106",
+      "evidence": "[图片](img/浙江杭州盘石信息技术有限公司996制度.png)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/浙江杭州盘石信息技术有限公司996制度.png"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "悠书网络科技有限公司",
+      "company_url": "http://www.77ad.com/",
+      "date": "2019年5月到7月底",
+      "schedule": "9 6.5 5/每周强制加班8小时,每月不达标辞退",
+      "evidence": "[内部截图](img/悠书科技网络有限公司1.jpg)、[内部截图](img/悠书科技网络有限公司2.jpg)",
+      "evidence_links": [
+        {
+          "text": "内部截图",
+          "url": "img/悠书科技网络有限公司1.jpg"
+        },
+        {
+          "text": "内部截图",
+          "url": "img/悠书科技网络有限公司2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "武汉小码联城科技有限公司",
+      "company_url": "http://www.i-xiaoma.com",
+      "date": "2019年4月22日",
+      "schedule": "995",
+      "evidence": "年前年后各裁员一波<br>[钉钉截图](img/小码联城加班.png)",
+      "evidence_links": [
+        {
+          "text": "钉钉截图",
+          "url": "img/小码联城加班.png"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "氪细胞",
+      "company_url": "http://www.timing360.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "名义上996，实际下班时间更晚<br>[考勤日历](img/timing360-0823.jpg)<br>[考勤规则](img/timing360-1201.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤日历",
+          "url": "img/timing360-0823.jpg"
+        },
+        {
+          "text": "考勤规则",
+          "url": "img/timing360-1201.jpg"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "武汉精臣智慧标识科技有限公司",
+      "company_url": "http://www.jc2008.com/",
+      "date": "2018年9月",
+      "schedule": "966",
+      "evidence": "[考勤日历](img/精臣智慧-打卡日历.jpg)<br>[考勤制度-1](img/精臣智慧-考勤制度-1.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤日历",
+          "url": "img/精臣智慧-打卡日历.jpg"
+        },
+        {
+          "text": "考勤制度-1",
+          "url": "img/精臣智慧-考勤制度-1.jpg"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "武汉星云海数字科技股份有限公司",
+      "company_url": "http://www.scotec.net/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[图片](img/hxqc1.jpg)、[图片](img/hxqc2.jpg)、[图片](img/hxqc3.jpg)、[看准网](https://www.kanzhun.com/gso5662099.html)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/hxqc1.jpg"
+        },
+        {
+          "text": "图片",
+          "url": "img/hxqc2.jpg"
+        },
+        {
+          "text": "图片",
+          "url": "img/hxqc3.jpg"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso5662099.html"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "武汉斗鱼网络科技有限公司",
+      "company_url": "https://www.douyu.com/",
+      "date": "2018年9月",
+      "schedule": "每天至少加班两小时，拖欠大量工资，无加班费",
+      "evidence": "[看准网](https://m.kanzhun.com/pl6708460.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://m.kanzhun.com/pl6708460.html"
+        }
+      ]
+    },
+    {
+      "city": "泰安",
+      "company_name": "浪潮软件",
+      "company_url": "www.inspur.com/",
+      "date": "2019年4月7日",
+      "schedule": "6 * 12 ！",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr49271tl56.html?ka=review-label10)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr49271tl56.html?ka=review-label10"
+        }
+      ]
+    },
+    {
+      "city": "济南",
+      "company_name": "山东国子软件股份有限公司",
+      "company_url": "http://www.googosoft.com/",
+      "date": "2017年4月",
+      "schedule": "886",
+      "evidence": "加班补助说算在绩效中，时薪5块 : [加班表](img/googosoft.png)、[加班表](img/googosoft2.png)、[看准网1](https://www.kanzhun.com/pl6406106.html)、[看准网2](https://www.kanzhun.com/gsr5619934tl56.html?ka=review-label4)",
+      "evidence_links": [
+        {
+          "text": "加班表",
+          "url": "img/googosoft.png"
+        },
+        {
+          "text": "加班表",
+          "url": "img/googosoft2.png"
+        },
+        {
+          "text": "看准网1",
+          "url": "https://www.kanzhun.com/pl6406106.html"
+        },
+        {
+          "text": "看准网2",
+          "url": "https://www.kanzhun.com/gsr5619934tl56.html?ka=review-label4"
+        }
+      ]
+    },
+    {
+      "city": "济南",
+      "company_name": "普联软件",
+      "company_url": "www.pansoft.com/",
+      "date": "2019年4月7日",
+      "schedule": "8106",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr61725tl56.html?ka=review-label11)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr61725tl56.html?ka=review-label11"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "华为",
+      "company_url": "https://www.huawei.com/cn/",
+      "date": "2010年8月",
+      "schedule": "9106",
+      "evidence": "[华为：“自愿”的奋斗者协议](http://focus.news.163.com/10/0921/15/6H460OOP00011SM9.html)([图片](img/huawei.jpg))",
+      "evidence_links": [
+        {
+          "text": "华为：“自愿”的奋斗者协议",
+          "url": "http://focus.news.163.com/10/0921/15/6H460OOP00011SM9.html"
+        },
+        {
+          "text": "图片",
+          "url": "img/huawei.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "大疆创新",
+      "company_url": "https://www.dji.com/cn",
+      "date": "2018年12月",
+      "schedule": "996",
+      "evidence": "[程序员猝死之后大疆称无加班文化 离职员工怒了](https://baijiahao.baidu.com/s?id=1619909152168711034&wfr=spider&for=pc)",
+      "evidence_links": [
+        {
+          "text": "程序员猝死之后大疆称无加班文化 离职员工怒了",
+          "url": "https://baijiahao.baidu.com/s?id=1619909152168711034&wfr=spider&for=pc"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深信服",
+      "company_url": "http://www.sangfor.com.cn",
+      "date": "2019年3月",
+      "schedule": "9106",
+      "evidence": "[深信服真的每天加班到 11 点吗](https://www.v2ex.com/t/525495)",
+      "evidence_links": [
+        {
+          "text": "深信服真的每天加班到 11 点吗",
+          "url": "https://www.v2ex.com/t/525495"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "跨越速运",
+      "company_url": "http://www.ky-express.com/",
+      "date": "2018年8月",
+      "schedule": "大小周、<br>加班、裁员",
+      "evidence": "[如何看待跨越速运的裁员方式？ - 知乎](https://www.zhihu.com/question/312825261)<br> [跨越的水军洗地被抓现行](https://www.zhihu.com/question/47203239/answer/643311492)",
+      "evidence_links": [
+        {
+          "text": "如何看待跨越速运的裁员方式？ - 知乎",
+          "url": "https://www.zhihu.com/question/312825261"
+        },
+        {
+          "text": "跨越的水军洗地被抓现行",
+          "url": "https://www.zhihu.com/question/47203239/answer/643311492"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "马上金融",
+      "company_url": "https://www.msxf.com/",
+      "date": "2018年3月",
+      "schedule": "996",
+      "evidence": "每天下班开会分享，实际超过996<br>[看准网](https://www.kanzhun.com/pl5641018.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5641018.html"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市世纪纵横科技发展有限公司",
+      "company_url": "http://www.viothink.com/?tdsourcetag=s_pctim_aiomsg",
+      "date": "2019年4月",
+      "schedule": "966、加班、拖延工资",
+      "evidence": "[拖欠工资](img/chat1.png)[拖欠工资](img/chat2.png)[拖欠工资](img/chat3.png)。而且经常加班到1、2点[加班1](img/taxi.jpg)[加班2](img/taxi2.jpg)[加班3](img/taxi3.jpg)。周六是强制上班",
+      "evidence_links": [
+        {
+          "text": "拖欠工资",
+          "url": "img/chat1.png"
+        },
+        {
+          "text": "拖欠工资",
+          "url": "img/chat2.png"
+        },
+        {
+          "text": "拖欠工资",
+          "url": "img/chat3.png"
+        },
+        {
+          "text": "加班1",
+          "url": "img/taxi.jpg"
+        },
+        {
+          "text": "加班2",
+          "url": "img/taxi2.jpg"
+        },
+        {
+          "text": "加班3",
+          "url": "img/taxi3.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市环球易购电子商务有限公司",
+      "company_url": "https://www.globalegrow.com/",
+      "date": "2007年5月",
+      "schedule": "大小周、经常996、偶尔通宵",
+      "evidence": "[劳动合同](img/globalegrow_labor_contract.jpg)、[Offer](img/globalegrow_offer.jpg)+亲历",
+      "evidence_links": [
+        {
+          "text": "劳动合同",
+          "url": "img/globalegrow_labor_contract.jpg"
+        },
+        {
+          "text": "Offer",
+          "url": "img/globalegrow_offer.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "腾讯",
+      "company_url": "https://www.tencent.com/zh-cn/index.html",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5855.html?ka=com-blocker1-review#co_tab)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5855.html?ka=com-blocker1-review#co_tab"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "VIVO",
+      "company_url": "https://www.vivo.com.cn/",
+      "date": "2019年4月14日",
+      "schedule": "996大小周",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6139773.html?ka=review-item2)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6139773.html?ka=review-item2"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "房多多",
+      "company_url": "https://m.fangdd.com/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr2072113tl56.html?ka=review-label13)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr2072113tl56.html?ka=review-label13"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "万兴科技",
+      "company_url": "https://www.wondershare.cn/",
+      "date": "2019年4月7日",
+      "schedule": "995",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr1682212tl56.html?ka=review-label12)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr1682212tl56.html?ka=review-label12"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "追一科技",
+      "company_url": "https://zhuiyi.ai/",
+      "date": "2019年4月7日",
+      "schedule": "10106 疯狂加班",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5693705.html?ka=com1-review)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5693705.html?ka=com1-review"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市猜猜城科技有限公司",
+      "company_url": "www.guesscity.net/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr6671156.html?ka=com1-review)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr6671156.html?ka=com1-review"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "道通科技",
+      "company_url": "www.auteltech.cn/",
+      "date": "2019年4月7日",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr479390tl56.html?ka=review-label8)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr479390tl56.html?ka=review-label8"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "尊豪网络科技有限公司",
+      "company_url": "www.szzunhao.com/",
+      "date": "2019年4月7日",
+      "schedule": "每天10小时",
+      "evidence": "[看准网](https://m.kanzhun.com/pl6818466.html?sid=kzapp&from=singlemessage)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://m.kanzhun.com/pl6818466.html?sid=kzapp&from=singlemessage"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "广东虚拟现实科技有限公司(Ximmerse)",
+      "company_url": "https://www.ximmerse.com/",
+      "date": "2016年06月1日",
+      "schedule": "996",
+      "evidence": "[邮件通知](img/Ximmerse考勤邮件.png) [制度截图](img/Ximmerse制度方案.png)",
+      "evidence_links": [
+        {
+          "text": "邮件通知",
+          "url": "img/Ximmerse考勤邮件.png"
+        },
+        {
+          "text": "制度截图",
+          "url": "img/Ximmerse制度方案.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "边度网络科技（深圳）有限公司",
+      "company_url": "https://www.bindo.com/",
+      "date": "2019年3月25日",
+      "schedule": "996",
+      "evidence": "[制度要求截图](img/bindo_com_996.jpg)<br>[打卡截图](img/bindo_com_996_2.jpg)",
+      "evidence_links": [
+        {
+          "text": "制度要求截图",
+          "url": "img/bindo_com_996.jpg"
+        },
+        {
+          "text": "打卡截图",
+          "url": "img/bindo_com_996_2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "微付充科技有限公司",
+      "company_url": "http://www.vfuchong.com/",
+      "date": "2019年4月",
+      "schedule": "大小周， 每个月固定两天",
+      "evidence": "[职友集](https://www.jobui.com/company/12488776/salary/)",
+      "evidence_links": [
+        {
+          "text": "职友集",
+          "url": "https://www.jobui.com/company/12488776/salary/"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳沈鼓测控技术有限公司",
+      "company_url": "http://www.shenguyun.com/",
+      "date": "2019年4月",
+      "schedule": "提倡员工签署自愿加班协议",
+      "evidence": "[承诺书图片](img/深圳沈鼓自愿加班承诺书.jpg)",
+      "evidence_links": [
+        {
+          "text": "承诺书图片",
+          "url": "img/深圳沈鼓自愿加班承诺书.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市前海手绘科技文化有限公司",
+      "company_url": "https://www.laihua.com/",
+      "date": "2019年4月",
+      "schedule": "996连坐，如果有人迟到或请事假，全部门996一周",
+      "evidence": "[群聊图片](img/来画996.png)",
+      "evidence_links": [
+        {
+          "text": "群聊图片",
+          "url": "img/来画996.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳/杭州",
+      "company_name": "华为外包",
+      "company_url": "https://www.kanzhun.com/gsr1439970.html",
+      "date": "2018年3月",
+      "schedule": "大小周、加班、裁员",
+      "evidence": "[华为外包是怎样的体验？ - 知乎](https://www.zhihu.com/question/28517881)[打卡记录](img/huawei_hangzhou_timing.png)",
+      "evidence_links": [
+        {
+          "text": "华为外包是怎样的体验？ - 知乎",
+          "url": "https://www.zhihu.com/question/28517881"
+        },
+        {
+          "text": "打卡记录",
+          "url": "img/huawei_hangzhou_timing.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳聚力创想信息科技有限公司",
+      "company_url": "https://www.qidianla.com/",
+      "date": "------",
+      "schedule": "大小周、加班",
+      "evidence": "[打卡通知1](img/qidianxueyuan1.jpg)、[打卡通知2](img/qidianxueyuan2.jpg)",
+      "evidence_links": [
+        {
+          "text": "打卡通知1",
+          "url": "img/qidianxueyuan1.jpg"
+        },
+        {
+          "text": "打卡通知2",
+          "url": "img/qidianxueyuan2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "珠海",
+      "company_name": "金山软件",
+      "company_url": "http://www.kingsoft.com/",
+      "date": "2017年7月12日",
+      "schedule": "996/9106",
+      "evidence": "[图片](img/金山软件-9106.png)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/金山软件-9106.png"
+        }
+      ]
+    },
+    {
+      "city": "福州",
+      "company_name": "中富通集团股份有限公司",
+      "company_url": "http://www.zftii.com/",
+      "date": "2019年4月",
+      "schedule": "宣扬马云996 随意要求员工加班",
+      "evidence": "[微信截图](img/zftjt.jpg)",
+      "evidence_links": [
+        {
+          "text": "微信截图",
+          "url": "img/zftjt.jpg"
+        }
+      ]
+    },
+    {
+      "city": "苏州",
+      "company_name": "顺舟智能",
+      "company_url": "http://www.shuncom.com",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "[智联招聘](https://jobs.zhaopin.com/CC549324722J00346803701.htm)",
+      "evidence_links": [
+        {
+          "text": "智联招聘",
+          "url": "https://jobs.zhaopin.com/CC549324722J00346803701.htm"
+        }
+      ]
+    },
+    {
+      "city": "苏州",
+      "company_name": "苏州同思软件有限公司",
+      "company_url": "http://www.one-dream.com.cn/",
+      "date": "2019年4月",
+      "schedule": "996、9106",
+      "evidence": "[图片](img/tongsi1.png)、[图片](img/tongsi2.png)、[图片](img/tongsi3.png)、[图片](img/tongsi4.png)、[看准网](https://www.kanzhun.com/pl6983505.html?ka=comreview-showall2)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "img/tongsi1.png"
+        },
+        {
+          "text": "图片",
+          "url": "img/tongsi2.png"
+        },
+        {
+          "text": "图片",
+          "url": "img/tongsi3.png"
+        },
+        {
+          "text": "图片",
+          "url": "img/tongsi4.png"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6983505.html?ka=comreview-showall2"
+        }
+      ]
+    },
+    {
+      "city": "苏州",
+      "company_name": "凌志软件股份有限公司",
+      "company_url": "http://www.linkstec.com/",
+      "date": "2019年4月",
+      "schedule": "996，9106，9116",
+      "evidence": "[专坑实习生](img/lingzhi1.png)、[看准网](https://www.kanzhun.com/gsr99810c50.html)",
+      "evidence_links": [
+        {
+          "text": "专坑实习生",
+          "url": "img/lingzhi1.png"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr99810c50.html"
+        }
+      ]
+    },
+    {
+      "city": "苏州",
+      "company_name": "Momenta",
+      "company_url": "https://www.momenta.cn/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[CEO朋友圈宣扬马云996](img/mbgwb.jpg)",
+      "evidence_links": [
+        {
+          "text": "CEO朋友圈宣扬马云996",
+          "url": "img/mbgwb.jpg"
+        }
+      ]
+    },
+    {
+      "city": "长沙",
+      "company_name": "湖南创发科技有限公司",
+      "company_url": "http://www.transfar.com/",
+      "date": "2019年3月",
+      "schedule": "996",
+      "evidence": "亲历 [看准网](https://www.kanzhun.com/gso238619.html?ka=com1-title) [博客园](http://www.cnblogs.com/rawman/p/3401579.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso238619.html?ka=com1-title"
+        },
+        {
+          "text": "博客园",
+          "url": "http://www.cnblogs.com/rawman/p/3401579.html"
+        }
+      ]
+    },
+    {
+      "city": "青岛",
+      "company_name": "海尔集团",
+      "company_url": "http://www.haier.net/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[在海尔工作怎么样](https://www.zhihu.com/question/21895528) + 亲历",
+      "evidence_links": [
+        {
+          "text": "在海尔工作怎么样",
+          "url": "https://www.zhihu.com/question/21895528"
+        }
+      ]
+    },
+    {
+      "city": "西安",
+      "company_name": "易点天下",
+      "company_url": "http://facebook.yeahmobi.com/",
+      "date": "-----",
+      "schedule": "9116/9117",
+      "evidence": "每天下午6点开始开会，动不动就通宵，管理层的一个是从华为挖过来的，有狂躁症，动不动就炸，肯恐怖。[工作截图](img/易点天下.jpeg)",
+      "evidence_links": [
+        {
+          "text": "工作截图",
+          "url": "img/易点天下.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "潍坊",
+      "company_name": "歌尔股份",
+      "company_url": "https://www.goertek.com/",
+      "date": "2019年4月",
+      "schedule": "大小周、节假日遇单休从双休周调休",
+      "evidence": "[考勤规定](img/goertek.jpeg) [放假安排1](img/goertek-1.jpg) [放假安排2](img/goertek-2.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤规定",
+          "url": "img/goertek.jpeg"
+        },
+        {
+          "text": "放假安排1",
+          "url": "img/goertek-1.jpg"
+        },
+        {
+          "text": "放假安排2",
+          "url": "img/goertek-2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "济南",
+      "company_name": "浪潮集团",
+      "company_url": "http://www.inspur.com/",
+      "date": "-----",
+      "schedule": "996",
+      "evidence": "奋进者申请书 [996工作制](https://baike.baidu.com/item/996%E5%B7%A5%E4%BD%9C%E5%88%B6/19940031?fromtitle=996&fromid=19958311&fr=aladdin#3)",
+      "evidence_links": [
+        {
+          "text": "996工作制",
+          "url": "https://baike.baidu.com/item/996%E5%B7%A5%E4%BD%9C%E5%88%B6/19940031?fromtitle=996&fromid=19958311&fr=aladdin#3"
+        }
+      ]
+    },
+    {
+      "city": "西安",
+      "company_name": "中软国际科技服务有限公司",
+      "company_url": "http://www.chinasofti.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[猎聘网](https://jobs.zhaopin.com/CC508620126J00303154805.htm)",
+      "evidence_links": [
+        {
+          "text": "猎聘网",
+          "url": "https://jobs.zhaopin.com/CC508620126J00303154805.htm"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "紫优科技",
+      "company_url": "https://www.zhipin.com/gongsir/7610a4892e11cc781XZ_09i1FA~~.html?ka=company-jobs",
+      "date": "2019年4月",
+      "schedule": "9116",
+      "evidence": "[公司老板发的招聘信息](img/深圳紫优科技.jpg)",
+      "evidence_links": [
+        {
+          "text": "公司老板发的招聘信息",
+          "url": "img/深圳紫优科技.jpg"
+        }
+      ]
+    },
+    {
+      "city": "大连",
+      "company_name": "大连大连海大赢海科技有限公司",
+      "company_url": "http://www.yinghaikeji.com/",
+      "date": "2019年9月",
+      "schedule": "强制996、大小周",
+      "evidence": "[内部群1](img/赢海科技-内部群截图1.png) [内部群2](img/赢海科技-内部群截图2.png) [内部群3](img/赢海科技-内部群截图3.png)",
+      "evidence_links": [
+        {
+          "text": "内部群1",
+          "url": "img/赢海科技-内部群截图1.png"
+        },
+        {
+          "text": "内部群2",
+          "url": "img/赢海科技-内部群截图2.png"
+        },
+        {
+          "text": "内部群3",
+          "url": "img/赢海科技-内部群截图3.png"
+        }
+      ]
+    },
+    {
+      "city": "上海/西安",
+      "company_name": "华勤通讯技术有限公司",
+      "company_url": "http://www.huaqin.com/",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gso238619.html?ka=com1-title) [知乎](https://www.zhihu.com/question/49628909/answer/522467068)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso238619.html?ka=com1-title"
+        },
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/49628909/answer/522467068"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "小猪短租",
+      "company_url": "http://www.xiaozhu.com/",
+      "date": "-----",
+      "schedule": "997",
+      "evidence": "4.22-5.10连续上班,晚上默认加班,不加班领导会找谈话。[工作截图](img/小猪短租.jpg)",
+      "evidence_links": [
+        {
+          "text": "工作截图",
+          "url": "img/小猪短租.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市蓝色海洋教育科技有限公司",
+      "company_url": "",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "一家2019年4月新成立的公司，明确996招聘 [招聘截图](img/lansehaiyang-boss.jpeg)",
+      "evidence_links": [
+        {
+          "text": "招聘截图",
+          "url": "img/lansehaiyang-boss.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "广州明动软件股份有限公司",
+      "company_url": "http://www.minstone.com.cn/",
+      "date": "2018年9月",
+      "schedule": "9106",
+      "evidence": "每天晚上10:30才能走，甚至更晚，经常通宵，一周六天 [领导发的邮件](https://raw.githubusercontent.com/willywonkauk/staticref/master/1.png)",
+      "evidence_links": [
+        {
+          "text": "领导发的邮件",
+          "url": "https://raw.githubusercontent.com/willywonkauk/staticref/master/1.png"
+        }
+      ]
+    },
+    {
+      "city": "广西",
+      "company_name": "广西安辰信息产业股份有限公司",
+      "company_url": "",
+      "date": "2019年4月",
+      "schedule": "大小周",
+      "evidence": "[考勤时间截图，可提供制度文件](https://github.com/euxeuxeux/996.ICU/blob/master/blacklist/img/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20190429115610.png)",
+      "evidence_links": [
+        {
+          "text": "考勤时间截图，可提供制度文件",
+          "url": "https://github.com/euxeuxeux/996.ICU/blob/master/blacklist/img/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20190429115610.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市康拓普信息技术有限公司",
+      "company_url": "https://www.szcomtop.com//",
+      "date": "2019年4月",
+      "schedule": "9127",
+      "evidence": "亲历",
+      "evidence_links": []
+    },
+    {
+      "city": "山东",
+      "company_name": "潍柴动力股份有限公司/潍柴集团",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "无双休",
+      "evidence": "[知乎问答1](http://www.zhihu.com/question/309984979)、 [知乎问答2](http://www.zhihu.com/question/270906947)",
+      "evidence_links": [
+        {
+          "text": "知乎问答1",
+          "url": "http://www.zhihu.com/question/309984979"
+        },
+        {
+          "text": "知乎问答2",
+          "url": "http://www.zhihu.com/question/270906947"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市金泰长丰科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "大小周、无加班工",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr6472604.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr6472604.html"
+        }
+      ]
+    },
+    {
+      "city": "重庆",
+      "company_name": "重庆力华亘田科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "886计件，实际两周放一天假，没有加班费，法定假缩水。计时大小周，加班费不分法定假与周末，一律7元每小时。",
+      "evidence": "[截图](https://i.loli.net/2019/05/05/5cce4fc86f789.jpg)",
+      "evidence_links": [
+        {
+          "text": "截图",
+          "url": "https://i.loli.net/2019/05/05/5cce4fc86f789.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京永信至诚科技股份有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "正常965，但强制每月加三天班，每周末加半天班",
+      "evidence": "[内部手册](https://i.loli.net/2019/05/05/5ccee0a6e15b2.jpg)、 [激励敬业政策](https://i.loli.net/2019/05/05/5ccee0a706458.jpg)、 [内部PPT](https://i.loli.net/2019/05/05/5ccee0a722527.jpg)",
+      "evidence_links": [
+        {
+          "text": "内部手册",
+          "url": "https://i.loli.net/2019/05/05/5ccee0a6e15b2.jpg"
+        },
+        {
+          "text": "激励敬业政策",
+          "url": "https://i.loli.net/2019/05/05/5ccee0a706458.jpg"
+        },
+        {
+          "text": "内部PPT",
+          "url": "https://i.loli.net/2019/05/05/5ccee0a722527.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "美团",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "10 10 5",
+      "evidence": "[看准网用户评论](https://www.kanzhun.com/pl469105.html)、 [CSDN](https://blog.csdn.net/weixin_43245088/article/details/85635423 )、 [ifeng](https://finance.ifeng.com/a/20170505/15358688_0.shtml)",
+      "evidence_links": [
+        {
+          "text": "看准网用户评论",
+          "url": "https://www.kanzhun.com/pl469105.html"
+        },
+        {
+          "text": "CSDN",
+          "url": "https://blog.csdn.net/weixin_43245088/article/details/85635423"
+        },
+        {
+          "text": "ifeng",
+          "url": "https://finance.ifeng.com/a/20170505/15358688_0.shtml"
+        }
+      ]
+    },
+    {
+      "city": "苏州",
+      "company_name": "玩友时代",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "995, 排班996值班;无加班工资，名义调休，真调休的话领导各种不爽",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5632014tl56.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5632014tl56.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "赞同科技",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "997, 无加班工资",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr37775.html)、 [看准网用户评论](https://www.kanzhun.com/pl5666140.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr37775.html"
+        },
+        {
+          "text": "看准网用户评论",
+          "url": "https://www.kanzhun.com/pl5666140.html"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "网医纳康",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996，奋斗者协议",
+      "evidence": "[奋斗者协议图片](http://ww1.sinaimg.cn/large/5e18fb3fly1g2tzf4xpjej20go0m83zd.jpg)",
+      "evidence_links": [
+        {
+          "text": "奋斗者协议图片",
+          "url": "http://ww1.sinaimg.cn/large/5e18fb3fly1g2tzf4xpjej20go0m83zd.jpg"
+        }
+      ]
+    },
+    {
+      "city": "淄博",
+      "company_name": "淄博赢师教育有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "老板随心所欲扣钱处罚，上下班无固定时间，出差无休息，强制加班，加班费只有几块钱甚至无加班费",
+      "evidence": "[聊天截图](https://i.loli.net/2019/05/09/5cd42abc516fd.jpg)<br/>[聊天截图2](https://i.loli.net/2019/05/09/5cd42abc6579b.jpg)<br/>[聊天截图3](https://i.loli.net/2019/05/09/5cd42abc6c140.jpg)",
+      "evidence_links": [
+        {
+          "text": "聊天截图",
+          "url": "https://i.loli.net/2019/05/09/5cd42abc516fd.jpg"
+        },
+        {
+          "text": "聊天截图2",
+          "url": "https://i.loli.net/2019/05/09/5cd42abc6579b.jpg"
+        },
+        {
+          "text": "聊天截图3",
+          "url": "https://i.loli.net/2019/05/09/5cd42abc6c140.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京凯奇谷信息技术股份有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[看准网](https://m.kanzhun.com/pl6920611.html?sid=kzapp)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://m.kanzhun.com/pl6920611.html?sid=kzapp"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳航天信息",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "976；大小周；完全没有加班工资，没有任何补助，加班时间计算在绩效中，每天没加班1小时扣绩效。",
+      "evidence": "[没有任何补贴，无差别加班](https://i.loli.net/2019/05/09/5cd42bb1e41b2.png)<br/><br/>[加班时间不算在绩效中的额外工作时间。也就是周六日加班不算在绩效加班时间中。](https://i.loli.net/2019/05/09/5cd42bb20076b.png)",
+      "evidence_links": [
+        {
+          "text": "没有任何补贴，无差别加班",
+          "url": "https://i.loli.net/2019/05/09/5cd42bb1e41b2.png"
+        },
+        {
+          "text": "加班时间不算在绩效中的额外工作时间。也就是周六日加班不算在绩效加班时间中。",
+          "url": "https://i.loli.net/2019/05/09/5cd42bb20076b.png"
+        }
+      ]
+    },
+    {
+      "city": "南京",
+      "company_name": "江苏润恒物流发展有限公司（集团）",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "8:30-20:30或10:30 无加班工资，不加班扣工资，扣押合同，不按合同发放13薪水，拖欠工资…",
+      "evidence": "[知乎](https://www.zhihu.com/question/265367701)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/265367701"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "海尔优家智能科技（北京）有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "不定期996或976，没有加班工资，或极少补偿；开始强制2个月，强制执行3个月，春节前后不能请假",
+      "evidence": "开始强制2个月:[图片1](img/海尔优家智能科技.png)，[图片2](img/海尔优家智能科技2-1.jpg)<br/>[强制执行3个月，春节前后不能请假](img/海尔优家智能科技2-2.jpg)",
+      "evidence_links": [
+        {
+          "text": "图片1",
+          "url": "img/海尔优家智能科技.png"
+        },
+        {
+          "text": "图片2",
+          "url": "img/海尔优家智能科技2-1.jpg"
+        },
+        {
+          "text": "强制执行3个月，春节前后不能请假",
+          "url": "img/海尔优家智能科技2-2.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "松鼠拼拼",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[拉勾网](https://www.lagou.com/gongsi/q211444.html)<br/>[996评论](https://yanzhi.lagou.com/question/82537.html)",
+      "evidence_links": [
+        {
+          "text": "拉勾网",
+          "url": "https://www.lagou.com/gongsi/q211444.html"
+        },
+        {
+          "text": "996评论",
+          "url": "https://yanzhi.lagou.com/question/82537.html"
+        }
+      ]
+    },
+    {
+      "city": "南京",
+      "company_name": "车置宝",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[看准网评论](https://www.kanzhun.com/pl6252690.html)",
+      "evidence_links": [
+        {
+          "text": "看准网评论",
+          "url": "https://www.kanzhun.com/pl6252690.html"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市艾森智能技术有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996，加班无工资，激励员工多加班。扬言说不加班不是的公司会死去。",
+      "evidence": "[聊天截图](img/wechatimg5498-meitu-1.png)",
+      "evidence_links": [
+        {
+          "text": "聊天截图",
+          "url": "img/wechatimg5498-meitu-1.png"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "杭州数澜科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr5709934.html)<br/>[看准网评论1](https://www.kanzhun.com/pl7182332.html)<br/>[看准网评论2](https://www.kanzhun.com/pl6556133.html)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr5709934.html"
+        },
+        {
+          "text": "看准网评论1",
+          "url": "https://www.kanzhun.com/pl7182332.html"
+        },
+        {
+          "text": "看准网评论2",
+          "url": "https://www.kanzhun.com/pl6556133.html"
+        }
+      ]
+    },
+    {
+      "city": "大连",
+      "company_name": "大连同方软银科技股份有限公司",
+      "company_url": "http://www.tfrunning.com.cn",
+      "date": "2019年4月",
+      "schedule": "996",
+      "evidence": "[看准网](https://www.kanzhun.com/pl5661184.html?ka=review-item6)、[看准网](https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl5661184.html?ka=review-item6"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw"
+        }
+      ]
+    },
+    {
+      "city": "深圳市",
+      "company_name": "优学派（深圳市致远优学教育科技有限公司）（优学天下教育发展股份有限公司）",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "规定965，实际一年3/4时间都是9(9-凌晨5)(6‖7)，没有加班工资。",
+      "evidence": "[职友集（看“是否经常加班”投票）](https://www.jobui.com/company/12458179/salary/)<br/>[朋友圈图片1](img/优学派1.jpg)，[图片2](img/优学派2.jpg)，[图片3](img/优学派3.jpg)",
+      "evidence_links": [
+        {
+          "text": "职友集（看“是否经常加班”投票）",
+          "url": "https://www.jobui.com/company/12458179/salary/"
+        },
+        {
+          "text": "朋友圈图片1",
+          "url": "img/优学派1.jpg"
+        },
+        {
+          "text": "图片2",
+          "url": "img/优学派2.jpg"
+        },
+        {
+          "text": "图片3",
+          "url": "img/优学派3.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳农村商业银行",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "8.5 8.5 6 外包",
+      "evidence": "[微信群内部截图](https://i.loli.net/2019/05/22/5ce4bb4c48a1269468.png)",
+      "evidence_links": [
+        {
+          "text": "微信群内部截图",
+          "url": "https://i.loli.net/2019/05/22/5ce4bb4c48a1269468.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京中体联合数据科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[内部邮件](https://i.loli.net/2019/05/22/5ce4bcc5a753d12104.png)[邮件2](https://i.loli.net/2019/05/22/5ce4bcc5a753d12104.png)[内部聊天](https://i.loli.net/2019/05/22/5ce4bcc627c3f19326.png)[聊天2](https://i.loli.net/2019/05/22/5ce4bcc627c3f19326.png)",
+      "evidence_links": [
+        {
+          "text": "内部邮件",
+          "url": "https://i.loli.net/2019/05/22/5ce4bcc5a753d12104.png"
+        },
+        {
+          "text": "邮件2",
+          "url": "https://i.loli.net/2019/05/22/5ce4bcc5a753d12104.png"
+        },
+        {
+          "text": "内部聊天",
+          "url": "https://i.loli.net/2019/05/22/5ce4bcc627c3f19326.png"
+        },
+        {
+          "text": "聊天2",
+          "url": "https://i.loli.net/2019/05/22/5ce4bcc627c3f19326.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京金山办公软件有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996，黑心企业，默认加班，无加班工资，不加班被谈话，一个奇葩的公司",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6009932.html?ka=comreview-showall1)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6009932.html?ka=comreview-showall1"
+        }
+      ]
+    },
+    {
+      "city": "合肥市",
+      "company_name": "安徽学云教育信息科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "每周 一二四六 加班，虽然没说到几点，但基本默认必须到9点以后",
+      "evidence": "[公司领导人员的群](https://i.loli.net/2019/05/22/5ce4be42874ad66243.jpg)[聊天2](https://i.loli.net/2019/05/22/5ce4be42874ad66243.jpg)[说话的是CTO](https://i.loli.net/2019/05/22/5ce4be428979080125.jpg)[聊天3](https://i.loli.net/2019/05/22/5ce4be428979080125.jpg)",
+      "evidence_links": [
+        {
+          "text": "公司领导人员的群",
+          "url": "https://i.loli.net/2019/05/22/5ce4be42874ad66243.jpg"
+        },
+        {
+          "text": "聊天2",
+          "url": "https://i.loli.net/2019/05/22/5ce4be42874ad66243.jpg"
+        },
+        {
+          "text": "说话的是CTO",
+          "url": "https://i.loli.net/2019/05/22/5ce4be428979080125.jpg"
+        },
+        {
+          "text": "聊天3",
+          "url": "https://i.loli.net/2019/05/22/5ce4be428979080125.jpg"
+        }
+      ]
+    },
+    {
+      "city": "武汉",
+      "company_name": "精灵云网络",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "利用合同漏洞等拒绝赔偿开除赔款",
+      "evidence": "[V2ex](https://www.v2ex.com/t/563422) [搜狐新闻](http://www.sohu.com/a/313841193_120047182) [公司声明](https://i.loli.net/2019/05/22/5ce4ba51e8e6655960.jpg)",
+      "evidence_links": [
+        {
+          "text": "V2ex",
+          "url": "https://www.v2ex.com/t/563422"
+        },
+        {
+          "text": "搜狐新闻",
+          "url": "http://www.sohu.com/a/313841193_120047182"
+        },
+        {
+          "text": "公司声明",
+          "url": "https://i.loli.net/2019/05/22/5ce4ba51e8e6655960.jpg"
+        }
+      ]
+    },
+    {
+      "city": "马鞍山市",
+      "company_name": "马鞍山百助网络科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[BOSS直聘](https://www.zhipin.com/gongsi/ce2fa3a8b75fc0c91nBz2t8~.html?ka=company-intro)[BOSS直聘截图](https://i.loli.net/2019/05/22/5ce4bf68e304995658.png)[截图2](https://i.loli.net/2019/05/22/5ce4bf68e304995658.png)",
+      "evidence_links": [
+        {
+          "text": "BOSS直聘",
+          "url": "https://www.zhipin.com/gongsi/ce2fa3a8b75fc0c91nBz2t8~.html?ka=company-intro"
+        },
+        {
+          "text": "BOSS直聘截图",
+          "url": "https://i.loli.net/2019/05/22/5ce4bf68e304995658.png"
+        },
+        {
+          "text": "截图2",
+          "url": "https://i.loli.net/2019/05/22/5ce4bf68e304995658.png"
+        }
+      ]
+    },
+    {
+      "city": "西安",
+      "company_name": "伯图大数据西安分公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "我公司规定是996的上班模式，看能接受吗？第一个数字上班时间，第二个数字下班时间，第三个数字一周的上班天数。这是我们规定的上班时间，薪资可以谈，但是需要来公司和用人部门面谈一下。",
+      "evidence": "[boss聊天图](https://github.com/996icu/996.ICU/blob/master/blacklist/img/%E4%BC%AF%E5%9B%BE%E5%A4%A7%E6%95%B0%E6%8D%AE.jpg)",
+      "evidence_links": [
+        {
+          "text": "boss聊天图",
+          "url": "https://github.com/996icu/996.ICU/blob/master/blacklist/img/%E4%BC%AF%E5%9B%BE%E5%A4%A7%E6%95%B0%E6%8D%AE.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都几维科技",
+      "company_url": "http://www.kiwigames.cn/",
+      "date": "2019年3月",
+      "schedule": "10 8 5，项目提审阶段10 10 6，实习生也不放过，并且实习生没有加班工资",
+      "evidence": "[qq群内部截图1](img/成都几维科技1.png)、[qq群内部截图2](img/成都几维科技2.png)",
+      "evidence_links": [
+        {
+          "text": "qq群内部截图1",
+          "url": "img/成都几维科技1.png"
+        },
+        {
+          "text": "qq群内部截图2",
+          "url": "img/成都几维科技2.png"
+        }
+      ]
+    },
+    {
+      "city": "大连",
+      "company_name": "同方软银",
+      "company_url": "http://www.tfrunning.com.cn/",
+      "date": "2017年5月",
+      "schedule": "996",
+      "evidence": "[看准网1](https://www.kanzhun.com/pl5661184.html?ka=review-item6) [看准网2](https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw)",
+      "evidence_links": [
+        {
+          "text": "看准网1",
+          "url": "https://www.kanzhun.com/pl5661184.html?ka=review-item6"
+        },
+        {
+          "text": "看准网2",
+          "url": "https://www.kanzhun.com/pl7170642.html?ka=review-item-ckqw"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "浙江大华",
+      "company_url": "https://www.dahuatech.com/index.php/about.html",
+      "date": "2015年10月",
+      "schedule": "浙江杭州办linux运维的技术支持大小周、无加班工资",
+      "evidence": "[看准网](https://www.kanzhun.com/pl6967786.html?ka=review-item-ckqw)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl6967786.html?ka=review-item-ckqw"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "利朗达",
+      "company_url": "http://www.rondaful.com/",
+      "date": "2017年10月",
+      "schedule": "996、加班费一天15块",
+      "evidence": "[知乎](https://www.zhihu.com/question/265739414)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/265739414"
+        }
+      ]
+    },
+    {
+      "city": "兰州",
+      "company_name": "中电万维",
+      "company_url": "http://www.wanwei.com.cn/",
+      "date": "2018年3月",
+      "schedule": "997",
+      "evidence": "[看准网](https://www.kanzhun.com/pl7109874.html?ka=review-item4)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/pl7109874.html?ka=review-item4"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "广州智悦网络科技有限公司",
+      "company_url": "",
+      "date": "2019 年 4 月 1 号",
+      "schedule": "995",
+      "evidence": "[图片](/blacklist/img/gz_zhiyue.png)",
+      "evidence_links": [
+        {
+          "text": "图片",
+          "url": "/blacklist/img/gz_zhiyue.png"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海欧电云信息科技有限公司",
+      "company_url": "http://www.odianyun.com/",
+      "date": "2019年5月",
+      "schedule": "表面是965，其实至少995，经常加班到凌晨1‖2点，没有加班工资。",
+      "evidence": "[加班点餐邮件1](img/欧电云加班行政邮件截图3.png)，[加班点餐邮件2](img/欧电云加班餐票截图1.png)，[加班点餐邮件3](img/欧电云加班餐票截图2.png)",
+      "evidence_links": [
+        {
+          "text": "加班点餐邮件1",
+          "url": "img/欧电云加班行政邮件截图3.png"
+        },
+        {
+          "text": "加班点餐邮件2",
+          "url": "img/欧电云加班餐票截图1.png"
+        },
+        {
+          "text": "加班点餐邮件3",
+          "url": "img/欧电云加班餐票截图2.png"
+        }
+      ]
+    },
+    {
+      "city": "南京",
+      "company_name": "南京万米信息技术有限公司",
+      "company_url": "http://www.wanmi.com/",
+      "date": "2019年6月",
+      "schedule": "公司经常996",
+      "evidence": "[ceo强调9961](img/ceo1.jpeg)，[ceo强调9962](img/ceo2.jpeg)",
+      "evidence_links": [
+        {
+          "text": "ceo强调9961",
+          "url": "img/ceo1.jpeg"
+        },
+        {
+          "text": "ceo强调9962",
+          "url": "img/ceo2.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都市极米科技有限公司",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "大小周、99",
+      "evidence": "[公司群内通知](https://i.loli.net/2019/06/22/5d0dcde28d55045439.png)",
+      "evidence_links": [
+        {
+          "text": "公司群内通知",
+          "url": "https://i.loli.net/2019/06/22/5d0dcde28d55045439.png"
+        }
+      ]
+    },
+    {
+      "city": "兰州",
+      "company_name": "中电万维信息技术有限责任公司",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "996",
+      "evidence": "[TIM截图](https://i.loli.net/2019/06/22/5d0dcf975ff1796946.png)[TIM截图](https://i.loli.net/2019/06/22/5d0dcf97c1d9342344.png)",
+      "evidence_links": [
+        {
+          "text": "TIM截图",
+          "url": "https://i.loli.net/2019/06/22/5d0dcf975ff1796946.png"
+        },
+        {
+          "text": "TIM截图",
+          "url": "https://i.loli.net/2019/06/22/5d0dcf97c1d9342344.png"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "成都洋葱新未来网络科技有限公司",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "9 10 6 无加班工资，工作日加班4小时第二天只能晚到30分钟，仅周末加班可调休",
+      "evidence": "[考勤日历](https://i.loli.net/2019/06/22/5d0dd018e6b5033832.jpg)[考勤日历](https://i.loli.net/2019/06/22/5d0dd01990b2834188.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤日历",
+          "url": "https://i.loli.net/2019/06/22/5d0dd018e6b5033832.jpg"
+        },
+        {
+          "text": "考勤日历",
+          "url": "https://i.loli.net/2019/06/22/5d0dd01990b2834188.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都、宁波、惠州",
+      "company_name": "TCL通讯",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "提倡996、007，无加班工资",
+      "evidence": "[动员令](img/tcl1.png)<br/>[微信公众号:JoyUI_2018每周速报](img/tcl2.png)",
+      "evidence_links": [
+        {
+          "text": "动员令",
+          "url": "img/tcl1.png"
+        },
+        {
+          "text": "微信公众号:JoyUI_2018每周速报",
+          "url": "img/tcl2.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "中睿宏智汽车技术（深圳）有限公司",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "995并且拖欠工资",
+      "evidence": "[V2EX](https://www.v2ex.com/t/572452#reply413)",
+      "evidence_links": [
+        {
+          "text": "V2EX",
+          "url": "https://www.v2ex.com/t/572452#reply413"
+        }
+      ]
+    },
+    {
+      "city": "北京、南京",
+      "company_name": "小诚文化传媒有限公司",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "大小周、无加班工资、无年假、绩效占比过高",
+      "evidence": "[考勤记录](https://i.loli.net/2019/06/22/5d0dd11c7099916753.jpg)",
+      "evidence_links": [
+        {
+          "text": "考勤记录",
+          "url": "https://i.loli.net/2019/06/22/5d0dd11c7099916753.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "思满科技",
+      "company_url": "",
+      "date": "2019年9月",
+      "schedule": "至少996，无加班工资",
+      "evidence": "在看准app上花钱洗评论 kpi随意克扣。[真实的评价](https://i.loli.net/2019/06/22/5d0dd3da9640210875.jpg)[真是评价](https://i.loli.net/2019/06/22/5d0dd3dbee9a994536.jpg)[HR自己写的假评价](https://i.loli.net/2019/06/22/5d0dd3da6617453896.jpg)",
+      "evidence_links": [
+        {
+          "text": "真实的评价",
+          "url": "https://i.loli.net/2019/06/22/5d0dd3da9640210875.jpg"
+        },
+        {
+          "text": "真是评价",
+          "url": "https://i.loli.net/2019/06/22/5d0dd3dbee9a994536.jpg"
+        },
+        {
+          "text": "HR自己写的假评价",
+          "url": "https://i.loli.net/2019/06/22/5d0dd3da6617453896.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海非码网络科技有限公司",
+      "company_url": "",
+      "date": "2019年9月",
+      "schedule": "996，无加班费，更不提供加班餐。",
+      "evidence": "[班车通知](https://i.loli.net/2019/06/22/5d0dd4ac3a91b42022.png)[内部论坛](https://i.loli.net/2019/06/22/5d0dd4ae49dbb47592.png)",
+      "evidence_links": [
+        {
+          "text": "班车通知",
+          "url": "https://i.loli.net/2019/06/22/5d0dd4ac3a91b42022.png"
+        },
+        {
+          "text": "内部论坛",
+          "url": "https://i.loli.net/2019/06/22/5d0dd4ae49dbb47592.png"
+        }
+      ]
+    },
+    {
+      "city": "长沙",
+      "company_name": "杭州数梦工场科技有限公司",
+      "company_url": "",
+      "date": "2019年9月",
+      "schedule": "周一到周四早9晚9 周五周日早9晚6",
+      "evidence": "[内部排版](https://i.loli.net/2019/06/22/5d0dd5063e0ed50557.png)",
+      "evidence_links": [
+        {
+          "text": "内部排版",
+          "url": "https://i.loli.net/2019/06/22/5d0dd5063e0ed50557.png"
+        }
+      ]
+    },
+    {
+      "city": "桐庐",
+      "company_name": "海康威视",
+      "company_url": "",
+      "date": "2019年9月",
+      "schedule": "777大小周",
+      "evidence": "[知乎](https://www.zhihu.com/question/36922386/answer/545711911)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/36922386/answer/545711911"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京狸米科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "996",
+      "evidence": "[知乎](https://www.zhihu.com/question/302231030/answer/885385515)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/302231030/answer/885385515"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "吾诺瀚卓",
+      "company_url": "",
+      "date": "8:30-18:00，一周6天",
+      "schedule": "https://baijiahao.baidu.com/s?id=1640013112742652456&wfr=spider&for=pc",
+      "evidence": "",
+      "evidence_links": []
+    },
+    {
+      "city": "临沂",
+      "company_name": "临沂乐卓软件开发有限公司",
+      "company_url": "",
+      "date": "未知，应该是从成立开始",
+      "schedule": "86.56",
+      "evidence": "仅工作一日无证据，早八点到晚六点半为正常上班时间。",
+      "evidence_links": []
+    },
+    {
+      "city": "郑州",
+      "company_name": "宇通客车股份有限公司",
+      "company_url": "",
+      "date": "2019年9月",
+      "schedule": "887",
+      "evidence": "[知乎](https://www.zhihu.com/question/303129920/answer/576465096)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/303129920/answer/576465096"
+        }
+      ]
+    },
+    {
+      "city": "东莞",
+      "company_name": "华勤通讯",
+      "company_url": "http://www.huaqin.com/",
+      "date": "2019年7月",
+      "schedule": "996，每天加班",
+      "evidence": "[知乎](https://www.zhihu.com/question/49628909/answer/522467068)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/49628909/answer/522467068"
+        }
+      ]
+    },
+    {
+      "city": "杭州",
+      "company_name": "安徽凯才信息有限公司(呆萝卜)杭州研发中心",
+      "company_url": "",
+      "date": "2019年6月",
+      "schedule": "996",
+      "evidence": "[内部群通知](https://i.loli.net/2019/07/18/5d2f4d561cc2672533.jpeg)",
+      "evidence_links": [
+        {
+          "text": "内部群通知",
+          "url": "https://i.loli.net/2019/07/18/5d2f4d561cc2672533.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "山东临沂",
+      "company_name": "临沂沂川网络科技有限公司",
+      "company_url": "",
+      "date": "2019年7月",
+      "schedule": "强制加班",
+      "evidence": "[工作群截图](https://i.loli.net/2019/07/16/5d2d7ea1e938a30364.png)",
+      "evidence_links": [
+        {
+          "text": "工作群截图",
+          "url": "https://i.loli.net/2019/07/16/5d2d7ea1e938a30364.png"
+        }
+      ]
+    },
+    {
+      "city": "山东临沂",
+      "company_name": "临沂沂川网络科技有限公司",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "51强制加班不放假",
+      "evidence": "[工作群截图](https://i.loli.net/2019/07/16/5d2d7edf0e9b462391.png)",
+      "evidence_links": [
+        {
+          "text": "工作群截图",
+          "url": "https://i.loli.net/2019/07/16/5d2d7edf0e9b462391.png"
+        }
+      ]
+    },
+    {
+      "city": "山东临沂",
+      "company_name": "临沂沂川网络科技有限公司",
+      "company_url": "",
+      "date": "2019年4月",
+      "schedule": "端午强制加班不放假",
+      "evidence": "[工作群截图](https://i.loli.net/2019/07/16/5d2d7f1a5e46021101.png)",
+      "evidence_links": [
+        {
+          "text": "工作群截图",
+          "url": "https://i.loli.net/2019/07/16/5d2d7f1a5e46021101.png"
+        }
+      ]
+    },
+    {
+      "city": "山东临沂",
+      "company_name": "临沂沂川网络科技有限公司",
+      "company_url": "",
+      "date": "2019年4月",
+      "schedule": "请假1天扣双倍工资,定修4天(即使某月有5个周日)",
+      "evidence": "[规定照片](https://i.loli.net/2019/07/16/5d2d7f8d4d4a955770.jpg)",
+      "evidence_links": [
+        {
+          "text": "规定照片",
+          "url": "https://i.loli.net/2019/07/16/5d2d7f8d4d4a955770.jpg"
+        }
+      ]
+    },
+    {
+      "city": "山东临沂",
+      "company_name": "临沂沂川电子有限公司",
+      "company_url": "",
+      "date": "2015年9月",
+      "schedule": "沂川网络招聘用的皮包公司",
+      "evidence": "附录内3个视频,关键证据:视频内宣传板上印有2公司logo",
+      "evidence_links": []
+    },
+    {
+      "city": "南京",
+      "company_name": "法奔科技",
+      "company_url": "",
+      "date": "2018年",
+      "schedule": "996,阴阳合同,强制加班,扣离职工资,老板律师知法犯法",
+      "evidence": "正在整理,附上仲裁书",
+      "evidence_links": []
+    },
+    {
+      "city": "上海",
+      "company_name": "普道科技",
+      "company_url": "",
+      "date": "2020年8月",
+      "schedule": "晚上11点,早上10点,一周6天,有的组一周7天，不让请事假病假，周六加班请假有惩罚",
+      "evidence": "[知乎](https://www.zhihu.com/question/303129920/answer/576465096)，[群聊不让请假](https://i.loli.net/2020/08/14/XncgmSvibza7ITw.jpg)，[群聊请假惩罚1](https://i.loli.net/2020/08/14/YoUMTQfc78rq6ZD.jpg)，[群聊请假惩罚2](https://i.loli.net/2020/08/14/BlzhiJEYxpMLauU.jpg)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/303129920/answer/576465096"
+        },
+        {
+          "text": "群聊不让请假",
+          "url": "https://i.loli.net/2020/08/14/XncgmSvibza7ITw.jpg"
+        },
+        {
+          "text": "群聊请假惩罚1",
+          "url": "https://i.loli.net/2020/08/14/YoUMTQfc78rq6ZD.jpg"
+        },
+        {
+          "text": "群聊请假惩罚2",
+          "url": "https://i.loli.net/2020/08/14/BlzhiJEYxpMLauU.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海栈略数据技术有限公司",
+      "company_url": "",
+      "date": "2019年8月",
+      "schedule": "时间不定, 基本8点, 扬言加班也得做完, 并没有任何补偿",
+      "evidence": "[看准网](https://www.kanzhun.com/gso6488393.html?ka=com1-title)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso6488393.html?ka=com1-title"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "东方国信",
+      "company_url": "",
+      "date": "2019年8月",
+      "schedule": "晚上9点,早上9点,一周6天",
+      "evidence": "[看准网](https://www.kanzhun.com/gsr621338tl56.html)，[打卡](https://sm.ms/image/wogVyArL9udaTjF)",
+      "evidence_links": [
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gsr621338tl56.html"
+        },
+        {
+          "text": "打卡",
+          "url": "https://sm.ms/image/wogVyArL9udaTjF"
+        }
+      ]
+    },
+    {
+      "city": "北京-长沙",
+      "company_name": "映客直播",
+      "company_url": "",
+      "date": "2019年8月",
+      "schedule": "晚上隐性加班,一周6天",
+      "evidence": "[工作群截图](https://sm.ms/image/aQu5Z7olYmPX3BU)",
+      "evidence_links": [
+        {
+          "text": "工作群截图",
+          "url": "https://sm.ms/image/aQu5Z7olYmPX3BU"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "澎思智能",
+      "company_url": "",
+      "date": "2019年7月",
+      "schedule": "996",
+      "evidence": "[微信截图](https://github.com/wangleipes/996.ICU/blob/master/blacklist/img/%E6%BE%8E%E6%80%9D.png)",
+      "evidence_links": [
+        {
+          "text": "微信截图",
+          "url": "https://github.com/wangleipes/996.ICU/blob/master/blacklist/img/%E6%BE%8E%E6%80%9D.png"
+        }
+      ]
+    },
+    {
+      "city": "南京",
+      "company_name": "中设设计集团子公司纬信工程咨询公司",
+      "company_url": "http://www.js-wx.com.cn/lxwm.asp",
+      "date": "自公司成立",
+      "schedule": "领导明令8106，工作前三年无年假",
+      "evidence": "[群聊截图1](img/道桥部群聊截图.jpg)，[群聊截图2](img/道桥部群聊截图1.jpg)，[群聊截图3](img/道桥部群聊截图2.jpg)，[签到表7.31](img/签到表7.31.jpg)，[签到表8.1](img/签到表8.1.jpg)",
+      "evidence_links": [
+        {
+          "text": "群聊截图1",
+          "url": "img/道桥部群聊截图.jpg"
+        },
+        {
+          "text": "群聊截图2",
+          "url": "img/道桥部群聊截图1.jpg"
+        },
+        {
+          "text": "群聊截图3",
+          "url": "img/道桥部群聊截图2.jpg"
+        },
+        {
+          "text": "签到表7.31",
+          "url": "img/签到表7.31.jpg"
+        },
+        {
+          "text": "签到表8.1",
+          "url": "img/签到表8.1.jpg"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "畅捷通信息技术股份有限公司",
+      "company_url": "",
+      "date": "2019年8月,9月",
+      "schedule": "领导明令996, 每周二四固定加班",
+      "evidence": "[邮件截图](img/畅捷通-996-mail-m.jpg)，[群聊截图](img/畅捷通-996-m.jpg)",
+      "evidence_links": [
+        {
+          "text": "邮件截图",
+          "url": "img/畅捷通-996-mail-m.jpg"
+        },
+        {
+          "text": "群聊截图",
+          "url": "img/畅捷通-996-m.jpg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海竟跃网络科技有限公司",
+      "company_url": "",
+      "date": "2019年或更早",
+      "schedule": "招聘网站写明007",
+      "evidence": "[招聘截图](img/捞月狗招聘信息.jpg)",
+      "evidence_links": [
+        {
+          "text": "招聘截图",
+          "url": "img/捞月狗招聘信息.jpg"
+        }
+      ]
+    },
+    {
+      "city": "云南昆明",
+      "company_name": "云南联通新通信有限公司",
+      "company_url": "",
+      "date": "2020年2月起",
+      "schedule": "云南联通新通信有限公司：云南联通经济效益太差执行混改后划分的子公司，新官上任三把火，加之内心清楚初始资本不够耗，运营模式商业转化效率低下，开始勒令开发996，执行之后对公说这是开发部门自发奋斗，其他部门应该与之学习",
+      "evidence": "[群聊截图](img/ynunicom_ding_talk.jpg)",
+      "evidence_links": [
+        {
+          "text": "群聊截图",
+          "url": "img/ynunicom_ding_talk.jpg"
+        }
+      ]
+    },
+    {
+      "city": "深圳-成都-重庆",
+      "company_name": "深圳市锐明技术股份有限公司",
+      "company_url": "",
+      "date": "2020年4月",
+      "schedule": "领导明令996, 每周三固定加班,无加班工资，加班不调休",
+      "evidence": "[邮件截图](img/streamax-996.png)",
+      "evidence_links": [
+        {
+          "text": "邮件截图",
+          "url": "img/streamax-996.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市万屏时代科技有限公司",
+      "company_url": "",
+      "date": "2020年4月",
+      "schedule": "强制996，迟到早退罚款",
+      "evidence": "[工作群截图](https://i.loli.net/2020/04/27/MwKVDCpH1J59A4c.jpg)，[钉钉考情截图](https://i.loli.net/2020/04/29/sqTSyMJjhfrBbae.jpg)",
+      "evidence_links": [
+        {
+          "text": "工作群截图",
+          "url": "https://i.loli.net/2020/04/27/MwKVDCpH1J59A4c.jpg"
+        },
+        {
+          "text": "钉钉考情截图",
+          "url": "https://i.loli.net/2020/04/29/sqTSyMJjhfrBbae.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "天津硕烁科技有限公司",
+      "company_url": "",
+      "date": "2020年12月",
+      "schedule": "应该是个外包壳公司，成都的注意这个办公地点（成都市 武侯区 招商银行金融后台服务中心）我看到有十来个公司招聘的办公地点都在这里，可以确定这里是个外包，这家公司明确的挂出了996",
+      "evidence": "[招聘截图1](img/天津硕烁科技有限公司1.jpg)，[招聘截图2](img/天津硕烁科技有限公司2.jpg)，[BOSS直聘](https://m.zhipin.com/mpa/html/weijd/weijd-job/5610ccc9ecd3d5791nV83t6-FlJS?date8=20201223&sid=tosee_jd_89126274208e84961nZ52dm4GVpX)",
+      "evidence_links": [
+        {
+          "text": "招聘截图1",
+          "url": "img/天津硕烁科技有限公司1.jpg"
+        },
+        {
+          "text": "招聘截图2",
+          "url": "img/天津硕烁科技有限公司2.jpg"
+        },
+        {
+          "text": "BOSS直聘",
+          "url": "https://m.zhipin.com/mpa/html/weijd/weijd-job/5610ccc9ecd3d5791nV83t6-FlJS?date8=20201223&sid=tosee_jd_89126274208e84961nZ52dm4GVpX"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市富元网络科技有限公司",
+      "company_url": "",
+      "date": "2020年9月",
+      "schedule": "公司老板强制996，无加班费，只有远低于工资的少量餐补，公司已从“深圳市新超能数字信息技术服务有限公司”改名为“深圳市富元网络科技有限公司”，简称“富元环球”",
+      "evidence": "[群聊截图](img/9f996.png)",
+      "evidence_links": [
+        {
+          "text": "群聊截图",
+          "url": "img/9f996.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "Udesk(北京沃丰时代数据科技有限公司)",
+      "company_url": "",
+      "date": "2019年",
+      "schedule": "996",
+      "evidence": "[知乎](https://www.zhihu.com/question/50785581)",
+      "evidence_links": [
+        {
+          "text": "知乎",
+          "url": "https://www.zhihu.com/question/50785581"
+        }
+      ]
+    },
+    {
+      "city": "广东",
+      "company_name": "广东数果科技有限公司",
+      "company_url": "http://sugo.io/",
+      "date": "2021年8月1号",
+      "schedule": "某领导高层要求产品团队强制 996，忽悠的一波并且不给加班费；钉钉上打卡时间设置下21:00才下班，早下的视为早退；已经有几个同事提出离职，已经有几个同事不服从的被离职。见到的不要来啊，福利真的没啥。",
+      "evidence": "[考勤截图](./img/广东数果科技-考勤.png)<br>[996 文件](./img/广东数果科技-996%20文件.png)",
+      "evidence_links": [
+        {
+          "text": "考勤截图",
+          "url": "./img/广东数果科技-考勤.png"
+        },
+        {
+          "text": "996 文件",
+          "url": "./img/广东数果科技-996%20文件.png"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "上海电信CRM项目组",
+      "company_url": "",
+      "date": "2019年5月",
+      "schedule": "每天至少工作12小时，周末采取大小周",
+      "evidence": "[群聊截图1](img/上海电信CRM1.png)，[群聊截图2](img/上海电信CRM2.png)，[报道链接](http://www.shftth.com/news/2019-6-13/981.html)",
+      "evidence_links": [
+        {
+          "text": "群聊截图1",
+          "url": "img/上海电信CRM1.png"
+        },
+        {
+          "text": "群聊截图2",
+          "url": "img/上海电信CRM2.png"
+        },
+        {
+          "text": "报道链接",
+          "url": "http://www.shftth.com/news/2019-6-13/981.html"
+        }
+      ]
+    },
+    {
+      "city": "广州",
+      "company_name": "北京滴普科技有限公司",
+      "company_url": "",
+      "date": "2019年10月底",
+      "schedule": "群里宣布10106/996,请假还需报备",
+      "evidence": "[聊天记录截图1](img/dipu996record1.jpg),[聊天记录截图2](img/dipu996record2.jpg),[看准网](https://www.kanzhun.com/gso7687290.html?ka=com1-title)",
+      "evidence_links": [
+        {
+          "text": "聊天记录截图1",
+          "url": "img/dipu996record1.jpg"
+        },
+        {
+          "text": "聊天记录截图2",
+          "url": "img/dipu996record2.jpg"
+        },
+        {
+          "text": "看准网",
+          "url": "https://www.kanzhun.com/gso7687290.html?ka=com1-title"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京信安世纪科技股份有限公司 / 北京华耀科技有限公司",
+      "company_url": "",
+      "date": "2023年4月",
+      "schedule": "985，明确表明20:00前的加班不算加班，不统计进调休时间内。",
+      "evidence": "[内部邮件](https://s2.loli.net/2023/07/15/ZxDV1dOP4pzj5cS.png), [OA打卡记录](https://s2.loli.net/2023/07/15/Yzxy16MepKkZXbn.png)",
+      "evidence_links": [
+        {
+          "text": "内部邮件",
+          "url": "https://s2.loli.net/2023/07/15/ZxDV1dOP4pzj5cS.png"
+        },
+        {
+          "text": "OA打卡记录",
+          "url": "https://s2.loli.net/2023/07/15/Yzxy16MepKkZXbn.png"
+        }
+      ]
+    },
+    {
+      "city": "天津",
+      "company_name": "北京安华金和科技有限公司-天津研发中心",
+      "company_url": "",
+      "date": "2025年3月",
+      "schedule": "某大领导为赶所谓的进度群里要求晚上加班到21:00以后，周六也要来上班",
+      "evidence": "[内部群截图1](img/北京安华金和-天津研发中心-内部群截图.jpg)",
+      "evidence_links": [
+        {
+          "text": "内部群截图1",
+          "url": "img/北京安华金和-天津研发中心-内部群截图.jpg"
+        }
+      ]
+    }
+  ],
+  "canceled_blacklist": [
+    {
+      "city": "上海",
+      "company_name": "小站教育",
+      "company_url": "https://www.zhan.com/",
+      "date": "10106",
+      "schedule": "[谁在小站教育工作过? 小站教育的课程顾问怎么样？](https://www.zhihu.com/question/27635270)",
+      "evidence": "暂时没有查出是哪个分支取消的，但是我记忆力肯定是上过黑名单，请知道的大佬提交证据",
+      "evidence_links": []
+    },
+    {
+      "city": "苏州",
+      "company_name": "苏州科技城",
+      "company_url": "",
+      "date": "996",
+      "schedule": "5f0f3dd22b8fd0de1897a62206ca6df505af072f",
+      "evidence": "智联上明确写了肯定是996，但是被这个分支取消了，不确定是故意还是无意",
+      "evidence_links": []
+    },
+    {
+      "city": "北京",
+      "company_name": "首约汽车",
+      "company_url": "",
+      "date": "bde8b2d8c89418b5553b199d91ba9394ccacc867",
+      "schedule": "被无故取消，没有提交证据，希望提交证据",
+      "evidence": "",
+      "evidence_links": []
+    },
+    {
+      "city": "六安",
+      "company_name": "六安人论坛",
+      "company_url": "",
+      "date": "c18807f14ade6b12fc1042077a77ca9bd8de02d3",
+      "schedule": "没有任何证据",
+      "evidence": "",
+      "evidence_links": []
+    },
+    {
+      "city": "北京",
+      "company_name": "必胜课",
+      "company_url": "",
+      "date": "a53f1aa6747a6fe4e27cb3475551875aa17bf11d",
+      "schedule": "[盖章文件](img/必胜课取消证据01.png)",
+      "evidence": "",
+      "evidence_links": []
+    },
+    {
+      "city": "杭州",
+      "company_name": "杭州一喂智能科技有限公司",
+      "company_url": "http://www.yivicar.com",
+      "date": "2017年5月",
+      "schedule": "996",
+      "evidence": "[关于杭州一喂出现在黑名单的反馈 (注意pull时间)](https://github.com/996icu/996.ICU/pull/25841)",
+      "evidence_links": [
+        {
+          "text": "关于杭州一喂出现在黑名单的反馈 (注意pull时间)",
+          "url": "https://github.com/996icu/996.ICU/pull/25841"
+        }
+      ]
+    }
+  ],
+  "whitelist": [
+    {
+      "city": "杭州",
+      "company_name": "杭州复杂美科技有限公司",
+      "company_url": "https://github.com/33cn/chain33/",
+      "date": "2019年4月",
+      "schedule": "9-6-5",
+      "evidence": "[员工手册](img/chain33.jpg)",
+      "evidence_links": [
+        {
+          "text": "员工手册",
+          "url": "img/chain33.jpg"
+        }
+      ]
+    },
+    {
+      "city": "成都",
+      "company_name": "四川锦程消费金融有限责任公司",
+      "company_url": "http://www.jccfc.com/",
+      "date": "2019年4月",
+      "schedule": "915-530-5",
+      "evidence": "[考勤规则通知邮件](img/timing_20190401111520.png)",
+      "evidence_links": [
+        {
+          "text": "考勤规则通知邮件",
+          "url": "img/timing_20190401111520.png"
+        }
+      ]
+    },
+    {
+      "city": "深圳",
+      "company_name": "深圳市凉屋游戏科技有限公司",
+      "company_url": "http://www.chillyroom.com/",
+      "date": "2019年4月",
+      "schedule": "上午10:00 - 下午1:00；下午2:30 - 下午7:00",
+      "evidence": "[内部wiki员工手册截图](img/chillyroom_prove.png)",
+      "evidence_links": [
+        {
+          "text": "内部wiki员工手册截图",
+          "url": "img/chillyroom_prove.png"
+        }
+      ]
+    },
+    {
+      "city": "长沙",
+      "company_name": "湖南快乐阳光互动娱乐传媒有限公司",
+      "company_url": "http://www.mgtv.com",
+      "date": "2019年4月",
+      "schedule": "965;中午休息2小时",
+      "evidence": "[邮件通知](img/mgtv.png)",
+      "evidence_links": [
+        {
+          "text": "邮件通知",
+          "url": "img/mgtv.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "长城宽带",
+      "company_url": "https://www.96090090.com/",
+      "date": "2019年4月",
+      "schedule": "9:00-5:30-5",
+      "evidence": "[考勤规则通知邮件](img/gwbn.jpeg)",
+      "evidence_links": [
+        {
+          "text": "考勤规则通知邮件",
+          "url": "img/gwbn.jpeg"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "三零卫士",
+      "company_url": "http://www.30wish.net",
+      "date": "2019年4月",
+      "schedule": "9:30-17:30-5",
+      "evidence": "[钉钉考勤规则说明](img/30wish.png)",
+      "evidence_links": [
+        {
+          "text": "钉钉考勤规则说明",
+          "url": "img/30wish.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "语知科技",
+      "company_url": "http://http://yuzhinlp.com/",
+      "date": "2019年4月",
+      "schedule": "9:00-18:00-5;上下班弹性半小时;午休1h;",
+      "evidence": "[员工手册截图](img/yuzhi_nlp.png)",
+      "evidence_links": [
+        {
+          "text": "员工手册截图",
+          "url": "img/yuzhi_nlp.png"
+        }
+      ]
+    },
+    {
+      "city": "北京",
+      "company_name": "北京优锘科技有限公司",
+      "company_url": "http://www.uinnova.cn/",
+      "date": "2019年4月",
+      "schedule": "9-6-5;弹性工作;午休一个钟;",
+      "evidence": "[员工手册截图](img/uinnova.png)",
+      "evidence_links": [
+        {
+          "text": "员工手册截图",
+          "url": "img/uinnova.png"
+        }
+      ]
+    },
+    {
+      "city": "北京, 西安",
+      "company_name": "北京庖丁科技有限公司",
+      "company_url": "https://www.paodingai.com/",
+      "date": "2019年5月",
+      "schedule": "9-6-5;弹性工作;午休一小时;",
+      "evidence": "[内部 WiKi 截图](img/PaodingAI-wiki.png)",
+      "evidence_links": [
+        {
+          "text": "内部 WiKi 截图",
+          "url": "img/PaodingAI-wiki.png"
+        }
+      ]
+    },
+    {
+      "city": "上海",
+      "company_name": "IBM",
+      "company_url": "https://www.ibm.com/cn-zh",
+      "date": "2019年5月",
+      "schedule": "9-6-5;弹性工作;午休一小时;",
+      "evidence": "[内部 WiKi 截图](img/PaodingAI-wiki.png)",
+      "evidence_links": [
+        {
+          "text": "内部 WiKi 截图",
+          "url": "img/PaodingAI-wiki.png"
+        }
+      ]
+    }
+  ],
+  "remotelist": [
+    {
+      "city": "北京市",
+      "company_name": "新义互联（北京）科技有限公司",
+      "company_url": "https://adtalos.com/",
+      "positions": "程序员"
+    },
+    {
+      "city": "上海市",
+      "company_name": "一线科技",
+      "company_url": "https://1wire.com",
+      "positions": "所有职位"
+    },
+    {
+      "city": "上海市",
+      "company_name": "微辣生活",
+      "company_url": "https://weila.life",
+      "positions": "技术与视频编辑"
+    }
+  ],
+  "awesomelist": [
+    {
+      "project_name": "Make Zero",
+      "project_url": "https://github.com/sheepzh/make-zero",
+      "description": "便捷加解密文字的浏览器插件，支持自定义密码，多种密文格式。",
+      "stars_badge": "![](https://img.shields.io/github/stars/sheepzh/make-zero)",
+      "license": "[![LICENSE](https://badges.frapsoft.com/os/mit/mit.svg)](https://opensource.org/licenses/mit-license.php)<br />with<br />[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "Easy Mybatis",
+      "project_url": "https://github.com/onlyGuo/easymybatis",
+      "description": "在内存中自动生成Mapper 但不会释放文件到硬盘.",
+      "stars_badge": "![](\thttps://img.shields.io/github/stars/onlyGuo/easymybatis)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE) with [![LICENSE](https://img.shields.io/github/license/onlyGuo/easymybatis)](https://github.com/onlyGuo/easymybatis/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "在线视频字幕（ASS）编辑器",
+      "project_url": "https://ass-editor.js.org",
+      "description": "在线编辑视频字幕",
+      "stars_badge": "![](https://img.shields.io/github/stars/jeff-tian/ass.svg)",
+      "license": "[![LICENSE](https://badges.frapsoft.com/os/mit/mit.svg)](https://opensource.org/licenses/mit-license.php)<br />with<br />[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "HadoopHADeploymentScript",
+      "project_url": "https://github.com/Fa1c0nSec/HadoopHADeploymentScript",
+      "description": "Hadoop 双机集群高可用系统自动化部署脚本",
+      "stars_badge": "![](https://img.shields.io/github/stars/Fa1c0nSec/HadoopHADeploymentScript.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "tsmon",
+      "project_url": "https://www.npmjs.com/package/tsmon",
+      "description": "TypeScript版本的nodemon和ts-node集合体，缓存编译结果，支持增量编译，TypeScript开发利器",
+      "stars_badge": "![](https://img.shields.io/github/stars/agentframework/tsmon.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://unpkg.com/tsmon@0.4.2/LICENSE)"
+    },
+    {
+      "project_name": "async-retry.ts",
+      "project_url": "https://www.npmjs.com/package/async-retry.ts",
+      "description": "Retry Pattern 的 TypeScript 实现",
+      "stars_badge": "![](https://img.shields.io/github/stars/jeff-tian/async-retry.ts.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "yasio",
+      "project_url": "https://github.com/yasio/yasio",
+      "description": "A cross platform & lightweight socket io service",
+      "stars_badge": "![](https://img.shields.io/github/stars/yasio/yasio.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "WAF",
+      "project_url": "https://github.com/chengdedeng/waf",
+      "description": "Web Application Firewall or API Gateway(应用防火墙/API网关)",
+      "stars_badge": "![](https://img.shields.io/github/stars/chengdedeng/waf.svg)",
+      "license": "[![LICENSE](https://badges.frapsoft.com/os/mit/mit.svg)](https://opensource.org/licenses/mit-license.php)"
+    },
+    {
+      "project_name": "ID Card",
+      "project_url": "https://github.com/ofcold/identity-card",
+      "description": "身份证号码信息",
+      "stars_badge": "![](https://img.shields.io/github/stars/ofcold/identity-card.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "dura",
+      "project_url": "https://github.com/CN-YUANYU/dura",
+      "description": "基于 redux、typescript 的前端数据流方案",
+      "stars_badge": "![](https://img.shields.io/github/stars/CN-YUANYU/dura.svg)",
+      "license": "![](https://img.shields.io/github/license/CN-YUANYU/dura.svg)"
+    },
+    {
+      "project_name": "vue-apis",
+      "project_url": "https://github.com/ChangedenCZD/vue-apis",
+      "description": "集成axios的vue插件",
+      "stars_badge": "![](https://img.shields.io/github/stars/ChangedenCZD/vue-apis.svg)",
+      "license": "![](https://img.shields.io/github/license/ChangedenCZD/vue-apis.svg)"
+    },
+    {
+      "project_name": "optimize-vue",
+      "project_url": "https://github.com/ChangedenCZD/optimize-vue",
+      "description": "基于 vue-cli 3.0 构建的快速开发框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/ChangedenCZD/optimize-vue.svg)",
+      "license": "![](https://img.shields.io/github/license/ChangedenCZD/optimize-vue.svg)"
+    },
+    {
+      "project_name": "optimize-vue-cli",
+      "project_url": "https://github.com/ChangedenCZD/optimize-vue-cli",
+      "description": "基于 vue-cli 3.0 构建的快速开发框架的脚手架",
+      "stars_badge": "![](https://img.shields.io/github/stars/ChangedenCZD/optimize-vue-cli.svg)",
+      "license": "![](https://img.shields.io/github/license/ChangedenCZD/optimize-vue-cli.svg)"
+    },
+    {
+      "project_name": "thinkphp5-restfulapi",
+      "project_url": "https://github.com/Leslin/thinkphp5-restfulapi",
+      "description": "基于 thinkphp5 开发的restful api快速开发框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/Leslin/thinkphp5-restfulapi.svg)",
+      "license": "![](https://img.shields.io/github/license/Leslin/thinkphp5-restfulapi.svg)"
+    },
+    {
+      "project_name": "HookPHP",
+      "project_url": "https://github.com/letwang/HookPHP",
+      "description": "一款基于C扩展搭建支持AI在线编程的PHP框架！",
+      "stars_badge": "![](https://img.shields.io/github/stars/letwang/HookPHP.svg)",
+      "license": "![](https://img.shields.io/github/license/letwang/HookPHP.svg)"
+    },
+    {
+      "project_name": "server",
+      "project_url": "https://github.com/wildfirechat/server",
+      "description": "野火IM解决方案，server端",
+      "stars_badge": "![](https://img.shields.io/github/stars/wildfirechat/server.svg)",
+      "license": "![](https://img.shields.io/github/license/wildfirechat/server.svg)"
+    },
+    {
+      "project_name": "WeChatBlog",
+      "project_url": "https://github.com/NiZerin/WeChatBlog",
+      "description": "微信小程序 & 个人博客 & WordPress REST API",
+      "stars_badge": "![](https://img.shields.io/github/stars/NiZerin/WeChatBlog.svg)",
+      "license": "![](https://img.shields.io/github/license/NiZerin/WeChatBlog.svg)"
+    },
+    {
+      "project_name": "Yearning",
+      "project_url": "https://github.com/cookieY/Yearning",
+      "description": "Mysql SQL审核平台",
+      "stars_badge": "![](https://img.shields.io/github/stars/cookieY/Yearning.svg)",
+      "license": "![](https://img.shields.io/github/license/cookieY/Yearning.svg)"
+    },
+    {
+      "project_name": "java-multi-thread-programming",
+      "project_url": "https://github.com/loveincode/java-multi-thread-programming",
+      "description": "《Java多线程编程核心技术》源码",
+      "stars_badge": "![](https://img.shields.io/github/stars/loveincode/java-multi-thread-programming.svg)",
+      "license": "![](https://img.shields.io/github/license/loveincode/java-multi-thread-programming.svg)"
+    },
+    {
+      "project_name": "notes",
+      "project_url": "https://github.com/loveincode/notes",
+      "description": "一个Java后端工程师的学习笔记",
+      "stars_badge": "![](https://img.shields.io/github/stars/loveincode/notes.svg)",
+      "license": "![](https://img.shields.io/github/license/loveincode/notes.svg)"
+    },
+    {
+      "project_name": "Atom.css",
+      "project_url": "https://github.com/isVertical/atom.css",
+      "description": "Atom.css 一个提供原子化风格Class的UI库",
+      "stars_badge": "![](https://img.shields.io/github/stars/isVertical/atom.css.svg)",
+      "license": "![](https://img.shields.io/github/license/isVertical/atom.css.svg)"
+    },
+    {
+      "project_name": "mina-gulp-cli",
+      "project_url": "https://github.com/milobluebell/mina-gulp-cli",
+      "description": "一个轻量级的小程序开发脚手架，基于gulp",
+      "stars_badge": "![](https://img.shields.io/github/stars/milobluebell/mina-gulp-cli.svg)",
+      "license": "![](https://img.shields.io/github/license/milobluebell/mina-gulp-cli.svg)"
+    },
+    {
+      "project_name": "aya-store",
+      "project_url": "https://github.com/milobluebell/aya-store",
+      "description": "小程序状态管理模块",
+      "stars_badge": "![](https://img.shields.io/github/stars/milobluebell/aya-store.svg)",
+      "license": "![](https://img.shields.io/github/license/milobluebell/aya-store.svg)"
+    },
+    {
+      "project_name": "eppdev-jee-pom",
+      "project_url": "https://github.com/eppdev/eppdev-jee-pom",
+      "description": "数据驱动的JavaEE代码生成程序",
+      "stars_badge": "![](https://img.shields.io/github/stars/eppdev/eppdev-jee-pom.svg)",
+      "license": "![](https://img.shields.io/github/license/eppdev/eppdev-jee-pom.svg)"
+    },
+    {
+      "project_name": "You-need-to-know-css",
+      "project_url": "https://github.com/l-hammer/You-need-to-know-css",
+      "description": "💄CSS tricks for web developers\\~",
+      "stars_badge": "![](https://img.shields.io/github/stars/l-hammer/You-need-to-know-css.svg)",
+      "license": "![](https://img.shields.io/github/license/l-hammer/You-need-to-know-css.svg)"
+    },
+    {
+      "project_name": "awesome-golang-leetcode",
+      "project_url": "https://github.com/kylesliu/awesome-golang-leetcode",
+      "description": "📝 LeetCode of algorithms with golang solution(updating).",
+      "stars_badge": "![](https://img.shields.io/github/stars/kylesliu/awesome-golang-leetcode.svg)",
+      "license": "![](https://img.shields.io/github/license/kylesliu/awesome-golang-leetcode.svg)"
+    },
+    {
+      "project_name": "easy-filter",
+      "project_url": "https://github.com/PsChina/easy-filter",
+      "description": "vue2.x 过滤器插件",
+      "stars_badge": "![](https://img.shields.io/github/stars/PsChina/easy-filter.svg)",
+      "license": "![](https://img.shields.io/github/license/PsChina/easy-filter.svg)"
+    },
+    {
+      "project_name": "Vueg",
+      "project_url": "https://github.com/jaweii/Vueg----page-transition-plugin",
+      "description": "Page level transition plugin for vue-router",
+      "stars_badge": "![](https://img.shields.io/github/stars/jaweii/Vueg----page-transition-plugin.svg)",
+      "license": "![](https://img.shields.io/github/license/jaweii/Vueg----page-transition-plugin.svg)"
+    },
+    {
+      "project_name": "one",
+      "project_url": "https://github.com/lizhichao/one",
+      "description": "一个极简的高性能常驻内存php框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/lizhichao/one.svg)",
+      "license": "![](https://img.shields.io/github/license/lizhichao/one.svg)"
+    },
+    {
+      "project_name": "Pipi-Dinosaur",
+      "project_url": "https://github.com/martin-yin/Pipi-Dinosaur",
+      "description": "皮皮🦖 微信小程序color-ui的vue版本",
+      "stars_badge": "![](https://img.shields.io/github/stars/martin-yin/Pipi-Dinosaur.svg)",
+      "license": "![](https://img.shields.io/github/license/martin-yin/Pipi-Dinosaur.svg)"
+    },
+    {
+      "project_name": "WxJava",
+      "project_url": "https://github.com/Wechat-Group/WxJava",
+      "description": "微信开发 Java SDK",
+      "stars_badge": "![](https://img.shields.io/github/stars/Wechat-Group/WxJava.svg)",
+      "license": "![](https://img.shields.io/github/license/Wechat-Group/WxJava.svg)"
+    },
+    {
+      "project_name": "cyclone",
+      "project_url": "https://github.com/simpleapples/cyclone",
+      "description": "Cyclone is a go package to spawn, reuse and manage a number of goroutines by a pool.",
+      "stars_badge": "![](https://img.shields.io/github/stars/simpleapples/cyclone.svg)",
+      "license": "![](https://img.shields.io/github/license/simpleapples/cyclone.svg)"
+    },
+    {
+      "project_name": "NumbCube",
+      "project_url": "https://github.com/KirosHan/NumbCube",
+      "description": "NumbCube流媒体直播解决方案",
+      "stars_badge": "![](https://img.shields.io/github/stars/KirosHan/NumbCube.svg)",
+      "license": "![](https://img.shields.io/github/license/KirosHan/NumbCube.svg)"
+    },
+    {
+      "project_name": "bootcdn",
+      "project_url": "https://github.com/AJLoveChina/bootcdn",
+      "description": ":wrench:快速查询一个开源库在bootcdn的URL地址",
+      "stars_badge": "![](https://img.shields.io/github/stars/AJLoveChina/bootcdn.svg)",
+      "license": "![](https://img.shields.io/github/license/AJLoveChina/bootcdn.svg)"
+    },
+    {
+      "project_name": "vue-keyboard",
+      "project_url": "https://github.com/AJLoveChina/vue-keyboard",
+      "description": ":musical_keyboard:A real hand tapping keyboard for vuejs.",
+      "stars_badge": "![](https://img.shields.io/github/stars/AJLoveChina/vue-keyboard.svg)",
+      "license": "![](https://img.shields.io/github/license/AJLoveChina/vue-keyboard.svg)"
+    },
+    {
+      "project_name": "Leetcode-Java",
+      "project_url": "https://github.com/pphdsny/Leetcode-Java",
+      "description": "Leetcode java题解，持续更新",
+      "stars_badge": "![](https://img.shields.io/github/stars/pphdsny/Leetcode-Java.svg)",
+      "license": "![](https://img.shields.io/github/license/pphdsny/Leetcode-Java.svg)"
+    },
+    {
+      "project_name": "dynamic-add-date",
+      "project_url": "https://github.com/yidasanqian/dynamic-add-date",
+      "description": "一款基于MyBatis框架，可以对插入和更新Sql语句动态地添加日期列和对应值的插件",
+      "stars_badge": "![](https://img.shields.io/github/stars/yidasanqian/dynamic-add-date.svg)",
+      "license": "![](https://img.shields.io/github/license/yidasanqian/dynamic-add-date.svg)"
+    },
+    {
+      "project_name": "WebSocketDemo",
+      "project_url": "https://github.com/0xZhangKe/WebSocketDemo",
+      "description": "用于简化 WebSocket 在 Android 平台使用的封装方法",
+      "stars_badge": "![](https://img.shields.io/github/stars/0xZhangKe/WebSocketDemo.svg)",
+      "license": "![](https://img.shields.io/github/license/0xZhangKe/WebSocketDemo.svg)"
+    },
+    {
+      "project_name": "ShiZhong",
+      "project_url": "https://github.com/0xZhangKe/ShiZhong",
+      "description": "一个用于制定各种计划的APP",
+      "stars_badge": "![](https://img.shields.io/github/stars/0xZhangKe/ShiZhong.svg)",
+      "license": "![](https://img.shields.io/github/license/0xZhangKe/ShiZhong.svg)"
+    },
+    {
+      "project_name": "BAButton",
+      "project_url": "https://github.com/BAHome/BAButton",
+      "description": "一款OC语言的按钮各种文字图片状态的封装",
+      "stars_badge": "![](https://img.shields.io/github/stars/BAHome/BAButton.svg)",
+      "license": "![](https://img.shields.io/github/license/BAHome/BAButton.svg)"
+    },
+    {
+      "project_name": "boilerplate-creator",
+      "project_url": "https://github.com/oychao/boilerplate-creator",
+      "description": "一个支持自定义模板源的脚手架构建工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/oychao/boilerplate-creator.svg)",
+      "license": "![](https://img.shields.io/github/license/oychao/boilerplate-creator.svg)"
+    },
+    {
+      "project_name": "react-router-alive",
+      "project_url": "https://github.com/oychao/react-router-alive",
+      "description": "react-router版的keep-alive路由组件",
+      "stars_badge": "![](https://img.shields.io/github/stars/oychao/react-router-alive.svg)",
+      "license": "![](https://img.shields.io/github/license/oychao/react-router-alive.svg)"
+    },
+    {
+      "project_name": "SKM",
+      "project_url": "https://github.com/TimothyYe/skm",
+      "description": "A simple and powerful SSH Keys Manager.",
+      "stars_badge": "![](https://img.shields.io/github/stars/TimothyYe/skm.svg)",
+      "license": "![](https://img.shields.io/github/license/TimothyYe/skm.svg)"
+    },
+    {
+      "project_name": "ajax-js",
+      "project_url": "https://github.com/GerryIsWarrior/ajax",
+      "description": "前端ajax解决方案，励志让前端更美好的库",
+      "stars_badge": "![](https://img.shields.io/github/stars/GerryIsWarrior/ajax.svg)",
+      "license": "![](https://img.shields.io/github/license/GerryIsWarrior/ajax.svg)"
+    },
+    {
+      "project_name": "FPN-SemanticSeg",
+      "project_url": "https://github.com/ElephantGit/SemanticSegmentationUsingFPN_PanopticFeaturePyramidNetworks",
+      "description": "一个使用FPN进行语义分割的实现",
+      "stars_badge": "![](https://img.shields.io/github/stars/ElephantGit/SemanticSegmentationUsingFPN_PanopticFeaturePyramidNetworks.svg)",
+      "license": "![](https://img.shields.io/github/license/ElephantGit/SemanticSegmentationUsingFPN_PanopticFeaturePyramidNetworks.svg)"
+    },
+    {
+      "project_name": "微信群聊游戏",
+      "project_url": "https://github.com/Whoisurdady/WeChatRoomGame",
+      "description": "一个利用微信python api实现的聊天机器人和成语接龙游戏",
+      "stars_badge": "![](https://img.shields.io/github/stars/Whoisurdady/WeChatRoomGame.svg)",
+      "license": "![](https://img.shields.io/github/license/Whoisurdady/WeChatRoomGame.svg)"
+    },
+    {
+      "project_name": "SlideBack",
+      "project_url": "https://github.com/ParfoisMeng/SlideBack",
+      "description": "(Android)无需继承的Activity侧滑返回库 类全面屏返回手势效果 仿“即刻”侧滑返回",
+      "stars_badge": "![](https://img.shields.io/github/stars/ParfoisMeng/SlideBack.svg)",
+      "license": "![](https://img.shields.io/github/license/ParfoisMeng/SlideBack.svg)"
+    },
+    {
+      "project_name": "ata",
+      "project_url": "https://github.com/yahtnif/ata",
+      "description": "axios + auto encode url + ...fetch style requests with `$` prefixed methods, like `axios-module` support string proxy config like `127.0.0.1:9000`",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/ata.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/ata.svg)"
+    },
+    {
+      "project_name": "foke",
+      "project_url": "https://github.com/yahtnif/foke",
+      "description": "Simple job queues, with dash server.",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/foke.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/foke.svg)"
+    },
+    {
+      "project_name": "ixi",
+      "project_url": "https://github.com/yahtnif/ixi",
+      "description": "Structure selection parser.",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/ixi.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/ixi.svg)"
+    },
+    {
+      "project_name": "randelay",
+      "project_url": "https://github.com/yahtnif/randelay",
+      "description": "Delay a promise a specified amount of time",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/randelay.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/randelay.svg)"
+    },
+    {
+      "project_name": "random-mua",
+      "project_url": "https://github.com/yahtnif/random-mua",
+      "description": "Random Modern User-Agent.",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/random-mua.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/random-mua.svg)"
+    },
+    {
+      "project_name": "smarkdown",
+      "project_url": "https://github.com/yahtnif/smarkdown",
+      "description": "Markdown parser, simplicity and extensibility.",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/smarkdown.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/smarkdown.svg)"
+    },
+    {
+      "project_name": "suni",
+      "project_url": "https://github.com/yahtnif/suni",
+      "description": "Arr, Hash, Is, Obj, Random, Str, Wrandom",
+      "stars_badge": "![](https://img.shields.io/github/stars/yahtnif/suni.svg)",
+      "license": "![](https://img.shields.io/github/license/yahtnif/suni.svg)"
+    },
+    {
+      "project_name": "Edge Translate",
+      "project_url": "https://github.com/EdgeTranslate/EdgeTranslate",
+      "description": "一款支持多种浏览器的网页翻译插件",
+      "stars_badge": "![](https://img.shields.io/github/stars/EdgeTranslate/EdgeTranslate.svg)",
+      "license": "![](https://img.shields.io/github/license/EdgeTranslate/EdgeTranslate.svg)"
+    },
+    {
+      "project_name": "AMEGetterMaker",
+      "project_url": "https://github.com/ame017/AMEGetterMaker",
+      "description": "(Xcode)一个无需resign的Xcode懒加载生成器",
+      "stars_badge": "![](https://img.shields.io/github/stars/ame017/AMEGetterMaker.svg)",
+      "license": "![](https://img.shields.io/github/license/ame017/AMEGetterMaker.svg)"
+    },
+    {
+      "project_name": "AMECategoryMaker",
+      "project_url": "https://github.com/ame017/AMECategoryMaker",
+      "description": "(Xcode)一个无需resign的Xcode category生成器",
+      "stars_badge": "![](https://img.shields.io/github/stars/ame017/AMECategoryMaker.svg)",
+      "license": "![](https://img.shields.io/github/license/ame017/AMECategoryMaker.svg)"
+    },
+    {
+      "project_name": "vscode-syncing",
+      "project_url": "https://github.com/nonoroazoro/vscode-syncing",
+      "description": "Syncing 是一个 VSCode 扩展，它能在多台设备之间同步您的所有 VSCode 配置。",
+      "stars_badge": "![](https://img.shields.io/github/stars/nonoroazoro/vscode-syncing.svg)",
+      "license": "![](https://img.shields.io/github/license/nonoroazoro/vscode-syncing.svg)"
+    },
+    {
+      "project_name": "Bounce",
+      "project_url": "https://github.com/zhangyu0310/bounce",
+      "description": "A C++11 network library in Linux.",
+      "stars_badge": "![](https://img.shields.io/github/stars/zhangyu0310/bounce.svg)",
+      "license": "![](https://img.shields.io/github/license/zhangyu0310/bounce.svg)"
+    },
+    {
+      "project_name": "Swoole IDE helper",
+      "project_url": "https://github.com/wudi/swoole-ide-helper",
+      "description": "Auto completion, trigger suggest and view docs for Swoole in editor.",
+      "stars_badge": "![](https://img.shields.io/github/stars/wudi/swoole-ide-helper.svg)",
+      "license": "![](https://img.shields.io/github/license/wudi/swoole-ide-helper.svg)"
+    },
+    {
+      "project_name": "CSV2Entity",
+      "project_url": "https://github.com/juwikuang/csv2entity",
+      "description": "用CSV生成.net class",
+      "stars_badge": "![](https://img.shields.io/github/stars/juwikuang/csv2entity.svg)",
+      "license": "![](https://img.shields.io/github/license/juwikuang/csv2entity.svg)"
+    },
+    {
+      "project_name": "image-cropper",
+      "project_url": "https://github.com/wx-plugin/image-cropper",
+      "description": "💯一款功能强大的微信小程序图片裁剪插件",
+      "stars_badge": "![](https://img.shields.io/github/stars/wx-plugin/image-cropper.svg)",
+      "license": "![](https://img.shields.io/github/license/wx-plugin/image-cropper.svg)"
+    },
+    {
+      "project_name": "cvpm",
+      "project_url": "https://github.com/unarxiv/cvpm",
+      "description": "计算机视觉的包管理工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/unarxiv/cvpm.svg)",
+      "license": "![](https://img.shields.io/github/license/unarxiv/cvpm.svg)"
+    },
+    {
+      "project_name": "MusiCoder",
+      "project_url": "https://github.com/Pzoom522/MusiCoder",
+      "description": ":musical_score:基于深度学习的轻量化音乐质感转换系统",
+      "stars_badge": "![](https://img.shields.io/github/stars/Pzoom522/MusiCoder.svg)",
+      "license": "![](https://img.shields.io/github/license/Pzoom522/MusiCoder.svg)"
+    },
+    {
+      "project_name": "TensorFlow-2.0-Tutorials",
+      "project_url": "https://github.com/dragen1860/TensorFlow2.0Tutorials",
+      "description": "TensorFlow 2.0实战教程",
+      "stars_badge": "![](https://img.shields.io/github/stars/dragen1860/TensorFlow2.0Tutorials.svg)",
+      "license": "![](https://img.shields.io/github/license/dragen1860/TensorFlow2.0Tutorials.svg)"
+    },
+    {
+      "project_name": "CHOLMOD",
+      "project_url": "https://github.com/LyqSpace/Cholmod-Scikit-Sparse-Windows",
+      "description": "CHOLMOD和Scikit-Sparse科学计算工具包的Windows版本",
+      "stars_badge": "![](https://img.shields.io/github/stars/LyqSpace/Cholmod-Scikit-Sparse-Windows.svg)",
+      "license": "![](https://img.shields.io/github/license/LyqSpace/Cholmod-Scikit-Sparse-Windows.svg)"
+    },
+    {
+      "project_name": "Unity 3D ShaderLab Development Practice Introduction, 3rd version",
+      "project_url": "https://github.com/AShine17cm/ShaderLab",
+      "description": "《Unity 3D ShaderLab开发实战详解》第三版源码",
+      "stars_badge": "![](https://img.shields.io/github/stars/AShine17cm/ShaderLab.svg)",
+      "license": "![](https://img.shields.io/github/license/AShine17cm/ShaderLab.svg)"
+    },
+    {
+      "project_name": "Fastquery",
+      "project_url": "https://github.com/xixifeng/fastquery",
+      "description": "Open source DB extreme speed operating tool with an interface-oriented design style(开源DB极速操作工具,采用不得不面向接口的设计风格)",
+      "stars_badge": "![](https://img.shields.io/github/stars/xixifeng/fastquery.svg)",
+      "license": "![](https://img.shields.io/github/license/xixifeng/fastquery.svg)"
+    },
+    {
+      "project_name": "zoro",
+      "project_url": "https://github.com/FaureWu/zoro",
+      "description": "zoro是一套基于redux的轻量级前端框架，用于快速接入redux，支持原生小程序wepy, taro, react等",
+      "stars_badge": "![](https://img.shields.io/github/stars/FaureWu/zoro.svg)",
+      "license": "![](https://img.shields.io/github/license/FaureWu/zoro.svg)"
+    },
+    {
+      "project_name": "ThrustRTC",
+      "project_url": "https://github.com/fynv/ThrustRTC",
+      "description": "CUDA tool set for python (and other non-C/C++ languages) that provides similar functionality like Thrust, with NVRTC at its core.",
+      "stars_badge": "![](https://img.shields.io/github/stars/fynv/ThrustRTC.svg)",
+      "license": "![](https://img.shields.io/github/license/fynv/ThrustRTC.svg)"
+    },
+    {
+      "project_name": "Privexec",
+      "project_url": "https://github.com/M2Team/Privexec",
+      "description": "Privexec 在 Windows 上使用指定的权限级别启动进程，包括 AppContainer",
+      "stars_badge": "![](https://img.shields.io/github/stars/M2Team/Privexec.svg)",
+      "license": "![](https://img.shields.io/github/license/M2Team/Privexec.svg)"
+    },
+    {
+      "project_name": "Clangbuilder",
+      "project_url": "https://github.com/fstudio/clangbuilder",
+      "description": "Windows 系统下的 LLVM/Clang 自动化构建工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/fstudio/clangbuilder.svg)",
+      "license": "![](https://img.shields.io/github/license/fstudio/clangbuilder.svg)"
+    },
+    {
+      "project_name": "ARPG",
+      "project_url": "https://raw.githubusercontent.com/ChangedenCZD/996.ICU/local/awesomelist/img/icon.chansos.com.png",
+      "description": "Unity 框架 支持行为编辑和技能时间轴编辑，用以快速搭建ARPG游戏框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/xxpniu/version.svg)",
+      "license": "![](https://img.shields.io/github/license/xxpniu/version/.svg)"
+    },
+    {
+      "project_name": "myTranslate",
+      "project_url": "https://github.com/Julyme/myTranslate",
+      "description": "一款基于eclipse的插件，用于翻译。",
+      "stars_badge": "![](https://img.shields.io/github/stars/Julyme/myTranslate.svg)",
+      "license": "![](https://img.shields.io/github/license/Julyme/myTranslate.svg)"
+    },
+    {
+      "project_name": "SmartTaskbar",
+      "project_url": "https://github.com/ChanpleCai/SmartTaskbar",
+      "description": "A Lightweight Windows Taskbar Enhancement Utility",
+      "stars_badge": "![](https://img.shields.io/github/stars/ChanpleCai/SmartTaskbar.svg)",
+      "license": "![](https://img.shields.io/github/license/ChanpleCai/SmartTaskbar.svg)"
+    },
+    {
+      "project_name": "Image-Downloader",
+      "project_url": "https://github.com/sczhengyabin/Image-Downloader",
+      "description": "支持多个搜索引擎的网络图片批量爬虫工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/sczhengyabin/Image-Downloader.svg)",
+      "license": "![](https://img.shields.io/github/license/sczhengyabin/Image-Downloader.svg)"
+    },
+    {
+      "project_name": "git-hook-996",
+      "project_url": "https://github.com/jeasonstudio/git-hook-996",
+      "description": "禁止在正常工作时间外提交代码",
+      "stars_badge": "![](https://img.shields.io/github/stars/jeasonstudio/git-hook-996.svg)",
+      "license": "![](https://img.shields.io/github/license/jeasonstudio/git-hook-996.svg)"
+    },
+    {
+      "project_name": "smart-hooks",
+      "project_url": "https://github.com/Chersquwn/smart-hooks",
+      "description": "简单、实用的react-hooks",
+      "stars_badge": "![](https://img.shields.io/github/stars/Chersquwn/smart-hooks.svg)",
+      "license": "![](https://img.shields.io/github/license/Chersquwn/smart-hooks.svg)"
+    },
+    {
+      "project_name": "Audio Frequency Graph Generator",
+      "project_url": "https://github.com/haoranzhang929/audio-frequency-visual-generators",
+      "description": "网页端音频频率数据分析工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/haoranzhang929/audio-frequency-visual-generators.svg)",
+      "license": "![](https://img.shields.io/github/license/haoranzhang929/audio-frequency-visual-generators.svg)"
+    },
+    {
+      "project_name": "SnowLeopard",
+      "project_url": "https://github.com/alienwow/SnowLeopard",
+      "description": "实用的 .net core 工具包",
+      "stars_badge": "![](https://img.shields.io/github/stars/alienwow/SnowLeopard.svg)",
+      "license": "![](https://img.shields.io/github/license/alienwow/SnowLeopard.svg)"
+    },
+    {
+      "project_name": "Rako",
+      "project_url": "https://github.com/rabbitooops/rako",
+      "description": "声明式的JavaScript状态容器",
+      "stars_badge": "![](https://img.shields.io/github/stars/rabbitooops/rako.svg)",
+      "license": "![](https://img.shields.io/github/license/rabbitooops/rako.svg)"
+    },
+    {
+      "project_name": "react-blog",
+      "project_url": "https://github.com/gershonv/react-blog",
+      "description": "一个使用 react 16.8 + koa2 + mysql 构建的简约 spa 博客",
+      "stars_badge": "![](https://img.shields.io/github/stars/gershonv/react-blog.svg)",
+      "license": "![](https://img.shields.io/github/license/gershonv/react-blog.svg)"
+    },
+    {
+      "project_name": "AndroidPicker",
+      "project_url": "https://github.com/gzu-liyujiang/AndroidPicker",
+      "description": "安卓选择器类库，包括日期选择器、时间选择器、单项选择器、双项选择器、二三级联动选择器、城市地址选择器、数字选择器、颜色选择器、文件选择器、目录选择器等",
+      "stars_badge": "![](https://img.shields.io/github/stars/gzu-liyujiang/AndroidPicker.svg)",
+      "license": "![](https://img.shields.io/github/license/gzu-liyujiang/AndroidPicker.svg)"
+    },
+    {
+      "project_name": "vue-drag-tree",
+      "project_url": "https://vigilant-curran-d6fec6.netlify.com/#/",
+      "description": "a Vue's drag and drop tree component（一个可拖拽的树形Vue.js组件）",
+      "stars_badge": "![](https://img.shields.io/github/stars/shuiRong/vue-drag-tree.svg)",
+      "license": "![](https://img.shields.io/github/license/shuiRong/vue-drag-tree.svg)"
+    },
+    {
+      "project_name": "cnlgbtdata",
+      "project_url": "https://cnlgbtdata.com",
+      "description": "国内LGBT相关资料及法律信息收集站",
+      "stars_badge": "",
+      "license": "\\-"
+    },
+    {
+      "project_name": "QuickFrontend",
+      "project_url": "https://github.com/sinri/QuickFrontend",
+      "description": "A simple frontend framework is designed for quick develop with vue.js 2, iview.ui 3, axios, js-cookie.",
+      "stars_badge": "![](https://img.shields.io/github/stars/sinri/QuickFrontend.svg)",
+      "license": "![](https://img.shields.io/github/license/sinri/QuickFrontend.svg)"
+    },
+    {
+      "project_name": "QTL",
+      "project_url": "https://github.com/znone/qtl",
+      "description": "A friendly and lightweight C++ database library for MySQL, SQLite and ODBC.",
+      "stars_badge": "![](https://img.shields.io/github/stars/znone/qtl.svg)",
+      "license": "![](https://img.shields.io/github/license/znone/qtl.svg)"
+    },
+    {
+      "project_name": "go-server-js",
+      "project_url": "https://github.com/zengming00/go-server-js",
+      "description": "javascript web server, js server, 一种新的javascript写服务端程序的方案，没有回调，完全不同于node.js，更像php，或者说是披着js皮的go",
+      "stars_badge": "![](https://img.shields.io/github/stars/zengming00/go-server-js.svg)",
+      "license": "![](https://img.shields.io/github/license/zengming00/go-server-js.svg)"
+    },
+    {
+      "project_name": "node-gd-bmp",
+      "project_url": "https://github.com/zengming00/node-gd-bmp",
+      "description": "light and high speed and 100% js implement graphical library, it can running in any platform",
+      "stars_badge": "![](https://img.shields.io/github/stars/zengming00/node-gd-bmp.svg)",
+      "license": "![](https://img.shields.io/github/license/zengming00/node-gd-bmp.svg)"
+    },
+    {
+      "project_name": "996-icu-banner",
+      "project_url": "https://github.com/SamChou19815/996-icu-banner",
+      "description": "The banner for your personal website to show support for 996.icu.",
+      "stars_badge": "![](https://img.shields.io/github/stars/SamChou19815/996-icu-banner.svg)",
+      "license": "![](https://img.shields.io/github/license/SamChou19815/996-icu-banner.svg)"
+    },
+    {
+      "project_name": "Tetris",
+      "project_url": "https://github.com/deepgrace/tetris",
+      "description": "Tetris in all kinds of Languages",
+      "stars_badge": "![](https://img.shields.io/github/stars/deepgrace/tetris.svg)",
+      "license": "![](https://img.shields.io/github/license/deepgrace/tetris.svg)"
+    },
+    {
+      "project_name": "Carrier",
+      "project_url": "https://github.com/deepgrace/carrier",
+      "description": "Modern C++ Network Server FrameWork",
+      "stars_badge": "![](https://img.shields.io/github/stars/deepgrace/carrier.svg)",
+      "license": "![](https://img.shields.io/github/license/deepgrace/carrier.svg)"
+    },
+    {
+      "project_name": "Giant",
+      "project_url": "https://github.com/deepgrace/giant",
+      "description": "Algorithms and Data Structures in Modern C++",
+      "stars_badge": "![](https://img.shields.io/github/stars/deepgrace/giant.svg)",
+      "license": "![](https://img.shields.io/github/license/deepgrace/giant.svg)"
+    },
+    {
+      "project_name": "Monster",
+      "project_url": "https://github.com/deepgrace/monster",
+      "description": "Advanced Template MetaProgramming in Modern C++",
+      "stars_badge": "![](https://img.shields.io/github/stars/deepgrace/monster.svg)",
+      "license": "![](https://img.shields.io/github/license/deepgrace/monster.svg)"
+    },
+    {
+      "project_name": "Stored Programs",
+      "project_url": "https://github.com/deepgrace/stored.programs",
+      "description": "Stored Programs (Function, View, Trigger and Stored Procedure) in SQL",
+      "stars_badge": "![](https://img.shields.io/github/stars/deepgrace/stored.programs.svg)",
+      "license": "![](https://img.shields.io/github/license/deepgrace/stored.programs.svg)"
+    },
+    {
+      "project_name": "CSI Enhancement Tools",
+      "project_url": "https://github.com/shuspieler/Athero-CSI-tool-Python-RemoteReceive-Liveview-AmplitudeScaled",
+      "description": "CSI (Channel State Information) Enhancement Tools",
+      "stars_badge": "![](https://img.shields.io/github/stars/shuspieler/Athero-CSI-tool-Python-RemoteReceive-Liveview-AmplitudeScaled.svg)",
+      "license": "![](https://img.shields.io/github/license/shuspieler/Athero-CSI-tool-Python-RemoteReceive-Liveview-AmplitudeScaled.svg)"
+    },
+    {
+      "project_name": "Thymeleaf-Reference-Guide",
+      "project_url": "https://github.com/jack80342/Thymeleaf-Reference-Guide",
+      "description": "Thymeleaf 3.0 中文翻译 -《Thymeleaf参考指南》",
+      "stars_badge": "![](https://img.shields.io/github/stars/jack80342/Thymeleaf-Reference-Guide.svg)",
+      "license": "![](https://img.shields.io/github/license/jack80342/Thymeleaf-Reference-Guide.svg)"
+    },
+    {
+      "project_name": "Spring-Boot-Reference-Guide",
+      "project_url": "https://github.com/jack80342/Spring-Boot-Reference-Guide",
+      "description": "Spring Boot Reference Guide 2.0 中文翻译 -《Spring Boot参考指南》",
+      "stars_badge": "![](https://img.shields.io/github/stars/jack80342/Spring-Boot-Reference-Guide.svg)",
+      "license": "![](https://img.shields.io/github/license/jack80342/Spring-Boot-Reference-Guide.svg)"
+    },
+    {
+      "project_name": "Hikyuu Quant Framework",
+      "project_url": "https://hikyuu.org",
+      "description": "基于C++/Python的高性能开源量化交易研究框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/fasiondog/hikyuu.svg)",
+      "license": "![](https://img.shields.io/github/license/fasiondog/hikyuu.svg)"
+    },
+    {
+      "project_name": "SimpleKernel",
+      "project_url": "https://github.com/MRNIU/SimpleKernel",
+      "description": "一个用于学习 kernel 的简单入门资源",
+      "stars_badge": "![](https://img.shields.io/github/stars/MRNIU/SimpleKernel.svg)",
+      "license": "![](https://img.shields.io/github/license/MRNIU/SimpleKernel.svg)"
+    },
+    {
+      "project_name": "no-cron",
+      "project_url": "https://github.com/jerrywdlee/no-cron",
+      "description": "A fack cron for docker users / 用在某些corn抽风了的container上的仿制cron",
+      "stars_badge": "![](https://img.shields.io/github/stars/jerrywdlee/no-cron.svg)",
+      "license": "![](https://img.shields.io/github/license/jerrywdlee/no-cron.svg)"
+    },
+    {
+      "project_name": "CloudOpenDevOps",
+      "project_url": "http://www.opendevops.cn/",
+      "description": "CODO是一款为用户提供企业多混合云、自动化运维、完全开源的云管理平台。",
+      "stars_badge": "![](https://img.shields.io/github/stars/opendevops-cn/opendevops.svg)",
+      "license": "![](https://img.shields.io/github/license/opendevops-cn/opendevops.svg)"
+    },
+    {
+      "project_name": "PUSH TO KINDLE!",
+      "project_url": "https://github.com/Aneureka/push-to-kindle",
+      "description": "一个简洁优雅的 Kindle 文档推送工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/Aneureka/push-to-kindle.svg)",
+      "license": "![](https://img.shields.io/github/license/Aneureka/push-to-kindle.svg)"
+    },
+    {
+      "project_name": "android-chat",
+      "project_url": "https://github.com/wildfirechat/android-chat",
+      "description": "一款全开源的Android IM 应用",
+      "stars_badge": "![](https://img.shields.io/github/stars/wildfirechat/android-chat.svg)",
+      "license": "![](https://img.shields.io/github/license/wildfirechat/android-chat.svg)"
+    },
+    {
+      "project_name": "ios-chat",
+      "project_url": "https://github.com/wildfirechat/ios-chat",
+      "description": "一款全开源的iOS即时通讯APP",
+      "stars_badge": "![](https://img.shields.io/github/stars/wildfirechat/ios-chat.svg)",
+      "license": "![](https://img.shields.io/github/license/wildfirechat/ios-chat.svg)"
+    },
+    {
+      "project_name": "谷粒-Chrome插件英雄榜",
+      "project_url": "https://github.com/zhaoolee/ChromeAppHeroes",
+      "description": "🌈谷粒-Chrome插件英雄榜, 为优秀的Chrome插件写一本中文说明书, 让Chrome插件英雄们造福人类\\~",
+      "stars_badge": "![](https://img.shields.io/github/stars/zhaoolee/ChromeAppHeroes.svg)",
+      "license": "![](https://img.shields.io/github/license/zhaoolee/ChromeAppHeroes.svg)"
+    },
+    {
+      "project_name": "winger",
+      "project_url": "https://github.com/huanStephen/winger",
+      "description": "基于http协议的数据代理工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/huanStephen/winger.svg)",
+      "license": "![](https://img.shields.io/github/license/huanStephen/winger.svg)"
+    },
+    {
+      "project_name": "tkJSPinyin",
+      "project_url": "https://github.com/Tedko/tkJSPinyin",
+      "description": "Get Chinese pinyin from Chinese. Based on JSPinyin. Ported to ES6, no need for mootool, etc.",
+      "stars_badge": "![](https://img.shields.io/github/stars/Tedko/tkJSPinyin.svg)",
+      "license": "![](https://img.shields.io/github/license/Tedko/tkJSPinyin.svg)"
+    },
+    {
+      "project_name": "cmdb",
+      "project_url": "https://gitee.com/py2010/cmdb",
+      "description": "django, webssh, websftp, docker 容器管理, web =\\> xshell (从CMDB网页直接跳转到Xshell终端)",
+      "stars_badge": "",
+      "license": "\\-"
+    },
+    {
+      "project_name": "SecurityPaper",
+      "project_url": "https://github.com/SecurityPaper/SecurityPaper-web/",
+      "description": "SecurityPaper 致力于中国互联网公司安全建设指导意见白皮书，所有文档都来自中国互联网一线安全工程师编写整理",
+      "stars_badge": "![](https://img.shields.io/github/stars/SecurityPaper/SecurityPaper-web.svg)",
+      "license": "![](https://img.shields.io/github/license/SecurityPaper/SecurityPaper-web/.svg)"
+    },
+    {
+      "project_name": "DataAnalysisInAction",
+      "project_url": "https://github.com/xiaomiwujiecao/DataAnalysisInAction",
+      "description": "极客时间数据分析实战45讲的详细笔记(包含markdown、图片、思维导图、代码 、数据) ！",
+      "stars_badge": "![](https://img.shields.io/github/stars/xiaomiwujiecao/DataAnalysisInAction.svg)",
+      "license": "![](https://img.shields.io/badge/license-Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "996icu-slack-recorder",
+      "project_url": "https://github.com/simon300000/996icu-slack-recorder",
+      "description": "996icu Slack会议记录Bot",
+      "stars_badge": "![](https://img.shields.io/github/stars/simon300000/996icu-slack-recorder.svg)",
+      "license": "![](https://img.shields.io/github/license/simon300000/996icu-slack-recorder.svg)"
+    },
+    {
+      "project_name": "JApiDocs",
+      "project_url": "https://github.com/YeDaxia/JApiDocs",
+      "description": "Api Docs Generator Tools For Java Web Developer. (Java 高效 API 接口文档生成工具)",
+      "stars_badge": "![](https://img.shields.io/github/stars/YeDaxia/JApiDocs.svg)",
+      "license": "![](https://img.shields.io/github/license/YeDaxia/JApiDocs.svg)"
+    },
+    {
+      "project_name": "UAFormat.js",
+      "project_url": "https://github.com/jeeinn/ua-format-js",
+      "description": "一个userAgent解析器UAFormat.js(参考UAParser.js)",
+      "stars_badge": "![](https://img.shields.io/github/stars/jeeinn/ua-format-js.svg)",
+      "license": "![](https://img.shields.io/github/license/jeeinn/ua-format-js.svg)"
+    },
+    {
+      "project_name": "Shadowsocks-Check",
+      "project_url": "https://github.com/JamCh01/shadowsocks_check",
+      "description": "You can check your SS server status by this script. And it will be the most graceful way.",
+      "stars_badge": "![](https://img.shields.io/github/stars/JamCh01/shadowsocks_check.svg)",
+      "license": "![](https://img.shields.io/github/license/JamCh01/shadowsocks_check.svg)"
+    },
+    {
+      "project_name": "react-keep-alive",
+      "project_url": "https://github.com/StructureBuilder/react-keep-alive",
+      "description": "一个保持组件状态并避免重复重渲染的组件",
+      "stars_badge": "![](https://img.shields.io/github/stars/StructureBuilder/react-keep-alive.svg)",
+      "license": "![](https://img.shields.io/github/license/StructureBuilder/react-keep-alive.svg)"
+    },
+    {
+      "project_name": "react-inputs-validation",
+      "project_url": "https://github.com/edwardfhsiao/react-inputs-validation",
+      "description": "React inputs validation components.",
+      "stars_badge": "![](https://img.shields.io/github/stars/edwardfhsiao/react-inputs-validation.svg)",
+      "license": "![](https://img.shields.io/github/license/edwardfhsiao/react-inputs-validation.svg)"
+    },
+    {
+      "project_name": "Rime极点五笔码表",
+      "project_url": "https://github.com/KyleBing/rime-wubi86-jidan",
+      "description": "Mac Rime (鼠须管) 五笔极点码表，配置方案",
+      "stars_badge": "![](https://img.shields.io/github/stars/KyleBing/rime-wubi86-jidan.svg)",
+      "license": "![](https://img.shields.io/github/license/KyleBing/rime-wubi86-jidan.svg)"
+    },
+    {
+      "project_name": "MacbookPro Touchbar 个性化",
+      "project_url": "https://github.com/KyleBing/TouchbarBBT",
+      "description": "结合 BetterTouchTool 实现个性化 Macbook Pro Touch bar",
+      "stars_badge": "![](https://img.shields.io/github/stars/KyleBing/TouchbarBBT.svg)",
+      "license": "![](https://img.shields.io/github/license/KyleBing/TouchbarBBT.svg)"
+    },
+    {
+      "project_name": "imageCrop",
+      "project_url": "https://github.com/mrme2014/imageCrop/tree/add-license-1",
+      "description": "基于android6.0系统源码的图片裁剪库",
+      "stars_badge": "![](https://img.shields.io/github/stars/mrme2014/imageCrop.svg)",
+      "license": "![](https://img.shields.io/github/license/mrme2014/imageCrop/tree/add-license-1.svg)"
+    },
+    {
+      "project_name": "996.BROWSER",
+      "project_url": "https://github.com/996browser/996.BROWSER",
+      "description": "屏蔽996.icu的浏览器列表",
+      "stars_badge": "![](https://img.shields.io/github/stars/996browser/996.BROWSER.svg)",
+      "license": "![](https://img.shields.io/github/license/996browser/996.BROWSER.svg)"
+    },
+    {
+      "project_name": "BMChineseSort",
+      "project_url": "https://github.com/Baymax0/BMChineseSort",
+      "description": "iOS端的基于某个中文属性的模型数组排序",
+      "stars_badge": "![](https://img.shields.io/github/stars/Baymax0/BMChineseSort.svg)",
+      "license": "![](https://img.shields.io/github/license/Baymax0/BMChineseSort.svg)"
+    },
+    {
+      "project_name": "nginx-log-rotation",
+      "project_url": "https://github.com/chenrulongmaster/nginx-log-rotation",
+      "description": "Nginx日志滚动",
+      "stars_badge": "![](https://img.shields.io/github/stars/chenrulongmaster/nginx-log-rotation.svg)",
+      "license": "![](https://img.shields.io/github/license/chenrulongmaster/nginx-log-rotation.svg)"
+    },
+    {
+      "project_name": "producer-consumer-problem",
+      "project_url": "https://github.com/chenrulongmaster/producer-consumer-problem",
+      "description": "Java 多线程生产者消费者问题",
+      "stars_badge": "![](https://img.shields.io/github/stars/chenrulongmaster/producer-consumer-problem.svg)",
+      "license": "![](https://img.shields.io/github/license/chenrulongmaster/producer-consumer-problem.svg)"
+    },
+    {
+      "project_name": "996.ICU.APP",
+      "project_url": "https://github.com/996icuapp/996.icu.app",
+      "description": "996/955公司榜单、讨论区、加班工资计算器",
+      "stars_badge": "![](https://img.shields.io/github/stars/996icuapp/996.icu.app.svg)",
+      "license": "![](https://img.shields.io/github/license/996icuapp/996.icu.app.svg)"
+    },
+    {
+      "project_name": "SSList 小型 GFW list",
+      "project_url": "https://github.com/KyleBing/sslist",
+      "description": "小型翻墙列表 GFW list，优化速度",
+      "stars_badge": "![](https://img.shields.io/github/stars/KyleBing/sslist.svg)",
+      "license": "![](https://img.shields.io/github/license/KyleBing/sslist.svg)"
+    },
+    {
+      "project_name": "DBuilder",
+      "project_url": "https://github.com/lvyahui8/dbuilder",
+      "description": "WEB应用CRUD代码生成器，主要用来生成后台管理数据库的代码",
+      "stars_badge": "![](https://img.shields.io/github/stars/lvyahui8/dbuilder.svg)",
+      "license": "![](https://img.shields.io/github/license/lvyahui8/dbuilder.svg)"
+    },
+    {
+      "project_name": "360yunpan",
+      "project_url": "https://github.com/logbird/360yunpan/",
+      "description": "360YunPan Command-line tools, support: Linux Mac Windows",
+      "stars_badge": "-",
+      "license": "-"
+    },
+    {
+      "project_name": "开源矿工",
+      "project_url": "https://github.com/ntminer/ntminer",
+      "description": "显卡一键挖矿软件，一键开挖各种显卡币",
+      "stars_badge": "![](https://img.shields.io/github/stars/ntminer/ntminer.svg)",
+      "license": "![](https://img.shields.io/github/license/ntminer/ntminer.svg)"
+    },
+    {
+      "project_name": "AetherUpload-Laravel",
+      "project_url": "https://github.com/peinhu/AetherUpload-Laravel",
+      "description": "上传大文件的Laravel扩展",
+      "stars_badge": "![](https://img.shields.io/github/stars/peinhu/aetherupload-laravel.svg)",
+      "license": "![](https://poser.pugx.org/peinhu/aetherupload-laravel/license)"
+    },
+    {
+      "project_name": "Bootstrap-waterfall",
+      "project_url": "https://github.com/Mystist/bootstrap-waterfall",
+      "description": "Waterfall the world beauty.",
+      "stars_badge": "![](https://img.shields.io/github/stars/Mystist/bootstrap-waterfall.svg)",
+      "license": "![](https://img.shields.io/github/license/Mystist/bootstrap-waterfall.svg)"
+    },
+    {
+      "project_name": "SweetAlertDialog",
+      "project_url": "https://github.com/Cazaea/SweetAlertDialog",
+      "description": "Android's custom dialog.",
+      "stars_badge": "![](https://img.shields.io/github/stars/Cazaea/SweetAlertDialog.svg)",
+      "license": "![](https://img.shields.io/badge/Android%20Arsenal-Sweet%20Alert%20Dialog-brightgreen.svg)"
+    },
+    {
+      "project_name": "验证码识别",
+      "project_url": "https://github.com/kerlomz/captcha_trainer",
+      "description": "基于TensorFlow的验证码识别框架 - 集训练、识别、API部署、本地调用于一体的框架套件.",
+      "stars_badge": "![](https://img.shields.io/github/stars/kerlomz/captcha_trainer.svg)",
+      "license": "![](https://img.shields.io/github/license/kerlomz/captcha_trainer.svg)"
+    },
+    {
+      "project_name": "auto-layout",
+      "project_url": "https://github.com/0123cf/auto-layout",
+      "description": "auto-layout 可视化布局、自动化css布局",
+      "stars_badge": "![](https://img.shields.io/github/stars/0123cf/auto-layout.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/0123cf/auto-layout/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "qing-yu",
+      "project_url": "https://github.com/loliconer/qing-yu",
+      "description": "轻语！供团队使用的共享文档管理平台。",
+      "stars_badge": "![](https://img.shields.io/github/stars/loliconer/qing-yu.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "Nginx GUI",
+      "project_url": "https://github.com/onlyGuo/nginx-gui",
+      "description": "Nginx 的跨平台GUI 管理工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/onlyGuo/nginx-gui.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "Caonima.io",
+      "project_url": "https://caonima.io",
+      "description": "Clojure and Shadowsocks powered VPN solution",
+      "stars_badge": "![](https://img.shields.io/github/stars/danielsz/system.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "RxTool",
+      "project_url": "https://github.com/vondear/RxTool",
+      "description": "Android开发人员的工具类集合",
+      "stars_badge": "![](https://img.shields.io/github/stars/vondear/RxTool.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "pyjieba",
+      "project_url": "https://github.com/chenrulongmaster/pyjieba",
+      "description": "Python 封装C++版本的jieba分词器",
+      "stars_badge": "![](https://img.shields.io/github/stars/chenrulongmaster/pyjieba.svg)",
+      "license": "![](https://img.shields.io/github/license/chenrulongmaster/pyjieba.svg)"
+    },
+    {
+      "project_name": "KongFuOfArchitect",
+      "project_url": "https://github.com/xiaomiwujiecao/KongFuOfArchitect",
+      "description": "架构师的功夫（包含思想指引、学习资源汇总、范式编程、高效成长、必备算法、等等，为想成为架构师的人铺路） ！",
+      "stars_badge": "![](https://img.shields.io/github/stars/xiaomiwujiecao/KongFuOfArchitect.svg)",
+      "license": "![](https://img.shields.io/badge/license-Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "go worker pool",
+      "project_url": "https://github.com/sinomoe/go_worker_pool",
+      "description": "goroutine并发控制、调度工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/sinomoe/go_worker_pool.svg)",
+      "license": "[![LICENSE](https://badges.frapsoft.com/os/mit/mit.svg)](https://opensource.org/licenses/mit-license.php)"
+    },
+    {
+      "project_name": "LiveCollectionPlatform",
+      "project_url": "https://github.com/StarSky1/LiveCollectionPlatform",
+      "description": "用Java编写的一个直播汇总平台网站",
+      "stars_badge": "![](https://img.shields.io/github/stars/StarSky1/LiveCollectionPlatform.svg?style=plastic)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "ResourceManager",
+      "project_url": "https://github.com/ChongqingWangYu/ResourceManager",
+      "description": "Windows资源小管家",
+      "stars_badge": "![](https://img.shields.io/github/stars/ChongqingWangYu/ResourceManager.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "pool",
+      "project_url": "https://github.com/flyaways/pool",
+      "description": "golang通用连接池，支持：GRPC,RPC,TCP",
+      "stars_badge": "![](https://img.shields.io/github/stars/flyaways/pool.svg)",
+      "license": "![](https://img.shields.io/github/license/flyaways/pool.svg)"
+    },
+    {
+      "project_name": "grpc man",
+      "project_url": "https://www.npmjs.com/package/grpc-man",
+      "description": "一个 gRPC 客户端，可以灵活地调用 gRPC 服务。名字灵感来源于 `post-man`。",
+      "stars_badge": "![](https://img.shields.io/github/stars/jeff-tian/grpc-man.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "Emerald",
+      "project_url": "https://github.com/Red-Error404/Emerald",
+      "description": "面向游戏开发的轻量级绘图框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/Red-Error404/Emerald.svg)",
+      "license": "![](https://img.shields.io/github/license/Red-Error404/Emerald.svg)"
+    },
+    {
+      "project_name": "pam-mfa",
+      "project_url": "https://github.com/bianyifan/pam-mfa",
+      "description": "用于两步验证的 PAM 模块",
+      "stars_badge": "![](https://img.shields.io/github/stars/bianyifan/pam-mfa.svg)",
+      "license": "![](https://img.shields.io/badge/License-MIT%20%26%20Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "Leava",
+      "project_url": "https://github.com/Joey66666/Leava",
+      "description": "在线请假管理微信小程序",
+      "stars_badge": "![](https://img.shields.io/github/stars/Joey66666/Leava.svg)",
+      "license": "![](https://img.shields.io/badge/license-Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "r4v3zn-script",
+      "project_url": "https://github.com/0nise/scripts",
+      "description": "信息安全工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/0nise/scripts.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "vs-shell-format",
+      "project_url": "https://github.com/foxundermoon/vs-shell-format",
+      "description": "the vscode shell、dockerfile format extension",
+      "stars_badge": "![](https://img.shields.io/github/stars/foxundermoon/vs-shell-format.svg)",
+      "license": "[![LICENSE](https://badges.frapsoft.com/os/mit/mit.svg)](https://opensource.org/licenses/mit-license.php) ![](https://img.shields.io/badge/license-Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "VRASLAND",
+      "project_url": "https://github.com/JuerGenie/vrasland",
+      "description": "一个用于快速搭建简易API原型的可拓展服务器框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/JuerGenie/vrasland.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "lambdaroyal-memory",
+      "project_url": "https://github.com/gixxi/lambdaroyal-memory",
+      "description": "STM-based in-memory database storing persistent data structures",
+      "stars_badge": "![](https://img.shields.io/github/stars/gixxi/lambdaroyal-memory.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/gixxi/lambdaroyal-memory/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "WebCell",
+      "project_url": "https://web-cell.dev/",
+      "description": "轻量级 Web Components 标准应用框架",
+      "stars_badge": "![](https://img.shields.io/github/stars/EasyWebApp/WebCell.svg)",
+      "license": "![LICENSE](https://img.shields.io/badge/license-LGPL--3.0-brightgreen.svg) with [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "mSQL",
+      "project_url": "https://github.com/m-sql/msql",
+      "description": "一个对SQL美化和自动化改写 及 EXPLAIN 深度解析的工具",
+      "stars_badge": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "mPSR",
+      "project_url": "https://github.com/m-sql/mpsr",
+      "description": "PSR 美化 及 PHP Hacker小工具",
+      "stars_badge": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "FeiRays",
+      "project_url": "https://github.com/fynv/FeiRays",
+      "description": "Vulkan & CUDA based monte-carlo ray-tracer.",
+      "stars_badge": "![](https://img.shields.io/github/stars/fynv/FeiRays.svg)",
+      "license": "![](https://img.shields.io/github/license/fynv/FeiRays.svg)"
+    },
+    {
+      "project_name": "Bilinear CNN pytorch",
+      "project_url": "https://github.com/chencodeX/Bilinear_CNN_dog_classifi",
+      "description": "基于 pytorch 构建的双线性网络，用于图像分类任务",
+      "stars_badge": "[![](https://img.shields.io/github/stars/chencodeX/Bilinear_CNN_dog_classifi.svg)](https://img.shields.io/github/stars/chencodeX/Bilinear_CNN_dog_classifi.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "RNN_Pytorch",
+      "project_url": "https://github.com/chencodeX/RNN_Pytorch",
+      "description": "基于 pytorch 构建的卷积循环神经网络，用于图像序列预测任务",
+      "stars_badge": "[![](https://img.shields.io/github/stars/chencodeX/RNN_Pytorch.svg)](https://img.shields.io/github/stars/chencodeX/RNN_Pytorch.svg)",
+      "license": "[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)"
+    },
+    {
+      "project_name": "ImageSearchDLL",
+      "project_url": "https://github.com/joshuafc/ImageSearchDLL",
+      "description": "Windows下在屏幕上搜索图片坐标的小工具",
+      "stars_badge": "![](https://img.shields.io/github/stars/joshuafc/ImageSearchDLL.svg)",
+      "license": "![](https://img.shields.io/badge/License-MIT%20%26%20Anti%20996-blue.svg)"
+    },
+    {
+      "project_name": "MIAO",
+      "project_url": "https://github.com/TheColdVoid/MIAO",
+      "description": "MIAO ( ”Miao Is A web demO generator”的缩写) 是一个非侵入式的网页演示生成器，能够快捷地将某个函数或者某段代码转化为网页界面，用以临时的演示或者测试，开箱即用而无需复杂的配置过程。",
+      "stars_badge": "![](\thttps://img.shields.io/github/stars/TheColdVoid/MIAO)",
+      "license": "[![LICENSE](https://img.shields.io/badge/License-MIT with 996.ICU-yellow.svg)](https://github.com/TheColdVoid/MIAO/blob/master/LICENSE) with [![LICENSE](https://img.shields.io/badge/License-MIT with 996.ICU-yellow.svg)](https://github.com/TheColdVoid/MIAO/blob/master/LICENSE)"
+    }
+  ],
+  "proposals": [
+    {
+      "title": "Use Blockchain to Collect Evidence 用區塊鏈建設網上證據鏈",
+      "filename": "proposal_blockchain_evidence_online.md",
+      "path": "996.ICU\\proposal\\proposal_blockchain_evidence_online.md",
+      "summary": "# Use Blockchain to Collect Evidence 用區塊鏈建設網上證據鏈 HEAD | SUMMARY -----|-------- Title:| Use Blockchain to Collect Evidence 用區塊鏈建設網上證據鏈 Author:| Eric Chow Status:| Draft Type:| Technical Created:| 19-April-2019 Post-History:| None ## Why this Proposal? Some companies only hire people who accept 996..."
+    },
+    {
+      "title": "Proposal for Expanding the Anti 996 License for more Fields",
+      "filename": "proposal_for_expanding_the_anti996license_for_more_fields.md",
+      "path": "996.ICU\\proposal\\proposal_for_expanding_the_anti996license_for_more_fields.md",
+      "summary": "# Proposal for Expanding the Anti 996 License for more Fields HEAD | SUMMARY -----|-------- Title:| Proposal for Expanding the Anti 996 License for more Fields 题目: | 提案关于扩展Anti 996 License的适用范围 Author:| ChuangSheep Status:| Draft Type:| Proposal Created:| 07-Apr-2019 Post-History:| None ## 提案目的 为..."
+    },
+    {
+      "title": "Proposal Template for 996.icu Projects",
+      "filename": "proposal_for_other_types_of_work.md",
+      "path": "996.ICU\\proposal\\proposal_for_other_types_of_work.md",
+      "summary": "# Proposal Template for 996.icu Projects HEAD | SUMMARY -----|-------- Title:| 添加其他工种的文件夹或目录 Author:| xloypaypa Status:| Draft Type:| Proposal Created:| 31-04-2019 Post-History:| None ## Why this Proposal? 我们好像获得了法律界的一些支持（我不懂，我没有太关注，我啥都不知道啊！）<br> 只是我比较蠢（也许是比较坏），所以建议如果可能，也许我们也能顺手帮下其他可能也受到不算特别公正待遇的..."
+    },
+    {
+      "title": "成立无产阶阶级联合工会的倡议",
+      "filename": "proposal_gonghui.md",
+      "path": "996.ICU\\proposal\\proposal_gonghui.md",
+      "summary": "## 成立无产阶阶级联合工会的倡议 今天是毛主席逝世44周年忌日。教员为了无产阶级的革命事业奋斗了一生。我们作为共产主义的后来者应当继承教员留下的革命遗产。 教员晚年间经常说“大不了再上一次井冈山”。面对这边压下去那边又起来的官僚主义，特权阶级，教员表现出了如此强悍的革命气魄。作为他的学生的我们，更应该以教员为榜样。 今天，在他的忌日里，我们作为互联网世界的一员，也要跟随教员的脚步，上一次互联网的井冈山————在互联网上成立一个无产阶级联合工会。 ## 为什么要成立这个工会 前一段时间我又看了一遍姜文导演的《邪不压正》。电影中有一句话令我印象深刻“你先别管你爸爸是谁了！你该有你自己的..."
+    },
+    {
+      "title": "路线图",
+      "filename": "proposal_roadmap.md",
+      "path": "996.ICU\\proposal\\proposal_roadmap.md",
+      "summary": "# 路线图 HEAD | SUMMARY -----|-------- Title:| 路线图 Author:| Tooodis Status:| Draft Type:| Roadmap Created:| 15-April-2019 Post-History:| None ## Why this Proposal? 996的抗争本质上是劳动者与资本家之间的斗争<br> 在现代化，工业化的背景下，劳动者在这场斗争中是处于劣势地位的。<br> 因此想要在这场斗争中获得胜利就必须理清思路，讲究方法。 ## Community Value 提出一个更明确，更有操作性的路线图。<br>..."
+    },
+    {
+      "title": "Proposal for Requesting GitHub Official Including 996ICU License",
+      "filename": "proposal_to_request_github_official_including_996icu_license.md",
+      "path": "996.ICU\\proposal\\proposal_to_request_github_official_including_996icu_license.md",
+      "summary": "# Proposal for Requesting GitHub Official Including 996ICU License HEAD | SUMMARY -----|-------- Title:| Proposal for Requesting GitHub Official Including 996ICU License 题目: | 提案请求github官方收录996ICU License Author:| ff4415 作者:| ff4415 Status:| Draft 状态:| 草案 Type:| Proposal 类型:| 提案 Created:| 1-April-2..."
+    }
+  ]
+}

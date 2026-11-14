@@ -36,6 +36,9 @@ Thumbs.db
 # ─── Runtime Data (tracked selectively) ───
 artifacts/
 data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
 
 # ─── Temp / Scratch Files ───
 chunks.txt
@@ -48,6 +51,8 @@ STATE.json
 # ─── Cloned Reference Repos (not project code) ───
 996.ICU/
 OpenDots/
+coding-interview-university/
+openclaw/
 awesome/
 awesome-python/
 awesome-selfhosted/

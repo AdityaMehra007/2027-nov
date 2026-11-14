@@ -32,10 +32,18 @@ from src.kernel.standalone_runner import (
 
 WORKSPACE_ROOT = "e:/2027 nov"
 
+def is_rustc_responsive():
+    try:
+        proc = subprocess.run(["rustc", "--version"], capture_output=True, text=True, timeout=3)
+        return proc.returncode == 0
+    except Exception:
+        return False
 
 class TestRustKernelCompilation:
     def test_rustc_compiles_aether_core(self):
         """Verify that src/kernel/aether_core.rs compiles cleanly via native rustc."""
+        if not is_rustc_responsive():
+            pytest.skip("rustc is not available or responsive on this environment")
         filepath = os.path.join(WORKSPACE_ROOT, "src", "kernel", "aether_core.rs")
         assert os.path.exists(filepath), f"File missing: {filepath}"
 
@@ -51,6 +59,8 @@ class TestRustKernelCompilation:
 
     def test_rustc_compiles_planetary_node(self):
         """Verify that src/kernel/planetary_node.rs compiles cleanly via native rustc."""
+        if not is_rustc_responsive():
+            pytest.skip("rustc is not available or responsive on this environment")
         filepath = os.path.join(WORKSPACE_ROOT, "src", "kernel", "planetary_node.rs")
         assert os.path.exists(filepath), f"File missing: {filepath}"
 

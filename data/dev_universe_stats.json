@@ -1,10 +1,10 @@
 {
-  "total_resources": 10189,
+  "total_resources": 11730,
   "by_type": {
-    "book": 2521,
+    "book": 2555,
     "course": 1343,
     "podcast": 263,
-    "cheatsheet": 324,
+    "cheatsheet": 335,
     "interactive": 210,
     "problem-set": 126,
     "build-project": 362,
@@ -15,7 +15,25 @@
     "website": 1,
     "self-hosted": 1266,
     "self-hosted-proprietary": 93,
-    "roadmap": 96
+    "roadmap": 96,
+    "interview-prep": 200,
+    "video-lecture": 399,
+    "practice-problem": 20,
+    "system-design": 45,
+    "tutorial": 30,
+    "system-design-solution": 8,
+    "ood-solution": 6,
+    "system-design-concept": 71,
+    "interview-question": 40,
+    "architecture-case-study": 14,
+    "company-architecture": 31,
+    "engineering-blog": 41,
+    "flashcards": 3,
+    "wlb-employer": 11,
+    "remote-employer": 3,
+    "anti996-project": 165,
+    "labor-rights-guide": 6,
+    "project-tutorial": 403
   },
   "by_source": {
     "free-programming-books": 4783,
@@ -24,20 +42,28 @@
     "awesome": 662,
     "awesome-python": 547,
     "awesome-selfhosted": 1359,
-    "developer-roadmap": 96
+    "developer-roadmap": 96,
+    "coding-interview-university": 739,
+    "system-design-primer": 214,
+    "996.ICU": 185,
+    "project-based-learning": 403
   },
   "top_30_categories": {
+    "Project-Based Learning": 403,
     "JavaScript": 363,
     "Python": 354,
     "Development": 234,
     "Miscellaneous": 206,
     "Machine Learning": 184,
+    "Anti-996 Open Source Projects": 165,
     "HTML and CSS": 164,
+    "Additional Learning": 144,
     "Mathematics": 137,
     "Government": 137,
     "Java": 125,
     "Security": 120,
     "Geocoding": 116,
+    "Even More Knowledge": 115,
     "Games & Comics": 113,
     "Finance": 108,
     "Cryptocurrency": 106,
@@ -52,10 +78,6 @@
     "Data Science": 85,
     "Front-End Development": 85,
     "Artificial Intelligence": 83,
-    "Ruby": 78,
-    "PHP": 76,
-    "Sports & Fitness": 73,
-    "Programming Languages": 72,
-    "C": 67
+    "Ruby": 78
   }
 }

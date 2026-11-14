@@ -29,3 +29,21 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+norecursedirs = [
+    "freeCodeCamp",
+    "build-your-own-x",
+    "awesome",
+    "awesome-python",
+    "awesome-selfhosted",
+    "developer-roadmap",
+    "free-programming-books",
+    "public-apis",
+    "project-based-learning",
+    "coding-interview-university",
+    "system-design-primer",
+    "996.ICU",
+    ".git",
+    ".agents",
+    "data",
+    "dist"
+]

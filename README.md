@@ -26,6 +26,7 @@
 [Multi-Cloud IaC](#-multi-cloud-kubernetes--infrastructure-as-code) •
 [Documentation](MASTER_DIRECTIVE.md) •
 [32 Engines Spec](docs/SINGULARITY_32_ENGINES_SPEC.md) •
+[🔱 God-Mode Master Prompt (2027-2127)](THE_SUPREME_GOD_MODE_OMNIVERSE_SINGULARITY_MASTER_PROMPT_2027_2127.md) •
 [Contributing](CONTRIBUTING.md)
 
 </div>
@@ -352,6 +353,7 @@ python examples/07_mcp_agent_orchestration.py
 - 🛡️ [**Security Governor Specification**](docs/SECURITY_GOVERNOR_SPEC.md): Formal verification of air-gapped execution invariants.
 - 📜 [**Master Directive**](MASTER_DIRECTIVE.md): Comprehensive 2027 operational roadmap.
 - 👑 [**The #1 Prompt of 2027**](PROMPT_NO1_2027.md): The supreme meta-agent system directive.
+- 🔱 [**The Supreme God-Mode Master Prompt (2027 — 2127)**](THE_SUPREME_GOD_MODE_OMNIVERSE_SINGULARITY_MASTER_PROMPT_2027_2127.md): The complete multi-division universal system directive uniting all 32 engines, 10-unit commerce matrix, and planetary resilience fabric.
 
 ---
 

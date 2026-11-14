@@ -39,7 +39,24 @@ TYPE_BADGES = {
     "problem-set": f"{COLOR_MAGENTA}[PRACTICE]{COLOR_RESET}",
     "library": f"{COLOR_CYAN}[LIBRARY]{COLOR_RESET}",
     "newsletter": f"{COLOR_YELLOW}[NEWSLETTER]{COLOR_RESET}",
-    "website": f"{COLOR_BLUE}[WEBSITE]{COLOR_RESET}"
+    "website": f"{COLOR_BLUE}[WEBSITE]{COLOR_RESET}",
+    "interview-prep": f"{COLOR_YELLOW}[INTERVIEW-PREP]{COLOR_RESET}",
+    "video-lecture": f"{COLOR_GREEN}[VIDEO-LECTURE]{COLOR_RESET}",
+    "practice-problem": f"{COLOR_MAGENTA}[PROBLEM]{COLOR_RESET}",
+    "anti996-project": f"{COLOR_CYAN}[ANTI-996]{COLOR_RESET}",
+    "wlb-employer": f"{COLOR_GREEN}[WLB-955]{COLOR_RESET}",
+    "remote-employer": f"{COLOR_BLUE}[REMOTE]{COLOR_RESET}",
+    "labor-rights-guide": f"{COLOR_YELLOW}[LABOR-RIGHTS]{COLOR_RESET}",
+    "project-tutorial": f"{COLOR_MAGENTA}[PROJECT-TUTORIAL]{COLOR_RESET}",
+    "system-design": f"{COLOR_BLUE}[SYSTEM-DESIGN]{COLOR_RESET}",
+    "system-design-solution": f"{COLOR_BLUE}[SYS-DESIGN-SOL]{COLOR_RESET}",
+    "system-design-concept": f"{COLOR_CYAN}[SYS-DESIGN-CONCEPT]{COLOR_RESET}",
+    "ood-solution": f"{COLOR_MAGENTA}[OOD-SOL]{COLOR_RESET}",
+    "architecture-case-study": f"{COLOR_GREEN}[ARCH-CASE-STUDY]{COLOR_RESET}",
+    "company-architecture": f"{COLOR_YELLOW}[COMPANY-ARCH]{COLOR_RESET}",
+    "interview-question": f"{COLOR_MAGENTA}[INTERVIEW-Q]{COLOR_RESET}",
+    "flashcards": f"{COLOR_CYAN}[FLASHCARDS]{COLOR_RESET}",
+    "engineering-blog": f"{COLOR_GRAY}[ENG-BLOG]{COLOR_RESET}"
 }
 
 def get_db():
@@ -66,7 +83,7 @@ def search(query=None, item_type=None, category=None, source=None, saas=None, li
     if query:
         clean_q = "".join(c if c.isalnum() or c.isspace() else " " for c in query).strip()
         if clean_q:
-            fts_terms = " ".join(f'"{term}"*' for term in clean_q.split())
+            fts_terms = " ".join(f'{term}*' for term in clean_q.split())
             conditions.append("r.id IN (SELECT rowid FROM resources_fts WHERE resources_fts MATCH ?)")
             params.append(fts_terms)
 
@@ -188,31 +205,29 @@ def interactive_mode():
 
 def main():
     parser = argparse.ArgumentParser(description="OmniDev Universe CLI Search Engine")
+    parser.add_argument("pos_query", nargs="?", default=None, help="Search query")
     parser.add_argument("-q", "--query", help="Keyword search query")
-    parser.add_argument("-t", "--type", choices=[
-        "book", "course", "build-project", "api", "self-hosted", "self-hosted-proprietary",
-        "roadmap", "cheatsheet", "interactive", "podcast", "curated-list", "problem-set",
-        "library", "newsletter", "website"
-    ], help="Filter by type")
+    parser.add_argument("-t", "--type", help="Filter by type (e.g. interview-prep, video-lecture, book, self-hosted, etc.)")
     parser.add_argument("-c", "--category", help="Filter by category/subject")
-    parser.add_argument("-s", "--source", help="Filter by source repo")
+    parser.add_argument("-s", "--source", help="Filter by source repo (e.g. coding-interview-university, awesome-python, etc.)")
     parser.add_argument("-S", "--saas", help="Find self-hosted alternatives to a proprietary SaaS (e.g. Notion, Slack, Trello, Zapier)")
     parser.add_argument("-l", "--limit", type=int, default=15, help="Max results (default: 15)")
     parser.add_argument("-i", "--interactive", action="store_true", help="Launch interactive search shell")
     parser.add_argument("--stats", action="store_true", help="Display knowledge base metrics")
 
     args = parser.parse_args()
+    effective_query = args.query or args.pos_query
 
     if args.stats:
         show_stats()
         return
 
-    if args.interactive or (not args.query and not args.type and not args.category and not args.source and not args.saas):
+    if args.interactive or (not effective_query and not args.type and not args.category and not args.source and not args.saas):
         interactive_mode()
         return
 
     results = search(
-        query=args.query,
+        query=effective_query,
         item_type=args.type,
         category=args.category,
         source=args.source,
