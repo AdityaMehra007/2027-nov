@@ -18,6 +18,10 @@ from src.nexus.engines.intelligence import ClaimVerifier, ResearchIntelligence
 from src.nexus.engines.software_factory import SoftwareFactory
 from src.nexus.engines.simulation import DigitalTwin, ScenarioSimulator
 from src.nexus.engines.enterprise import TenantManager, ComputeGovernor
+from src.nexus.engines.ai_gateway import ModelGateway, SwarmRuntime, EpisodicMemoryStore
+from src.nexus.engines.world import WorldInfrastructureEngine
+from src.nexus.engines.autonomy import AutonomousWorkflowEngine
+from src.nexus.engines.evolution import EvolutionaryBenchmarker
 
 # Optional import of deep-tech execution engines from Prometheus Universal Genesis
 try:
@@ -58,6 +62,12 @@ class UniversalOrchestrator:
         self.scenario_sim = ScenarioSimulator()
         self.compute_governor = ComputeGovernor()
         self.tenant_manager = TenantManager()
+        self.ai_gateway = ModelGateway()
+        self.swarm_runtime = SwarmRuntime()
+        self.memory_store = EpisodicMemoryStore()
+        self.world_engine = WorldInfrastructureEngine()
+        self.workflow_engine = AutonomousWorkflowEngine()
+        self.evolution_benchmarker = EvolutionaryBenchmarker()
 
     def _get_hlc(self) -> int:
         self._hlc_counter += 1
@@ -195,12 +205,16 @@ class UniversalOrchestrator:
 
         elif dept == DepartmentEnum.DEPT_F:
             # World and Infrastructure
+            grid_res = self.world_engine.balance_smart_grid(generation_mw=1200.0, load_mw=1000.0, storage_capacity_mwh=500.0)
+            cislunar_res = self.world_engine.calculate_cislunar_transfer(origin="LEO", destination="EML2")
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
                 "capabilities_executed": cap_names,
                 "geodesic_integration": "CONVERGED",
-                "cr3bp_halo_orbit_stability": "STABLE_L2",
+                "cr3bp_halo_orbit_stability": cislunar_res["trajectory_status"],
+                "cislunar_delta_v": cislunar_res["delta_v_km_s"],
+                "smart_grid_status": grid_res["status"],
                 "urban_grid_efficiency": 0.94,
             }
 
@@ -231,6 +245,8 @@ class UniversalOrchestrator:
 
         elif dept == DepartmentEnum.DEPT_I:
             # Advanced Intelligence
+            red_team = self.evolution_benchmarker.generate_red_team_challenge("Civilization Systems")
+            maturity = self.evolution_benchmarker.evaluate_maturity()
             return {
                 "status": "COMPLETED",
                 "department": dept.value,
@@ -238,6 +254,9 @@ class UniversalOrchestrator:
                 "dpll_theorem_proof": "UNCONDITIONALLY_SATISFIED",
                 "patent_novelty_score": 0.985,
                 "civilization_tail_risk_probability": 0.0001,
+                "red_team_adversarial_vector": red_team.adversarial_vector,
+                "red_team_defense": red_team.defense_mechanism,
+                "system_maturity_score": maturity.overall_score,
             }
 
         return {
