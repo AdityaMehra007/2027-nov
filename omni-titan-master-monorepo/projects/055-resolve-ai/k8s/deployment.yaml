@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resolve-ai
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: resolve-ai
+  template:
+    metadata:
+      labels:
+        app: resolve-ai
+    spec:
+      containers:
+        - name: resolve-ai
+          image: registry.omni-titan.io/projects/resolve-ai:v1.0.0
+          ports:
+            - containerPort: 9055

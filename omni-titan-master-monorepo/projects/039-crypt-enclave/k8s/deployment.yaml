@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crypt-enclave
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: crypt-enclave
+  template:
+    metadata:
+      labels:
+        app: crypt-enclave
+    spec:
+      containers:
+        - name: crypt-enclave
+          image: registry.omni-titan.io/projects/crypt-enclave:v1.0.0
+          ports:
+            - containerPort: 9039

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flash-cache
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flash-cache
+  template:
+    metadata:
+      labels:
+        app: flash-cache
+    spec:
+      containers:
+        - name: flash-cache
+          image: registry.omni-titan.io/projects/flash-cache:v1.0.0
+          ports:
+            - containerPort: 9092

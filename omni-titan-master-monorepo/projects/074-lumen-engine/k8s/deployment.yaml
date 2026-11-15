@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lumen-engine
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lumen-engine
+  template:
+    metadata:
+      labels:
+        app: lumen-engine
+    spec:
+      containers:
+        - name: lumen-engine
+          image: registry.omni-titan.io/projects/lumen-engine:v1.0.0
+          ports:
+            - containerPort: 9074

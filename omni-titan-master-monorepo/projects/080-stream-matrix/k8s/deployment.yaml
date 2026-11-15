@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-matrix
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stream-matrix
+  template:
+    metadata:
+      labels:
+        app: stream-matrix
+    spec:
+      containers:
+        - name: stream-matrix
+          image: registry.omni-titan.io/projects/stream-matrix:v1.0.0
+          ports:
+            - containerPort: 9080

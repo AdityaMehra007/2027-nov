@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulse-mesh
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pulse-mesh
+  template:
+    metadata:
+      labels:
+        app: pulse-mesh
+    spec:
+      containers:
+        - name: pulse-mesh
+          image: registry.omni-titan.io/projects/pulse-mesh:v1.0.0
+          ports:
+            - containerPort: 9012

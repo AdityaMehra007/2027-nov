@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quant-swarm
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quant-swarm
+  template:
+    metadata:
+      labels:
+        app: quant-swarm
+    spec:
+      containers:
+        - name: quant-swarm
+          image: registry.omni-titan.io/projects/quant-swarm:v1.0.0
+          ports:
+            - containerPort: 9026

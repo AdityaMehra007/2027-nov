@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clear-settle
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clear-settle
+  template:
+    metadata:
+      labels:
+        app: clear-settle
+    spec:
+      containers:
+        - name: clear-settle
+          image: registry.omni-titan.io/projects/clear-settle:v1.0.0
+          ports:
+            - containerPort: 9030

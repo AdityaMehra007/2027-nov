@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-vortex
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-vortex
+  template:
+    metadata:
+      labels:
+        app: time-vortex
+    spec:
+      containers:
+        - name: time-vortex
+          image: registry.omni-titan.io/projects/time-vortex:v1.0.0
+          ports:
+            - containerPort: 9067

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biogenesis-rna-crispr
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: biogenesis-rna-crispr
+  template:
+    metadata:
+      labels:
+        app: biogenesis-rna-crispr
+    spec:
+      containers:
+        - name: biogenesis-rna-crispr
+          image: registry.omni-titan.io/projects/biogenesis-rna-crispr:v1.0.0
+          ports:
+            - containerPort: 9107

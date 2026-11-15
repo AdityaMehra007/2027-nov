@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metric-canvas
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: metric-canvas
+  template:
+    metadata:
+      labels:
+        app: metric-canvas
+    spec:
+      containers:
+        - name: metric-canvas
+          image: registry.omni-titan.io/projects/metric-canvas:v1.0.0
+          ports:
+            - containerPort: 9064

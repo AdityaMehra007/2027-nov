@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: silicon-mind
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: silicon-mind
+  template:
+    metadata:
+      labels:
+        app: silicon-mind
+    spec:
+      containers:
+        - name: silicon-mind
+          image: registry.omni-titan.io/projects/silicon-mind:v1.0.0
+          ports:
+            - containerPort: 9008

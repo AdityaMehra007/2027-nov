@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: factory-twin
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: factory-twin
+  template:
+    metadata:
+      labels:
+        app: factory-twin
+    spec:
+      containers:
+        - name: factory-twin
+          image: registry.omni-titan.io/projects/factory-twin:v1.0.0
+          ports:
+            - containerPort: 9085

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentinel-aml
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sentinel-aml
+  template:
+    metadata:
+      labels:
+        app: sentinel-aml
+    spec:
+      containers:
+        - name: sentinel-aml
+          image: registry.omni-titan.io/projects/sentinel-aml:v1.0.0
+          ports:
+            - containerPort: 9025

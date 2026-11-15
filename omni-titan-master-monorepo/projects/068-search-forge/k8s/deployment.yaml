@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-forge
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: search-forge
+  template:
+    metadata:
+      labels:
+        app: search-forge
+    spec:
+      containers:
+        - name: search-forge
+          image: registry.omni-titan.io/projects/search-forge:v1.0.0
+          ports:
+            - containerPort: 9068

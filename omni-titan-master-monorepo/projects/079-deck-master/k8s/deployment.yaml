@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deck-master
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: deck-master
+  template:
+    metadata:
+      labels:
+        app: deck-master
+    spec:
+      containers:
+        - name: deck-master
+          image: registry.omni-titan.io/projects/deck-master:v1.0.0
+          ports:
+            - containerPort: 9079

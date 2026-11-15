@@ -43,18 +43,21 @@ data/workbench_git/
 data/workbench_git/
 
 # ─── Temp / Scratch Files ───
+*.bak
+*.bak.json
 chunks.txt
 full_chat_transcript.txt
 prompt_download.json
+prompt_download*.bak.json
 python_executions.json
 parsed_content.md
 STATE.json
+*.bak.json
 
 # ─── Cloned Reference Repos (not project code) ───
 996.ICU/
 OpenDots/
 OmniRoute/
-omni-titan-master-monorepo/
 coding-interview-university/
 openclaw/
 awesome/
@@ -76,4 +79,3 @@ generated_saas/
 
 # ─── Misc ───
 node_modules/
-omni-titan-master-monorepo/

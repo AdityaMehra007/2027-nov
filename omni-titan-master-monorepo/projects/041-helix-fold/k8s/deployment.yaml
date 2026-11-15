@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helix-fold
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helix-fold
+  template:
+    metadata:
+      labels:
+        app: helix-fold
+    spec:
+      containers:
+        - name: helix-fold
+          image: registry.omni-titan.io/projects/helix-fold:v1.0.0
+          ports:
+            - containerPort: 9041

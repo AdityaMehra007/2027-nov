@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cortex-graph
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cortex-graph
+  template:
+    metadata:
+      labels:
+        app: cortex-graph
+    spec:
+      containers:
+        - name: cortex-graph
+          image: registry.omni-titan.io/projects/cortex-graph:v1.0.0
+          ports:
+            - containerPort: 9004

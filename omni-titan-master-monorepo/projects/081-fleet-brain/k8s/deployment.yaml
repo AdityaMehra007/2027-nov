@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleet-brain
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fleet-brain
+  template:
+    metadata:
+      labels:
+        app: fleet-brain
+    spec:
+      containers:
+        - name: fleet-brain
+          image: registry.omni-titan.io/projects/fleet-brain:v1.0.0
+          ports:
+            - containerPort: 9081

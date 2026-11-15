@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package omni.titan.v1;
+
+service OmniOmegaService {
+  rpc ExecuteDomain (DomainExecutionRequest) returns (DomainExecutionResponse);
+  rpc StreamMetrics (MetricsStreamRequest) returns (stream MetricEvent);
+  rpc AuditVerify (AuditVerifyRequest) returns (AuditVerifyResponse);
+}
+
+message DomainExecutionRequest {
+  string tenant_id = 1;
+  uint32 project_id = 2;
+  string project_slug = 3;
+  uint64 primary_input = 4;
+  uint64 secondary_input = 5;
+}
+
+message DomainExecutionResponse {
+  string record_id = 1;
+  uint64 sequence_no = 2;
+  uint32 project_id = 3;
+  string project_slug = 4;
+  string algorithm_executed = 5;
+  uint64 output_metric = 6;
+  string previous_hash = 7;
+  string blake3_seal = 8;
+  string timestamp = 9;
+}
+
+message MetricsStreamRequest {
+  string tenant_id = 1;
+  repeated uint32 project_ids = 2;
+}
+
+message MetricEvent {
+  uint32 project_id = 1;
+  string metric_name = 2;
+  uint64 value = 3;
+  int64 timestamp_ns = 4;
+}
+
+message AuditVerifyRequest {
+  string tenant_id = 1;
+  uint32 project_id = 2;
+}
+
+message AuditVerifyResponse {
+  bool is_valid = 1;
+  uint64 verified_blocks = 2;
+  string latest_blake3_seal = 3;
+}

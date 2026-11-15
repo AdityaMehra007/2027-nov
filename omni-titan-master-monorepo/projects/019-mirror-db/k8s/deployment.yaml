@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirror-db
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mirror-db
+  template:
+    metadata:
+      labels:
+        app: mirror-db
+    spec:
+      containers:
+        - name: mirror-db
+          image: registry.omni-titan.io/projects/mirror-db:v1.0.0
+          ports:
+            - containerPort: 9019

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omnikernel
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omnikernel
+  template:
+    metadata:
+      labels:
+        app: omnikernel
+    spec:
+      containers:
+        - name: omnikernel
+          image: registry.omni-titan.io/projects/omnikernel:v1.0.0
+          ports:
+            - containerPort: 9002

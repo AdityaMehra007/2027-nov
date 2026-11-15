@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-graph-sec
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cloud-graph-sec
+  template:
+    metadata:
+      labels:
+        app: cloud-graph-sec
+    spec:
+      containers:
+        - name: cloud-graph-sec
+          image: registry.omni-titan.io/projects/cloud-graph-sec:v1.0.0
+          ports:
+            - containerPort: 9032

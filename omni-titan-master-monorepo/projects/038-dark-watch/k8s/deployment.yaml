@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dark-watch
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dark-watch
+  template:
+    metadata:
+      labels:
+        app: dark-watch
+    spec:
+      containers:
+        - name: dark-watch
+          image: registry.omni-titan.io/projects/dark-watch:v1.0.0
+          ports:
+            - containerPort: 9038

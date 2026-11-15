@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-zero
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vault-zero
+  template:
+    metadata:
+      labels:
+        app: vault-zero
+    spec:
+      containers:
+        - name: vault-zero
+          image: registry.omni-titan.io/projects/vault-zero:v1.0.0
+          ports:
+            - containerPort: 9015

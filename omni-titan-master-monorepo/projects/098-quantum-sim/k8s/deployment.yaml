@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-sim
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantum-sim
+  template:
+    metadata:
+      labels:
+        app: quantum-sim
+    spec:
+      containers:
+        - name: quantum-sim
+          image: registry.omni-titan.io/projects/quantum-sim:v1.0.0
+          ports:
+            - containerPort: 9098

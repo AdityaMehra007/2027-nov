@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neuro-link-os
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: neuro-link-os
+  template:
+    metadata:
+      labels:
+        app: neuro-link-os
+    spec:
+      containers:
+        - name: neuro-link-os
+          image: registry.omni-titan.io/projects/neuro-link-os:v1.0.0
+          ports:
+            - containerPort: 9049

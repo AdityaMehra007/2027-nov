@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aether-lang
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aether-lang
+  template:
+    metadata:
+      labels:
+        app: aether-lang
+    spec:
+      containers:
+        - name: aether-lang
+          image: registry.omni-titan.io/projects/aether-lang:v1.0.0
+          ports:
+            - containerPort: 9095

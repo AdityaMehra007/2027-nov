@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trial-accelerate
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: trial-accelerate
+  template:
+    metadata:
+      labels:
+        app: trial-accelerate
+    spec:
+      containers:
+        - name: trial-accelerate
+          image: registry.omni-titan.io/projects/trial-accelerate:v1.0.0
+          ports:
+            - containerPort: 9043

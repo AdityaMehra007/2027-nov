@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: treasury-pilot
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: treasury-pilot
+  template:
+    metadata:
+      labels:
+        app: treasury-pilot
+    spec:
+      containers:
+        - name: treasury-pilot
+          image: registry.omni-titan.io/projects/treasury-pilot:v1.0.0
+          ports:
+            - containerPort: 9028

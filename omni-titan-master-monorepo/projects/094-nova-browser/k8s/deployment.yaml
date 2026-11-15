@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nova-browser
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nova-browser
+  template:
+    metadata:
+      labels:
+        app: nova-browser
+    spec:
+      containers:
+        - name: nova-browser
+          image: registry.omni-titan.io/projects/nova-browser:v1.0.0
+          ports:
+            - containerPort: 9094

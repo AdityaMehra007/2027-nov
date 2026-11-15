@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-automata
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lab-automata
+  template:
+    metadata:
+      labels:
+        app: lab-automata
+    spec:
+      containers:
+        - name: lab-automata
+          image: registry.omni-titan.io/projects/lab-automata:v1.0.0
+          ports:
+            - containerPort: 9047

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-fortress
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: code-fortress
+  template:
+    metadata:
+      labels:
+        app: code-fortress
+    spec:
+      containers:
+        - name: code-fortress
+          image: registry.omni-titan.io/projects/code-fortress:v1.0.0
+          ports:
+            - containerPort: 9037

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warehouse-flow
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: warehouse-flow
+  template:
+    metadata:
+      labels:
+        app: warehouse-flow
+    spec:
+      containers:
+        - name: warehouse-flow
+          image: registry.omni-titan.io/projects/warehouse-flow:v1.0.0
+          ports:
+            - containerPort: 9087

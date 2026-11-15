@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpha-terminal
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: alpha-terminal
+  template:
+    metadata:
+      labels:
+        app: alpha-terminal
+    spec:
+      containers:
+        - name: alpha-terminal
+          image: registry.omni-titan.io/projects/alpha-terminal:v1.0.0
+          ports:
+            - containerPort: 9023

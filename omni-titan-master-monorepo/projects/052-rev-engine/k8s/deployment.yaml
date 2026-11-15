@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rev-engine
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rev-engine
+  template:
+    metadata:
+      labels:
+        app: rev-engine
+    spec:
+      containers:
+        - name: rev-engine
+          image: registry.omni-titan.io/projects/rev-engine:v1.0.0
+          ports:
+            - containerPort: 9052

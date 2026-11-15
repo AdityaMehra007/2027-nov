@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: citadel-omega-mm
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: citadel-omega-mm
+  template:
+    metadata:
+      labels:
+        app: citadel-omega-mm
+    spec:
+      containers:
+        - name: citadel-omega-mm
+          image: registry.omni-titan.io/projects/citadel-omega-mm:v1.0.0
+          ports:
+            - containerPort: 9105

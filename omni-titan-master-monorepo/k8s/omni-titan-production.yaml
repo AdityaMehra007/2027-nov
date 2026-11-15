@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-singularity-gateway
+  namespace: omni-sovereign
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: omni-singularity-gateway
+  template:
+    metadata:
+      labels:
+        app: omni-singularity-gateway
+    spec:
+      containers:
+        - name: gateway
+          image: registry.omni-titan.io/platform/gateway:v10000.0.0
+          ports:
+            - containerPort: 8090
+          resources:
+            limits:
+              cpu: "8"
+              memory: "16Gi"
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omni-singularity-svc
+  namespace: omni-sovereign
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8090
+  selector:
+    app: omni-singularity-gateway

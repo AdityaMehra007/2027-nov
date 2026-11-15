@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: click-stream-pro
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: click-stream-pro
+  template:
+    metadata:
+      labels:
+        app: click-stream-pro
+    spec:
+      containers:
+        - name: click-stream-pro
+          image: registry.omni-titan.io/projects/click-stream-pro:v1.0.0
+          ports:
+            - containerPort: 9070

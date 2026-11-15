@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: motion-rig
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: motion-rig
+  template:
+    metadata:
+      labels:
+        app: motion-rig
+    spec:
+      containers:
+        - name: motion-rig
+          image: registry.omni-titan.io/projects/motion-rig:v1.0.0
+          ports:
+            - containerPort: 9078

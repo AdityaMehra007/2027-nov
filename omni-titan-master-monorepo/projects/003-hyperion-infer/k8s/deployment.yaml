@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hyperion-infer
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hyperion-infer
+  template:
+    metadata:
+      labels:
+        app: hyperion-infer
+    spec:
+      containers:
+        - name: hyperion-infer
+          image: registry.omni-titan.io/projects/hyperion-infer:v1.0.0
+          ports:
+            - containerPort: 9003

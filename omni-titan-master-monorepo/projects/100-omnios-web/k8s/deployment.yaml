@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omnios-web
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omnios-web
+  template:
+    metadata:
+      labels:
+        app: omnios-web
+    spec:
+      containers:
+        - name: omnios-web
+          image: registry.omni-titan.io/projects/omnios-web:v1.0.0
+          ports:
+            - containerPort: 9100

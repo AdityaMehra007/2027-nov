@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tax-matrix
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tax-matrix
+  template:
+    metadata:
+      labels:
+        app: tax-matrix
+    spec:
+      containers:
+        - name: tax-matrix
+          image: registry.omni-titan.io/projects/tax-matrix:v1.0.0
+          ports:
+            - containerPort: 9029

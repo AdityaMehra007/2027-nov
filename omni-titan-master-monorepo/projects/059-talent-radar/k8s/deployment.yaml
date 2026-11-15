@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: talent-radar
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: talent-radar
+  template:
+    metadata:
+      labels:
+        app: talent-radar
+    spec:
+      containers:
+        - name: talent-radar
+          image: registry.omni-titan.io/projects/talent-radar:v1.0.0
+          ports:
+            - containerPort: 9059

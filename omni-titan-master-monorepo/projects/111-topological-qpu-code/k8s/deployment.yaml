@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: topological-qpu-code
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: topological-qpu-code
+  template:
+    metadata:
+      labels:
+        app: topological-qpu-code
+    spec:
+      containers:
+        - name: topological-qpu-code
+          image: registry.omni-titan.io/projects/topological-qpu-code:v1.0.0
+          ports:
+            - containerPort: 9111

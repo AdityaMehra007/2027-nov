@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aether-os
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aether-os
+  template:
+    metadata:
+      labels:
+        app: aether-os
+    spec:
+      containers:
+        - name: aether-os
+          image: registry.omni-titan.io/projects/aether-os:v1.0.0
+          ports:
+            - containerPort: 9001

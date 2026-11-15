@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warp-stream-x
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: warp-stream-x
+  template:
+    metadata:
+      labels:
+        app: warp-stream-x
+    spec:
+      containers:
+        - name: warp-stream-x
+          image: registry.omni-titan.io/projects/warp-stream-x:v1.0.0
+          ports:
+            - containerPort: 9062

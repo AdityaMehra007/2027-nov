@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hyperspanner-erasuredb
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hyperspanner-erasuredb
+  template:
+    metadata:
+      labels:
+        app: hyperspanner-erasuredb
+    spec:
+      containers:
+        - name: hyperspanner-erasuredb
+          image: registry.omni-titan.io/projects/hyperspanner-erasuredb:v1.0.0
+          ports:
+            - containerPort: 9104

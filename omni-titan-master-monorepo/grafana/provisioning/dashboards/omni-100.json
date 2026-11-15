@@ -1,0 +1,25 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "Total Planetary API Requests",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 0 },
+      "targets": [{ "expr": "omni_requests_total", "legendFormat": "RPS" }]
+    },
+    {
+      "title": "BLAKE3 Blocks Committed & Sealed",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 0 },
+      "targets": [{ "expr": "omni_blocks_committed_total", "legendFormat": "Blocks" }]
+    }
+  ],
+  "title": "OMNI-SINGULARITY v10,000.0 Telemetry",
+  "version": 1
+}

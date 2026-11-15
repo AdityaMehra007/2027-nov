@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phantom-zero
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: phantom-zero
+  template:
+    metadata:
+      labels:
+        app: phantom-zero
+    spec:
+      containers:
+        - name: phantom-zero
+          image: registry.omni-titan.io/projects/phantom-zero:v1.0.0
+          ports:
+            - containerPort: 9033

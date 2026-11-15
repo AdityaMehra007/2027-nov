@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aethelgard-liquid-agi
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aethelgard-liquid-agi
+  template:
+    metadata:
+      labels:
+        app: aethelgard-liquid-agi
+    spec:
+      containers:
+        - name: aethelgard-liquid-agi
+          image: registry.omni-titan.io/projects/aethelgard-liquid-agi:v1.0.0
+          ports:
+            - containerPort: 9102

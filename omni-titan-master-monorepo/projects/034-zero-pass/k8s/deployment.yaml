@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zero-pass
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zero-pass
+  template:
+    metadata:
+      labels:
+        app: zero-pass
+    spec:
+      containers:
+        - name: zero-pass
+          image: registry.omni-titan.io/projects/zero-pass:v1.0.0
+          ports:
+            - containerPort: 9034

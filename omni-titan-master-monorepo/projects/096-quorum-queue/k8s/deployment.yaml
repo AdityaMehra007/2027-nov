@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quorum-queue
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quorum-queue
+  template:
+    metadata:
+      labels:
+        app: quorum-queue
+    spec:
+      containers:
+        - name: quorum-queue
+          image: registry.omni-titan.io/projects/quorum-queue:v1.0.0
+          ports:
+            - containerPort: 9096

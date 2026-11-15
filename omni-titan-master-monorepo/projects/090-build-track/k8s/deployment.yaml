@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: build-track
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: build-track
+  template:
+    metadata:
+      labels:
+        app: build-track
+    spec:
+      containers:
+        - name: build-track
+          image: registry.omni-titan.io/projects/build-track:v1.0.0
+          ports:
+            - containerPort: 9090

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-router
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pay-router
+  template:
+    metadata:
+      labels:
+        app: pay-router
+    spec:
+      containers:
+        - name: pay-router
+          image: registry.omni-titan.io/projects/pay-router:v1.0.0
+          ports:
+            - containerPort: 9024

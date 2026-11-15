@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starfabric-leo-mesh
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: starfabric-leo-mesh
+  template:
+    metadata:
+      labels:
+        app: starfabric-leo-mesh
+    spec:
+      containers:
+        - name: starfabric-leo-mesh
+          image: registry.omni-titan.io/projects/starfabric-leo-mesh:v1.0.0
+          ports:
+            - containerPort: 9108

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docu-cortex
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: docu-cortex
+  template:
+    metadata:
+      labels:
+        app: docu-cortex
+    spec:
+      containers:
+        - name: docu-cortex
+          image: registry.omni-titan.io/projects/docu-cortex:v1.0.0
+          ports:
+            - containerPort: 9058

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rad-vision
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rad-vision
+  template:
+    metadata:
+      labels:
+        app: rad-vision
+    spec:
+      containers:
+        - name: rad-vision
+          image: registry.omni-titan.io/projects/rad-vision:v1.0.0
+          ports:
+            - containerPort: 9045

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aegis-edr
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aegis-edr
+  template:
+    metadata:
+      labels:
+        app: aegis-edr
+    spec:
+      containers:
+        - name: aegis-edr
+          image: registry.omni-titan.io/projects/aegis-edr:v1.0.0
+          ports:
+            - containerPort: 9031

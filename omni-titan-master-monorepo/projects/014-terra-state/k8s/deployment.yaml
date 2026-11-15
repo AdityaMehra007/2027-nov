@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terra-state
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: terra-state
+  template:
+    metadata:
+      labels:
+        app: terra-state
+    spec:
+      containers:
+        - name: terra-state
+          image: registry.omni-titan.io/projects/terra-state:v1.0.0
+          ports:
+            - containerPort: 9014

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synth-forge
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: synth-forge
+  template:
+    metadata:
+      labels:
+        app: synth-forge
+    spec:
+      containers:
+        - name: synth-forge
+          image: registry.omni-titan.io/projects/synth-forge:v1.0.0
+          ports:
+            - containerPort: 9006

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-forge
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flow-forge
+  template:
+    metadata:
+      labels:
+        app: flow-forge
+    spec:
+      containers:
+        - name: flow-forge
+          image: registry.omni-titan.io/projects/flow-forge:v1.0.0
+          ports:
+            - containerPort: 9053

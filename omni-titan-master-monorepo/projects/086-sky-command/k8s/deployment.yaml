@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sky-command
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sky-command
+  template:
+    metadata:
+      labels:
+        app: sky-command
+    spec:
+      containers:
+        - name: sky-command
+          image: registry.omni-titan.io/projects/sky-command:v1.0.0
+          ports:
+            - containerPort: 9086

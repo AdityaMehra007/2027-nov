@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bio-twin
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bio-twin
+  template:
+    metadata:
+      labels:
+        app: bio-twin
+    spec:
+      containers:
+        - name: bio-twin
+          image: registry.omni-titan.io/projects/bio-twin:v1.0.0
+          ports:
+            - containerPort: 9048

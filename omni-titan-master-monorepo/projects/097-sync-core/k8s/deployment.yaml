@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync-core
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sync-core
+  template:
+    metadata:
+      labels:
+        app: sync-core
+    spec:
+      containers:
+        - name: sync-core
+          image: registry.omni-titan.io/projects/sync-core:v1.0.0
+          ports:
+            - containerPort: 9097

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync-pipe
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sync-pipe
+  template:
+    metadata:
+      labels:
+        app: sync-pipe
+    spec:
+      containers:
+        - name: sync-pipe
+          image: registry.omni-titan.io/projects/sync-pipe:v1.0.0
+          ports:
+            - containerPort: 9063

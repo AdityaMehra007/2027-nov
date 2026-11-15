@@ -1,0 +1,39 @@
+syntax = "proto3";
+package omni.omega.v1;
+
+service OmniOmegaService {
+  rpc ExecuteProject (ProjectExecuteRequest) returns (ProjectExecuteResponse);
+  rpc BatchExecuteAll112 (BatchExecuteRequest) returns (BatchExecuteResponse);
+  rpc VerifyAuditChain (VerifyChainRequest) returns (VerifyChainResponse);
+}
+
+message ProjectExecuteRequest {
+  uint32 project_id = 1;
+  string tenant_id = 2;
+  uint64 primary_input = 3;
+  uint64 secondary_input = 4;
+}
+
+message ProjectExecuteResponse {
+  uint32 project_id = 1;
+  string tier = 2;
+  string metrics_json = 3;
+  string blake3_seal = 4;
+}
+
+message BatchExecuteRequest {
+  string batch_id = 1;
+}
+
+message BatchExecuteResponse {
+  uint32 total_executed = 1;
+  string terminal_hash = 2;
+}
+
+message VerifyChainRequest {}
+
+message VerifyChainResponse {
+  uint64 chain_length = 1;
+  bool is_valid = 2;
+  string head_hash = 3;
+}

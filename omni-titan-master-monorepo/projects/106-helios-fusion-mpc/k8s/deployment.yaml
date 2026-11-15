@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helios-fusion-mpc
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helios-fusion-mpc
+  template:
+    metadata:
+      labels:
+        app: helios-fusion-mpc
+    spec:
+      containers:
+        - name: helios-fusion-mpc
+          image: registry.omni-titan.io/projects/helios-fusion-mpc:v1.0.0
+          ports:
+            - containerPort: 9106

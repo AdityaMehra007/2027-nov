@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: care-core
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: care-core
+  template:
+    metadata:
+      labels:
+        app: care-core
+    spec:
+      containers:
+        - name: care-core
+          image: registry.omni-titan.io/projects/care-core:v1.0.0
+          ports:
+            - containerPort: 9042

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atlas-core-humanoid
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: atlas-core-humanoid
+  template:
+    metadata:
+      labels:
+        app: atlas-core-humanoid
+    spec:
+      containers:
+        - name: atlas-core-humanoid
+          image: registry.omni-titan.io/projects/atlas-core-humanoid:v1.0.0
+          ports:
+            - containerPort: 9110

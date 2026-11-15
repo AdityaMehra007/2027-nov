@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sovereign-cashflow-engine
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sovereign-cashflow-engine
+  template:
+    metadata:
+      labels:
+        app: sovereign-cashflow-engine
+    spec:
+      containers:
+        - name: sovereign-cashflow-engine
+          image: registry.omni-titan.io/projects/sovereign-cashflow-engine:v1.0.0
+          ports:
+            - containerPort: 9112

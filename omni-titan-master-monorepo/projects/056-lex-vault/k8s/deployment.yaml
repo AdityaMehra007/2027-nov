@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lex-vault
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lex-vault
+  template:
+    metadata:
+      labels:
+        app: lex-vault
+    spec:
+      containers:
+        - name: lex-vault
+          image: registry.omni-titan.io/projects/lex-vault:v1.0.0
+          ports:
+            - containerPort: 9056

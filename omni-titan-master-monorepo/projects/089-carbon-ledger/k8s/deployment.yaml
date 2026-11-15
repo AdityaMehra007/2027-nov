@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carbon-ledger
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: carbon-ledger
+  template:
+    metadata:
+      labels:
+        app: carbon-ledger
+    spec:
+      containers:
+        - name: carbon-ledger
+          image: registry.omni-titan.io/projects/carbon-ledger:v1.0.0
+          ports:
+            - containerPort: 9089

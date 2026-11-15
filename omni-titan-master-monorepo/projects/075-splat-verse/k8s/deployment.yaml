@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: splat-verse
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: splat-verse
+  template:
+    metadata:
+      labels:
+        app: splat-verse
+    spec:
+      containers:
+        - name: splat-verse
+          image: registry.omni-titan.io/projects/splat-verse:v1.0.0
+          ports:
+            - containerPort: 9075

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nebula-run
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nebula-run
+  template:
+    metadata:
+      labels:
+        app: nebula-run
+    spec:
+      containers:
+        - name: nebula-run
+          image: registry.omni-titan.io/projects/nebula-run:v1.0.0
+          ports:
+            - containerPort: 9011

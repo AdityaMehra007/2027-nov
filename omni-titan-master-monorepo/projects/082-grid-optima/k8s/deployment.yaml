@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grid-optima
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grid-optima
+  template:
+    metadata:
+      labels:
+        app: grid-optima
+    spec:
+      containers:
+        - name: grid-optima
+          image: registry.omni-titan.io/projects/grid-optima:v1.0.0
+          ports:
+            - containerPort: 9082

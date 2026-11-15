@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decepti-net
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: decepti-net
+  template:
+    metadata:
+      labels:
+        app: decepti-net
+    spec:
+      containers:
+        - name: decepti-net
+          image: registry.omni-titan.io/projects/decepti-net:v1.0.0
+          ports:
+            - containerPort: 9036

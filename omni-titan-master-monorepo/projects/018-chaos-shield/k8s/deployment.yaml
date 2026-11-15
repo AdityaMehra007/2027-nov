@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-shield
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: chaos-shield
+  template:
+    metadata:
+      labels:
+        app: chaos-shield
+    spec:
+      containers:
+        - name: chaos-shield
+          image: registry.omni-titan.io/projects/chaos-shield:v1.0.0
+          ports:
+            - containerPort: 9018

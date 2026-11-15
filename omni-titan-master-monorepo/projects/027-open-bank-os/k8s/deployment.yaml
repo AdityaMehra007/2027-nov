@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-bank-os
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: open-bank-os
+  template:
+    metadata:
+      labels:
+        app: open-bank-os
+    spec:
+      containers:
+        - name: open-bank-os
+          image: registry.omni-titan.io/projects/open-bank-os:v1.0.0
+          ports:
+            - containerPort: 9027

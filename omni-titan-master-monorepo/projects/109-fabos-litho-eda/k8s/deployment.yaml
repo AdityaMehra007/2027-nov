@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fabos-litho-eda
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fabos-litho-eda
+  template:
+    metadata:
+      labels:
+        app: fabos-litho-eda
+    spec:
+      containers:
+        - name: fabos-litho-eda
+          image: registry.omni-titan.io/projects/fabos-litho-eda:v1.0.0
+          ports:
+            - containerPort: 9109

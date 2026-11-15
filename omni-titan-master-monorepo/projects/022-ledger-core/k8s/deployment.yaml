@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ledger-core
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ledger-core
+  template:
+    metadata:
+      labels:
+        app: ledger-core
+    spec:
+      containers:
+        - name: ledger-core
+          image: registry.omni-titan.io/projects/ledger-core:v1.0.0
+          ports:
+            - containerPort: 9022

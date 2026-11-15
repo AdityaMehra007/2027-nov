@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shield-waf
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shield-waf
+  template:
+    metadata:
+      labels:
+        app: shield-waf
+    spec:
+      containers:
+        - name: shield-waf
+          image: registry.omni-titan.io/projects/shield-waf:v1.0.0
+          ports:
+            - containerPort: 9035

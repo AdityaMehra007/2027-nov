@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agri-precision
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agri-precision
+  template:
+    metadata:
+      labels:
+        app: agri-precision
+    spec:
+      containers:
+        - name: agri-precision
+          image: registry.omni-titan.io/projects/agri-precision:v1.0.0
+          ports:
+            - containerPort: 9088

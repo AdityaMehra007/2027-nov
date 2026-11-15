@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cine-cloud
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cine-cloud
+  template:
+    metadata:
+      labels:
+        app: cine-cloud
+    spec:
+      containers:
+        - name: cine-cloud
+          image: registry.omni-titan.io/projects/cine-cloud:v1.0.0
+          ports:
+            - containerPort: 9072

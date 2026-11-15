@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chain-pulse
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: chain-pulse
+  template:
+    metadata:
+      labels:
+        app: chain-pulse
+    spec:
+      containers:
+        - name: chain-pulse
+          image: registry.omni-titan.io/projects/chain-pulse:v1.0.0
+          ports:
+            - containerPort: 9083

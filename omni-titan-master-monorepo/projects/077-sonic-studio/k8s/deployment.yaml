@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonic-studio
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sonic-studio
+  template:
+    metadata:
+      labels:
+        app: sonic-studio
+    spec:
+      containers:
+        - name: sonic-studio
+          image: registry.omni-titan.io/projects/sonic-studio:v1.0.0
+          ports:
+            - containerPort: 9077

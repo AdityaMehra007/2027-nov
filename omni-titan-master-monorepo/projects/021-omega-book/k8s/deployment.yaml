@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omega-book
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omega-book
+  template:
+    metadata:
+      labels:
+        app: omega-book
+    spec:
+      containers:
+        - name: omega-book
+          image: registry.omni-titan.io/projects/omega-book:v1.0.0
+          ports:
+            - containerPort: 9021

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lineage-guard
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lineage-guard
+  template:
+    metadata:
+      labels:
+        app: lineage-guard
+    spec:
+      containers:
+        - name: lineage-guard
+          image: registry.omni-titan.io/projects/lineage-guard:v1.0.0
+          ports:
+            - containerPort: 9065

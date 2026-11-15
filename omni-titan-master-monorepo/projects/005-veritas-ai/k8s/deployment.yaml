@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veritas-ai
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: veritas-ai
+  template:
+    metadata:
+      labels:
+        app: veritas-ai
+    spec:
+      containers:
+        - name: veritas-ai
+          image: registry.omni-titan.io/projects/veritas-ai:v1.0.0
+          ports:
+            - containerPort: 9005

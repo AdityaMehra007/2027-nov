@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-autopilot
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kube-autopilot
+  template:
+    metadata:
+      labels:
+        app: kube-autopilot
+    spec:
+      containers:
+        - name: kube-autopilot
+          image: registry.omni-titan.io/projects/kube-autopilot:v1.0.0
+          ports:
+            - containerPort: 9016

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: field-command
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: field-command
+  template:
+    metadata:
+      labels:
+        app: field-command
+    spec:
+      containers:
+        - name: field-command
+          image: registry.omni-titan.io/projects/field-command:v1.0.0
+          ports:
+            - containerPort: 9060

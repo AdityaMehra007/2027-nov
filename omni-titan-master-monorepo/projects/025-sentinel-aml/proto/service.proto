@@ -1,0 +1,4 @@
+syntax = "proto3";
+package omni.proj_025.v1;
+message ExecuteRequest { string tenant_id = 1; uint64 p = 2; uint64 s = 3; }
+message ExecuteResponse { string record_id = 1; uint64 aml_subgraph_rings_scanned = 2; string blake3_seal = 3; }

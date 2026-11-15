@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-vault-lwe-stark
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantum-vault-lwe-stark
+  template:
+    metadata:
+      labels:
+        app: quantum-vault-lwe-stark
+    spec:
+      containers:
+        - name: quantum-vault-lwe-stark
+          image: registry.omni-titan.io/projects/quantum-vault-lwe-stark:v1.0.0
+          ports:
+            - containerPort: 9103

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epoch-eval
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: epoch-eval
+  template:
+    metadata:
+      labels:
+        app: epoch-eval
+    spec:
+      containers:
+        - name: epoch-eval
+          image: registry.omni-titan.io/projects/epoch-eval:v1.0.0
+          ports:
+            - containerPort: 9009

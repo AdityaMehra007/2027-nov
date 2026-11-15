@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pixel-forge
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pixel-forge
+  template:
+    metadata:
+      labels:
+        app: pixel-forge
+    spec:
+      containers:
+        - name: pixel-forge
+          image: registry.omni-titan.io/projects/pixel-forge:v1.0.0
+          ports:
+            - containerPort: 9076

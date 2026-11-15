@@ -1,0 +1,4 @@
+syntax = "proto3";
+package omni.proj_085.v1;
+message ExecuteRequest { string tenant_id = 1; uint64 p = 2; uint64 s = 3; }
+message ExecuteResponse { string record_id = 1; uint64 dft_vibration_harmonics_analyzed = 2; string blake3_seal = 3; }

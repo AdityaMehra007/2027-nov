@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polaris-lake
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: polaris-lake
+  template:
+    metadata:
+      labels:
+        app: polaris-lake
+    spec:
+      containers:
+        - name: polaris-lake
+          image: registry.omni-titan.io/projects/polaris-lake:v1.0.0
+          ports:
+            - containerPort: 9061

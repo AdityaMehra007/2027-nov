@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-weaver
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: traffic-weaver
+  template:
+    metadata:
+      labels:
+        app: traffic-weaver
+    spec:
+      containers:
+        - name: traffic-weaver
+          image: registry.omni-titan.io/projects/traffic-weaver:v1.0.0
+          ports:
+            - containerPort: 9020

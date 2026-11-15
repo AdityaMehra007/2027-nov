@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vector-flux
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vector-flux
+  template:
+    metadata:
+      labels:
+        app: vector-flux
+    spec:
+      containers:
+        - name: vector-flux
+          image: registry.omni-titan.io/projects/vector-flux:v1.0.0
+          ports:
+            - containerPort: 9071

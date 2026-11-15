@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vox-prime
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vox-prime
+  template:
+    metadata:
+      labels:
+        app: vox-prime
+    spec:
+      containers:
+        - name: vox-prime
+          image: registry.omni-titan.io/projects/vox-prime:v1.0.0
+          ports:
+            - containerPort: 9007

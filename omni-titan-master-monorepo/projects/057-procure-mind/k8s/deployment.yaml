@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: procure-mind
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: procure-mind
+  template:
+    metadata:
+      labels:
+        app: procure-mind
+    spec:
+      containers:
+        - name: procure-mind
+          image: registry.omni-titan.io/projects/procure-mind:v1.0.0
+          ports:
+            - containerPort: 9057

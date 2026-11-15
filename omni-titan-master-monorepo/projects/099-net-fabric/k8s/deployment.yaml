@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: net-fabric
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: net-fabric
+  template:
+    metadata:
+      labels:
+        app: net-fabric
+    spec:
+      containers:
+        - name: net-fabric
+          image: registry.omni-titan.io/projects/net-fabric:v1.0.0
+          ports:
+            - containerPort: 9099

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chronos-ci
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: chronos-ci
+  template:
+    metadata:
+      labels:
+        app: chronos-ci
+    spec:
+      containers:
+        - name: chronos-ci
+          image: registry.omni-titan.io/projects/chronos-ci:v1.0.0
+          ports:
+            - containerPort: 9017

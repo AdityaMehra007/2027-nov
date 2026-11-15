@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claim-autopilot
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: claim-autopilot
+  template:
+    metadata:
+      labels:
+        app: claim-autopilot
+    spec:
+      containers:
+        - name: claim-autopilot
+          image: registry.omni-titan.io/projects/claim-autopilot:v1.0.0
+          ports:
+            - containerPort: 9046

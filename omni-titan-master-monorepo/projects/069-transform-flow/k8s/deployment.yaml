@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-flow
+  namespace: omni-sovereign
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: transform-flow
+  template:
+    metadata:
+      labels:
+        app: transform-flow
+    spec:
+      containers:
+        - name: transform-flow
+          image: registry.omni-titan.io/projects/transform-flow:v1.0.0
+          ports:
+            - containerPort: 9069
