@@ -52,6 +52,7 @@ STATE.json
 996.ICU/
 OpenDots/
 OmniRoute/
+omni-titan-master-monorepo/
 coding-interview-university/
 openclaw/
 awesome/
@@ -73,3 +74,4 @@ generated_saas/
 
 # ─── Misc ───
 node_modules/
+omni-titan-master-monorepo/

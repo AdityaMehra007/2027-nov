@@ -20,6 +20,7 @@ from omniverse.api.routes.finance import get_finance_router
 from omniverse.api.routes.apex import get_apex_router, render_apex_dashboard_html
 from omniverse.api.routes.career import get_career_router
 from omniverse.api.routes.omnia import get_omnia_router
+from omniverse.api.routes.opportunities import get_opportunities_router
 from omniverse.ui.career_os_template import render_career_os_html
 from omniverse.ui.aether_map import render_aether_map_html
 from omniverse.ui.cockpit_template import render_conglomerate_cockpit_html
@@ -97,6 +98,7 @@ def create_app(
     app.include_router(get_apex_router(), prefix="/api/v1")
     app.include_router(get_career_router(), prefix="/api/v1")
     app.include_router(get_omnia_router(), prefix="/api/v1")
+    app.include_router(get_opportunities_router(), prefix="/api/v1")
     app.include_router(get_portal_router(get_session))
 
     @app.get("/omnia", response_class=HTMLResponse, tags=["Project Omnia Nexus"])
