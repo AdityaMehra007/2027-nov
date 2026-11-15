@@ -1,0 +1,27 @@
+name: Institutional 100-Engine CI Pipeline
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  verify-100-engines:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install pytest
+      - name: Run 100-Engine Deterministic Suite & Export Catalog
+        run: |
+          python3 omniverse_100_engines.py
+          python3 b2b_revenue_engine.py
+          pytest tests/test_omniverse_100_suite.py
+          test -f index.html
+          test -f solutions.html
+          test -f engines_catalog.json

@@ -26,7 +26,7 @@ def index():
     <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-6">
         <div class="max-w-xl w-full bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700 text-center">
             <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">
-                FREEMIUM EDITION
+                USAGE_BASED EDITION
             </span>
             <h1 class="text-3xl font-extrabold text-white mb-2">PromptForge Engine</h1>
             <p class="text-slate-400 mb-6">Autonomous, scalable, revenue-generating micro-SaaS application.</p>
@@ -44,7 +44,7 @@ def index():
 
 @app.get("/health")
 def health():
-    return {"app": "PromptForge Engine", "status": "ONLINE", "pricing_model": "freemium"}
+    return {"app": "PromptForge Engine", "status": "ONLINE", "pricing_model": "usage_based"}
 
 @app.get("/api/v1/resource")
 def get_resource():

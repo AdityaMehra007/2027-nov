@@ -1657,6 +1657,14 @@ def main():
         statuses = [client.get(d).status_code for d in dashboards]
         print(f"6. UI Dashboards (6)  : " + " | ".join(f"{d}={s}" for d, s in zip(dashboards, statuses)))
 
+        # 7. OmniRoute AI Gateway Execution
+        from pycontrolplane.ai_gateway.omniroute_engine import OmniRouteEngine, CompressionMode
+        route_engine = OmniRouteEngine()
+        demo_msg = [{"role": "user", "content": "Could you please kindly analyze cross-border settlement latency?"}]
+        res = route_engine.route_and_generate(demo_msg, compression_mode=CompressionMode.CAVEMAN)
+        tokens_saved = res["usage"].get("tokens_saved", 0)
+        print(f"7. OmniRoute Gateway   : Endpoints={len(route_engine.endpoints)} | Model={res['model']} | Tokens Saved={tokens_saved} | Status=ONLINE")
+
         elapsed = (time.time() - t0) * 1000.0
         print("=" * 80)
         print(f"  ALL ENGINES EXECUTED & 100% OPERATIONAL IN {elapsed:.2f} ms")

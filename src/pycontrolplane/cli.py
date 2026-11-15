@@ -3,6 +3,7 @@ import time
 import json
 from .orchestrator import ControlPlaneOrchestrator, ControlPlaneRequest
 from .ai_gateway.router import ModelTier
+from .ai_gateway.gateway_server import OmniRouteGatewayServer
 from .cognitive_mesh.arbitrage import WorkloadObjective
 from .cognitive_mesh.consensus import AgentVote
 
@@ -90,5 +91,20 @@ def run_demo():
     print("=" * 78)
 
 
+def main():
+    if len(sys.argv) > 1 and sys.argv[1] in ("gateway", "omniroute"):
+        port = 4000
+        if "--port" in sys.argv:
+            try:
+                idx = sys.argv.index("--port")
+                port = int(sys.argv[idx + 1])
+            except (ValueError, IndexError):
+                pass
+        server = OmniRouteGatewayServer(host="127.0.0.1", port=port)
+        server.start(blocking=True)
+    else:
+        run_demo()
+
+
 if __name__ == "__main__":
-    run_demo()
+    main()
