@@ -1,6 +1,6 @@
 # OmniDev Universe: Universal Developer Knowledge & Resource Index
 
-A unified, full-text searchable intelligence engine aggregating over **11,910+ verified developer resources** across 13 premier ecosystems:
+A unified, full-text searchable intelligence engine aggregating over **44,976+ verified developer resources** across 14 premier ecosystems:
 1. **[`openclaw`](https://github.com/openclaw/openclaw)** — Autonomous personal AI assistant, multi-platform messaging gateways, and 51 device skills.
 2. **[`OpenDots`](https://github.com/opendots-ai/opendots)** — Always-on AI coworkers, autonomous computers, shared organizational spaces, and Docker stacks.
 3. **[`awesome-selfhosted`](https://github.com/awesome-selfhosted/awesome-selfhosted)** — Free and open-source self-hostable network services, web applications, and SaaS alternatives.
@@ -9,11 +9,12 @@ A unified, full-text searchable intelligence engine aggregating over **11,910+ v
 6. **[`system-design-primer`](https://github.com/donnemartin/system-design-primer)** — Comprehensive system design interview solutions, trade-off analyses, and architecture blueprints.
 7. **[`project-based-learning`](https://github.com/practical-tutorials/project-based-learning)** — Build real-world applications across 20+ programming languages from scratch.
 8. **[`996.ICU`](https://github.com/996icu/996.ICU)** — Work-life balance guides, remote engineering jobs, and ethical labor initiatives.
-9. **[`awesome-python`](https://github.com/vinta/awesome-python)** — The authoritative curated guide to Python frameworks, libraries, AI agents, and tools.
-10. **[`free-programming-books`](https://github.com/EbookFoundation/free-programming-books)** — Free books, courses, screencasts, cheatsheets, and interactive tutorials.
-11. **[`build-your-own-x`](https://github.com/codecrafters-io/build-your-own-x)** — Step-by-step guides for recreating core technologies from scratch.
-12. **[`public-apis`](https://github.com/public-apis/public-apis)** — Public web APIs categorized with authentication, HTTPS, and CORS metadata.
-13. **[`awesome`](https://github.com/sindresorhus/awesome)** — Curated lists of frameworks, platforms, and programming topics.
+9. **[`freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp)** — World's largest open-source curriculum, 26 certifications, 169 real-world projects, and 1,059 learning modules.
+10. **[`awesome-python`](https://github.com/vinta/awesome-python)** — The authoritative curated guide to Python frameworks, libraries, AI agents, and tools.
+11. **[`free-programming-books`](https://github.com/EbookFoundation/free-programming-books)** — Free books, courses, screencasts, cheatsheets, and interactive tutorials.
+12. **[`build-your-own-x`](https://github.com/codecrafters-io/build-your-own-x)** — Step-by-step guides for recreating core technologies from scratch.
+13. **[`public-apis`](https://github.com/public-apis/public-apis)** — Public web APIs categorized with authentication, HTTPS, and CORS metadata.
+14. **[`awesome`](https://github.com/sindresorhus/awesome)** — Curated lists of frameworks, platforms, and programming topics.
 
 ---
 
@@ -21,26 +22,29 @@ A unified, full-text searchable intelligence engine aggregating over **11,910+ v
 
 | Metric | Count | Details |
 | :--- | :--- | :--- |
-| **Total Curated Resources** | **11,910** | Deduplicated across all 13 repositories |
-| **Programming & Domain Books** | **2,555** | Languages (Python, Rust, C++, Go, etc.) & Subjects (AI, Security, Math) |
-| **Public Web APIs** | **2,380** | 50+ categories with auth & HTTPS specifications |
-| **Self-Hosted Applications** | **1,359** | 1,266 Open-Source + 93 Proprietary self-hostable services |
-| **Online Video Courses** | **1,343** | Free structured curricula and video courses |
+| **Total Curated Resources** | **44,976** | Deduplicated across all 14 repositories |
+| **Roadmap Topics & Architecture Guides** | **10,968** | Specialized skills, CS concepts, and language guides |
+| **Curated Technical Articles & Guides** | **10,468** | In-depth engineering articles and best practices |
+| **Official Documentation Links** | **5,204** | Standard references, RFCs, and framework documentation |
+| **Developer Video Tutorials & Screencasts** | **4,505** | Guided coding videos, conference talks, and walkthroughs |
+| **Programming & Domain Books** | **2,554** | Free textbooks covering languages, AI/ML, OS, security, and algorithms |
+| **Public Web APIs** | **2,380** | 50+ categories with auth, HTTPS, and CORS metadata |
+| **Online Courses & Curricula** | **1,607** | Structured university courses, certifications, and video series |
+| **Self-Hosted Applications** | **1,359** | 1,266 open-source + 93 proprietary self-hostable alternatives |
+| **freeCodeCamp Curriculum** | **1,254** | 26 certifications, 169 portfolio projects, 1,059 interactive modules |
 | **Awesome Curated Lists** | **662** | Community-verified ecosystems and toolchains |
 | **Python Libraries & Tools** | **538** | AI agents, web frameworks, async, ORM, data science, testing |
-| **Project-Based Tutorials** | **403** | End-to-end full-stack and systems tutorials in 20+ languages |
-| **Academic Video Lectures** | **399** | University CS courses (MIT, Stanford, Berkeley, Harvard) |
+| **Project-Based Learning Tutorials** | **399** | End-to-end full-stack and systems tutorials in 20+ languages |
 | **"Build Your Own" Guides** | **362** | Compilers, Git, OS, Databases, Neural Nets, BitTorrent, Docker |
-| **Cheatsheets & References** | **335** | Syntax, shell, tools, frameworks |
-| **Podcasts & Screencasts** | **263** | Tech talks, audio deep-dives, developer interviews |
-| **System Design Blueprints** | **214** | Architecture diagrams, trade-off analysis, distributed systems |
-| **Interactive Tutorials** | **210** | In-browser exercises and interactive coding |
-| **Interview Prep Modules** | **200** | Computer science fundamentals, algorithms, system design |
-| **Anti-996 & WLB Initiatives** | **165** | Companies with healthy culture, remote policies, labor rights |
-| **Autonomous Agent Skills & Spec** | **160** | OpenClaw tools (51 skills), gateway architecture (61), channels (48) |
-| **Competitive Problem Sets** | **126** | Algorithm challenges and competitive programming |
+| **Cheatsheets & Syntax References** | **335** | Syntax, shell, tools, frameworks |
+| **Academic Video Lectures** | **321** | University CS courses (MIT, Stanford, Berkeley, Harvard) |
+| **Podcasts & Screencasts** | **264** | Tech talks, audio deep-dives, developer interviews |
+| **Anti-996 & WLB Initiatives** | **185** | 165 OSS projects, 11 WLB employers, 6 labor guides, 3 remote employers |
+| **Autonomous Agent Skills & Spec** | **149** | OpenClaw tools (52 skills), gateway architecture (55), channels (42) |
+| **Competitive Problem Sets** | **126** | Algorithm challenges, coding puzzles, and interview problems |
 | **Developer Roadmaps** | **96** | AI, Backend, Frontend, DevOps, Security, Cloud, System Design |
-| **AI Coworkers & Stacks** | **20** | OpenDots autonomous coworkers, spaces, and multi-agent stacks |
+| **System Design Blueprints** | **180+** | Architecture diagrams, trade-off analysis, distributed systems |
+| **AI Coworkers & Stacks** | **20** | OpenDots autonomous coworkers (11), infrastructure (6), stacks (3) |
 | **Newsletters & Websites** | **5** | Curated periodic publications and portals |
 
 ---
@@ -310,16 +314,22 @@ A complete, zero-dependency Git engine written in Python from scratch under `src
 
 ## 12. Automated Verification & Test Coverage Matrix
 
-100% automated test pass rate across all 31 unit, integration, and ecosystem test specifications:
+100% automated test pass rate across all 52 unit, integration, and ecosystem test specifications:
 
 | Test Suite | File | Tests | Status |
 | :--- | :--- | :--- | :--- |
+| **Anti-996 & Labor Rights Suite** | `tests/test_996_icu_suite.py` | 6 | **PASSED** |
 | **PyGit Object Engine** | `tests/test_pygit_objects.py` | 3 | **PASSED** |
 | **PyGit DIRC v2 Index** | `tests/test_pygit_index.py` | 3 | **PASSED** |
 | **PyGit Repository & Refs** | `tests/test_pygit_repo.py` | 3 | **PASSED** |
 | **PyGit Status & Diff** | `tests/test_pygit_status_diff.py` | 1 | **PASSED** |
 | **PyGit Commands & Porcelain** | `tests/test_pygit_commands.py` | 5 | **PASSED** |
+| **PyGit CLI Subcommands** | `tests/test_pygit_cli.py` | 2 | **PASSED** |
+| **PyGit End-to-End Lifecycle** | `tests/test_pygit_e2e.py` | 1 | **PASSED** |
+| **PyDB Pager & Storage Engine** | `tests/test_pydb_storage.py` | 2 | **PASSED** |
+| **ATLAS NEXUS Phase III Frontier** | `tests/test_nexus_phase3.py` | 9 | **PASSED** |
 | **Knowledge Universe Core** | `tests/test_knowledge_universe_suite.py` | 8 | **PASSED** |
 | **Dev Universe Extended** | `tests/test_dev_universe_extended.py` | 8 | **PASSED** |
-| **Total** | **7 Test Modules** | **31 Tests** | **100% PASSED** |
+| **Omniverse Master 'Do Everything'** | `tests/test_cli_do_everything.py` | 1 | **PASSED** |
+| **Total** | **13 Test Modules** | **52 Tests** | **100% PASSED** |
 

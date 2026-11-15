@@ -77,7 +77,8 @@ def get_db():
     if not DB_PATH.exists():
         print(f"Database not found at {DB_PATH}. Run 'python scripts/index_dev_universe.py' first.")
         sys.exit(1)
-    conn = sqlite3.connect(DB_PATH)
+    db_uri = DB_PATH.resolve().as_uri()
+    conn = sqlite3.connect(f"{db_uri}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -91,14 +92,16 @@ def search(query=None, item_type=None, category=None, source=None, saas=None, li
     if saas:
         # Search specifically for self-hosted alternatives to a SaaS product
         clean_saas = "".join(c if c.isalnum() or c.isspace() else " " for c in saas).strip()
-        conditions.append("(r.type LIKE 'self-hosted%' AND (r.description LIKE ? OR r.title LIKE ?))")
+        conditions.append("((r.type = 'self-hosted' OR r.type = 'self-hosted-proprietary') AND (r.description LIKE ? OR r.title LIKE ?))")
         params.extend([f"%{clean_saas}%", f"%{clean_saas}%"])
 
+    from_clause = "FROM resources r"
     if query:
         clean_q = "".join(c if c.isalnum() or c.isspace() else " " for c in query).strip()
         if clean_q:
             fts_terms = " ".join(f'{term}*' for term in clean_q.split())
-            conditions.append("r.id IN (SELECT rowid FROM resources_fts WHERE resources_fts MATCH ?)")
+            from_clause = "FROM resources_fts fts JOIN resources r ON r.id = fts.rowid"
+            conditions.append("fts.resources_fts MATCH ?")
             params.append(fts_terms)
 
     if item_type:
@@ -116,7 +119,7 @@ def search(query=None, item_type=None, category=None, source=None, saas=None, li
     where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
     sql = f"""
     SELECT r.id, r.title, r.url, r.type, r.category, r.subcategory, r.language, r.format, r.description, r.source_repo
-    FROM resources r
+    {from_clause}
     {where_clause}
     ORDER BY r.id ASC
     LIMIT ?
