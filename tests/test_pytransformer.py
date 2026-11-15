@@ -1,5 +1,10 @@
+import os
+import sys
 import math
 import unittest
+
+sys.path.insert(0, os.path.abspath("src"))
+
 from pytransformer.autograd import Value
 from pytransformer.model import Linear, MultiHeadAttention, MiniTransformer
 from pytransformer.tokenizer import CharacterTokenizer
