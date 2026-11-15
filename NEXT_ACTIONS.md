@@ -1,38 +1,26 @@
 # NEXT_ACTIONS: Implementation Roadmap
 
-**Active Phase:** Phase 1 (Research Intelligence & Opportunity Scoring) COMPLETE → Phase 2 (Commercial Validation & Prospect Dossier Staging) ACTIVE
+**Active Phase:** Phase 1 (Research Intelligence & Opportunity Scoring) - COMPLETE  
+**Current Phase:** Phase 2 (Commercial Validation & Prospect Pipeline)
 
 ---
 
-## Completed Milestones (Phase 1)
-- [x] **Customer Taxonomy & Revenue Catalogue** (`src/omniverse/modules/opportunities/taxonomy.py`): 60+ customer categories & 50+ monetization models verified.
-- [x] **Canonical Opportunity Scoring Formula** (`src/omniverse/modules/opportunities/scoring.py`): Relative ratio and 100-point rubric with SQLite persistence.
-- [x] **Company Intelligence Store & Deduplication** (`src/omniverse/modules/opportunities/company_intelligence.py`): Multi-source registry with confidence scoring.
-- [x] **Beachhead Deliverable Generator** (`src/omniverse/modules/opportunities/beachhead.py`): Automated audit reports with quantified COI, projected monthly savings, and tiered pricing ($49/$99/$499).
-- [x] **100% Verification Coverage**: Verified via `tests/test_global_opportunity_mvp.py` and `tests/test_opportunity_scoring_engine.py`.
+## Active Workstreams
 
----
+1. **Beachhead Deliverable Artifacts** (Complete)
+   - Sample deliverable generated and exported to [`artifacts/proposals/apex_logistics_india_audit.md`](file:///e:/2027 nov/artifacts/proposals/apex_logistics_india_audit.md).
+   - Shows quantified ROI ($140,625.00/yr annual drag, $6,562.50/mo savings, 6,628% ROI) with tiered pricing: $49/mo Starter, $99/mo Managed, $299/mo Institutional.
 
-## Active Next Steps (Phase 2)
+2. **Opportunity Scoring & Ranking Matrix** (Complete)
+   - Canonical formula fully implemented and tested across all business categories:
+     $$\text{Opportunity Score} = \frac{\text{Pain} \times \text{Frequency} \times \text{Budget} \times \text{Reachability} \times \text{Automation Feasibility}}{\text{Competition}}$$
+   - Available via CLI (`python -m omniverse.cli opportunities-rank`) and REST API (`GET /api/v1/opportunities/top-ranked`).
 
-1. **Prospect Dossier Extraction & Staging (30–50 Companies)**
-   - Extract candidate organizations from permitted public directories, GitHub, and local business indices.
-   - Stage personalized outreach drafts into the `PendingActionsQueue` for human review (respecting the non-negotiable rule: no unsolicited outbound communication without founder sign-off).
+3. **Phase 2 Prospect Pipeline Staging** (Immediate Next)
+   - Ingest 30 high-fit prospect companies into `CompanyIntelligenceRegistry` from permitted public directories (MCA, SEC EDGAR, Tech indices).
+   - Generate customized proof-first audit dossiers for each prospect.
+   - Stage personalized outreach drafts into the `PendingActionsQueue` for founder cryptographic review (enforcing the non-negotiable rule: no unsolicited outbound communication without founder sign-off).
 
-2. **Self-Service Beachhead Web Intake Form**
-   - Connect web intake form to local server (`http://127.0.0.1:8888`) or dashboard (`dist/dashboard/index.html`).
-   - Allow prospective clients to upload workflow descriptions or sample invoices to receive an instant audit preview.
-
----
-
-## Phase 3–5 Upcoming Milestones
-
-3. **Productized Customer Portal & Delivery Status UI**
-   - Interactive job status tracker with client-facing deliverables download.
-
-4. **Sandbox Payment Flow Verification**
-   - End-to-end checkout with mock UPI QR and Stripe test cards in `tests/test_agency_payment_gateways.py`.
-   - Prepare webhook listener configuration for live deployment once production merchant credentials are provided.
-
-5. **24/7 Daemon Health Verification**
-   - Keep background health monitors and worker daemons active with rolling anomaly checks via `PyControlPlane`.
+4. **Productized Customer Portal & Webhook Verification**
+   - Verify self-service audit intake form on `http://127.0.0.1:8888`.
+   - Test sandbox payment flows with mock UPI QR and Stripe test cards in `tests/test_agency_payment_gateways.py`.
