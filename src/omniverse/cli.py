@@ -140,7 +140,7 @@ def main():
     deriv_parser = subparsers.add_parser("derivatives", help="Black-Scholes European option pricing, Greeks, and triangular arbitrage")
     deriv_parser.add_argument("--spot", type=float, default=24500.0, help="Spot underlying price")
     deriv_parser.add_argument("--strike", type=float, default=24500.0, help="Strike price")
-    deriv_parser.add_argument("--vol", type=float, default=0.18, help="Annualized volatility (e.g. 0.18 for 18%)")
+    deriv_parser.add_argument("--vol", type=float, default=0.18, help="Annualized volatility (e.g. 0.18 for 18 percent)")
 
     # Command: sar-flood
     sar_parser = subparsers.add_parser("sar-flood", help="Process Sentinel-1 SAR radar backscatter and calculate flood extent")

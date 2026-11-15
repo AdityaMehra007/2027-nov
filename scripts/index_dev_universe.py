@@ -1149,6 +1149,178 @@ def parse_project_based_learning(pbl_dir: Path):
 
     return records
 
+
+def parse_openclaw(openclaw_dir: Path):
+    """
+    Parses OpenClaw (The open-source AI assistant on your devices & in your chats):
+    - Skills in openclaw/skills/ (51 skills with triggers, tools, and integrations)
+    - Architecture & Gateway specifications in openclaw/docs/gateway/ and openclaw/docs/architecture/
+    - Multi-channel connectors in openclaw/docs/channels/ (Discord, Telegram, WhatsApp, Slack, Teams, iMessage, etc.)
+    """
+    records = []
+    if not openclaw_dir.exists():
+        return records
+
+    gh_base = "https://github.com/openclaw/openclaw/tree/main"
+
+    # 1. Skills
+    skills_dir = openclaw_dir / "skills"
+    if skills_dir.exists():
+        for s in sorted(skills_dir.iterdir()):
+            if s.is_dir():
+                target = s / "SKILL.md" if (s / "SKILL.md").exists() else (s / "README.md" if (s / "README.md").exists() else None)
+                if not target:
+                    continue
+                text = target.read_text(encoding="utf-8", errors="replace")
+                name = s.name
+                desc = f"OpenClaw autonomous agent skill for {name}."
+                m_desc = re.search(r'description:\s*["\']?(.*?)["\']?\s*\n', text)
+                if m_desc and m_desc.group(1).strip():
+                    desc = clean_text(m_desc.group(1))
+
+                records.append({
+                    "title": f"OpenClaw Skill: {name}",
+                    "url": f"{gh_base}/skills/{name}",
+                    "type": "agent-skill",
+                    "category": "Autonomous Agent Skills",
+                    "subcategory": name,
+                    "language": "TypeScript / Node.js",
+                    "format": "OpenClaw Skill & Toolset",
+                    "description": desc,
+                    "source_repo": "openclaw"
+                })
+
+    # 2. Gateway Architecture Guides
+    gw_dir = openclaw_dir / "docs" / "gateway"
+    if gw_dir.exists():
+        for f in sorted(gw_dir.glob("*.md")):
+            if f.name.lower() in ["index.md", "readme.md"]:
+                continue
+            text = f.read_text(encoding="utf-8", errors="replace")
+            lines = text.strip().splitlines()
+            title = lines[0].lstrip("#").strip() if lines and lines[0].startswith("#") else f.stem.replace("-", " ").title()
+            summary = ""
+            for l in lines[1:]:
+                l_str = clean_text(l)
+                if l_str and not l_str.startswith("<") and not l_str.startswith("[!"):
+                    summary = l_str
+                    break
+            records.append({
+                "title": f"OpenClaw Architecture: {clean_text(title)}",
+                "url": f"https://docs.openclaw.ai/gateway/{f.stem}",
+                "type": "agent-architecture",
+                "category": "Agent Infrastructure & Gateways",
+                "subcategory": f.stem,
+                "language": "Architecture / Systems",
+                "format": "Gateway Technical Specification",
+                "description": f"{summary or 'Gateway architecture guide for OpenClaw personal AI assistant.'} (Device sandboxing, auth & protocol)",
+                "source_repo": "openclaw"
+            })
+
+    # 3. Channel Connectors
+    ch_dir = openclaw_dir / "docs" / "channels"
+    if ch_dir.exists():
+        for f in sorted(ch_dir.glob("*.md")):
+            if f.name.lower() in ["index.md", "readme.md"]:
+                continue
+            ch_name = f.stem.replace("-", " ").title()
+            records.append({
+                "title": f"OpenClaw Channel: {ch_name}",
+                "url": f"https://docs.openclaw.ai/channels/{f.stem}",
+                "type": "agent-channel",
+                "category": "Multi-Platform Messaging Connectors",
+                "subcategory": ch_name,
+                "language": "Protocol / API",
+                "format": "Chat Channel Connector Specification",
+                "description": f"Multiplayer & direct AI assistant connector for {ch_name} with bidirectional streaming and message handling.",
+                "source_repo": "openclaw"
+            })
+
+    return records
+
+
+def parse_opendots(opendots_dir: Path):
+    """
+    Parses OpenDots (Always-on AI coworkers that move between text, calls, and Slack):
+    - Spaces (collaborative visual document workspace)
+    - Specialist Dots (configured autonomous agents)
+    - Dot Computers (persistent sandboxes, browser profile, terminal takeover)
+    - Review Before Saving (CopilotKit human-in-the-loop review cards)
+    - Connections & Composio (MCP servers, tool permissions)
+    - Text and Realtime Speech calls
+    - Docker & Compose infrastructure
+    """
+    records = []
+    if not opendots_dir.exists():
+        return records
+
+    gh_base = "https://github.com/CopilotKit/OpenDots"
+
+    # 1. Core Platform Concepts from README.md
+    readme_path = opendots_dir / "README.md"
+    if readme_path.exists():
+        text = readme_path.read_text(encoding="utf-8", errors="replace")
+        sections = re.findall(r'###\s+([^\n]+)\n+(.*?)(?=###|\Z)', text, re.DOTALL)
+        for sec_title, sec_body in sections:
+            clean_title = clean_text(sec_title)
+            first_p = ""
+            for p in sec_body.split("\n\n"):
+                p_clean = clean_text(p)
+                if p_clean and not p_clean.startswith("<") and not p_clean.startswith("http") and not p_clean.startswith("_"):
+                    first_p = p_clean
+                    break
+            slug = re.sub(r'[^a-z0-9]+', '-', clean_title.lower()).strip('-')
+            records.append({
+                "title": f"OpenDots: {clean_title}",
+                "url": f"{gh_base}#{slug}",
+                "type": "coworker-agent-concept",
+                "category": "AI Coworker Operating Systems",
+                "subcategory": clean_title,
+                "language": "TypeScript / React",
+                "format": "Autonomous Coworker Framework",
+                "description": first_p or f"OpenDots autonomous agent architecture for {clean_title}.",
+                "source_repo": "OpenDots"
+            })
+
+    # 2. Technical Guides in docs/
+    docs_dir = opendots_dir / "docs"
+    if docs_dir.exists():
+        for doc_file in sorted(docs_dir.glob("*.md")):
+            text = doc_file.read_text(encoding="utf-8", errors="replace")
+            lines = text.strip().splitlines()
+            title = lines[0].lstrip("#").strip() if lines and lines[0].startswith("#") else doc_file.stem.replace("-", " ").title()
+            summary = clean_text(" ".join(lines[1:5]))
+            records.append({
+                "title": f"OpenDots Guide: {clean_text(title)}",
+                "url": f"{gh_base}/blob/main/docs/{doc_file.name}",
+                "type": "coworker-infrastructure",
+                "category": "Agent Infrastructure & Sandboxes",
+                "subcategory": doc_file.stem,
+                "language": "Docker / Node.js",
+                "format": "Agent Sandbox & Infrastructure Spec",
+                "description": f"{summary[:180]} (Container supervisor, MCP integration & runtime architecture)",
+                "source_repo": "OpenDots"
+            })
+
+    # 3. Stack Compose Specifications
+    for comp in ["compose.yml", "compose.computers.yml", "compose.computers-app.yml"]:
+        cp = opendots_dir / comp
+        if cp.exists():
+            records.append({
+                "title": f"OpenDots Stack: {comp}",
+                "url": f"{gh_base}/blob/main/{comp}",
+                "type": "agent-stack-compose",
+                "category": "Agent Infrastructure & Sandboxes",
+                "subcategory": "Docker Compose",
+                "language": "Docker Compose",
+                "format": "Multi-Container Orchestration",
+                "description": f"Production multi-container Docker compose orchestration for OpenDots ({comp}).",
+                "source_repo": "OpenDots"
+            })
+
+    return records
+
+
 def main():
     print("=" * 60)
     print("  OMNIDEV UNIVERSE: UNIFIED KNOWLEDGE INGESTION ENGINE")
@@ -1269,6 +1441,22 @@ def main():
         pbl_records = parse_project_based_learning(pbl_dir)
         print(f"  + Project-Based Learning Tutorials: {len(pbl_records):,}")
         all_records.extend(pbl_records)
+
+    # 12. openclaw
+    openclaw_dir = BASE_DIR / "openclaw"
+    if openclaw_dir.exists():
+        print("\n[*] Parsing openclaw...")
+        openclaw_records = parse_openclaw(openclaw_dir)
+        print(f"  + OpenClaw Agent Skills, Gateways & Channels: {len(openclaw_records):,}")
+        all_records.extend(openclaw_records)
+
+    # 13. OpenDots
+    opendots_dir = BASE_DIR / "OpenDots"
+    if opendots_dir.exists():
+        print("\n[*] Parsing OpenDots...")
+        opendots_records = parse_opendots(opendots_dir)
+        print(f"  + OpenDots Coworker Agents, Computers & Spaces: {len(opendots_records):,}")
+        all_records.extend(opendots_records)
 
     # Deduplicate by URL
     seen_urls = set()

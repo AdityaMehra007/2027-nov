@@ -1,17 +1,19 @@
 # OmniDev Universe: Universal Developer Knowledge & Resource Index
 
-A unified, full-text searchable intelligence engine aggregating over **11,730+ verified developer resources** across 11 premier ecosystems:
-1. **[`awesome-selfhosted`](https://github.com/awesome-selfhosted/awesome-selfhosted)** — Free and open-source self-hostable network services, web applications, and SaaS alternatives.
-2. **[`developer-roadmap`](https://github.com/nilbuild/developer-roadmap)** — Community-driven career paths, technical skill trees, and interactive developer roadmaps.
-3. **[`coding-interview-university`](https://github.com/jwasham/coding-interview-university)** — Complete multi-month computer science and software engineering study plan.
-4. **[`system-design-primer`](https://github.com/donnemartin/system-design-primer)** — Comprehensive system design interview solutions, trade-off analyses, and architecture blueprints.
-5. **[`project-based-learning`](https://github.com/practical-tutorials/project-based-learning)** — Build real-world applications across 20+ programming languages from scratch.
-6. **[`996.ICU`](https://github.com/996icu/996.ICU)** — Work-life balance guides, remote engineering jobs, and ethical labor initiatives.
-7. **[`awesome-python`](https://github.com/vinta/awesome-python)** — The authoritative curated guide to Python frameworks, libraries, AI agents, and tools.
-8. **[`free-programming-books`](https://github.com/EbookFoundation/free-programming-books)** — Free books, courses, screencasts, cheatsheets, and interactive tutorials.
-9. **[`build-your-own-x`](https://github.com/codecrafters-io/build-your-own-x)** — Step-by-step guides for recreating core technologies from scratch.
-10. **[`public-apis`](https://github.com/public-apis/public-apis)** — Public web APIs categorized with authentication, HTTPS, and CORS metadata.
-11. **[`awesome`](https://github.com/sindresorhus/awesome)** — Curated lists of frameworks, platforms, and programming topics.
+A unified, full-text searchable intelligence engine aggregating over **11,910+ verified developer resources** across 13 premier ecosystems:
+1. **[`openclaw`](https://github.com/openclaw/openclaw)** — Autonomous personal AI assistant, multi-platform messaging gateways, and 51 device skills.
+2. **[`OpenDots`](https://github.com/opendots-ai/opendots)** — Always-on AI coworkers, autonomous computers, shared organizational spaces, and Docker stacks.
+3. **[`awesome-selfhosted`](https://github.com/awesome-selfhosted/awesome-selfhosted)** — Free and open-source self-hostable network services, web applications, and SaaS alternatives.
+4. **[`developer-roadmap`](https://github.com/nilbuild/developer-roadmap)** — Community-driven career paths, technical skill trees, and interactive developer roadmaps.
+5. **[`coding-interview-university`](https://github.com/jwasham/coding-interview-university)** — Complete multi-month computer science and software engineering study plan.
+6. **[`system-design-primer`](https://github.com/donnemartin/system-design-primer)** — Comprehensive system design interview solutions, trade-off analyses, and architecture blueprints.
+7. **[`project-based-learning`](https://github.com/practical-tutorials/project-based-learning)** — Build real-world applications across 20+ programming languages from scratch.
+8. **[`996.ICU`](https://github.com/996icu/996.ICU)** — Work-life balance guides, remote engineering jobs, and ethical labor initiatives.
+9. **[`awesome-python`](https://github.com/vinta/awesome-python)** — The authoritative curated guide to Python frameworks, libraries, AI agents, and tools.
+10. **[`free-programming-books`](https://github.com/EbookFoundation/free-programming-books)** — Free books, courses, screencasts, cheatsheets, and interactive tutorials.
+11. **[`build-your-own-x`](https://github.com/codecrafters-io/build-your-own-x)** — Step-by-step guides for recreating core technologies from scratch.
+12. **[`public-apis`](https://github.com/public-apis/public-apis)** — Public web APIs categorized with authentication, HTTPS, and CORS metadata.
+13. **[`awesome`](https://github.com/sindresorhus/awesome)** — Curated lists of frameworks, platforms, and programming topics.
 
 ---
 
@@ -19,7 +21,7 @@ A unified, full-text searchable intelligence engine aggregating over **11,730+ v
 
 | Metric | Count | Details |
 | :--- | :--- | :--- |
-| **Total Curated Resources** | **11,730** | Deduplicated across all 11 repositories |
+| **Total Curated Resources** | **11,910** | Deduplicated across all 13 repositories |
 | **Programming & Domain Books** | **2,555** | Languages (Python, Rust, C++, Go, etc.) & Subjects (AI, Security, Math) |
 | **Public Web APIs** | **2,380** | 50+ categories with auth & HTTPS specifications |
 | **Self-Hosted Applications** | **1,359** | 1,266 Open-Source + 93 Proprietary self-hostable services |
@@ -35,8 +37,10 @@ A unified, full-text searchable intelligence engine aggregating over **11,730+ v
 | **Interactive Tutorials** | **210** | In-browser exercises and interactive coding |
 | **Interview Prep Modules** | **200** | Computer science fundamentals, algorithms, system design |
 | **Anti-996 & WLB Initiatives** | **165** | Companies with healthy culture, remote policies, labor rights |
+| **Autonomous Agent Skills & Spec** | **160** | OpenClaw tools (51 skills), gateway architecture (61), channels (48) |
 | **Competitive Problem Sets** | **126** | Algorithm challenges and competitive programming |
 | **Developer Roadmaps** | **96** | AI, Backend, Frontend, DevOps, Security, Cloud, System Design |
+| **AI Coworkers & Stacks** | **20** | OpenDots autonomous coworkers, spaces, and multi-agent stacks |
 | **Newsletters & Websites** | **5** | Curated periodic publications and portals |
 
 ---

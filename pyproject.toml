@@ -42,6 +42,8 @@ norecursedirs = [
     "coding-interview-university",
     "system-design-primer",
     "996.ICU",
+    "openclaw",
+    "OpenDots",
     ".git",
     ".agents",
     "data",

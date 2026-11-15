@@ -10,12 +10,13 @@ class DatabaseEngine:
         self.settings = get_settings()
         self.db_url = db_url or self.settings.db_url
         
-        # Ensure parent directory exists for SQLite
+        # Ensure parent directory exists for SQLite and normalize forward slashes on Windows
         if self.db_url.startswith("sqlite:///"):
             path_part = self.db_url.replace("sqlite:///", "")
             if path_part != ":memory:":
-                db_path = Path(path_part)
+                db_path = Path(path_part).resolve()
                 db_path.parent.mkdir(parents=True, exist_ok=True)
+                self.db_url = f"sqlite:///{db_path.as_posix()}"
                 
         connect_args = {"check_same_thread": False} if self.db_url.startswith("sqlite") else {}
         self.engine = create_engine(self.db_url, echo=False, connect_args=connect_args)

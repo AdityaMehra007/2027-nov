@@ -56,7 +56,13 @@ TYPE_BADGES = {
     "company-architecture": f"{COLOR_YELLOW}[COMPANY-ARCH]{COLOR_RESET}",
     "interview-question": f"{COLOR_MAGENTA}[INTERVIEW-Q]{COLOR_RESET}",
     "flashcards": f"{COLOR_CYAN}[FLASHCARDS]{COLOR_RESET}",
-    "engineering-blog": f"{COLOR_GRAY}[ENG-BLOG]{COLOR_RESET}"
+    "engineering-blog": f"{COLOR_GRAY}[ENG-BLOG]{COLOR_RESET}",
+    "agent-skill": f"{COLOR_CYAN}[AGENT-SKILL]{COLOR_RESET}",
+    "agent-architecture": f"{COLOR_BLUE}[AGENT-ARCH]{COLOR_RESET}",
+    "agent-channel": f"{COLOR_GREEN}[AGENT-CHANNEL]{COLOR_RESET}",
+    "coworker-agent-concept": f"{COLOR_YELLOW}[COWORKER]{COLOR_RESET}",
+    "coworker-infrastructure": f"{COLOR_MAGENTA}[COWORKER-INFRA]{COLOR_RESET}",
+    "agent-stack-compose": f"{COLOR_CYAN}[AGENT-STACK]{COLOR_RESET}"
 }
 
 def get_db():

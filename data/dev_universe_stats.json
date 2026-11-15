@@ -1,5 +1,5 @@
 {
-  "total_resources": 11730,
+  "total_resources": 11910,
   "by_type": {
     "book": 2555,
     "course": 1343,
@@ -33,7 +33,13 @@
     "remote-employer": 3,
     "anti996-project": 165,
     "labor-rights-guide": 6,
-    "project-tutorial": 403
+    "project-tutorial": 403,
+    "agent-skill": 51,
+    "agent-architecture": 61,
+    "agent-channel": 48,
+    "coworker-agent-concept": 11,
+    "coworker-infrastructure": 6,
+    "agent-stack-compose": 3
   },
   "by_source": {
     "free-programming-books": 4783,
@@ -46,7 +52,9 @@
     "coding-interview-university": 739,
     "system-design-primer": 214,
     "996.ICU": 185,
-    "project-based-learning": 403
+    "project-based-learning": 403,
+    "openclaw": 160,
+    "OpenDots": 20
   },
   "top_30_categories": {
     "Project-Based Learning": 403,

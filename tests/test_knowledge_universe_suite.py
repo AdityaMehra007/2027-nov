@@ -21,6 +21,8 @@ from scripts.index_dev_universe import (
     parse_coding_interview_university,
     parse_system_design_primer,
     parse_project_based_learning,
+    parse_openclaw,
+    parse_opendots,
     DB_PATH,
     DATA_DIR
 )
@@ -74,6 +76,24 @@ def test_project_based_learning_parsing():
     assert len(records) > 300, f"Expected >300 records from PBL, got {len(records)}"
     assert all(r["source_repo"] == "project-based-learning" for r in records)
 
+def test_openclaw_parsing():
+    openclaw_dir = BASE_DIR / "openclaw"
+    assert openclaw_dir.exists(), "openclaw directory must exist"
+
+    records = parse_openclaw(openclaw_dir)
+    assert len(records) >= 50, f"Expected >=50 records from OpenClaw, got {len(records)}"
+    types = {r["type"] for r in records}
+    assert "agent-skill" in types, "Should parse agent skills"
+
+def test_opendots_parsing():
+    opendots_dir = BASE_DIR / "OpenDots"
+    assert opendots_dir.exists(), "OpenDots directory must exist"
+
+    records = parse_opendots(opendots_dir)
+    assert len(records) >= 5, f"Expected >=5 records from OpenDots, got {len(records)}"
+    types = {r["type"] for r in records}
+    assert any("coworker" in t or "stack" in t for t in types), "Should parse coworker agent concepts or stacks"
+
 def test_unified_database_total_coverage():
     assert DB_PATH.exists(), f"dev_universe.db must exist at {DB_PATH}"
 
@@ -82,7 +102,7 @@ def test_unified_database_total_coverage():
 
     cursor.execute("SELECT COUNT(*) FROM resources")
     total = cursor.fetchone()[0]
-    assert total >= 11000, f"Expected >= 11,000 indexed resources, got {total}"
+    assert total >= 11500, f"Expected >= 11,500 indexed resources, got {total}"
 
     cursor.execute("SELECT DISTINCT source_repo FROM resources")
     sources = {row[0] for row in cursor.fetchall()}
@@ -97,7 +117,9 @@ def test_unified_database_total_coverage():
         "coding-interview-university",
         "system-design-primer",
         "996.ICU",
-        "project-based-learning"
+        "project-based-learning",
+        "openclaw",
+        "OpenDots"
     }
     for es in expected_sources:
         assert es in sources, f"Source '{es}' must be present in database"
@@ -116,3 +138,7 @@ def test_cross_repository_search_engine():
     # 3. Search for Python
     res_py = search(query="fastapi", limit=5)
     assert len(res_py) > 0, "Should find fastapi resources"
+
+    # 4. Search for OpenClaw skills
+    res_claw = search(query="openclaw", limit=5)
+    assert len(res_claw) > 0, "Should find openclaw resources"
