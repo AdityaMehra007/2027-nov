@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYOX Studio — Build-Your-Own-X Visual Workbench</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.12);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --cyan: #06b6d4;
+      --emerald: #10b981;
+      --purple: #8b5cf6;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.875rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 800;
+    }
+
+    .engine-pills {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-muted);
+    }
+    .pill.active {
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #e2e8f0;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    /* Navigation Tabs */
+    nav {
+      background: rgba(15, 23, 42, 0.4);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 2rem;
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      padding: 0.85rem 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--text-main); }
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Card Panels */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+
+    /* Stat Box */
+    .stat-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .stat-val { font-size: 1.75rem; font-weight: 700; color: #fff; font-family: var(--font-mono); }
+    .stat-sub { font-size: 0.75rem; color: var(--emerald); margin-top: 0.25rem; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--card-border); color: var(--text-muted); font-weight: 600; }
+    td { padding: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-family: var(--font-mono); }
+    tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+    /* Forms & Terminals */
+    .terminal-window {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 1rem;
+      min-height: 280px;
+      max-height: 480px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: #38bdf8;
+    }
+    .cmd-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    input, textarea, select {
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      outline: none;
+      width: 100%;
+    }
+    input:focus, textarea:focus { border-color: var(--cyan); }
+    button.btn {
+      background: var(--cyan);
+      color: #020617;
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    button.btn:hover { opacity: 0.9; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-string { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
+    .badge-hash { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+    .badge-list { background: rgba(245, 158, 11, 0.2); color: var(--amber); }
+
+    /* SVG Bars */
+    .bar-row { display: flex; align-items: center; margin-bottom: 0.75rem; font-family: var(--font-mono); font-size: 0.8rem; }
+    .bar-name { width: 220px; color: var(--text-muted); }
+    .bar-track { flex: 1; height: 18px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden; margin: 0 1rem; position: relative; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--purple)); border-radius: 4px; transition: width 0.6s ease; }
+    .bar-val { width: 90px; text-align: right; color: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>BYOX Studio</span>
+      <span class="brand-badge">ZERO-DEP</span>
+    </div>
+    <div class="engine-pills">
+      <div class="pill active"><span class="dot"></span> PyRedis</div>
+      <div class="pill active"><span class="dot"></span> PyDB</div>
+      <div class="pill active"><span class="dot"></span> PyWeb</div>
+      <div class="pill active"><span class="dot"></span> PyGit</div>
+      <div class="pill active"><span class="dot"></span> PyShell</div>
+      <div class="pill active"><span class="dot"></span> PyTransformer</div>
+    </div>
+  </header>
+
+  <nav>
+    <button class="tab-btn active" onclick="switchTab('overview')">📊 Overview</button>
+    <button class="tab-btn" onclick="switchTab('redis')">⚡ PyRedis</button>
+    <button class="tab-btn" onclick="switchTab('db')">🗄️ PyDB SQL</button>
+    <button class="tab-btn" onclick="switchTab('git')">🌿 PyGit Visualizer</button>
+    <button class="tab-btn" onclick="switchTab('shell')">💻 PyShell Terminal</button>
+    <button class="tab-btn" onclick="switchTab('llm')">🧠 PyTransformer</button>
+    <button class="tab-btn" onclick="switchTab('bench')">🚀 Benchmarks</button>
+  </nav>
+
+  <main>
+    <!-- 1. OVERVIEW TAB -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="grid-4">
+        <div class="stat-box">
+          <div class="stat-label">PyRedis Throughput</div>
+          <div class="stat-val">4,340.6</div>
+          <div class="stat-sub">ops / second (concurrent SET)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">PyDB Disk Inserts</div>
+          <div class="stat-val">8,535.5</div>
+          <div class="stat-sub">rows / second (4KB pages)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">PyWeb WebSocket</div>
+          <div class="stat-val">4,584.2</div>
+          <div class="stat-sub">frames / second</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">PyTransformer Autograd</div>
+          <div class="stat-val">3,548.7</div>
+          <div class="stat-sub">backprop steps / second</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">System Architecture Telemetry</div>
+          <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem;">
+            Every engine is running simultaneously in memory under this single process. All socket communication, serialization, and disk paging use Python 3.13 Standard Library with zero external dependencies.
+          </p>
+          <div id="telemetry-json" class="terminal-window" style="min-height: 180px;">Loading telemetry...</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Engine Throughput Comparison</div>
+          <div style="margin-top: 1rem;">
+            <div class="bar-row">
+              <div class="bar-name">PyShell Builtin (echo)</div>
+              <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+              <div class="bar-val">14,038/s</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name">PyDB Row Insertion</div>
+              <div class="bar-track"><div class="bar-fill" style="width: 61%;"></div></div>
+              <div class="bar-val">8,535/s</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name">PyWeb WebSocket Echo</div>
+              <div class="bar-track"><div class="bar-fill" style="width: 33%;"></div></div>
+              <div class="bar-val">4,584/s</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name">PyRedis Concurrent SET</div>
+              <div class="bar-track"><div class="bar-fill" style="width: 31%;"></div></div>
+              <div class="bar-val">4,340/s</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name">PyTransformer Autograd</div>
+              <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+              <div class="bar-val">3,548/s</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PYREDIS TAB -->
+    <div id="tab-redis" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <span>Live Keyspace Explorer</span>
+            <button class="btn" onclick="fetchRedisKeys()">Refresh</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Key</th><th>Type</th><th>TTL</th><th>Value</th></tr>
+            </thead>
+            <tbody id="redis-keys-body">
+              <tr><td colspan="4">Loading keys...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Interactive RESP Command Console</div>
+          <div id="redis-console-out" class="terminal-window" style="min-height: 240px;">PyRedis Console Ready.
+Try: PING, SET user:1 Alice EX 60, GET user:1, HGETALL metrics:global, LPUSH queue item1</div>
+          <div class="cmd-bar">
+            <input type="text" id="redis-cmd-input" placeholder="e.g. SET fruit apple EX 120" onkeydown="if(event.key==='Enter') runRedisCmd()">
+            <button class="btn" onclick="runRedisCmd()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PYDB TAB -->
+    <div id="tab-db" class="tab-content">
+      <div class="card">
+        <div class="card-title">SQL Studio (Paged 4KB B-Tree Engine)</div>
+        <textarea id="db-sql-input" rows="3">SELECT id, service, latency_ms FROM metrics WHERE latency_ms < 1.0;</textarea>
+        <div class="cmd-bar" style="margin-top: 0.5rem;">
+          <button class="btn" onclick="runDbQuery()">Execute SQL</button>
+          <span id="db-query-status" style="font-size: 0.8rem; color: var(--text-muted); align-self: center;"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Query Results Grid</div>
+        <div style="overflow-x: auto;">
+          <table id="db-results-table">
+            <thead><tr><th>No query executed yet</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PYGIT TAB -->
+    <div id="tab-git" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Commit Graph History</div>
+          <div id="git-commit-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            Loading git commits...
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Working Tree Status</div>
+          <div id="git-status-out" class="terminal-window" style="min-height: 240px;">Scanning repository working directory...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PYSHELL TAB -->
+    <div id="tab-shell" class="tab-content">
+      <div class="card">
+        <div class="card-title">WebSocket Interactive Terminal (PyShell)</div>
+        <div id="shell-terminal" class="terminal-window" style="min-height: 360px;">Connecting to PyShell WebSocket...</div>
+        <div class="cmd-bar">
+          <input type="text" id="shell-input" placeholder="Enter shell command (e.g. echo 'Hello' | tr 'a-z' 'A-Z')" onkeydown="if(event.key==='Enter') sendShellCmd()">
+          <button class="btn" onclick="sendShellCmd()">Execute</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. PYTRANSFORMER TAB -->
+    <div id="tab-llm" class="tab-content">
+      <div class="card">
+        <div class="card-title">PyTransformer Autoregressive Text Generation</div>
+        <div class="cmd-bar" style="margin-bottom: 1rem;">
+          <input type="text" id="llm-prompt" value="The universe of code" placeholder="Enter prompt...">
+          <button class="btn" onclick="streamLLM()">Generate Tokens</button>
+        </div>
+        <div id="llm-output" class="terminal-window" style="min-height: 200px; color: #a7f3d0;">Click 'Generate Tokens' to stream autoregressive predictions...</div>
+      </div>
+    </div>
+
+    <!-- 7. BENCHMARKS TAB -->
+    <div id="tab-bench" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>Multi-Engine Benchmark Suite Performance Matrix</span>
+          <button class="btn" onclick="fetchBenchmarks()">Reload Report</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Benchmark Target</th><th>Total Ops</th><th>Duration (s)</th><th>Throughput (ops/s)</th><th>p50 (ms)</th><th>p95 (ms)</th><th>p99 (ms)</th></tr>
+          </thead>
+          <tbody id="bench-table-body">
+            <tr><td colspan="7">Loading benchmark report...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      if (tabId === 'redis') fetchRedisKeys();
+      if (tabId === 'git') fetchGitGraph();
+      if (tabId === 'bench') fetchBenchmarks();
+    }
+
+    // Telemetry & Status
+    async function loadStatus() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        document.getElementById('telemetry-json').textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        document.getElementById('telemetry-json').textContent = "Failed to load telemetry: " + e;
+      }
+    }
+    loadStatus();
+
+    // Redis
+    async function fetchRedisKeys() {
+      const tbody = document.getElementById('redis-keys-body');
+      try {
+        const res = await fetch('/api/redis/keys');
+        const data = await res.json();
+        tbody.innerHTML = '';
+        data.keys.forEach(k => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${k.key}</strong></td>
+            <td><span class="badge badge-${k.type}">${k.type}</span></td>
+            <td>${k.ttl > 0 ? k.ttl + 's' : (k.ttl === -1 ? '∞' : 'expired')}</td>
+            <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">${k.value}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="4" style="color:var(--rose)">Error: ${e}</td></tr>`;
+      }
+    }
+
+    async function runRedisCmd() {
+      const input = document.getElementById('redis-cmd-input');
+      const out = document.getElementById('redis-console-out');
+      const cmd = input.value.trim();
+      if (!cmd) return;
+
+      out.textContent += `\r\n> ${cmd}\r\n`;
+      try {
+        const res = await fetch('/api/redis/command', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({command: cmd})
+        });
+        const data = await res.json();
+        out.textContent += data.raw_resp || JSON.stringify(data);
+        input.value = '';
+        fetchRedisKeys();
+      } catch (e) {
+        out.textContent += `Error: ${e}\r\n`;
+      }
+      out.scrollTop = out.scrollHeight;
+    }
+
+    // SQL Studio
+    async function runDbQuery() {
+      const sql = document.getElementById('db-sql-input').value.trim();
+      const statusEl = document.getElementById('db-query-status');
+      const table = document.getElementById('db-results-table');
+      statusEl.textContent = 'Executing...';
+
+      try {
+        const res = await fetch('/api/db/query', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({sql: sql})
+        });
+        const data = await res.json();
+        if (data.error) {
+          statusEl.textContent = `Error: ${data.error}`;
+          return;
+        }
+
+        statusEl.textContent = `Completed in ${data.duration_ms}ms (${data.rows.length} rows, ${data.rows_affected} affected)`;
+        let html = '<thead><tr>';
+        (data.columns || []).forEach(c => html += `<th>${c}</th>`);
+        html += '</tr></thead><tbody>';
+        (data.rows || []).forEach(r => {
+          html += '<tr>';
+          r.forEach(v => html += `<td>${v}</td>`);
+          html += '</tr>';
+        });
+        html += '</tbody>';
+        table.innerHTML = html;
+      } catch (e) {
+        statusEl.textContent = `Error: ${e}`;
+      }
+    }
+
+    // Git
+    async function fetchGitGraph() {
+      const listEl = document.getElementById('git-commit-list');
+      const statusEl = document.getElementById('git-status-out');
+      try {
+        const res = await fetch('/api/git/graph');
+        const data = await res.json();
+        listEl.innerHTML = '';
+        data.commits.forEach(c => {
+          const item = document.createElement('div');
+          item.className = 'stat-box';
+          item.style.padding = '0.75rem 1rem';
+          item.innerHTML = `<span style="font-family:var(--font-mono); color:var(--cyan); font-weight:700;">${c.sha.slice(0, 7)}</span> — <span>${c.message}</span>`;
+          listEl.appendChild(item);
+        });
+
+        statusEl.textContent = `Branch: ${data.branch}\n\nStaged:\n${data.status.staged.join('\n') || 'none'}\n\nModified:\n${data.status.modified.join('\n') || 'none'}\n\nUntracked:\n${data.status.untracked.slice(0, 10).join('\n') || 'none'}`;
+      } catch (e) {
+        listEl.textContent = 'Error loading git graph: ' + e;
+      }
+    }
+
+    // WebSocket: Shell
+    let shellWs = null;
+    function initShell() {
+      const term = document.getElementById('shell-terminal');
+      const wsUrl = `ws://${window.location.host}/ws/shell`;
+      shellWs = new WebSocket(wsUrl);
+      shellWs.onmessage = (e) => {
+        term.textContent += e.data;
+        term.scrollTop = term.scrollHeight;
+      };
+      shellWs.onclose = () => {
+        term.textContent += '\r\n[Disconnected from PyShell WebSocket]';
+      };
+    }
+    initShell();
+
+    function sendShellCmd() {
+      const input = document.getElementById('shell-input');
+      const cmd = input.value.trim();
+      if (!cmd || !shellWs) return;
+      shellWs.send(cmd);
+      input.value = '';
+    }
+
+    // WebSocket: LLM
+    function streamLLM() {
+      const out = document.getElementById('llm-output');
+      const prompt = document.getElementById('llm-prompt').value;
+      out.textContent = prompt;
+
+      const wsUrl = `ws://${window.location.host}/ws/llm`;
+      const ws = new WebSocket(wsUrl);
+
+      ws.onopen = () => {
+        ws.send(JSON.stringify({prompt: prompt, tokens: 20}));
+      };
+
+      ws.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.token) {
+          out.textContent += data.token;
+        }
+        if (data.done) {
+          ws.close();
+        }
+      };
+    }
+
+    // Benchmarks
+    async function fetchBenchmarks() {
+      const tbody = document.getElementById('bench-table-body');
+      try {
+        const res = await fetch('/api/benchmarks');
+        const data = await res.json();
+        tbody.innerHTML = '';
+        (data.results || []).forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${r.name}</strong></td>
+            <td>${r.total_ops.toLocaleString()}</td>
+            <td>${r.duration_sec}s</td>
+            <td style="color:var(--emerald); font-weight:700;">${r.ops_per_sec.toLocaleString()}</td>
+            <td>${r.latency_ms.p50}ms</td>
+            <td>${r.latency_ms.p95}ms</td>
+            <td>${r.latency_ms.p99}ms</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="7">Error loading benchmarks: ${e}</td></tr>`;
+      }
+    }
+  </script>
+</body>
+</html>

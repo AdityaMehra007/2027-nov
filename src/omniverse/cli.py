@@ -460,6 +460,9 @@ def main():
     # Command: workforce-standup
     subparsers.add_parser("workforce-standup", help="Display 24/7 autonomous workforce status, token telemetry, and Merkle block height")
 
+    # Command: build-deliverables
+    subparsers.add_parser("build-deliverables", help="Materialize all 30 canonical Project One deliverables into docs/deliverables/")
+
     args = parser.parse_args()
 
     init_db()
@@ -2042,6 +2045,22 @@ def main():
         print(f"Total Tokens Consumed      : {standup['total_tokens_consumed']:,} tokens")
         print(f"Merkle Block Height        : {standup['merkle_blocks_total']} blocks")
         print(f"Operational Status         : {standup['status']}")
+        print("=" * 90 + "\n")
+
+    elif args.command == "build-deliverables":
+        from omniverse.modules.opportunities.deliverables_builder import DeliverablesBuilder
+        builder = DeliverablesBuilder()
+        out_dir = Path("docs/deliverables")
+        paths = builder.build_all(out_dir)
+        print("\n" + "=" * 90)
+        print("       PROJECT ONE: 30 CANONICAL DELIVERABLES MATERIALIZATION       ")
+        print("=" * 90)
+        print(f"Target Directory           : {out_dir.resolve()}")
+        print(f"Total Deliverables Built   : {len(paths)} / 30 COMPLETE")
+        print("-" * 90)
+        for p in paths[:10]:
+            print(f"  • [SAVED] {p.name}")
+        print(f"  ... and {len(paths)-10} more files.")
         print("=" * 90 + "\n")
 
     else:
