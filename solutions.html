@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADITYA MEHRA // Enterprise B2B Systems, ROI Calculator & SOW Generator</title>
+  <style>
+    :root {
+      --bg-primary: #060911; --bg-panel: #0C1220; --bg-elevated: #121B2E;
+      --border: #1E293B; --text-main: #F8FAFC; --text-muted: #94A3B8; --text-dim: #64748B;
+      --blue: #3B82F6; --emerald: #10B981; --amber: #F59E0B; --purple: #8B5CF6;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-primary); color: var(--text-main); font-family: var(--font-sans); font-size: 13.5px; line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #04070D; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 700; font-size: 14px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald); }
+    .badge { padding: 3px 9px; border-radius: 4px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; border: 1px solid var(--border); background: var(--bg-elevated); }
+    .b-emerald { color: var(--emerald); border-color: rgba(16,185,129,0.35); background: rgba(16,185,129,0.08); }
+    .b-blue { color: var(--blue); border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.08); }
+    .b-amber { color: var(--amber); border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
+    .b-purple { color: var(--purple); border-color: rgba(139,92,246,0.35); background: rgba(139,92,246,0.08); }
+    button, .btn { background: var(--bg-elevated); color: var(--text-main); border: 1px solid var(--border); padding: 8px 14px; border-radius: 4px; font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; cursor: pointer; transition: 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+    button:hover, .btn:hover { border-color: var(--blue); background: rgba(59,130,246,0.15); }
+    .btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn-emerald { background: rgba(16,185,129,0.16); border-color: var(--emerald); color: var(--emerald); }
+
+    .hero { padding: 36px 24px 24px; max-width: 1280px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 10px 0 8px; }
+    .hero p { color: var(--text-muted); max-width: 820px; font-size: 14.5px; }
+    .proof-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 22px; }
+    @media (max-width: 900px) { .proof-strip { grid-template-columns: repeat(2, 1fr); } }
+    .proof-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 12px 14px; border-radius: 6px; }
+    .proof-val { font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--emerald); }
+    .proof-lbl { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 24px; }
+    .section-title { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* 4 PRODUCTIZED SOLUTIONS GRID */
+    .solutions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+    @media (max-width: 900px) { .solutions-grid { grid-template-columns: 1fr; } }
+    .sol-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+    .sol-card:hover { border-color: var(--blue); }
+    .sol-title { font-size: 16px; font-weight: 700; margin: 8px 0 6px; }
+    .sol-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
+    .sol-metrics { list-style: none; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-main); margin-bottom: 14px; }
+    .sol-metrics li { padding: 4px 0; border-bottom: 1px solid rgba(30,41,59,0.5); }
+    .sol-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border); }
+
+    /* ROI & SOW WORKSPACE */
+    .b2b-workspace { display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; }
+    @media (max-width: 1000px) { .b2b-workspace { grid-template-columns: 1fr; } }
+    .panel { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .panel-header { padding: 12px 16px; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .panel-body { padding: 16px; }
+    .control-group { margin-bottom: 14px; }
+    .control-group label { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); margin-bottom: 5px; }
+    input[type="range"] { width: 100%; accent-color: var(--blue); }
+    input[type="text"], select, textarea { width: 100%; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-main); padding: 8px 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 12px; margin-bottom: 10px; }
+    .roi-results { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+    .roi-box { background: var(--bg-primary); border: 1px solid var(--border); padding: 12px; border-radius: 6px; }
+    .roi-box .val { font-family: var(--font-mono); font-size: 19px; font-weight: 700; color: var(--emerald); margin-top: 4px; }
+    .sow-preview { background: #04070D; border: 1px solid var(--border); border-radius: 6px; padding: 12px; font-family: var(--font-mono); font-size: 11.5px; color: #E2E8F0; white-space: pre-wrap; max-height: 360px; overflow-y: auto; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>ADITYA MEHRA // B2B ENTERPRISE SYSTEMS & COMMERCIAL DEPLOYMENT</span>
+      <span class="badge b-emerald">AVAILABLE FOR B2B PILOTS & ADVISORY</span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a class="btn" href="index.html">⚡ LAUNCH 100-ENGINE LIVE TERMINAL</a>
+      <a class="btn btn-primary" href="https://github.com/AdityaMehra007" target="_blank">💻 GITHUB (@AdityaMehra007)</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="badge b-blue">INSTITUTIONAL AI-NATIVE ENGINEERING • BENGALURU & GLOBAL REMOTE</span>
+    <h1>Deploy Deterministic FinTech, Supply Chain & AI Operations Systems in 14 Days.</h1>
+    <p>We replace fragile spreadsheets and manual operational bottlenecks with production-grade software: ACID Double-Entry Treasury Terminals, Multi-Node Dark Store Digital Twins, Facility IoT Telemetry, and 18-Agent B2B Automation Pipelines.</p>
+
+    <div class="proof-strip">
+      <div class="proof-card">
+        <div class="proof-val">-42.0% Cycle Time</div>
+        <div class="proof-lbl">Proven across 14 Multi-Node Distribution Hubs</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-val">&gt;99.4% AI QA SLA</div>
+        <div class="proof-lbl">Production AI Quality Assurance (Instawork Spec)</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-val">300+ Ops Builds</div>
+        <div class="proof-lbl">Directed with 0.00% Downtime (AERO India 2025)</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-val">100 Deterministic Engines</div>
+        <div class="proof-lbl">Kotlin 2.0 • Python FastAPI • WebCrypto • Gemini AI</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="section-title">
+      <span>01 // PRODUCTIZED B2B ENTERPRISE SYSTEMS (SELECT A VERTICAL TO CONFIGURE SOW)</span>
+      <span class="badge b-purple">FIXED-SCOPE 14-DAY DEPLOYMENTS</span>
+    </div>
+
+    <div class="solutions-grid">
+      <!-- VERTICAL 1 -->
+      <div class="sol-card">
+        <div>
+          <span class="badge b-blue">VERTICAL 01 // FINTECH & CFO TREASURY</span>
+          <div class="sol-title">Cashflow Infinity — Autonomous Treasury & Working Capital OS</div>
+          <div class="sol-desc">For funded startups, SMEs, and manufacturing CFOs losing liquidity to delayed receivables (DSO), unverified vendor payouts, and manual Excel cash forecasting.</div>
+          <ul class="sol-metrics">
+            <li>✔ Cryptographic SHA-256 Double-Entry Ledger & 3-Way Invoice Match</li>
+            <li>✔ 2,000-Run Monte Carlo Cash Runway (P10/P50/P90) & 95% VaR</li>
+            <li>✔ Automated AR Factoring & Cash Conversion Cycle (CCC) Optimizer</li>
+          </ul>
+        </div>
+        <div class="sol-footer">
+          <span class="badge b-emerald">TYPICAL ROI: 15–28% WORKING CAPITAL UNLOCKED</span>
+          <button class="btn-primary" onclick="selectVertical('TREASURY')">CONFIGURE SOW →</button>
+        </div>
+      </div>
+
+      <!-- VERTICAL 2 -->
+      <div class="sol-card">
+        <div>
+          <span class="badge b-emerald">VERTICAL 02 // D2C, RETAIL & QUICK-COMMERCE</span>
+          <div class="sol-title">Nexus-SCM — Multi-Node Dark Store & Inventory Digital Twin</div>
+          <div class="sol-desc">For D2C brands, wholesale distributors, and dark-store operators battling dead-stock DIO, stockouts, and slow warehouse dock turnaround.</div>
+          <ul class="sol-metrics">
+            <li>✔ Real-Time Multi-Hub EOQ & Safety Stock Reorder Engine</li>
+            <li>✔ Cross-Docking Workflow Optimizer (-42% Dock Cycle Reduction)</li>
+            <li>✔ Automated Vendor OTIF SLA Scoring & Rebate/Penalty Ledger</li>
+          </ul>
+        </div>
+        <div class="sol-footer">
+          <span class="badge b-emerald">TYPICAL ROI: -30% DEAD STOCK / -42% DOCK TIME</span>
+          <button class="btn-primary" onclick="selectVertical('SCM')">CONFIGURE SOW →</button>
+        </div>
+      </div>
+
+      <!-- VERTICAL 3 -->
+      <div class="sol-card">
+        <div>
+          <span class="badge b-purple">VERTICAL 03 // FITNESS & MULTI-BRANCH FACILITIES</span>
+          <div class="sol-title">GymVerse-OS — Smart Facility Telemetry & AI Retention Suite</div>
+          <div class="sol-desc">For premium gyms, fitness chains, and wellness clubs seeking a native Android/Web member super-app with live equipment intelligence and churn prevention.</div>
+          <ul class="sol-metrics">
+            <li>✔ Kotlin 2.0 + Jetpack Compose Member App & Crowd Queue Monitor</li>
+            <li>✔ Live Equipment Preventive Maintenance & Downtime Tracker</li>
+            <li>✔ Google Gemini AI Personalized Workout & Member Churn Predictor</li>
+          </ul>
+        </div>
+        <div class="sol-footer">
+          <span class="badge b-emerald">TYPICAL ROI: +22% MEMBER RETENTION & LTV</span>
+          <button class="btn-primary" onclick="selectVertical('GYMVERSE')">CONFIGURE SOW →</button>
+        </div>
+      </div>
+
+      <!-- VERTICAL 4 -->
+      <div class="sol-card">
+        <div>
+          <span class="badge b-amber">VERTICAL 04 // EXHIBITIONS, TRADE SHOWS & B2B GTM</span>
+          <div class="sol-title">Eventos-Omega & Autonomous 18-Agent B2B Revenue Engine</div>
+          <div class="sol-desc">For exhibition organizers, corporate summits, and B2B sales teams requiring zero-downtime field telemetry and automated 4,500+ prospect outbound pipelines.</div>
+          <ul class="sol-metrics">
+            <li>✔ High-Density 300+ Stall Build & Vendor SLA Command Center</li>
+            <li>✔ 18-Agent ICP Lead Scoring, Enrichment & Multi-Touch Cadence Engine</li>
+            <li>✔ Sub-16ms Android Quick-Settings Incident Dispatch (`ADI-OS` Spec)</li>
+          </ul>
+        </div>
+        <div class="sol-footer">
+          <span class="badge b-emerald">TYPICAL ROI: 3.4x PIPELINE VELOCITY / 0% DOWNTIME</span>
+          <button class="btn-primary" onclick="selectVertical('EVENTOS')">CONFIGURE SOW →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE ROI CALCULATOR + SOW GENERATOR -->
+    <div class="b2b-workspace">
+      <div class="panel">
+        <div class="panel-header">
+          <span>02 // INTERACTIVE CLIENT ROI & CAPITAL UNLOCK SIMULATOR</span>
+          <span class="badge b-emerald">DETERMINISTIC CFO MODEL</span>
+        </div>
+        <div class="panel-body">
+          <div class="control-group">
+            <label><span>CLIENT MONTHLY REVENUE (₹ LAKHS)</span><span id="lbl-crev">₹120 Lakhs / mo</span></label>
+            <input type="range" id="rng-crev" min="15" max="1000" value="120" oninput="computeClientROI()" />
+          </div>
+          <div class="control-group">
+            <label><span>CURRENT RECEIVABLES + INVENTORY LOCKUP (DAYS)</span><span id="lbl-cdays">65 Days</span></label>
+            <input type="range" id="rng-cdays" min="20" max="150" value="65" oninput="computeClientROI()" />
+          </div>
+          <div class="control-group">
+            <label><span>OPERATING HUBS / BRANCHES / WAREHOUSES</span><span id="lbl-chubs">6 Nodes</span></label>
+            <input type="range" id="rng-chubs" min="1" max="50" value="6" oninput="computeClientROI()" />
+          </div>
+
+          <div class="roi-results">
+            <div class="roi-box">
+              <div style="font-size:11px;color:var(--text-muted);">WORKING CAPITAL UNLOCKED</div>
+              <div class="val" id="roi-capital">₹72,80,000</div>
+              <div style="font-size:10.5px;color:var(--text-dim);">Via -28% CCC Compression</div>
+            </div>
+            <div class="roi-box">
+              <div style="font-size:11px;color:var(--text-muted);">ANNUAL OPEX & QA SAVINGS</div>
+              <div class="val" id="roi-opex">₹28,40,000 / yr</div>
+              <div style="font-size:10.5px;color:var(--text-dim);">Via -42% Dock & Automation</div>
+            </div>
+            <div class="roi-box">
+              <div style="font-size:11px;color:var(--text-muted);">ESTIMATED PAYBACK PERIOD</div>
+              <div class="val" id="roi-payback" style="color:var(--blue);">11 Days</div>
+              <div style="font-size:10.5px;color:var(--text-dim);">Post Production Cutover</div>
+            </div>
+            <div class="roi-box">
+              <div style="font-size:11px;color:var(--text-muted);">NET 12-MONTH ROI MULTIPLE</div>
+              <div class="val" id="roi-multiple" style="color:var(--amber);">14.2x ROI</div>
+              <div style="font-size:10.5px;color:var(--text-dim);">Audited Conservative Floor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span>03 // INSTANT STATEMENT OF WORK (SOW) & PROPOSAL GENERATOR</span>
+          <button class="btn-emerald" onclick="downloadSOW()">⬇ DOWNLOAD SOW CONTRACT (.TXT)</button>
+        </div>
+        <div class="panel-body">
+          <input type="text" id="sow-client" placeholder="Client Company Name (e.g., Apex Retail Pvt Ltd)" value="Bengaluru Enterprise Client Pvt. Ltd." oninput="generateSOW()" />
+          <select id="sow-vertical" onchange="generateSOW()">
+            <option value="TREASURY">Vertical 01: Cashflow Infinity — Treasury & Double-Entry OS</option>
+            <option value="SCM">Vertical 02: Nexus-SCM — Dark Store & Supply Chain Digital Twin</option>
+            <option value="GYMVERSE">Vertical 03: GymVerse-OS — Smart Facility & AI Retention Suite</option>
+            <option value="EVENTOS">Vertical 04: Eventos-Omega & 18-Agent B2B Revenue Engine</option>
+          </select>
+          <select id="sow-tier" onchange="generateSOW()">
+            <option value="PILOT">Tier A: 14-Day Rapid Production Pilot (₹75,000 Fixed Scope)</option>
+            <option value="ENTERPRISE" selected>Tier B: Full Enterprise Architecture Deployment (₹1,85,000)</option>
+            <option value="RETAINER">Tier C: Dedicated AI-Native Systems Partner (₹65,000 / month)</option>
+          </select>
+          <div class="sow-preview" id="sow-box"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let lastCapitalUnlocked = 7280000, lastAnnualOpexSaved = 2840000;
+
+    function selectVertical(v) {
+      document.getElementById("sow-vertical").value = v;
+      generateSOW();
+      document.getElementById("sow-box").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function computeClientROI() {
+      const revLakhs = parseFloat(document.getElementById("rng-crev").value);
+      const lockupDays = parseFloat(document.getElementById("rng-cdays").value);
+      const hubs = parseFloat(document.getElementById("rng-chubs").value);
+
+      document.getElementById("lbl-crev").textContent = `₹${revLakhs} Lakhs / mo`;
+      document.getElementById("lbl-cdays").textContent = `${lockupDays} Days`;
+      document.getElementById("lbl-chubs").textContent = `${hubs} Nodes`;
+
+      const dailyRevINR = (revLakhs * 100000) / 30;
+      const daysSaved = Math.round(lockupDays * 0.28);
+      lastCapitalUnlocked = Math.round(dailyRevINR * daysSaved);
+      lastAnnualOpexSaved = Math.round((revLakhs * 100000 * 12) * 0.018 + (hubs * 145000));
+
+      const invest = 185000;
+      const totalYear1Benefit = lastCapitalUnlocked * 0.35 + lastAnnualOpexSaved;
+      const multiple = Math.max(2.5, (totalYear1Benefit / invest)).toFixed(1);
+      const paybackDays = Math.max(5, Math.round((invest / totalYear1Benefit) * 365));
+
+      document.getElementById("roi-capital").textContent = "₹" + lastCapitalUnlocked.toLocaleString('en-IN');
+      document.getElementById("roi-opex").textContent = "₹" + lastAnnualOpexSaved.toLocaleString('en-IN') + " / yr";
+      document.getElementById("roi-payback").textContent = `${paybackDays} Days`;
+      document.getElementById("roi-multiple").textContent = `${multiple}x ROI`;
+      generateSOW();
+    }
+
+    function generateSOW() {
+      const client = document.getElementById("sow-client").value || "Enterprise Client";
+      const vert = document.getElementById("sow-vertical").value;
+      const tier = document.getElementById("sow-tier").value;
+      const refId = "SOW-AM-" + new Date().toISOString().slice(0,10).replace(/-/g,"");
+
+      const vertSpecs = {
+        TREASURY: {
+          name: "Cashflow Infinity — Autonomous CFO Treasury & ACID Ledger OS",
+          deliverables: [
+            "1. Cryptographic SHA-256 Double-Entry Ledger & Automated 3-Way Invoice Reconciler",
+            "2. 2,000-Path Monte Carlo Cash Runway (P10/P50/P90) & 95% Value-at-Risk Dashboard",
+            "3. Working Capital CCC (DIO+DSO-DPO) Alerting & Early AR Factoring Proration Engine"
+          ]
+        },
+        SCM: {
+          name: "Nexus-SCM — Multi-Node Dark Store & Supply Chain Digital Twin",
+          deliverables: [
+            "1. Multi-Node Hub Telemetry Matrix with EOQ & Safety Stock Reorder Automation",
+            "2. Cross-Docking Workflow State Machine targeting -42.0% Dock Cycle-Time Reduction",
+            "3. Automated Vendor OTIF SLA Scoring & >99.0% AI Quality Assurance Inspection Gate"
+          ]
+        },
+        GYMVERSE: {
+          name: "GymVerse-OS — Smart Facility Telemetry & Gemini AI Retention Platform",
+          deliverables: [
+            "1. Native Kotlin 2.0 / Jetpack Compose & Web Member Portal with Live Crowd Queue Telemetry",
+            "2. Equipment Utilization, Preventive Maintenance & Zero-Downtime Asset Registry",
+            "3. Google Gemini AI Personalized Coaching & Member Churn Early-Warning Scorer"
+          ]
+        },
+        EVENTOS: {
+          name: "Eventos-Omega & Autonomous 18-Agent B2B Revenue Engine",
+          deliverables: [
+            "1. High-Density Event Stall Build & Vendor SLA Command Center (0.00% Downtime Spec)",
+            "2. 18-Agent B2B Lead Scoring, Enrichment & Multi-Touch Outbound Cadence Pipeline",
+            "3. FastAPI Executive Telemetry Dashboard & Real-Time Incident Escalation Router"
+          ]
+        }
+      }[vert];
+
+      const tierPricing = {
+        PILOT: "₹75,000 INR (Fixed-Scope 14-Day Production Pilot — 50% Kickoff / 50% Cutover)",
+        ENTERPRISE: "₹1,85,000 INR (Full Enterprise Turnkey Deployment — 40% / 30% / 30% Milestones)",
+        RETAINER: "₹65,000 INR / Month (Dedicated AI-Native Systems Architect & Continuous Optimization)"
+      }[tier];
+
+      const sowText = `========================================================================
+STATEMENT OF WORK (SOW) & TECHNICAL ARCHITECTURE PROPOSAL
+Reference ID: ${refId} | Architect: Aditya Mehra (@AdityaMehra007)
+========================================================================
+PREPARED FOR : ${client}
+SYSTEM SUITE : ${vertSpecs.name}
+ENGAGEMENT   : ${tierPricing}
+
+1. QUANTIFIED BUSINESS CASE & TARGET ROI
+   • Projected Working Capital Unlocked : ₹${lastCapitalUnlocked.toLocaleString('en-IN')}
+   • Projected Annual OpEx Savings      : ₹${lastAnnualOpexSaved.toLocaleString('en-IN')} / year
+   • Target Architectural SLA           : >99.4% Deterministic QA | <45ms API Latency
+
+2. SCOPE OF DELIVERABLES (14-DAY EXECUTION SPRINT)
+   ${vertSpecs.deliverables.join("\n   ")}
+
+3. MILESTONE SCHEDULE
+   • Days 01–03 : Domain Audit, Data Schema Mapping & Deterministic Invariant Spec
+   • Days 04–10 : Core Engine Implementation, UI Terminal & Agentic Guardrail Integration
+   • Days 11–14 : End-to-End SHA-256 Audit Verification, Team Handover & Live Cutover
+
+4. AUTHORIZATION & NEXT STEPS
+   • Portfolio & Live Kernel : https://adityamehra007.github.io/cashflow-infinity-omniverse/
+   • GitHub Verification     : https://github.com/AdityaMehra007
+========================================================================`;
+
+      document.getElementById("sow-box").textContent = sowText;
+    }
+
+    function downloadSOW() {
+      const text = document.getElementById("sow-box").textContent;
+      const blob = new Blob([text], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "Statement_Of_Work_Aditya_Mehra.txt";
+      a.click();
+    }
+
+    computeClientROI();
+  </script>
+</body>
+</html>

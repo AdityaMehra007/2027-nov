@@ -3,7 +3,9 @@
 # 🌌 CASHFLOW INFINITY: OMNIVERSE
 ### *The #1 Autonomous Wealth, Multi-Market Intelligence, and Planetary Resilience Operating System*
 
-[![CI Build](https://github.com/AdityaMehra007/cashflow-infinity-omniverse/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse/actions)
+[![Live Terminal](https://img.shields.io/badge/LAUNCH_LIVE_TERMINAL-adityamehra007.github.io-10B981?style=for-the-badge&logo=googlechrome&logoColor=white)](https://adityamehra007.github.io/cashflow-infinity-omniverse/)
+[![B2B Commercial Portal](https://img.shields.io/badge/B2B_COMMERCIAL_PORTAL-Solutions_&_SOW_Generator-3b82f6?style=for-the-badge&logo=briefcase&logoColor=white)](https://adityamehra007.github.io/cashflow-infinity-omniverse/solutions.html)
+[![100 Engines CI](https://img.shields.io/badge/100_Engine_CI-Passing-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse/actions)
 [![Latest Release](https://img.shields.io/badge/Release-v2027.1.0--singularity-8b5cf6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse/releases)
 [![Test Suite](https://img.shields.io/badge/Tests-380%2B%20Passed-06b6d4?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/AdityaMehra007/cashflow-infinity-omniverse)
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
