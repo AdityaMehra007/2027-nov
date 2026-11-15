@@ -17,6 +17,7 @@ import re
 import sys
 import json
 import sqlite3
+import yaml
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 
@@ -1395,6 +1396,118 @@ def parse_opendots(opendots_dir: Path):
     return records
 
 
+def parse_freecodecamp(fcc_dir: Path):
+    records = []
+    if not fcc_dir.exists():
+        return records
+
+    certs_dir = fcc_dir / "curriculum" / "challenges" / "english" / "certifications"
+    blocks_dir = fcc_dir / "curriculum" / "challenges" / "english" / "blocks"
+
+    # 1. Certifications & Projects
+    if certs_dir.exists():
+        for yml in certs_dir.glob("*.yml"):
+            try:
+                with open(yml, "r", encoding="utf-8", errors="replace") as f:
+                    data = yaml.safe_load(f)
+            except Exception:
+                continue
+
+            if not data or not isinstance(data, dict):
+                continue
+
+            cert_id = data.get("certification", yml.stem)
+            cert_title = data.get("title", yml.stem.replace("-", " ").title())
+            cert_url = f"https://www.freecodecamp.org/learn/{cert_id}/"
+
+            cert_lower = cert_title.lower()
+            if "python" in cert_lower:
+                lang = "Python"
+            elif "c-sharp" in cert_lower or "c#" in cert_lower:
+                lang = "C#"
+            elif "javascript" in cert_lower:
+                lang = "JavaScript"
+            elif "relational" in cert_lower or "database" in cert_lower:
+                lang = "SQL / Relational Databases"
+            elif "web design" in cert_lower:
+                lang = "HTML/CSS"
+            elif "quality assurance" in cert_lower or "security" in cert_lower:
+                lang = "Node.js / Security"
+            else:
+                lang = "Full Stack / Web"
+
+            records.append({
+                "title": f"freeCodeCamp: {cert_title}",
+                "url": cert_url,
+                "type": "fcc-certification",
+                "category": "freeCodeCamp Certifications",
+                "subcategory": cert_title,
+                "language": lang,
+                "format": "Interactive Certification Curriculum",
+                "description": f"Verified freeCodeCamp {cert_title} covering hands-on coding, tests, and capstone projects.",
+                "source_repo": "freeCodeCamp"
+            })
+
+            # Capstone projects under this cert
+            for test in data.get("tests", []):
+                if isinstance(test, dict) and "title" in test:
+                    p_title = test["title"]
+                    dashed = p_title.lower().replace("build a ", "build-a-").replace(" ", "-").replace("/", "-")
+                    p_url = f"https://www.freecodecamp.org/learn/{cert_id}/{dashed}"
+                    records.append({
+                        "title": f"fCC Project: {p_title}",
+                        "url": p_url,
+                        "type": "fcc-project",
+                        "category": "freeCodeCamp Capstone Projects",
+                        "subcategory": cert_title,
+                        "language": lang,
+                        "format": "Interactive Capstone Project",
+                        "description": f"Required certification project for {cert_title}: {p_title}.",
+                        "source_repo": "freeCodeCamp"
+                    })
+
+    # 2. Interactive Blocks / Tracks
+    if blocks_dir.exists():
+        for entry in os.scandir(blocks_dir):
+            if not entry.is_dir():
+                continue
+            dname = entry.name
+            title = dname.replace("-", " ").title()
+            block_url = f"https://www.freecodecamp.org/learn/{dname}/"
+
+            d_lower = dname.lower()
+            if "python" in d_lower:
+                lang = "Python"
+            elif "c-sharp" in d_lower or "c#" in d_lower:
+                lang = "C#"
+            elif "javascript" in d_lower:
+                lang = "JavaScript"
+            elif "css" in d_lower or "html" in d_lower:
+                lang = "HTML/CSS"
+            elif "sql" in d_lower or "database" in d_lower:
+                lang = "SQL"
+            elif "node" in d_lower or "express" in d_lower:
+                lang = "Node.js"
+            else:
+                lang = "Full Stack / Web"
+
+            item_type = "fcc-project" if ("project" in d_lower or d_lower.startswith("build-")) else "fcc-module"
+
+            records.append({
+                "title": f"fCC Module: {title}",
+                "url": block_url,
+                "type": item_type,
+                "category": "freeCodeCamp Curriculum",
+                "subcategory": dname.replace("-", " ").title(),
+                "language": lang,
+                "format": "Interactive Browser Coding Challenge",
+                "description": f"Interactive freeCodeCamp hands-on curriculum track: {title} in {lang}.",
+                "source_repo": "freeCodeCamp"
+            })
+
+    return records
+
+
 def main():
     print("=" * 60)
     print("  OMNIDEV UNIVERSE: UNIFIED KNOWLEDGE INGESTION ENGINE")
@@ -1532,6 +1645,14 @@ def main():
         print(f"  + OpenDots Coworker Agents, Computers & Spaces: {len(opendots_records):,}")
         all_records.extend(opendots_records)
 
+    # 14. freeCodeCamp
+    fcc_dir = BASE_DIR / "freeCodeCamp"
+    if fcc_dir.exists():
+        print("\n[*] Parsing freeCodeCamp...")
+        fcc_records = parse_freecodecamp(fcc_dir)
+        print(f"  + freeCodeCamp Certifications, Projects & Curriculum: {len(fcc_records):,}")
+        all_records.extend(fcc_records)
+
     # Deduplicate by URL
     seen_urls = set()
     unique_records = []
@@ -1564,30 +1685,16 @@ def main():
 
     # JSON & Web Data Export
     print(f"\n[*] Exporting JSON Index to: {JSON_PATH}")
-    tmp_json = JSON_PATH.with_suffix(".tmp")
-    with open(tmp_json, "w", encoding="utf-8") as f:
+    with open(JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(unique_records, f, indent=2, ensure_ascii=False)
-    if JSON_PATH.exists():
-        try:
-            JSON_PATH.unlink()
-        except Exception:
-            pass
-    tmp_json.replace(JSON_PATH)
     print(f"  + JSON index written ({os.path.getsize(JSON_PATH) / (1024*1024):.2f} MB)")
 
     JS_PATH = BASE_DIR / "docs" / "dev_universe_data.js"
     print(f"\n[*] Exporting Web Data to: {JS_PATH}")
-    tmp_js = JS_PATH.with_suffix(".tmp")
-    with open(tmp_js, "w", encoding="utf-8") as f:
+    with open(JS_PATH, "w", encoding="utf-8") as f:
         f.write("window.DEV_UNIVERSE_DATA = ")
         json.dump(unique_records, f, ensure_ascii=False)
         f.write(";\n")
-    if JS_PATH.exists():
-        try:
-            JS_PATH.unlink()
-        except Exception:
-            pass
-    tmp_js.replace(JS_PATH)
     print(f"  + JS export written ({os.path.getsize(JS_PATH) / (1024*1024):.2f} MB)")
 
     # Generate Stats

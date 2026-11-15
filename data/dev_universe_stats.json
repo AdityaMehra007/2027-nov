@@ -1,5 +1,5 @@
 {
-  "total_resources": 43722,
+  "total_resources": 44976,
   "by_type": {
     "book": 2554,
     "course": 1607,
@@ -44,7 +44,10 @@
     "agent-channel": 42,
     "coworker-agent-concept": 11,
     "coworker-infrastructure": 6,
-    "agent-stack-compose": 3
+    "agent-stack-compose": 3,
+    "fcc-certification": 26,
+    "fcc-project": 169,
+    "fcc-module": 1059
   },
   "by_source": {
     "free-programming-books": 4783,
@@ -59,9 +62,11 @@
     "996.ICU": 185,
     "project-based-learning": 399,
     "openclaw": 149,
-    "OpenDots": 20
+    "OpenDots": 20,
+    "freeCodeCamp": 1254
   },
   "top_30_categories": {
+    "freeCodeCamp Curriculum": 1109,
     "Cyber Security": 862,
     "Product Manager": 678,
     "Python": 621,
@@ -90,7 +95,6 @@
     "Cloud Computing": 489,
     "Aspnet Core": 480,
     "Rust": 475,
-    "Git Github": 469,
-    "Laravel": 468
+    "Git Github": 469
   }
 }

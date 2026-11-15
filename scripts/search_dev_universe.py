@@ -67,7 +67,10 @@ TYPE_BADGES = {
     "agent-channel": f"{COLOR_GREEN}[AGENT-CHANNEL]{COLOR_RESET}",
     "coworker-agent-concept": f"{COLOR_YELLOW}[COWORKER]{COLOR_RESET}",
     "coworker-infrastructure": f"{COLOR_MAGENTA}[COWORKER-INFRA]{COLOR_RESET}",
-    "agent-stack-compose": f"{COLOR_CYAN}[AGENT-STACK]{COLOR_RESET}"
+    "agent-stack-compose": f"{COLOR_CYAN}[AGENT-STACK]{COLOR_RESET}",
+    "fcc-certification": f"{COLOR_YELLOW}[FCC-CERT]{COLOR_RESET}",
+    "fcc-project": f"{COLOR_GREEN}[FCC-PROJECT]{COLOR_RESET}",
+    "fcc-module": f"{COLOR_CYAN}[FCC-MODULE]{COLOR_RESET}"
 }
 
 def get_db():
