@@ -74,7 +74,7 @@ def deep_audit():
         "postcss.config.js", "index.html", "proto/omni_omega.proto",
         "migrations/0001_omni_omega_complete.sql", "nginx/omni-gateway.conf",
         "grafana/provisioning/dashboards/omni-100.json", "k8s/omni-titan-production.yaml",
-        ".github/workflows/ci-cd.yml", "benchmarks/k6_stress_test.js",
+        "ci/ci-cd.yml", "benchmarks/k6_stress_test.js",
         "libs/omni-core/Cargo.toml", "libs/omni-core/src/lib.rs", "libs/omni-core/src/consensus.rs",
         "libs/omni-core/src/crypto.rs", "libs/omni-core/src/telemetry.rs",
         "bins/omni-omega-server/Cargo.toml", "bins/omni-omega-server/build.rs",
