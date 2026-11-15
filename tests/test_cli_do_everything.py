@@ -20,4 +20,5 @@ def test_cli_do_everything():
     assert "SaaS Template Store" in result.stdout
     assert "GODMODE Career OS" in result.stdout
     assert "Apex Singularity" in result.stdout
+    assert "Opportunity Intel" in result.stdout
     assert "ALL ENGINES EXECUTED & 100% OPERATIONAL" in result.stdout
