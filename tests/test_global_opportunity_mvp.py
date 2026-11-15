@@ -204,3 +204,29 @@ def test_opportunities_api_endpoints():
     assert audit_data["roi_percentage"] > 100.0
     assert "Executive Summary" in audit_data["markdown_report"]
 
+    # 5. Prospects endpoint (30 targets)
+    prosp_res = client.get("/api/v1/opportunities/prospects")
+    assert prosp_res.status_code == 200
+    assert len(prosp_res.json()) >= 30
+
+    # 6. Dossier endpoint
+    dos_res = client.post("/api/v1/opportunities/dossier?company_name=Target%20India")
+    assert dos_res.status_code == 200
+    dos_data = dos_res.json()
+    assert dos_data["prospect"]["company_name"] == "Target India"
+    assert dos_data["audit_deliverable"]["annual_cost_of_inaction_usd"] > 0
+
+    # 7. Subscriptions metrics endpoint
+    sub_res = client.get("/api/v1/opportunities/subscriptions/metrics")
+    assert sub_res.status_code == 200
+    sub_data = sub_res.json()
+    assert sub_data["active_subscribers"] == 3
+    assert sub_data["mrr_usd"] == 447.0
+
+    # 8. Workforce standup endpoint
+    stand_res = client.get("/api/v1/opportunities/workforce/standup")
+    assert stand_res.status_code == 200
+    stand_data = stand_res.json()
+    assert stand_data["merkle_blocks_total"] >= 2
+    assert stand_data["status"] == "ALL_AGENT_WORKFORCE_DIVISIONS_ACTIVE"
+

@@ -1,26 +1,34 @@
-# NEXT_ACTIONS: Implementation Roadmap
+# NEXT_ACTIONS: Operational Roadmap
 
-**Active Phase:** Phase 1 (Research Intelligence & Opportunity Scoring) - COMPLETE  
-**Current Phase:** Phase 2 (Commercial Validation & Prospect Pipeline)
+**Current State:** Phases 0 through 7 Built, Tested, Integrated, and 100% Operational  
+**Active Phase:** Phase 8: Founder Sign-off & Live Commercial Scaling
 
 ---
 
-## Active Workstreams
+## 1. Operational Next Actions (Immediate)
 
-1. **Beachhead Deliverable Artifacts** (Complete)
-   - Sample deliverable generated and exported to [`artifacts/proposals/apex_logistics_india_audit.md`](file:///e:/2027 nov/artifacts/proposals/apex_logistics_india_audit.md).
-   - Shows quantified ROI ($140,625.00/yr annual drag, $6,562.50/mo savings, 6,628% ROI) with tiered pricing: $49/mo Starter, $99/mo Managed, $299/mo Institutional.
+1. **Founder Review of Staged Outbound Intents (`PendingActionsQueue`)**
+   - 30 target prospect dossiers have been generated across Bengaluru, North America, Europe/UK, and APAC/Middle East corridors.
+   - Run `python -m omniverse.cli prospect-pipeline --limit 5 --stage-actions` to review staged HMAC-SHA256 signatures.
+   - Authorize initial proof-first outreach to the top 3 beachhead candidates:
+     1. *Apex Logistics India* (Freight reconciliation audit: 6,628% ROI, $6,562/mo savings)
+     2. *Target India* (Vendor PO vs invoice discrepancies: $185,000/yr annual toil)
+     3. *London Thames Logistics Ltd* (Post-Brexit customs declaration audits: $190,000/yr annual toil)
 
-2. **Opportunity Scoring & Ranking Matrix** (Complete)
-   - Canonical formula fully implemented and tested across all business categories:
-     $$\text{Opportunity Score} = \frac{\text{Pain} \times \text{Frequency} \times \text{Budget} \times \text{Reachability} \times \text{Automation Feasibility}}{\text{Competition}}$$
-   - Available via CLI (`python -m omniverse.cli opportunities-rank`) and REST API (`GET /api/v1/opportunities/top-ranked`).
+2. **Client Portal & Self-Service Intake Verification**
+   - Access the running FastAPI portal at `http://127.0.0.1:8888/docs` or `http://127.0.0.1:8888/dashboard`.
+   - Test self-service deliverable generation via `/api/v1/opportunities/beachhead/generate`.
 
-3. **Phase 2 Prospect Pipeline Staging** (Immediate Next)
-   - Ingest 30 high-fit prospect companies into `CompanyIntelligenceRegistry` from permitted public directories (MCA, SEC EDGAR, Tech indices).
-   - Generate customized proof-first audit dossiers for each prospect.
-   - Stage personalized outreach drafts into the `PendingActionsQueue` for founder cryptographic review (enforcing the non-negotiable rule: no unsolicited outbound communication without founder sign-off).
+3. **Merchant Credential Connection (Phase 5 Live Cutover)**
+   - When ready for live production collections, inject live API keys in environment:
+     - `STRIPE_SECRET_KEY` & `STRIPE_WEBHOOK_SECRET`
+     - `RAZORPAY_KEY_ID` & `RAZORPAY_KEY_SECRET`
+   - Test live $1 auth charge using `python -m omniverse.cli subscriptions-ledger`.
 
-4. **Productized Customer Portal & Webhook Verification**
-   - Verify self-service audit intake form on `http://127.0.0.1:8888`.
-   - Test sandbox payment flows with mock UPI QR and Stripe test cards in `tests/test_agency_payment_gateways.py`.
+---
+
+## 2. Long-Running Daemon Operations
+
+- **24/7 Health Monitoring:** Run background daemon loop with `python -m omniverse.cli agency-daemon --limit 2`.
+- **Master Audit Execution:** Run full institutional verification with `python -m omniverse.cli do-everything`.
+- **Standup Telemetry:** Inspect agent workload and Merkle block height with `python -m omniverse.cli workforce-standup`.

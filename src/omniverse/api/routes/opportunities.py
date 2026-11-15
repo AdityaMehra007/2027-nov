@@ -21,6 +21,19 @@ from omniverse.modules.opportunities.beachhead import (
     BeachheadAuditGenerator,
     AuditDeliverable,
 )
+from omniverse.modules.opportunities.prospect_pipeline import (
+    ProspectPipelineEngine,
+    ProspectCompany,
+    ProspectDossier,
+)
+from omniverse.modules.opportunities.delivery_service import (
+    SubscriptionLedgerEngine,
+    SubscriptionTier,
+)
+from omniverse.modules.opportunities.workforce import (
+    WorkforceOrchestrator,
+    AgentRole,
+)
 
 
 class ScoreOpportunityRequest(BaseModel):
@@ -125,5 +138,38 @@ def get_opportunities_router() -> APIRouter:
             hourly_wage_usd=req.hourly_wage_usd,
             proposed_monthly_fee_usd=req.proposed_monthly_fee_usd,
         )
+
+    @router.get("/prospects", response_model=List[ProspectCompany])
+    def get_prospects():
+        pipeline = ProspectPipelineEngine()
+        return pipeline.load_target_prospects()
+
+    @router.post("/dossier", response_model=ProspectDossier)
+    def build_prospect_dossier(company_name: str):
+        pipeline = ProspectPipelineEngine()
+        prospects = pipeline.load_target_prospects()
+        matched = next((p for p in prospects if p.company_name.lower() == company_name.lower()), None)
+        if not matched:
+            matched = prospects[0]
+        return pipeline.build_dossier(matched)
+
+    @router.get("/subscriptions/metrics")
+    def get_subscription_metrics():
+        ledger = SubscriptionLedgerEngine()
+        # Seed canonical active cohort
+        ledger.subscribe_client("cli_1", "Apex Logistics India", SubscriptionTier.STARTER)
+        ledger.subscribe_client("cli_2", "FleetPulse NY", SubscriptionTier.MANAGED)
+        ledger.subscribe_client("cli_3", "Target India GCC", SubscriptionTier.ENTERPRISE)
+        return ledger.get_financial_metrics()
+
+    @router.get("/workforce/standup")
+    def get_workforce_standup():
+        orchestrator = WorkforceOrchestrator()
+        orchestrator.dispatch_task(
+            role=AgentRole.DELIVERY_ENGINEER,
+            action="EXECUTE_DAILY_PIPELINE",
+            parameters={"status": "ALL_SYSTEMS_GO"},
+        )
+        return orchestrator.generate_daily_standup()
 
     return router

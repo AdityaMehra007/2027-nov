@@ -447,6 +447,19 @@ def main():
     bh_p.add_argument("--volume", type=int, default=2500, help="Monthly volume")
     bh_p.add_argument("--export", action="store_true", help="Export audit to markdown file")
 
+    # Command: prospect-pipeline
+    pp_p = subparsers.add_parser("prospect-pipeline", help="Explore 30-organization global prospect cohort & stage outreach actions")
+    pp_p.add_argument("--corridor", default=None, help="Filter by corridor (BENGALURU_TECH, NORTH_AMERICA, EUROPE_UK, APAC_MIDDLE_EAST)")
+    pp_p.add_argument("--limit", type=int, default=10, help="Limit number of prospects to display")
+    pp_p.add_argument("--stage-actions", action="store_true", help="Stage outreach intents into PendingActionsQueue")
+
+    # Command: subscriptions-ledger
+    sub_p = subparsers.add_parser("subscriptions-ledger", help="Display recurring subscription metrics, MRR, and settlement receipts")
+    sub_p.add_argument("--seed-demo", action="store_true", default=True, help="Seed baseline active subscriber cohort")
+
+    # Command: workforce-standup
+    subparsers.add_parser("workforce-standup", help="Display 24/7 autonomous workforce status, token telemetry, and Merkle block height")
+
     args = parser.parse_args()
 
     init_db()
@@ -1694,7 +1707,10 @@ def main():
             "proposed_monthly_fee_usd": 99.0
         }).json()
         roi_val = audit.get("roi_percentage", 0.0)
-        print(f"8. Opportunity Intel   : Top={top_name[:28]}... | Tier={top_tier} | Deliverable ROI={roi_val}% | Status=ONLINE")
+        sub_metrics = client.get("/api/v1/opportunities/subscriptions/metrics").json()
+        standup = client.get("/api/v1/opportunities/workforce/standup").json()
+        mrr_val = sub_metrics.get("mrr_usd", 0.0)
+        print(f"8. Opportunity Intel   : Top={top_name[:24]}... | Tier={top_tier} | Deliverable ROI={roi_val}% | MRR=${mrr_val:.2f} | Standup=ONLINE")
 
         elapsed = (time.time() - t0) * 1000.0
         print("=" * 80)
@@ -1962,6 +1978,70 @@ def main():
             export_path.parent.mkdir(parents=True, exist_ok=True)
             export_path.write_text(deliverable.markdown_report, encoding="utf-8")
             print(f"Exported Audit To      : {export_path}")
+        print("=" * 90 + "\n")
+
+    elif args.command == "prospect-pipeline":
+        from omniverse.modules.opportunities.prospect_pipeline import ProspectPipelineEngine
+        engine = ProspectPipelineEngine()
+        prospects = engine.load_target_prospects()
+        if args.corridor:
+            prospects = [p for p in prospects if p.corridor.value.upper() == args.corridor.upper()]
+        
+        print("\n" + "=" * 90)
+        print("       PROJECT ONE: GLOBAL PROSPECT COHORT & OPPORTUNITY DOSSIERS       ")
+        print("=" * 90)
+        print(f"Total Cohort Target Organizations : {len(prospects)} (Showing top {args.limit})")
+        print("-" * 90)
+        print(f"{'COMPANY':<28} {'CORRIDOR':<20} {'ANNUAL TOIL':<14} {'PROBLEM BOTTLENECK':<26}")
+        print("-" * 90)
+        for p in prospects[:args.limit]:
+            print(f"{p.company_name:<28} {p.corridor.value:<20} ${p.estimated_annual_toil_usd:<13,.0f} {p.problem_hypothesis[:25]}...")
+        
+        if args.stage_actions:
+            print("\nStaging Gated Outreach Intents into PendingActionsQueue (HMAC Signed)...")
+            for p in prospects[:args.limit]:
+                dos = engine.build_dossier(p)
+                act = engine.stage_outreach_action(dos)
+                print(f"  [GATED] {act.action_id} -> {p.company_name:<26} (Sig: {act.hmac_signature[:12]}...)")
+        print("=" * 90 + "\n")
+
+    elif args.command == "subscriptions-ledger":
+        from omniverse.modules.opportunities.delivery_service import SubscriptionLedgerEngine, SubscriptionTier
+        ledger = SubscriptionLedgerEngine()
+        if args.seed_demo:
+            ledger.subscribe_client("cli_1", "Apex Logistics India", SubscriptionTier.STARTER)
+            ledger.subscribe_client("cli_2", "Cognitive Cloud Systems", SubscriptionTier.STARTER)
+            ledger.subscribe_client("cli_3", "FleetPulse NY", SubscriptionTier.MANAGED)
+            ledger.subscribe_client("cli_4", "London Thames Logistics", SubscriptionTier.MANAGED)
+            ledger.subscribe_client("cli_5", "Target India GCC", SubscriptionTier.ENTERPRISE)
+        
+        metrics = ledger.get_financial_metrics()
+        print("\n" + "=" * 90)
+        print("       PROJECT ONE: RECURRING SUBSCRIPTIONS & CASH SETTLEMENT LEDGER       ")
+        print("=" * 90)
+        print(f"Active Subscribers         : {metrics['active_subscribers']}")
+        print(f"Monthly Recurring Revenue  : ${metrics['mrr_usd']:,.2f} USD")
+        print(f"Daily Average Gross Revenue: ${metrics['daily_avg_revenue_usd']:,.2f} USD / day")
+        print(f"Progress to $10/day ($300) : {metrics['progress_10_usd_day_pct']}%")
+        print(f"Progress to $100/day ($3k) : {metrics['progress_100_usd_day_pct']}%")
+        print(f"Reconciled Cash Collected  : ${metrics['reconciled_cash_usd']:,.2f} USD")
+        print("=" * 90 + "\n")
+
+    elif args.command == "workforce-standup":
+        from omniverse.modules.opportunities.workforce import WorkforceOrchestrator, AgentRole
+        orch = WorkforceOrchestrator()
+        orch.dispatch_task(AgentRole.DELIVERY_ENGINEER, "DISPATCH_DELIVERABLE_SENTINEL", {"status": "ACTIVE"})
+        standup = orch.generate_daily_standup()
+        print("\n" + "=" * 90)
+        print("       PROJECT ONE: 24/7 AUTONOMOUS AGENT WORKFORCE STANDUP REPORT       ")
+        print("=" * 90)
+        print(f"Date                       : {standup['date']}")
+        print(f"Total Tasks Dispatched     : {standup['total_tasks_dispatched']}")
+        print(f"Completed Tasks            : {standup['completed_count']}")
+        print(f"Pending Gated Approvals    : {standup['pending_approvals_count']}")
+        print(f"Total Tokens Consumed      : {standup['total_tokens_consumed']:,} tokens")
+        print(f"Merkle Block Height        : {standup['merkle_blocks_total']} blocks")
+        print(f"Operational Status         : {standup['status']}")
         print("=" * 90 + "\n")
 
     else:
