@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional
 from pyredis.commands import CommandDispatcher
 from pyredis.store import DataStore
 from pydb.engine import DatabaseEngine
-from pygit.repository import find_repo, init_repo
+from pygit.repository import GitRepository, find_repo, init_repo
 from pygit.commands import cmd_log, cmd_status, cmd_branch
 from pyshell.executor import ShellExecutor
 from pytransformer.model import MiniTransformer
@@ -38,7 +38,7 @@ class WorkbenchServer:
         host: str = "127.0.0.1",
         port: int = 9000,
         db_path: str = "data/workbench.db",
-        repo_path: str = ".",
+        repo_path: Optional[str] = None,
     ) -> None:
         self.host = host
         self.port = port
@@ -66,9 +66,22 @@ class WorkbenchServer:
             self.db_engine.execute("INSERT INTO metrics VALUES (3, 'PyWeb', 0.20);")
 
         # 3. PyGit repository instance
-        self.repo = find_repo(repo_path)
-        if not self.repo:
-            self.repo = init_repo("data/workbench_git")
+        target_repo_path = repo_path or "data/workbench_git"
+        os.makedirs(target_repo_path, exist_ok=True)
+        if os.path.isdir(os.path.join(target_repo_path, ".git")):
+            self.repo = GitRepository(worktree=target_repo_path)
+        else:
+            self.repo = init_repo(target_repo_path)
+            try:
+                from pygit.commands import cmd_add, cmd_commit
+                readme_file = os.path.join(target_repo_path, "README.md")
+                if not os.path.exists(readme_file):
+                    with open(readme_file, "w", encoding="utf-8") as f:
+                        f.write("# BYOX Workbench Demo Repo\nEngine initialized from scratch.\n")
+                    cmd_add(self.repo, ["README.md"])
+                    cmd_commit(self.repo, message="Initial commit: BYOX Studio Workbench seed", author="Omniverse <cto@cashflow.infinity>")
+            except Exception as e:
+                logger.debug("Demo commit error: %s", e)
 
         # 4. PyShell executor instance
         self.shell = ShellExecutor()

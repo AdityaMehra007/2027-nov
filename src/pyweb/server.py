@@ -111,6 +111,5 @@ class WebServer:
         finally:
             try:
                 writer.close()
-                await writer.wait_closed()
             except Exception:
                 pass

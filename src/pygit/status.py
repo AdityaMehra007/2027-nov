@@ -76,10 +76,24 @@ def get_status(repo: GitRepository) -> RepoStatus:
     worktree_files: Set[str] = set()
     for root, dirs, files in os.walk(repo.worktree):
         # Ignore .git and common ignores
-        if ".git" in dirs:
-            dirs.remove(".git")
-        if "__pycache__" in dirs:
-            dirs.remove("__pycache__")
+        ignore_dirs = {
+            ".git",
+            "__pycache__",
+            ".pytest_cache",
+            ".gemini",
+            "venv",
+            ".venv",
+            "env",
+            ".env",
+            "node_modules",
+            "brain",
+            ".system_generated",
+            ".coverage",
+            "dist",
+            "build",
+            ".egg-info",
+        }
+        dirs[:] = [d for d in dirs if d not in ignore_dirs and not d.startswith(".")]
 
         for f in files:
             full = os.path.join(root, f)
