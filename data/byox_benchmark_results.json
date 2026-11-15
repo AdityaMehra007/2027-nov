@@ -1,20 +1,20 @@
 {
-  "timestamp": 1794759191.979139,
-  "wall_time_sec": 14.777,
+  "timestamp": 1794759247.8720098,
+  "wall_time_sec": 18.887,
   "total_benchmarks": 23,
   "results": [
     {
       "name": "PyRedis Concurrent SET",
       "total_ops": 20,
-      "duration_sec": 0.0147,
-      "ops_per_sec": 1363.31,
+      "duration_sec": 0.024,
+      "ops_per_sec": 832.68,
       "latency_ms": {
-        "p50": 2.444,
-        "p95": 6.737,
-        "p99": 6.737,
-        "min": 1.26,
-        "max": 7.357,
-        "mean": 3.659
+        "p50": 3.775,
+        "p95": 9.291,
+        "p99": 9.291,
+        "min": 2.355,
+        "max": 9.953,
+        "mean": 5.096
       },
       "metadata": {
         "concurrency": 10,
@@ -42,15 +42,15 @@
     {
       "name": "PyDB Row Insertion",
       "total_ops": 20,
-      "duration_sec": 0.0022,
-      "ops_per_sec": 9011.85,
+      "duration_sec": 0.0031,
+      "ops_per_sec": 6413.13,
       "latency_ms": {
-        "p50": 0.101,
-        "p95": 0.12,
-        "p99": 0.12,
-        "min": 0.098,
-        "max": 0.168,
-        "mean": 0.106
+        "p50": 0.141,
+        "p95": 0.168,
+        "p99": 0.168,
+        "min": 0.137,
+        "max": 0.229,
+        "mean": 0.149
       },
       "metadata": {
         "rows_inserted": 20,
@@ -61,15 +61,15 @@
     {
       "name": "PyDB SELECT WHERE Query",
       "total_ops": 200,
-      "duration_sec": 0.0365,
-      "ops_per_sec": 5484.85,
+      "duration_sec": 0.0613,
+      "ops_per_sec": 3264.37,
       "latency_ms": {
-        "p50": 0.167,
-        "p95": 0.266,
-        "p99": 0.342,
-        "min": 0.111,
-        "max": 0.344,
-        "mean": 0.181
+        "p50": 0.277,
+        "p95": 0.377,
+        "p99": 1.522,
+        "min": 0.161,
+        "max": 3.565,
+        "mean": 0.304
       },
       "metadata": {
         "table_size": 20,
@@ -79,15 +79,15 @@
     {
       "name": "PyWeb HTTP/1.1 JSON Request",
       "total_ops": 10,
-      "duration_sec": 0.012,
-      "ops_per_sec": 835.26,
+      "duration_sec": 0.0269,
+      "ops_per_sec": 371.54,
       "latency_ms": {
-        "p50": 2.17,
-        "p95": 3.948,
-        "p99": 3.948,
-        "min": 1.285,
-        "max": 4.409,
-        "mean": 2.656
+        "p50": 3.006,
+        "p95": 5.664,
+        "p99": 5.664,
+        "min": 1.804,
+        "max": 6.438,
+        "mean": 3.777
       },
       "metadata": {
         "concurrency": 5,
@@ -97,15 +97,15 @@
     {
       "name": "PyWeb WebSocket Frame Roundtrip",
       "total_ops": 200,
-      "duration_sec": 0.0475,
-      "ops_per_sec": 4210.6,
+      "duration_sec": 0.0765,
+      "ops_per_sec": 2612.69,
       "latency_ms": {
-        "p50": 0.21,
-        "p95": 0.345,
-        "p99": 0.505,
-        "min": 0.177,
-        "max": 0.524,
-        "mean": 0.225
+        "p50": 0.296,
+        "p95": 0.48,
+        "p99": 1.837,
+        "min": 0.221,
+        "max": 4.649,
+        "mean": 0.362
       },
       "metadata": {
         "frames_exchanged": 200
@@ -114,15 +114,15 @@
     {
       "name": "PyGit Object Hashing & zlib Compression",
       "total_ops": 10,
-      "duration_sec": 0.0859,
-      "ops_per_sec": 116.41,
+      "duration_sec": 0.0203,
+      "ops_per_sec": 492.15,
       "latency_ms": {
-        "p50": 1.025,
-        "p95": 1.368,
-        "p99": 1.368,
-        "min": 0.803,
-        "max": 76.089,
-        "mean": 8.576
+        "p50": 0.92,
+        "p95": 1.123,
+        "p99": 1.123,
+        "min": 0.717,
+        "max": 11.808,
+        "mean": 2.019
       },
       "metadata": {
         "objects_created": 10
@@ -131,15 +131,15 @@
     {
       "name": "PyGit Index Staging (150 files)",
       "total_ops": 10,
-      "duration_sec": 0.0482,
-      "ops_per_sec": 207.5,
+      "duration_sec": 0.108,
+      "ops_per_sec": 92.58,
       "latency_ms": {
-        "p50": 4.819,
-        "p95": 4.819,
-        "p99": 4.819,
+        "p50": 10.801,
+        "p95": 10.801,
+        "p99": 10.801,
         "min": 0.0,
-        "max": 48.193,
-        "mean": 4.819
+        "max": 108.011,
+        "mean": 10.801
       },
       "metadata": {
         "files_staged": 10
@@ -148,33 +148,33 @@
     {
       "name": "PyGit Tree Construction & Commit",
       "total_ops": 1,
-      "duration_sec": 0.1111,
-      "ops_per_sec": 9.0,
+      "duration_sec": 0.0267,
+      "ops_per_sec": 37.45,
       "latency_ms": {
-        "p50": 111.093,
-        "p95": 111.093,
-        "p99": 111.093,
-        "min": 111.093,
-        "max": 111.093,
-        "mean": 111.093
+        "p50": 26.705,
+        "p95": 26.705,
+        "p99": 26.705,
+        "min": 26.705,
+        "max": 26.705,
+        "mean": 26.705
       },
       "metadata": {
-        "commit_sha": "73856ddf64c09864886394f295e963a4e3ddfaf5",
+        "commit_sha": "30b591191a3e4280825ec28db3df42fac0793328",
         "files_in_tree": 10
       }
     },
     {
       "name": "PyShell Built-in Execution (echo)",
       "total_ops": 20,
-      "duration_sec": 0.0026,
-      "ops_per_sec": 7580.35,
+      "duration_sec": 0.0086,
+      "ops_per_sec": 2334.08,
       "latency_ms": {
-        "p50": 0.025,
-        "p95": 0.042,
-        "p99": 0.042,
-        "min": 0.024,
-        "max": 2.117,
-        "mean": 0.131
+        "p50": 0.083,
+        "p95": 1.764,
+        "p99": 1.764,
+        "min": 0.076,
+        "max": 5.104,
+        "mean": 0.426
       },
       "metadata": {
         "iterations": 20
@@ -183,15 +183,15 @@
     {
       "name": "PyShell File Redirection (>>)",
       "total_ops": 20,
-      "duration_sec": 0.0066,
-      "ops_per_sec": 3033.47,
+      "duration_sec": 0.0102,
+      "ops_per_sec": 1966.82,
       "latency_ms": {
-        "p50": 0.306,
-        "p95": 0.451,
-        "p99": 0.451,
-        "min": 0.237,
-        "max": 0.475,
-        "mean": 0.328
+        "p50": 0.409,
+        "p95": 0.919,
+        "p99": 0.919,
+        "min": 0.357,
+        "max": 1.275,
+        "mean": 0.505
       },
       "metadata": {
         "lines_written": 20
@@ -200,15 +200,15 @@
     {
       "name": "PyTransformer Autograd Graph Backprop",
       "total_ops": 200,
-      "duration_sec": 0.0335,
-      "ops_per_sec": 5971.86,
+      "duration_sec": 0.0504,
+      "ops_per_sec": 3966.44,
       "latency_ms": {
-        "p50": 0.042,
-        "p95": 0.065,
-        "p99": 0.419,
-        "min": 0.018,
-        "max": 0.716,
-        "mean": 0.048
+        "p50": 0.045,
+        "p95": 0.102,
+        "p99": 0.787,
+        "min": 0.034,
+        "max": 4.528,
+        "mean": 0.093
       },
       "metadata": {
         "graph_evaluations": 200,
@@ -218,33 +218,33 @@
     {
       "name": "PyTransformer Autoregressive Token Generation",
       "total_ops": 15,
-      "duration_sec": 14.3072,
-      "ops_per_sec": 1.05,
+      "duration_sec": 18.3554,
+      "ops_per_sec": 0.82,
       "latency_ms": {
-        "p50": 979.178,
-        "p95": 1768.769,
-        "p99": 1768.769,
-        "min": 72.206,
-        "max": 1772.789,
-        "mean": 953.812
+        "p50": 1333.822,
+        "p95": 2150.755,
+        "p99": 2150.755,
+        "min": 132.199,
+        "max": 2929.33,
+        "mean": 1223.691
       },
       "metadata": {
         "tokens_generated": 15,
-        "tokens_per_sec": 1.05
+        "tokens_per_sec": 0.82
       }
     },
     {
       "name": "PyChain Transaction Ingestion",
       "total_ops": 10,
       "duration_sec": 0.0001,
-      "ops_per_sec": 92506.93,
+      "ops_per_sec": 77760.5,
       "latency_ms": {
-        "p50": 0.008,
-        "p95": 0.014,
-        "p99": 0.014,
-        "min": 0.008,
-        "max": 0.02,
-        "mean": 0.01
+        "p50": 0.012,
+        "p95": 0.013,
+        "p99": 0.013,
+        "min": 0.011,
+        "max": 0.016,
+        "mean": 0.012
       },
       "metadata": {
         "tx_count": 10
@@ -253,15 +253,15 @@
     {
       "name": "PyChain Block Mining (Diff=1)",
       "total_ops": 2,
-      "duration_sec": 0.0008,
-      "ops_per_sec": 2628.12,
+      "duration_sec": 0.0025,
+      "ops_per_sec": 793.08,
       "latency_ms": {
-        "p50": 0.094,
-        "p95": 0.094,
-        "p99": 0.094,
-        "min": 0.094,
-        "max": 0.665,
-        "mean": 0.38
+        "p50": 0.631,
+        "p95": 0.631,
+        "p99": 0.631,
+        "min": 0.631,
+        "max": 1.889,
+        "mean": 1.26
       },
       "metadata": {
         "blocks_mined": 2,
@@ -271,15 +271,15 @@
     {
       "name": "PyChain Full Chain Verification",
       "total_ops": 1,
-      "duration_sec": 0.0002,
-      "ops_per_sec": 4113.53,
+      "duration_sec": 0.0003,
+      "ops_per_sec": 3456.62,
       "latency_ms": {
-        "p50": 0.243,
-        "p95": 0.243,
-        "p99": 0.243,
-        "min": 0.243,
-        "max": 0.243,
-        "mean": 0.243
+        "p50": 0.289,
+        "p95": 0.289,
+        "p99": 0.289,
+        "min": 0.289,
+        "max": 0.289,
+        "mean": 0.289
       },
       "metadata": {
         "chain_length": 4
@@ -288,15 +288,15 @@
     {
       "name": "PySearch Document Indexing",
       "total_ops": 20,
-      "duration_sec": 0.0004,
-      "ops_per_sec": 46008.74,
+      "duration_sec": 0.0008,
+      "ops_per_sec": 24102.19,
       "latency_ms": {
-        "p50": 0.019,
-        "p95": 0.029,
-        "p99": 0.029,
-        "min": 0.018,
-        "max": 0.04,
-        "mean": 0.021
+        "p50": 0.038,
+        "p95": 0.051,
+        "p99": 0.051,
+        "min": 0.035,
+        "max": 0.056,
+        "mean": 0.04
       },
       "metadata": {
         "docs_indexed": 20,
@@ -306,15 +306,15 @@
     {
       "name": "PySearch BM25 Ranking Queries",
       "total_ops": 150,
-      "duration_sec": 0.0041,
-      "ops_per_sec": 36281.84,
+      "duration_sec": 0.0093,
+      "ops_per_sec": 16091.66,
       "latency_ms": {
-        "p50": 0.026,
-        "p95": 0.042,
-        "p99": 0.053,
-        "min": 0.022,
-        "max": 0.073,
-        "mean": 0.027
+        "p50": 0.06,
+        "p95": 0.072,
+        "p99": 0.085,
+        "min": 0.041,
+        "max": 0.13,
+        "mean": 0.061
       },
       "metadata": {
         "queries_evaluated": 150,
@@ -324,15 +324,15 @@
     {
       "name": "PyVM Two-Pass Assembly",
       "total_ops": 20,
-      "duration_sec": 0.0047,
-      "ops_per_sec": 4236.84,
+      "duration_sec": 0.0056,
+      "ops_per_sec": 3564.43,
       "latency_ms": {
-        "p50": 0.265,
-        "p95": 0.301,
-        "p99": 0.301,
-        "min": 0.104,
-        "max": 0.38,
-        "mean": 0.235
+        "p50": 0.276,
+        "p95": 0.298,
+        "p99": 0.298,
+        "min": 0.267,
+        "max": 0.311,
+        "mean": 0.28
       },
       "metadata": {
         "programs_assembled": 20
@@ -341,15 +341,15 @@
     {
       "name": "PyVM Factorial(10) Execution",
       "total_ops": 20,
-      "duration_sec": 0.0031,
-      "ops_per_sec": 6413.13,
+      "duration_sec": 0.0071,
+      "ops_per_sec": 2833.5,
       "latency_ms": {
-        "p50": 0.151,
-        "p95": 0.175,
-        "p99": 0.175,
-        "min": 0.147,
-        "max": 0.177,
-        "mean": 0.155
+        "p50": 0.347,
+        "p95": 0.472,
+        "p99": 0.472,
+        "min": 0.141,
+        "max": 0.5,
+        "mean": 0.352
       },
       "metadata": {
         "runs": 20,
@@ -359,15 +359,15 @@
     {
       "name": "PyControlPlane End-to-End Invocations",
       "total_ops": 10,
-      "duration_sec": 0.0053,
-      "ops_per_sec": 1879.03,
+      "duration_sec": 0.0055,
+      "ops_per_sec": 1826.98,
       "latency_ms": {
-        "p50": 0.068,
-        "p95": 0.096,
-        "p99": 0.096,
-        "min": 0.064,
-        "max": 4.636,
-        "mean": 0.528
+        "p50": 0.086,
+        "p95": 0.118,
+        "p99": 0.118,
+        "min": 0.077,
+        "max": 4.61,
+        "mean": 0.543
       },
       "metadata": {
         "requests": 10
@@ -377,14 +377,14 @@
       "name": "PyControlPlane Semantic Vector Lookups",
       "total_ops": 10,
       "duration_sec": 0.0,
-      "ops_per_sec": 363636.48,
+      "ops_per_sec": 235849.04,
       "latency_ms": {
-        "p50": 0.002,
-        "p95": 0.003,
-        "p99": 0.003,
-        "min": 0.002,
-        "max": 0.004,
-        "mean": 0.002
+        "p50": 0.003,
+        "p95": 0.004,
+        "p99": 0.004,
+        "min": 0.003,
+        "max": 0.006,
+        "mean": 0.003
       },
       "metadata": {
         "cached_entries": 100,
@@ -394,15 +394,15 @@
     {
       "name": "PyControlPlane Merkle Audit SHA-256 Chaining",
       "total_ops": 10,
-      "duration_sec": 0.0001,
-      "ops_per_sec": 83752.09,
+      "duration_sec": 0.0002,
+      "ops_per_sec": 42535.09,
       "latency_ms": {
-        "p50": 0.009,
-        "p95": 0.015,
-        "p99": 0.015,
-        "min": 0.009,
-        "max": 0.023,
-        "mean": 0.012
+        "p50": 0.014,
+        "p95": 0.044,
+        "p99": 0.044,
+        "min": 0.013,
+        "max": 0.046,
+        "mean": 0.023
       },
       "metadata": {
         "blocks_chained": 10
