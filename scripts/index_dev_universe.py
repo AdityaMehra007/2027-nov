@@ -57,8 +57,13 @@ def extract_format_and_author(line: str):
 
 def init_db(conn: sqlite3.Connection):
     cursor = conn.cursor()
+    cursor.execute("PRAGMA journal_mode = WAL;")
+    cursor.execute("PRAGMA synchronous = NORMAL;")
+    cursor.execute("DROP TABLE IF EXISTS resources_fts;")
+    cursor.execute("DROP TABLE IF EXISTS resources;")
+
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS resources (
+    CREATE TABLE resources (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         url TEXT NOT NULL,
@@ -73,12 +78,12 @@ def init_db(conn: sqlite3.Connection):
     );
     """)
 
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_type ON resources(type);")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_cat ON resources(category);")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_source ON resources(source_repo);")
+    cursor.execute("CREATE INDEX idx_resources_type ON resources(type);")
+    cursor.execute("CREATE INDEX idx_resources_cat ON resources(category);")
+    cursor.execute("CREATE INDEX idx_resources_source ON resources(source_repo);")
 
     cursor.execute("""
-    CREATE VIRTUAL TABLE IF NOT EXISTS resources_fts USING fts5(
+    CREATE VIRTUAL TABLE resources_fts USING fts5(
         title,
         category,
         subcategory,
@@ -89,8 +94,6 @@ def init_db(conn: sqlite3.Connection):
         content_rowid='id'
     );
     """)
-    cursor.execute("DELETE FROM resources;")
-    cursor.execute("DELETE FROM resources_fts;")
     conn.commit()
 
 def parse_fpb_file(filepath: Path, item_type: str, default_cat: str = "General"):
@@ -1663,8 +1666,30 @@ def main():
 
     print(f"\n[+] Total unique resources gathered: {len(unique_records):,} (from {len(all_records):,} raw items)")
 
+    # Sanitize records to guarantee all SQL bindings exist
+    sanitized_records = []
+    for r in unique_records:
+        sanitized_records.append({
+            "title": str(r.get("title") or "").strip(),
+            "url": str(r.get("url") or "").strip(),
+            "type": str(r.get("type") or "resource").strip(),
+            "category": str(r.get("category") or "General").strip(),
+            "subcategory": str(r.get("subcategory") or "").strip(),
+            "language": str(r.get("language") or "General").strip(),
+            "format": str(r.get("format") or "Web").strip(),
+            "description": str(r.get("description") or "").strip(),
+            "source_repo": str(r.get("source_repo") or "unknown").strip(),
+        })
+
     # Store in SQLite DB
     print(f"\n[*] Initializing SQLite Database at: {DB_PATH}")
+    for p in [DB_PATH, DATA_DIR / f"{DB_PATH.name}-journal", DATA_DIR / f"{DB_PATH.name}-wal", DATA_DIR / f"{DB_PATH.name}-shm"]:
+        if p.exists():
+            try:
+                p.unlink()
+            except Exception:
+                pass
+
     conn = sqlite3.connect(DB_PATH, timeout=60.0)
     init_db(conn)
 
@@ -1672,7 +1697,7 @@ def main():
     cursor.executemany("""
     INSERT INTO resources (title, url, type, category, subcategory, language, format, description, source_repo)
     VALUES (:title, :url, :type, :category, :subcategory, :language, :format, :description, :source_repo)
-    """, unique_records)
+    """, sanitized_records)
 
     # Populate FTS
     cursor.execute("""
@@ -1683,18 +1708,32 @@ def main():
     conn.close()
     print("  + SQLite Database and FTS5 indices successfully populated!")
 
-    # JSON & Web Data Export
+    # JSON & Web Data Export with safe atomic file replacement
     print(f"\n[*] Exporting JSON Index to: {JSON_PATH}")
-    with open(JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(unique_records, f, indent=2, ensure_ascii=False)
+    tmp_json = JSON_PATH.with_suffix(".tmp")
+    with open(tmp_json, "w", encoding="utf-8") as f:
+        json.dump(sanitized_records, f, indent=2, ensure_ascii=False)
+    if JSON_PATH.exists():
+        try:
+            JSON_PATH.unlink()
+        except Exception:
+            pass
+    tmp_json.replace(JSON_PATH)
     print(f"  + JSON index written ({os.path.getsize(JSON_PATH) / (1024*1024):.2f} MB)")
 
     JS_PATH = BASE_DIR / "docs" / "dev_universe_data.js"
     print(f"\n[*] Exporting Web Data to: {JS_PATH}")
-    with open(JS_PATH, "w", encoding="utf-8") as f:
+    tmp_js = JS_PATH.with_suffix(".tmp")
+    with open(tmp_js, "w", encoding="utf-8") as f:
         f.write("window.DEV_UNIVERSE_DATA = ")
-        json.dump(unique_records, f, ensure_ascii=False)
+        json.dump(sanitized_records, f, ensure_ascii=False)
         f.write(";\n")
+    if JS_PATH.exists():
+        try:
+            JS_PATH.unlink()
+        except Exception:
+            pass
+    tmp_js.replace(JS_PATH)
     print(f"  + JS export written ({os.path.getsize(JS_PATH) / (1024*1024):.2f} MB)")
 
     # Generate Stats
