@@ -372,22 +372,23 @@
   <header>
     <div class="badge-top">OmniDev Knowledge Core</div>
     <h1>Developer Resource Universe</h1>
-    <p class="subtitle">Unified intelligence across 11,900+ curated developer books, self-hosted applications, agent skills, roadmaps, APIs & courses</p>
+    <p class="subtitle">Unified intelligence across 44,970+ curated developer books, self-hosted applications, freeCodeCamp certifications, roadmaps, APIs & hands-on projects</p>
 
     <div class="stats-bar" id="statsBar">
-      <div class="stat-pill"><span class="num" id="statTotal">11,910</span><span class="lbl">Total Resources</span></div>
-      <div class="stat-pill"><span class="num">2,555</span><span class="lbl">Books</span></div>
+      <div class="stat-pill"><span class="num" id="statTotal">44,976</span><span class="lbl">Total Resources</span></div>
+      <div class="stat-pill"><span class="num">32,046</span><span class="lbl">Roadmaps & Topics</span></div>
+      <div class="stat-pill"><span class="num">4,783</span><span class="lbl">Books</span></div>
       <div class="stat-pill"><span class="num">2,380</span><span class="lbl">Public APIs</span></div>
       <div class="stat-pill"><span class="num">1,359</span><span class="lbl">Self-Hosted</span></div>
-      <div class="stat-pill"><span class="num">1,343</span><span class="lbl">Courses</span></div>
-      <div class="stat-pill"><span class="num">739</span><span class="lbl">Interview Prep</span></div>
+      <div class="stat-pill"><span class="num">1,254</span><span class="lbl">freeCodeCamp</span></div>
+      <div class="stat-pill"><span class="num">1,607</span><span class="lbl">Courses</span></div>
       <div class="stat-pill"><span class="num">662</span><span class="lbl">Awesome Lists</span></div>
       <div class="stat-pill"><span class="num">538</span><span class="lbl">Python Libs</span></div>
-      <div class="stat-pill"><span class="num">403</span><span class="lbl">Projects</span></div>
+      <div class="stat-pill"><span class="num">399</span><span class="lbl">Projects</span></div>
       <div class="stat-pill"><span class="num">362</span><span class="lbl">Build Your Own</span></div>
-      <div class="stat-pill"><span class="num">214</span><span class="lbl">System Design</span></div>
-      <div class="stat-pill"><span class="num">180</span><span class="lbl">Agent Skills</span></div>
-      <div class="stat-pill"><span class="num">96</span><span class="lbl">Roadmaps</span></div>
+      <div class="stat-pill"><span class="num">207</span><span class="lbl">System Design</span></div>
+      <div class="stat-pill"><span class="num">185</span><span class="lbl">996.ICU & WLB</span></div>
+      <div class="stat-pill"><span class="num">169</span><span class="lbl">Agent Skills</span></div>
     </div>
   </header>
 
@@ -396,11 +397,14 @@
       <svg class="search-icon" viewBox="0 0 24 24">
         <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
       </svg>
-      <input type="text" id="searchInput" class="search-input" placeholder="Search Python, Rust, Neural Networks, Docker, Weather API, Git, Compilers..." autocomplete="off">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search Python, Rust, Neural Networks, Docker, Weather API, Git, Compilers, freeCodeCamp..." autocomplete="off">
     </div>
 
     <div class="filters-row">
-      <button class="type-btn active" data-type="all">All (11,910)</button>
+      <button class="type-btn active" data-type="all">All (44,976)</button>
+      <button class="type-btn" data-type="fcc-project">fCC Projects</button>
+      <button class="type-btn" data-type="fcc-certification">fCC Certifications</button>
+      <button class="type-btn" data-type="anti996-project">Anti-996 OSS</button>
       <button class="type-btn" data-type="agent-skill">Agent Skills</button>
       <button class="type-btn" data-type="interview-prep">Interview Prep</button>
       <button class="type-btn" data-type="video-lecture">Video Lectures</button>
@@ -425,7 +429,7 @@
 
     <div class="results-info">
       <span id="resultsCount">Showing 0 matching resources</span>
-      <span id="filterLabel">Filtered across 13 knowledge repositories (OpenClaw, OpenDots, CIU, Books, APIs, Self-Hosted, Roadmaps, Projects)</span>
+      <span id="filterLabel">Filtered across 14 knowledge repositories (freeCodeCamp, 996.ICU, OpenClaw, OpenDots, CIU, Books, APIs, Self-Hosted, Roadmaps, Projects)</span>
     </div>
 
     <div class="cards-grid" id="cardsGrid">
