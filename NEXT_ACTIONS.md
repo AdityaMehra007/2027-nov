@@ -35,6 +35,12 @@
 ## 2. CLI Master Reference
 
 ```powershell
+# Launch the BYOX Interactive Visual Studio Workbench
+python launch_workbench.py --port 9000 --open-browser
+
+# Run all 22 microsecond benchmarks across 10 built-from-scratch engines
+python -m byox.benchmarks.runner --export
+
 # Materialize or refresh all 30 canonical deliverables
 python -m omniverse.cli build-deliverables
 
