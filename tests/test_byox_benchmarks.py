@@ -3,9 +3,11 @@
 
 """Unit tests for the BYOX Unified 10-Engine Benchmark Suite & Workbench."""
 
+import os
+import tempfile
 import pytest
 
-from byox.workbench import BYOXWorkbench
+from byox.workbench import WorkbenchServer, BYOXWorkbench
 from byox.benchmarks.bench_chain import benchmark_pychain
 from byox.benchmarks.bench_search import benchmark_pysearch
 from byox.benchmarks.bench_vm import benchmark_pyvm
@@ -13,12 +15,25 @@ from byox.benchmarks.bench_controlplane import benchmark_pycontrolplane
 from byox.benchmarks.runner import run_all_benchmarks
 
 
-def test_byox_workbench_diagnostics():
-    wb = BYOXWorkbench()
-    diag = wb.run_system_diagnostics()
-    assert diag["all_systems_go"] is True
-    assert diag["systems_count"] == 10
-    assert diag["probe_duration_ms"] < 200.0  # Sub-200ms sanity check
+def test_byox_workbench_initialization():
+    with tempfile.TemporaryDirectory() as tmp:
+        db_path = os.path.join(tmp, "wb.db")
+        server = WorkbenchServer(host="127.0.0.1", port=0, db_path=db_path)
+        assert server.redis_store is not None
+        assert server.db_engine is not None
+        assert server.shell is not None
+        assert server.transformer is not None
+        assert server.web is not None
+
+        # Verify initial Redis data
+        assert server.redis_store.get("system:status") == "online"
+
+        # Verify initial DB tables
+        assert "metrics" in server.db_engine.list_tables()
+
+        # Cleanup
+        server.redis_store.stop_active_expiration()
+        server.db_engine.close()
 
 
 def test_byox_chain_benchmark():

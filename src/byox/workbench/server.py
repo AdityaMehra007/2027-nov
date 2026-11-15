@@ -49,7 +49,6 @@ class WorkbenchServer:
         # 1. PyRedis in-memory instance
         self.redis_store = DataStore()
         self.redis_dispatcher = CommandDispatcher(self.redis_store)
-        self.redis_store.start_active_expiration(interval_sec=0.1)
 
         # Prepopulate demo keys
         self.redis_store.set("system:status", "online")
@@ -283,11 +282,15 @@ class WorkbenchServer:
                         await writer.drain()
 
     async def start(self) -> asyncio.Server:
+        self.redis_store.start_active_expiration(interval_sec=0.1)
         srv = await self.web.start()
         self.actual_port = self.web.actual_port
         return srv
 
     async def stop(self) -> None:
+        self.close()
+        await self.web.stop()
+
+    def close(self) -> None:
         self.redis_store.stop_active_expiration()
         self.db_engine.close()
-        await self.web.stop()

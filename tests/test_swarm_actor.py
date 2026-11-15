@@ -90,7 +90,10 @@ def test_supervisor_auto_healing_recovery():
         await actor.mailbox.push(_msg("good_msg", {"crash": False}))
 
         # Wait for supervisor to restart and process
-        await asyncio.sleep(0.1)
+        for _ in range(50):
+            if actor.processed == 1 and actor.state == ActorState.ACTIVE:
+                break
+            await asyncio.sleep(0.02)
 
         # DLQ should contain bad_msg
         assert dlq.size() == 1

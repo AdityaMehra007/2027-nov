@@ -367,12 +367,16 @@ class DataStore:
         except asyncio.CancelledError:
             pass
 
-    def start_active_expiration(self, interval_sec: float = 0.1) -> asyncio.Task:
+    def start_active_expiration(self, interval_sec: float = 0.1) -> Optional[asyncio.Task]:
         if self._sweep_task and not self._sweep_task.done():
             return self._sweep_task
         self._running_sweep = True
-        self._sweep_task = asyncio.create_task(self._sweep_loop(interval_sec))
-        return self._sweep_task
+        try:
+            loop = asyncio.get_running_loop()
+            self._sweep_task = loop.create_task(self._sweep_loop(interval_sec))
+            return self._sweep_task
+        except RuntimeError:
+            return None
 
     def stop_active_expiration(self) -> None:
         self._running_sweep = False
