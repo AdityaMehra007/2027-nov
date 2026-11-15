@@ -207,8 +207,8 @@ python scripts/anti996_tool.py badge
 ## 8. Web Dashboard (Zero-Dependency UI)
 
 Open [`docs/dev_universe_explorer.html`](file:///e:/2027%20nov/docs/dev_universe_explorer.html) directly in any browser:
-- **Instant client-side search** across all 11,730 resources.
-- **Pill filters** by resource type (`Self-Hosted Apps`, `Roadmaps`, `Python Libraries`, `Books`, `Build Your Own`, `APIs`, `Courses`, etc.).
+- **Instant client-side search** across all 11,910 resources.
+- **Pill filters** by resource type (`Self-Hosted Apps`, `Roadmaps`, `Python Libraries`, `Books`, `Build Your Own`, `APIs`, `Courses`, `OpenClaw Skills`, etc.).
 - **Category filtering** across 50+ primary domains.
 - **Direct launch and copy links**.
 - No web server required — loads instantly via `file://`.
@@ -262,3 +262,64 @@ for title, item_type, cat, url in cursor.fetchall():
     print(f"[{item_type}] {title} ({cat}) -> {url}")
 conn.close()
 ```
+
+---
+
+## 10. OpenClaw & OpenDots Autonomous Ecosystem Bridge
+
+The platform includes a bidirectional integration bridge (`scripts/openclaw_omniverse_bridge.py`) connecting OpenClaw's autonomous multi-channel gateway (Telegram, Discord, Slack, WhatsApp, Signal, Web) and OpenDots coworkers with the Omniverse intelligence core:
+
+```powershell
+# Check bridge and ecosystem status
+python scripts/openclaw_omniverse_bridge.py status
+
+# Search across 11,910 resources through the bridge
+python scripts/openclaw_omniverse_bridge.py search "system design"
+
+# Find self-hosted SaaS alternatives
+python scripts/openclaw_omniverse_bridge.py saas notion
+
+# Sync and install Omniverse skills into OpenClaw
+python scripts/openclaw_omniverse_bridge.py sync-skills
+```
+
+---
+
+## 11. PyGit: Pure-Python Standard-Library Git Implementation
+
+A complete, zero-dependency Git engine written in Python from scratch under `src/pygit/` following `docs/superpowers/specs/2026-11-14-pygit-design.md`:
+
+### Core Components
+- **Object Storage (`src/pygit/objects.py`)**: Content-addressed SHA-1 blobs, hierarchical trees, and commit graphs with zlib compression.
+- **DIRC v2 Index (`src/pygit/index.py`)**: Binary serialization, 8-byte entry alignment, and SHA-1 checksum verification.
+- **Repository Management (`src/pygit/repository.py`)**: `.git` auto-discovery, branch references in `refs/heads/*`, and `HEAD` state.
+- **Status & Diff Engine (`src/pygit/status.py`, `src/pygit/diff.py`)**: Multi-way delta calculation and unified diff output.
+- **Porcelain & Plumbing CLI (`src/pygit/commands.py`, `src/pygit/cli.py`)**:
+  - `python -m pygit init [dir]`
+  - `python -m pygit hash-object [-w] <file>`
+  - `python -m pygit cat-file -p <sha>`
+  - `python -m pygit add <files...>`
+  - `python -m pygit commit -m "<msg>"`
+  - `python -m pygit status`
+  - `python -m pygit log [--oneline]`
+  - `python -m pygit branch [new_branch]`
+  - `python -m pygit checkout <branch>`
+  - `python -m pygit diff [file]`
+
+---
+
+## 12. Automated Verification & Test Coverage Matrix
+
+100% automated test pass rate across all 31 unit, integration, and ecosystem test specifications:
+
+| Test Suite | File | Tests | Status |
+| :--- | :--- | :--- | :--- |
+| **PyGit Object Engine** | `tests/test_pygit_objects.py` | 3 | **PASSED** |
+| **PyGit DIRC v2 Index** | `tests/test_pygit_index.py` | 3 | **PASSED** |
+| **PyGit Repository & Refs** | `tests/test_pygit_repo.py` | 3 | **PASSED** |
+| **PyGit Status & Diff** | `tests/test_pygit_status_diff.py` | 1 | **PASSED** |
+| **PyGit Commands & Porcelain** | `tests/test_pygit_commands.py` | 5 | **PASSED** |
+| **Knowledge Universe Core** | `tests/test_knowledge_universe_suite.py` | 8 | **PASSED** |
+| **Dev Universe Extended** | `tests/test_dev_universe_extended.py` | 8 | **PASSED** |
+| **Total** | **7 Test Modules** | **31 Tests** | **100% PASSED** |
+

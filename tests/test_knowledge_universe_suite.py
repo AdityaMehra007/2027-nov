@@ -23,6 +23,7 @@ from scripts.index_dev_universe import (
     parse_project_based_learning,
     parse_openclaw,
     parse_opendots,
+    parse_developer_roadmaps,
     DB_PATH,
     DATA_DIR
 )
@@ -94,6 +95,21 @@ def test_opendots_parsing():
     types = {r["type"] for r in records}
     assert any("coworker" in t or "stack" in t for t in types), "Should parse coworker agent concepts or stacks"
 
+def test_developer_roadmap_parsing():
+    rd_dir = BASE_DIR / "developer-roadmap" / "roadmaps"
+    assert rd_dir.exists(), "developer-roadmap/roadmaps directory must exist"
+
+    records = parse_developer_roadmaps(rd_dir)
+    assert len(records) > 30000, f"Expected >30,000 records from developer-roadmap, got {len(records)}"
+
+    types = {r["type"] for r in records}
+    assert "roadmap" in types, "Should extract roadmap overviews"
+    assert "roadmap-topic" in types, "Should extract roadmap topics"
+    assert "article" in types or "official-doc" in types, "Should extract curated learning resources"
+
+    titles = " ".join(r["title"].lower() for r in records)
+    assert "claude code" in titles or "ai agent" in titles, "Should cover modern 2026/2027 AI engineering tracks"
+
 def test_unified_database_total_coverage():
     assert DB_PATH.exists(), f"dev_universe.db must exist at {DB_PATH}"
 
@@ -102,7 +118,7 @@ def test_unified_database_total_coverage():
 
     cursor.execute("SELECT COUNT(*) FROM resources")
     total = cursor.fetchone()[0]
-    assert total >= 11500, f"Expected >= 11,500 indexed resources, got {total}"
+    assert total >= 40000, f"Expected >= 40,000 indexed resources, got {total}"
 
     cursor.execute("SELECT DISTINCT source_repo FROM resources")
     sources = {row[0] for row in cursor.fetchall()}
@@ -142,3 +158,10 @@ def test_cross_repository_search_engine():
     # 4. Search for OpenClaw skills
     res_claw = search(query="openclaw", limit=5)
     assert len(res_claw) > 0, "Should find openclaw resources"
+
+    # 5. Search for Developer Roadmaps (Claude Code & Vibe Coding)
+    res_claude = search(query="claude code", limit=5)
+    assert len(res_claude) > 0, "Should find claude code roadmap items"
+
+    res_vibe = search(query="vibe coding", limit=5)
+    assert len(res_vibe) > 0, "Should find vibe coding roadmap items"

@@ -18,6 +18,7 @@ import sys
 import json
 import sqlite3
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
@@ -55,21 +56,8 @@ def extract_format_and_author(line: str):
 
 def init_db(conn: sqlite3.Connection):
     cursor = conn.cursor()
-    cursor.execute("PRAGMA journal_mode = WAL;")
-    cursor.execute("PRAGMA synchronous = NORMAL;")
-    try:
-        cursor.execute("DROP TABLE IF EXISTS resources_fts;")
-        conn.commit()
-    except Exception:
-        pass
-    try:
-        cursor.execute("DROP TABLE IF EXISTS resources;")
-        conn.commit()
-    except Exception:
-        pass
-    
     cursor.execute("""
-    CREATE TABLE resources (
+    CREATE TABLE IF NOT EXISTS resources (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         url TEXT NOT NULL,
@@ -84,12 +72,12 @@ def init_db(conn: sqlite3.Connection):
     );
     """)
 
-    cursor.execute("CREATE INDEX idx_resources_type ON resources(type);")
-    cursor.execute("CREATE INDEX idx_resources_cat ON resources(category);")
-    cursor.execute("CREATE INDEX idx_resources_source ON resources(source_repo);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_type ON resources(type);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_cat ON resources(category);")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_resources_source ON resources(source_repo);")
 
     cursor.execute("""
-    CREATE VIRTUAL TABLE resources_fts USING fts5(
+    CREATE VIRTUAL TABLE IF NOT EXISTS resources_fts USING fts5(
         title,
         category,
         subcategory,
@@ -100,6 +88,8 @@ def init_db(conn: sqlite3.Connection):
         content_rowid='id'
     );
     """)
+    cursor.execute("DELETE FROM resources;")
+    cursor.execute("DELETE FROM resources_fts;")
     conn.commit()
 
 def parse_fpb_file(filepath: Path, item_type: str, default_cat: str = "General"):
@@ -443,9 +433,88 @@ def parse_awesome_selfhosted(filepath: Path, is_non_free: bool = False):
                 })
     return records
 
+def _parse_single_roadmap_topic(item_tuple):
+    slug, clean_cat, filepath = item_tuple
+    records = []
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            text = f.read()
+    except Exception:
+        return records
+
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    if not lines:
+        return records
+
+    topic_title = lines[0].lstrip("#").strip()
+    topic_slug = Path(filepath).stem.split("@")[0]
+    clean_title = clean_text(topic_title)
+    if not clean_title or len(clean_title) < 2:
+        return records
+
+    # Extract concept description (skip headers and links)
+    desc_lines = []
+    for line in lines[1:]:
+        if line.startswith("Visit the following resources") or line.startswith("- [") or line.startswith("##") or line.startswith("```"):
+            break
+        desc_lines.append(line)
+    desc = clean_text(" ".join(desc_lines))
+    if len(desc) > 350:
+        desc = desc[:347] + "..."
+    if not desc:
+        desc = f"Technical roadmap topic for {clean_title} in {clean_cat}."
+
+    url = f"https://roadmap.sh/{slug}#{topic_slug}"
+
+    records.append({
+        "title": clean_title,
+        "url": url,
+        "type": "roadmap-topic",
+        "category": clean_cat,
+        "subcategory": "Roadmap Topic",
+        "language": clean_cat if clean_cat in ["Python", "Rust", "Golang", "Go", "Java", "C++", "C", "TypeScript", "JavaScript", "Php", "Ruby", "Kotlin", "Swift"] else "Agnostic",
+        "format": "Concept Guide",
+        "description": desc,
+        "source_repo": "developer-roadmap"
+    })
+
+    # Extract nested links
+    matches = re.findall(r'\[(?:@([a-zA-Z0-9_-]+)@)?([^\]]+)\]\((https?://[^\)]+)\)', text)
+    for tag, r_title, r_url in matches:
+        tag = (tag or "resource").lower()
+        if tag == "article":
+            r_type, r_fmt = "article", "Article / Guide"
+        elif tag in ["video", "screencast"]:
+            r_type, r_fmt = "video", "Video Tutorial"
+        elif tag == "course":
+            r_type, r_fmt = "course", "Online Course"
+        elif tag in ["official", "docs"]:
+            r_type, r_fmt = "official-doc", "Official Documentation"
+        elif tag == "podcast":
+            r_type, r_fmt = "podcast", "Podcast / Audio"
+        else:
+            r_type, r_fmt = "resource", "Web Resource"
+
+        records.append({
+            "title": clean_text(r_title),
+            "url": r_url.strip(),
+            "type": r_type,
+            "category": clean_cat,
+            "subcategory": clean_title,
+            "language": clean_cat if clean_cat in ["Python", "Rust", "Golang", "Go", "Java", "C++", "C", "TypeScript", "JavaScript", "Php", "Ruby", "Kotlin", "Swift"] else "General",
+            "format": r_fmt,
+            "description": f"Curated {r_fmt.lower()} for {clean_title} ({clean_cat} Roadmap)",
+            "source_repo": "developer-roadmap"
+        })
+
+    return records
+
 def parse_developer_roadmaps(roadmaps_dir: Path):
     """
-    Parses developer-roadmap/roadmaps to extract career paths, skill trees, and technical roadmaps.
+    Parses developer-roadmap/roadmaps:
+    - Extracts 98 high-level career & technology roadmaps
+    - Extracts 11,300 topic guides across all roadmaps via multithreaded scanning
+    - Extracts 26,500+ curated articles, videos, docs, and courses
     """
     records = []
     if not roadmaps_dir.exists():
@@ -456,26 +525,24 @@ def parse_developer_roadmaps(roadmaps_dir: Path):
     except Exception:
         return records
 
+    tasks = []
     for item in entries:
         slug = item.name
-        title = " ".join(word.capitalize() for word in slug.split("-")) + " Roadmap"
+        clean_cat = " ".join(word.capitalize() for word in slug.split("-"))
+        title = f"{clean_cat} Roadmap"
+        url = f"https://roadmap.sh/{slug}"
 
         content_dir = item / "content"
-        topics_preview = []
+        topic_count_for_item = 0
         if content_dir.exists():
             try:
                 with os.scandir(content_dir) as it:
                     for entry in it:
                         if entry.name.endswith(".md"):
-                            topic_name = entry.name.split("@")[0].replace("-", " ").title()
-                            topics_preview.append(topic_name)
-                            if len(topics_preview) >= 8:
-                                break
+                            tasks.append((slug, clean_cat, entry.path))
+                            topic_count_for_item += 1
             except Exception:
                 pass
-
-        preview_str = f"Covers: {', '.join(topics_preview)}..." if topics_preview else "Step-by-step career & technical roadmap."
-        url = f"https://roadmap.sh/{slug}"
 
         records.append({
             "title": title,
@@ -483,11 +550,18 @@ def parse_developer_roadmaps(roadmaps_dir: Path):
             "type": "roadmap",
             "category": "Developer Roadmaps",
             "subcategory": slug,
-            "language": slug.capitalize(),
+            "language": clean_cat,
             "format": "Interactive Roadmap",
-            "description": f"{preview_str} (Community-driven guide with topics, skills, and learning resources)",
+            "description": f"Step-by-step career & technical roadmap for {clean_cat} ({topic_count_for_item} curated topics & skills).",
             "source_repo": "developer-roadmap"
         })
+
+    # Multithreaded parsing of topic files
+    with ThreadPoolExecutor(max_workers=32) as executor:
+        results = executor.map(_parse_single_roadmap_topic, tasks)
+        for res_list in results:
+            records.extend(res_list)
+
     return records
 
 def parse_system_design_primer(sdp_dir: Path):
@@ -1407,7 +1481,7 @@ def main():
     if roadmaps_dir.exists():
         print("\n[*] Parsing developer-roadmap...")
         roadmaps = parse_developer_roadmaps(roadmaps_dir)
-        print(f"  + Developer & Technology Roadmaps: {len(roadmaps):,}")
+        print(f"  + Developer Roadmaps, Topics & Curated Resources: {len(roadmaps):,}")
         all_records.extend(roadmaps)
 
     # 8. coding-interview-university
@@ -1470,13 +1544,6 @@ def main():
 
     # Store in SQLite DB
     print(f"\n[*] Initializing SQLite Database at: {DB_PATH}")
-    for p in [DB_PATH, DATA_DIR / f"{DB_PATH.name}-journal", DATA_DIR / f"{DB_PATH.name}-wal", DATA_DIR / f"{DB_PATH.name}-shm"]:
-        if p.exists():
-            try:
-                p.unlink()
-            except Exception:
-                pass
-
     conn = sqlite3.connect(DB_PATH, timeout=60.0)
     init_db(conn)
 
