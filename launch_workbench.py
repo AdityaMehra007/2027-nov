@@ -43,7 +43,7 @@ async def main() -> None:
     parser.add_argument("--host", default="127.0.0.1", help="Host interface to bind (default: 127.0.0.1)")
     parser.add_argument("--port", type=int, default=9000, help="Port to listen on (default: 9000)")
     parser.add_argument("--db", default="data/workbench.db", help="Path to PyDB storage file (default: data/workbench.db)")
-    parser.add_argument("--repo", default=".", help="Path to PyGit repository root (default: current directory)")
+    parser.add_argument("--repo", default="data/workbench_git", help="Path to PyGit repository root (default: data/workbench_git)")
     parser.add_argument("--open-browser", action="store_true", help="Automatically open browser tab on startup")
     args = parser.parse_args()
 
