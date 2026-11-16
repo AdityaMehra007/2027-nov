@@ -1,6 +1,6 @@
 # 08. Pricing Library & Commercial Rate Cards
 **Project:** PROJECT ONE // Tiered Commercial Structure  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Standard Tiers
 - **Tier 1: Starter Audit & Sentinel ($49 / month):** Up to 1,000 monthly events, weekly digests, anomaly alerts.

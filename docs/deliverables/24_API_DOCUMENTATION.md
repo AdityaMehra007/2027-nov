@@ -1,6 +1,6 @@
 # 24. API Documentation & OpenAPI Specification
 **Project:** PROJECT ONE // REST API Reference  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Core Endpoints
 - `GET /healthz` & `GET /readyz`: Kubernetes health and readiness probes.

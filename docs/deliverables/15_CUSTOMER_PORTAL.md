@@ -1,6 +1,6 @@
 # 15. Customer Portal
 **Project:** PROJECT ONE // Public Self-Service Interface  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Portal Capabilities
 - URL: `http://127.0.0.1:8888/portal`

@@ -1,6 +1,6 @@
 # 21. Compliance Research & Global Frameworks
 **Project:** PROJECT ONE // Regulatory Alignment  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Compliance Standards
 - **India:** RBI Circular on Storage of Payment System Data (100% domestic localization); Digital Personal Data Protection (DPDP) Act 2023.

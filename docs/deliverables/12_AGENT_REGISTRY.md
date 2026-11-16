@@ -1,6 +1,6 @@
 # 12. Agent Registry
 **Project:** PROJECT ONE // Bounded Workforce Roles  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Workforce Roles & Token Allocations
 - **Market Researcher:** Token budget: 5,000. Authority: Market reports & pain point ranking.

@@ -1,6 +1,6 @@
 # 09. Company Source Registry
 **Project:** PROJECT ONE // Permitted Public Intelligence Sources  
-**Date:** 2026-11-15  
+**Date:** 2026-11-16  
 
 ## Verified Registries
 - **India:** Ministry of Corporate Affairs (MCA), Zauba Corp public filings.
