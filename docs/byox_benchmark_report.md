@@ -1,31 +1,31 @@
 # BYOX 10-Engine Multi-System Benchmark Report
 
-**Generated:** 2026-11-16 17:09:36 UTC  
-**Total Run Time:** 17.16 seconds  
+**Generated:** 2026-11-16 17:10:26 UTC  
+**Total Run Time:** 13.93 seconds  
 **Engines Evaluated:** 10 Systems (22 Benchmarks)
 
 | Benchmark Target | Total Ops | Duration (s) | Throughput (ops/s) | p50 (ms) | p95 (ms) | p99 (ms) |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **PyRedis Concurrent SET** | 20 | 0.012 | 1,697.0 | 2.48 | 5.24 | 5.24 |
-| **PyRedis Pipelined GET (50-op batch)** | 0 | 0.000 | 0.0 | 0.00 | 0.00 | 0.00 |
-| **PyDB Row Insertion** | 20 | 0.002 | 13,182.2 | 0.06 | 0.11 | 0.11 |
-| **PyDB SELECT WHERE Query** | 200 | 0.026 | 7,596.9 | 0.12 | 0.18 | 0.25 |
-| **PyWeb HTTP/1.1 JSON Request** | 10 | 0.010 | 1,022.2 | 1.64 | 3.31 | 3.31 |
-| **PyWeb WebSocket Frame Roundtrip** | 200 | 0.032 | 6,323.6 | 0.14 | 0.20 | 0.26 |
-| **PyGit Object Hashing & zlib Compression** | 10 | 0.180 | 55.5 | 0.79 | 16.40 | 16.40 |
-| **PyGit Index Staging (150 files)** | 10 | 0.642 | 15.6 | 64.16 | 64.16 | 64.16 |
-| **PyGit Tree Construction & Commit** | 1 | 3.629 | 0.3 | 3628.99 | 3628.99 | 3628.99 |
-| **PyShell Built-in Execution (echo)** | 20 | 0.075 | 265.3 | 0.07 | 0.08 | 0.08 |
-| **PyShell File Redirection (>>)** | 20 | 0.006 | 3,396.1 | 0.26 | 0.41 | 0.41 |
-| **PyTransformer Autograd Graph Backprop** | 200 | 0.021 | 9,406.9 | 0.02 | 0.04 | 0.42 |
-| **PyTransformer Autoregressive Token Generation** | 15 | 12.388 | 1.2 | 729.15 | 1536.95 | 1536.95 |
-| **PyChain Transaction Ingestion** | 10 | 0.000 | 111,358.6 | 0.01 | 0.01 | 0.01 |
-| **PyChain Block Mining (Diff=1)** | 2 | 0.001 | 3,163.6 | 0.27 | 0.27 | 0.27 |
-| **PyChain Full Chain Verification** | 1 | 0.000 | 4,490.4 | 0.22 | 0.22 | 0.22 |
-| **PySearch Document Indexing** | 20 | 0.001 | 31,525.8 | 0.03 | 0.04 | 0.04 |
-| **PySearch BM25 Ranking Queries** | 150 | 0.007 | 22,149.4 | 0.05 | 0.05 | 0.06 |
-| **PyVM Two-Pass Assembly** | 20 | 0.004 | 5,631.1 | 0.17 | 0.20 | 0.20 |
-| **PyVM Factorial(10) Execution** | 20 | 0.003 | 5,859.8 | 0.14 | 0.33 | 0.33 |
-| **PyControlPlane End-to-End Invocations** | 10 | 0.005 | 1,969.8 | 0.07 | 0.11 | 0.11 |
-| **PyControlPlane Semantic Vector Lookups** | 10 | 0.000 | 374,531.8 | 0.00 | 0.00 | 0.00 |
-| **PyControlPlane Merkle Audit SHA-256 Chaining** | 10 | 0.000 | 86,505.2 | 0.01 | 0.01 | 0.01 |
+| **PyRedis Concurrent SET** | 500 | 0.131 | 3,824.9 | 2.62 | 3.18 | 3.31 |
+| **PyRedis Pipelined GET (50-op batch)** | 10 | 0.016 | 616.7 | 1.51 | 1.58 | 1.58 |
+| **PyDB Row Insertion** | 500 | 0.062 | 8,091.9 | 0.10 | 0.17 | 0.20 |
+| **PyDB SELECT WHERE Query** | 200 | 0.431 | 463.8 | 2.24 | 3.10 | 4.49 |
+| **PyWeb HTTP/1.1 JSON Request** | 300 | 0.235 | 1,278.7 | 1.58 | 1.96 | 2.21 |
+| **PyWeb WebSocket Frame Roundtrip** | 200 | 0.031 | 6,537.1 | 0.15 | 0.17 | 0.21 |
+| **PyGit Object Hashing & zlib Compression** | 100 | 0.071 | 1,412.7 | 0.63 | 0.74 | 0.84 |
+| **PyGit Index Staging (150 files)** | 100 | 1.118 | 89.5 | 11.18 | 11.18 | 11.18 |
+| **PyGit Tree Construction & Commit** | 1 | 0.077 | 13.0 | 77.18 | 77.18 | 77.18 |
+| **PyShell Built-in Execution (echo)** | 300 | 0.011 | 26,027.7 | 0.03 | 0.05 | 0.07 |
+| **PyShell File Redirection (>>)** | 300 | 0.070 | 4,266.6 | 0.23 | 0.30 | 0.37 |
+| **PyTransformer Autograd Graph Backprop** | 200 | 0.021 | 9,545.4 | 0.03 | 0.04 | 0.32 |
+| **PyTransformer Autoregressive Token Generation** | 15 | 10.630 | 1.4 | 535.82 | 1459.04 | 1459.04 |
+| **PyChain Transaction Ingestion** | 100 | 0.008 | 12,570.2 | 0.04 | 0.06 | 0.08 |
+| **PyChain Block Mining (Diff=1)** | 2 | 0.027 | 74.7 | 0.19 | 0.19 | 0.19 |
+| **PyChain Full Chain Verification** | 1 | 0.003 | 333.4 | 3.00 | 3.00 | 3.00 |
+| **PySearch Document Indexing** | 300 | 0.014 | 21,299.6 | 0.04 | 0.05 | 0.06 |
+| **PySearch BM25 Ranking Queries** | 150 | 0.046 | 3,227.2 | 0.34 | 0.44 | 0.51 |
+| **PyVM Two-Pass Assembly** | 300 | 0.061 | 4,912.0 | 0.18 | 0.32 | 0.37 |
+| **PyVM Factorial(10) Execution** | 300 | 0.050 | 6,035.5 | 0.11 | 0.30 | 0.48 |
+| **PyControlPlane End-to-End Invocations** | 150 | 0.012 | 12,713.0 | 0.04 | 0.06 | 0.07 |
+| **PyControlPlane Semantic Vector Lookups** | 150 | 0.000 | 510,725.2 | 0.00 | 0.00 | 0.00 |
+| **PyControlPlane Merkle Audit SHA-256 Chaining** | 150 | 0.002 | 90,203.9 | 0.01 | 0.02 | 0.02 |

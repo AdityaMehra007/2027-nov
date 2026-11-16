@@ -20,7 +20,7 @@ def benchmark_pycontrolplane(num_requests: int = 300) -> List[BenchmarkResult]:
 
     for i in range(num_requests):
         req = ControlPlaneRequest(
-            tenant_id="bench_tenant",
+            tenant_id=f"bench_tenant_{i // 50}",
             actor=f"user_{i}",
             prompt=f"Benchmarking enterprise latency and reliability #{i}",
             preferred_tier=ModelTier.FAST,
