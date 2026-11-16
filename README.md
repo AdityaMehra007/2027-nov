@@ -31,6 +31,7 @@
 [Hybrid LLM Arbitrator](#-hybrid-multi-model-llm-arbitrator) •
 [OmniSwarm Mesh](#-omniswarm-decentralized-multi-agent-peer-mesh) •
 [Empirical Benchmarks](#-empirical-benchmarking-suite) •
+[🔱 Maximus God-Mode Master Prompt (2027-2127)](THE_SUPREME_OMNIVERSE_SINGULARITY_V10000_MAXIMUS_MASTER_PROMPT.md) •
 [Documentation](MASTER_DIRECTIVE.md) •
 [Contributing](CONTRIBUTING.md)
 
